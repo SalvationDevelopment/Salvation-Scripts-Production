@@ -106,8 +106,8 @@ end
 
 function c13790571.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
 	local ec=e:GetHandler():GetFirstCardTarget()
+	if not c:IsRelateToEffect(e) or not ec then return end
 	if ec then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -128,6 +128,8 @@ function c13790571.costfilter(c)
 	return c:IsType(TYPE_SPELL) and c:IsDiscardable()
 end
 function c13790571.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ec=e:GetHandler():GetFirstCardTarget()
+	if not ec then return false end
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790571.costfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
 	Duel.DiscardHand(tp,c13790571.costfilter,1,1,REASON_COST+REASON_DISCARD)
 end
