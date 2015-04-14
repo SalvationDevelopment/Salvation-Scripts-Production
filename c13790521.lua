@@ -28,7 +28,7 @@ end
 function c13790521.activate(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
-	if Duel.SelectYesNo(tp,aux.Stringid(13790521,0)) and Duel.IsExistingMatchingCard(c13790521.filter,tp,LOCATION_DECK,0,1,nil) then
+	if Duel.IsExistingMatchingCard(c13790521.filter,tp,LOCATION_DECK,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(13790521,0)) then
 		local g=Duel.SelectMatchingCard(tp,c13790521.filter,tp,LOCATION_DECK,0,1,1,nil)
 		if g:GetCount()>0 then
 			Duel.SendtoGrave(g,REASON_EFFECT)
