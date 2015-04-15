@@ -29,7 +29,7 @@ function c13790540.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c13790540.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingTarget(Card.IsSetCard,tp,LOCATION_MZONE,0,1,nil,0x1378)
+	return Duel.IsExistingTarget(Card.IsSetCard,tp,LOCATION_MZONE,0,1,nil,0xc8)
 end
 function c13790540.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
