@@ -1,4 +1,4 @@
---THE CLAW OF HERMOS
+--The Claw of Hermos
 function c13790551.initial_effect(c)
     --Activate
 	local e1=Effect.CreateEffect(c)
@@ -10,45 +10,55 @@ function c13790551.initial_effect(c)
 	e1:SetOperation(c13790551.activate)
 	c:RegisterEffect(e1)
 end
--- c13790551.list={[44095762]=13790561,[13790568]=13790566,[57728570]=13790565}
--- function c13790551.filter(c,e,tp)
-    -- local code=c:GetCode()
-	-- local tcode=c13790551.list[code]
-	-- return tcode and Duel.IsExistingMatchingCard(c13790551.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,tcode)
--- end
--- function c13790551.spfilter(c,e,tp,tcode)
-    -- return c:IsCode(tcode) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
--- end
-
+c13790551.list={[RACE_DRAGON]=13790575}
 function c13790551.filter(c,e,tp)
-	return c:IsRace(RACE_DRAGON) and Duel.IsExistingMatchingCard(c13790551.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,tcode)
+    local race=c:GetRace()
+	local tcode=c13790551.list[race]
+	return tcode and Duel.IsExistingMatchingCard(c13790551.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,tcode)
 end
-
-function c13790551.spfilter(c,e,tp)
-     return c:IsCode(13790575) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
--end
+function c13790551.spfilter(c,e,tp,tcode)
+    return c:IsCode(tcode) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+end
 function c13790551.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c13790551.filter,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,nil,e,tp) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
+	if chk==0 then return  (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c13790551.filter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,nil,e,tp)) or 
+	(Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and Duel.IsExistingMatchingCard(c13790551.filter,tp,LOCATION_ONFIELD,0,1,nil,e,tp)) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c13790551.activate(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return false end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	local g=Duel.SelectMatchingCard(tp,c13790551.filter,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,nil,e,tp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then 
+	local g=Duel.SelectMatchingCard(tp,c13790551.filter,tp,LOCATION_ONFIELD,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then 
 	    local tc=g:GetFirst()
-        local tcode=c13790551.list[tc:GetCode()]
+        local tcode=c13790551.list[tc:GetRace()]
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc1=Duel.SelectMatchingCard(tp,c13790551.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tcode)
 		local sc=tc1:GetFirst()
 		if sc then 
 		    sc:SetMaterial(g)
-			if tc:IsLocation(LOCATION_SZONE) and tc:IsFacedown() then Duel.ConfirmCards(1-tp,g) end
+			if tc:IsLocation(LOCATION_MZONE) and tc:IsFacedown() then Duel.ConfirmCards(1-tp,g) end
 			Duel.SendtoGrave(tc,REASON_EFFECT)
 			Duel.BreakEffect()
 			Duel.SpecialSummon(sc,0,tp,tp,true,true,POS_FACEUP)
 			sc:CompleteProcedure()
+			end
+		end		
+	
+	else
+	local g=Duel.SelectMatchingCard(tp,c13790551.filter,tp,LOCATION_ONFIELD+LOCATION_HAND,0,1,1,nil,e,tp)
+	if g:GetCount()>0 then 
+	    local tc=g:GetFirst()
+        local tcode=c13790551.list[tc:GetRace()]
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local tc1=Duel.SelectMatchingCard(tp,c13790551.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tcode)
+		local sc=tc1:GetFirst()
+		if sc then 
+		    sc:SetMaterial(g)
+			if tc:IsLocation(LOCATION_MZONE) and tc:IsFacedown() then Duel.ConfirmCards(1-tp,g) end
+			Duel.SendtoGrave(tc,REASON_EFFECT)
+			Duel.BreakEffect()
+			Duel.SpecialSummon(sc,0,tp,tp,true,true,POS_FACEUP)
+			sc:CompleteProcedure()
+			end
 		end		
 	end
 end
