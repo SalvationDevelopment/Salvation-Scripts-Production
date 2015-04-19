@@ -1,10 +1,10 @@
 --Odd-Eyes Rebellion Dragon
 function c13790534.initial_effect(c)
-	--pendulum summon
-	aux.AddPendulumProcedure(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),7,2)
 	c:EnableReviveLimit()
+	--pendulum summon
+	aux.AddPendulumProcedure(c)
 	--Place a Pendulum Card
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
@@ -84,9 +84,6 @@ function c13790534.ddescon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c13790534.ddesop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c13790534.ddfilter,tp,0,LOCATION_MZONE,nil)
-	local dam=Duel.Destroy(g,REASON_EFFECT)*1000
-	Duel.Damage(1-tp,dam,REASON_EFFECT)	
 	--multiattack
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -94,4 +91,9 @@ function c13790534.ddesop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 	e1:SetValue(2)
 	c:RegisterEffect(e1)
+	local g=Duel.GetMatchingGroup(c13790534.ddfilter,tp,0,LOCATION_MZONE,nil)
+	local des=Duel.Destroy(g,REASON_EFFECT)
+	if des>0 then
+		Duel.Damage(1-tp,des*1000,REASON_EFFECT)
+	end
 end

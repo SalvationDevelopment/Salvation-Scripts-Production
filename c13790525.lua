@@ -21,10 +21,11 @@ function c13790525.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c13790525.condition(e,tp,eg,ep,ev,re,r,rp)
+	if not (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) then return false end
 	local ex,cg,ct,cp,cv=Duel.GetOperationInfo(ev,CATEGORY_DAMAGE)
 	if ex and (cp==tp or cp==PLAYER_ALL) then return true end
 	ex,cg,ct,cp,cv=Duel.GetOperationInfo(ev,CATEGORY_RECOVER)
-	return ex and (cp==tp or cp==PLAYER_ALL)
+	return ex and (cp==tp or cp==PLAYER_ALL) and Duel.IsPlayerAffectedByEffect(tp,EFFECT_REVERSE_RECOVER)
 end
 function c13790525.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

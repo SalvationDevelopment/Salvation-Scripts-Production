@@ -32,10 +32,10 @@ function c13790524.initial_effect(c)
 	end
 end
 function c13790524.target(e,c)
-	return c:IsSetCard(0x1377) or c:IsSetCard(0x9f)
+	return c:IsSetCard(0xc7) or c:IsSetCard(0x9f)
 end
 function c13790524.regfilter(c)
-	return (c:IsSetCard(0x1377) or c:IsSetCard(0x9f)) and c:GetFlagEffect(15580)==0
+	return (c:IsSetCard(0xc7) or c:IsSetCard(0x9f)) and c:GetFlagEffect(15580)==0
 end
 function c13790524.regop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(0,LOCATION_MZONE,LOCATION_MZONE):Filter(c13790524.regfilter,nil)

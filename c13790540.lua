@@ -16,7 +16,7 @@ function c13790540.initial_effect(c)
 	e1:SetTarget(c13790540.target)
 	e1:SetOperation(c13790540.operation)
 	c:RegisterEffect(e1)
-	--LP Up 2
+	--spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -59,7 +59,7 @@ function c13790540.atktg(e,c)
 end
 
 function c13790540.cfilter(c,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1378) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xc8) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
 end
 function c13790540.condition2(e,tp,eg,ep,ev,re,r,rp)
 	return not eg:IsContains(e:GetHandler()) and eg:IsExists(c13790540.cfilter,1,nil,tp) and bit.band(r,REASON_DESTROY)~=0

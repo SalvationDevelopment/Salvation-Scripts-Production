@@ -26,8 +26,6 @@ end
 function c13790561.splimit(e,se,sp,st)
 	return se:GetHandler():IsCode(13790552)
 end
-c13790561.material_count=1
-c13790561.material={44095762}
 function c13790561.condition1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	return tc:IsControler(tp)

@@ -27,9 +27,6 @@ end
 function c13790566.splimit(e,se,sp,st)
 	return se:GetHandler():IsCode(13790552)
 end
-c13790566.material_count=1
-c13790566.material={13790568}
-
 function c13790566.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and chkc~=e:GetHandler() end
 	if chk==0 then return e:GetHandler():GetFlagEffect(29071332)==0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0

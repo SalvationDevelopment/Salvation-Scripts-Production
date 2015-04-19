@@ -38,7 +38,7 @@ function c13790508.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return e:GetLabelObject()~=se
 end
 function c13790508.filter1(c,e)
-	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e) and c:IsType(TYPE_NORMAL)
+	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
 function c13790508.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and (c:IsCode(90660762) or c:IsCode(11901678) or c:IsCode(13790503) )and (not f or f(c))
@@ -101,5 +101,4 @@ function c13790508.activate(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
 

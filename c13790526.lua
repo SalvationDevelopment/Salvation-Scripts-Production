@@ -12,7 +12,7 @@ function c13790526.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c13790526.cfilter(c,tp)
-	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xc7) and c:IsSetCard(0x1377) 
+	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0xc7) 
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
 function c13790526.condition(e,tp,eg,ep,ev,re,r,rp)

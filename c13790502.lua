@@ -42,7 +42,7 @@ function c13790502.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790502.thfilter(c)
-	return c:IsSetCard(0x3b) and c:GetLevel()<=7 and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x3b) and c:GetLevel()<=7
 end
 function c13790502.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

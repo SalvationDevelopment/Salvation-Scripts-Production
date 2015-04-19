@@ -19,7 +19,7 @@ function c13790512.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13790512.cfilter(c)
-	return (c:IsSetCard(0x9b) or c:IsSetCard(0x1047)) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0x9b) or c:IsSetCard(0x1047)) and c:IsAbleToGrave()
 end
 function c13790512.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790512.cfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end

@@ -6,7 +6,9 @@ function c13790513.initial_effect(c)
 	e1:SetCode(EFFECT_DOUBLE_TRIBUTE)
 	e1:SetValue(c13790513.dccon)
 	c:RegisterEffect(e1)
+	--special summon
 	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(13790513,0))
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetRange(LOCATION_HAND+LOCATION_GRAVE)
@@ -32,10 +34,8 @@ function c13790513.spstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c13790513.rfilter(c)
-	return c:IsRace(RACE_DRAGON) and c:IsControler(tp) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsType(TYPE_NORMAL)
+	return c:IsRace(RACE_DRAGON) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsType(TYPE_NORMAL)
 end
-
-
 function c13790513.thfilter(c)
 	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_NORMAL) and c:IsAbleToHand()
 end
@@ -43,8 +43,7 @@ function c13790513.spsop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
-	local tc=eg:GetFirst()
-		if tc:IsType(TYPE_NORMAL) and Duel.SelectYesNo(tp,aux.Stringid(85489096,0)) then 
+		if g:IsExists(Card.IsType,1,nil,TYPE_NORMAL) and Duel.SelectYesNo(tp,aux.Stringid(85489096,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 			local g=Duel.SelectMatchingCard(tp,c13790513.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 			if g:GetCount()>0 then
