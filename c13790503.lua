@@ -28,7 +28,7 @@ function c13790503.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13790503.ffilter1(c)
-	return c:IsSetCard(0x45) and c:GetLevel()==6
+	return c:IsSetCard(0x45) and c:IsType(TYPE_NORMAL) and c:GetLevel()==6
 end
 function c13790503.ffilter2(c)
 	return c:IsSetCard(0x3b) and c:IsType(TYPE_NORMAL)
