@@ -14,22 +14,24 @@ function c54340060.initial_effect(c)
 	e2:SetTarget(c54340060.tg)
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
+	--special summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(54340060,0))
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetCountLimit(1)
-	e3:SetRange(LOCATION_FZONE)
+	e3:SetRange(LOCATION_SZONE)
 	e3:SetCost(c54340060.spcost)
 	e3:SetTarget(c54340060.sptg)
 	e3:SetOperation(c54340060.spop)
 	c:RegisterEffect(e3)
+	--to hand
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(54340060,0))
-	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetCountLimit(1)
-	e4:SetRange(LOCATION_FZONE)
+	e4:SetRange(LOCATION_SZONE)
 	e4:SetCost(c54340060.cost)
 	e4:SetTarget(c54340060.target)
 	e4:SetOperation(c54340060.activate)
@@ -46,8 +48,7 @@ function c54340060.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,c54340060.costfilter,1,1,REASON_COST+REASON_DISCARD)
 end
 function c54340060.filter(c,e,tp)
-	return c:IsCode(29687169) or c:IsCode(56681873) or c:IsCode(82176812) or c:IsCode(93298460) or c:IsCode(92870717)
-	 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xb30) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c54340060.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -55,6 +56,7 @@ function c54340060.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function c54340060.spop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c54340060.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
@@ -81,6 +83,7 @@ function c54340060.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c54340060.activate(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c54340060.afilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
