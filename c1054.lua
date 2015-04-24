@@ -43,7 +43,7 @@ function c1054.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	return Duel.SelectYesNo(tp,aux.Stringid(1054,1))
 end
 function c1054.value(e,c)
-	return c:IsFaceup() and c:GetLocation()==LOCATION_MZONE and
+	return c:IsFaceup() and c:GetLocation()==LOCATION_MZONE
 end
 function c1054.desop(e,tp,eg,ep,ev,re,r,rp)
 	local count=e:GetLabel()
