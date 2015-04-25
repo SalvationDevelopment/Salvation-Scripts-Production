@@ -9,7 +9,6 @@ function c66194206.initial_effect(c)
 	e1:SetOperation(c66194206.tdop)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(11021521,0))
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_TO_GRAVE)
 	e2:SetCondition(c66194206.condition)
@@ -29,7 +28,8 @@ function c66194206.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c66194206.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_DECK)
+	local rc=re:GetHandler()
+	return e:GetHandler():IsPreviousLocation(LOCATION_DECK) and rc:IsSetCard(0x38) 
 end
 function c66194206.filter(c)
 	return c:IsCode(57774843) and c:IsAbleToHand()
