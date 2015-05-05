@@ -1,57 +1,50 @@
---Aroma - Kananga
+--アロマージ－カナンガ
 function c22174866.initial_effect(c)
-	--atk down
+	--atk & def
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(0,LOCATION_MZONE)
-	e1:SetCondition(c22174866.condition)
+	e1:SetCondition(c22174866.adcon)
 	e1:SetValue(-500)
 	c:RegisterEffect(e1)
-	--atk down
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_UPDATE_DEFENCE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetTargetRange(0,LOCATION_MZONE)
-	e1:SetCondition(c22174866.condition)
-	e1:SetValue(-500)
-	c:RegisterEffect(e1)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCode(EVENT_RECOVER)
-	e2:SetCountLimit(1)
-	e2:SetCondition(c22174866.cd)
-	e2:SetTarget(c22174866.target)
-	e2:SetOperation(c22174866.activate)
+	local e2=e1:Clone()
+	e2:SetCode(EFFECT_UPDATE_DEFENCE)
 	c:RegisterEffect(e2)
+	--to hand
+	local e3=Effect.CreateEffect(c)
+	e3:SetCategory(CATEGORY_TOHAND)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e3:SetCode(EVENT_RECOVER)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e3:SetCountLimit(1)
+	e3:SetCondition(c22174866.thcon)
+	e3:SetTarget(c22174866.thtg)
+	e3:SetOperation(c22174866.thop)
+	c:RegisterEffect(e3)
 end
-function c22174866.condition(e,tp,eg,ep,ev,re,r,rp)
+function c22174866.adcon(e)
 	local tp=e:GetHandlerPlayer()
 	return Duel.GetLP(tp)>Duel.GetLP(1-tp)
 end
-function c22174866.cd(e,tp,eg,ep,ev,re,r,rp)
-	return tp==ep
+function c22174866.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return ep==tp
 end
-
-function c22174866.filter(c)
-	return c:IsAbleToHand() and c:IsType(TYPE_SPELL+TYPE_TRAP)
+function c22174866.thfilter(c)
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
-function c22174866.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and c22174866.filter(chkc) and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(c22174866.filter,tp,0,LOCATION_ONFIELD,1,e:GetHandler()) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c22174866.filter,tp,0,LOCATION_ONFIELD,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+function c22174866.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c22174866.thfilter(chkc) end
+	if chk==0 then return true end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
+	local g=Duel.SelectTarget(tp,c22174866.thfilter,tp,0,LOCATION_ONFIELD,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 end
-function c22174866.activate(e,tp,eg,ep,ev,re,r,rp)
+function c22174866.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
-
-
