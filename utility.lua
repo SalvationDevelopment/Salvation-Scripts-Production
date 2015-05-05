@@ -1120,3 +1120,11 @@ function Auxiliary.chainreg(e,tp,eg,ep,ev,re,r,rp)
 		e:GetHandler():RegisterFlagEffect(1,RESET_EVENT+0x1fc0000+RESET_CHAIN,0,1)
 	end
 end
+
+function Auxiliary.tgoval(e,re,rp)
+ return rp~=e:GetOwnerPlayer()
+end
+
+function Auxiliary.tgval(e,re,rp)
+ return 1
+end

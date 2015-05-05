@@ -1,4 +1,5 @@
 --Aether, the Wicked Empowering Dragon
+--FIXED NYA
 function c8865322.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -19,7 +20,7 @@ function c8865322.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_POSITION)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
+	e3:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_SUMMON_SUCCESS)
 	e3:SetTarget(c8865322.tg)
 	e3:SetOperation(c8865322.op)

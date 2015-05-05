@@ -1,53 +1,45 @@
---Red-Eyes Fusion
+--真紅眼融合
 function c6172122.initial_effect(c)
-	--Activate
+	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,6172122)
+	e1:SetCountLimit(1,6172122+EFFECT_COUNT_CODE_OATH)
 	e1:SetCost(c6172122.cost)
 	e1:SetTarget(c6172122.target)
 	e1:SetOperation(c6172122.activate)
 	c:RegisterEffect(e1)
 end
 function c6172122.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetActivityCount(tp,ACTIVITY_SUMMON)==0
-		and Duel.GetActivityCount(tp,ACTIVITY_FLIPSUMMON)==0 and Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)==0 end
+	if chk==0 then return Duel.GetActivityCount(tp,ACTIVITY_SUMMON)==0 and Duel.GetActivityCount(tp,ACTIVITY_SPSUMMON)==0 end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_SUMMON)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
-	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e1:SetReset(RESET_PHASE+PHASE_END)
 	e1:SetTargetRange(1,0)
-	e1:SetLabelObject(e)
-	e1:SetTarget(c6172122.sumlimit)
+	e1:SetReset(RESET_PHASE+RESET_END)
 	Duel.RegisterEffect(e1,tp)
-	local e2=Effect.CreateEffect(e:GetHandler())
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
-	e2:SetCode(EFFECT_CANNOT_SUMMON)
-	e2:SetReset(RESET_PHASE+PHASE_END)
-	e2:SetTargetRange(1,0)
+	local e2=e1:Clone()
+	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e2:SetLabelObject(e)
+	e2:SetTarget(c6172122.splimit)
 	Duel.RegisterEffect(e2,tp)
-	local e3=e2:Clone()
-	e3:SetCode(EFFECT_CANNOT_FLIP_SUMMON)
-	Duel.RegisterEffect(e3,tp)
 end
-function c6172122.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return e:GetLabelObject()~=se
+function c6172122.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return se~=e:GetLabelObject()
 end
 function c6172122.filter1(c,e)
-	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
+	return c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 function c6172122.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and (c:IsCode(90660762) or c:IsCode(11901678) or c:IsCode(45349196) )and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x104) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c6172122.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(c6172122.filter1,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_MZONE,0,nil,e)
+		local mg1=Duel.GetMatchingGroup(c6172122.filter1,tp,0x07,0,nil,e)
 		local res=Duel.IsExistingMatchingCard(c6172122.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
@@ -64,7 +56,7 @@ function c6172122.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6172122.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(c6172122.filter1,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_MZONE,0,nil,e)
+	local mg1=Duel.GetMatchingGroup(c6172122.filter1,tp,0x07,0,nil,e)
 	local sg1=Duel.GetMatchingGroup(c6172122.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
@@ -86,19 +78,19 @@ function c6172122.activate(e,tp,eg,ep,ev,re,r,rp)
 			tc:SetMaterial(mat1)
 			Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
-			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION+0x10,tp,tp,false,false,POS_FACEUP)
+			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP)
 		else
 			local mat2=Duel.SelectFusionMaterial(tp,tc,mg2,nil,chkf)
 			local fop=ce:GetOperation()
-			fop(ce,e,tp,tc,mat2,SUMMON_TYPE_FUSION+0x10)
+			fop(ce,e,tp,tc,mat2)
 		end
 		tc:CompleteProcedure()
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CHANGE_CODE)
-		e1:SetReset(RESET_EVENT+0x1fe0000)
+		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetValue(74677422)
+		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 	end
 end
-

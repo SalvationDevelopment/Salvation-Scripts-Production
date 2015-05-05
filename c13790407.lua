@@ -1,68 +1,95 @@
---Sephira Qiuniu, Secret of the Yang Zing
+--U.A. Penalty Box
 function c13790407.initial_effect(c)
-	--pendulum summon
-	aux.AddPendulumProcedure(c)
-	--Activate
 	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetHintTiming(TIMING_DAMAGE_STEP)
 	c:RegisterEffect(e1)
-	--splimit
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetRange(LOCATION_PZONE)
-	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE)
-	e2:SetTargetRange(1,0)
-	e2:SetTarget(c13790407.splimit)
+	e2:SetCategory(CATEGORY_DESTROY)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_BATTLE_START)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetCountLimit(1,13790407)
+	e2:SetCondition(c13790407.condition)
+	e2:SetTarget(c13790407.target)
+	e2:SetOperation(c13790407.operation)
 	c:RegisterEffect(e2)
-	--destroy
+	--search
 	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
-	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCountLimit(1,13790407)
-	e3:SetCondition(c13790407.descon)
-	e3:SetTarget(c13790407.target)
-	e3:SetOperation(c13790407.operation)
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetRange(LOCATION_GRAVE)
+	e3:SetCountLimit(1)
+	e3:SetCost(c13790407.thcost)
+	e3:SetTarget(c13790407.thtg)
+	e3:SetOperation(c13790407.thop)
 	c:RegisterEffect(e3)
-	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_DESTROYED)
-	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e4:SetRange(LOCATION_ONFIELD)
-	e4:SetCountLimit(1,13790407)
-	e4:SetCondition(c13790407.spcon)
-	e4:SetTarget(c13790407.target)
-	e4:SetOperation(c13790407.operation)
-	c:RegisterEffect(e4)
 end
-function c13790407.splimit(e,c,tp,sumtp,sumpos)
-	return not (c:IsSetCard(0x9e) or c:IsSetCard(0xc3)) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+function c13790407.condition(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetAttacker()
+	local bc=Duel.GetAttackTarget()
+	if not bc then return false end
+	if tc:IsControler(1-tp) then tc,bc=bc,tc end
+	if tc:IsSetCard(0xb2) then
+		e:SetLabelObject(bc)
+		return true
+	else return false end
 end
-
-function c13790407.descon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM
-end
-function c13790407.spcon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:GetPreviousControler()==tp and c:IsReason(REASON_DESTROY) and c:IsPreviousLocation(LOCATION_ONFIELD)
-end
-function c13790407.filter(c)
-	return (c:IsSetCard(0x9e) or c:IsSetCard(0xc3)) and not c:IsType(TYPE_MONSTER)
-end
-function c13790407.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790407.filter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+function c13790407.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	local bc=e:GetLabelObject()
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,bc,1,0,0)
 end
 function c13790407.operation(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetAttacker()
+	local bc=Duel.GetAttackTarget()
+	if not bc then return false end
+	if tc:IsControler(1-tp) then tc,bc=bc,tc end
+	if tc:IsSetCard(0xb2) then Duel.Remove(bc,0,REASON_EFFECT+REASON_TEMPORARY)
+		local ph=Duel.GetCurrentPhase()
+		local cp=Duel.GetTurnPlayer()
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e1:SetRange(LOCATION_REMOVED)
+		e1:SetCode(EVENT_PHASE+PHASE_END)
+		e1:SetCountLimit(1)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END+RESET_SELF_TURN,4)
+		e1:SetCondition(c13790407.rtcon)
+		e1:SetOperation(c13790407.rtop)
+		e1:SetLabel(1)
+		bc:RegisterEffect(e1)
+	end
+end
+function c13790407.rtcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetTurnPlayer()==tp
+end
+function c13790407.rtop(e,tp,eg,ep,ev,re,r,rp)
+	local ct=e:GetLabel()
+	if ct==2 then
+		Duel.ReturnToField(e:GetHandler())
+	else
+		e:SetLabel(ct+1)
+	end
+end
+function c13790407.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
+	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
+end
+function c13790407.thfilter(c)
+	return c:IsSetCard(0xb2) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+end
+function c13790407.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c13790407.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+end
+function c13790407.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790407.filter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c13790407.thfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-

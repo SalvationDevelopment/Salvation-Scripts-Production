@@ -1,53 +1,69 @@
---Superheavy Samurai Tama-C
+--Barbar, Malebranche of the Burning Abyss
 function c13790402.initial_effect(c)
-	--spsummon
+	--self destroy
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCondition(c13790402.condition)
-	e1:SetTarget(c13790402.target)
-	e1:SetOperation(c13790402.operation)
+	e1:SetCode(EFFECT_SELF_DESTROY)
+	e1:SetCondition(c13790402.sdcon)
 	c:RegisterEffect(e1)
+	--Special Summon
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(13790402,0))
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetRange(LOCATION_HAND)
+	e2:SetCountLimit(1,13790402)
+	e2:SetCondition(c13790402.sscon)
+	e2:SetTarget(c13790402.sstg)
+	e2:SetOperation(c13790402.ssop)
+	c:RegisterEffect(e2)
+	--remove
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(13790402,1))
+	e3:SetCategory(CATEGORY_REMOVE)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetCountLimit(1,13790402)
+	e3:SetCondition(c13790402.rmcon)
+	e3:SetOperation(c13790402.rmop)
+	c:RegisterEffect(e3)
 end
-function c13790402.condition(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_TRAP)
-	and not Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_SPELL)
-	and not Duel.IsExistingMatchingCard(c13790402.cfilter,tp,LOCATION_MZONE,0,1,nil)
+function c13790402.sdfilter(c)
+	return not c:IsFaceup() or not c:IsSetCard(0xb1)
 end
-function c13790402.cfilter(c,e,tp,lv)
-	return c:IsFaceup() and not c:IsSetCard(0x9a)
+function c13790402.sdcon(e)
+	return Duel.IsExistingMatchingCard(c13790402.sdfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
-function c13790402.filter1(c,e,tp,lv)
-	return c:IsFaceup() and Duel.IsExistingMatchingCard(c13790402.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,lv+c:GetLevel())
+function c13790402.filter(c)
+	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
-function c13790402.filter2(c,e,tp,lv)
-	return c:GetLevel()==lv and c:IsSetCard(0x9a) and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SYNCHRO,tp,false,false)
+function c13790402.sscon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(c13790402.filter,tp,LOCATION_ONFIELD,0,1,nil)
 end
-function c13790402.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c13790402.filter1(chkc,e,tp,e:GetHandler():GetLevel()) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1 and e:GetHandler():IsAbleToRemove()
-		and Duel.IsExistingTarget(c13790402.filter1,tp,0,LOCATION_MZONE,1,nil,e,tp,e:GetHandler():GetLevel()) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,c13790402.filter1,tp,0,LOCATION_MZONE,1,1,nil,e,tp,e:GetHandler():GetLevel())
-	g:AddCard(e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,2,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+function c13790402.sstg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c13790402.operation(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
-	local lv=c:GetLevel()+tc:GetLevel()
-	local g=Group.FromCards(c,tc)
-	if Duel.SendtoGrave(g,REASON_EFFECT)==2 then
-		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sg=Duel.SelectMatchingCard(tp,c13790402.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,lv)
-		if sg:GetCount()>0 then
-			Duel.SpecialSummon(sg,SUMMON_TYPE_SYNCHRO,tp,tp,false,false,POS_FACEUP)
-		end
+function c13790402.ssop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.IsExistingMatchingCard(c13790402.filter,tp,LOCATION_ONFIELD,0,1,nil) then return end
+	if e:GetHandler():IsRelateToEffect(e) then
+		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-
+function c13790402.rmcon(e,tp,eg,ep,ev,re,r,rp)
+	return not e:GetHandler():IsReason(REASON_RETURN)
+end
+function c13790402.rmop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(17559367,1))
+	local g=Duel.SelectMatchingCard(tp,Card.IsSetCard,tp,LOCATION_DECK,0,1,1,nil,0xb1)
+	local tc=g:GetFirst()
+	if tc then
+		Duel.ShuffleDeck(tp)
+		Duel.MoveSequence(tc,0)
+		Duel.ConfirmDecktop(tp,1)
+	end
+end
