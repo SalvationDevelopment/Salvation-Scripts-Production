@@ -1,71 +1,104 @@
---Chicken Race
+--チキンレース
 function c67616300.initial_effect(c)
-	--Activate
+	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
+	--change damage
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetRange(LOCATION_FZONE)
 	e2:SetCode(EFFECT_CHANGE_DAMAGE)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetRange(LOCATION_FZONE)
-	e2:SetCondition(c67616300.abdcon1)
-	e2:SetTargetRange(0,1)
+	e2:SetTargetRange(1,0)
+	e2:SetCondition(c67616300.damcon1)
 	e2:SetValue(0)
 	c:RegisterEffect(e2)
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetCode(EFFECT_CHANGE_DAMAGE)
-	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e3:SetRange(LOCATION_FZONE)
-	e2:SetCondition(c67616300.abdcon2)
-	e3:SetTargetRange(1,0)
-	e3:SetValue(0)
+	local e3=e2:Clone()
+	e3:SetTargetRange(0,1)
+	e3:SetCondition(c67616300.damcon2)
 	c:RegisterEffect(e3)
+	--draw
 	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(67616300,0))
+	e4:SetCategory(CATEGORY_DRAW)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_FZONE)
-	e4:SetProperty(EFFECT_FLAG_BOTH_SIDE)
-	e4:SetCountLimit(1)
-	e4:SetCost(c67616300.cost)
-	e4:SetCondition(c67616300.condition)
-	e4:SetTarget(c67616300.target)
-	e4:SetOperation(c67616300.operation)
+	e4:SetProperty(EFFECT_FLAG_BOTH_SIDE+EFFECT_FLAG_PLAYER_TARGET)
+	e4:SetCountLimit(1,EFFECT_COUNT_CODE_SINGLE)
+	e4:SetCost(c67616300.effcost)
+	e4:SetTarget(c67616300.drtg)
+	e4:SetOperation(c67616300.drop)
 	c:RegisterEffect(e4)
+	--destroy
+	local e5=Effect.CreateEffect(c)
+	e5:SetDescription(aux.Stringid(67616300,1))
+	e5:SetCategory(CATEGORY_DESTROY)
+	e5:SetType(EFFECT_TYPE_IGNITION)
+	e5:SetRange(LOCATION_FZONE)
+	e5:SetProperty(EFFECT_FLAG_BOTH_SIDE)
+	e5:SetCountLimit(1,EFFECT_COUNT_CODE_SINGLE)
+	e5:SetCost(c67616300.effcost)
+	e5:SetTarget(c67616300.destg)
+	e5:SetOperation(c67616300.desop)
+	c:RegisterEffect(e5)
+	--recover
+	local e6=Effect.CreateEffect(c)
+	e6:SetDescription(aux.Stringid(67616300,2))
+	e6:SetCategory(CATEGORY_RECOVER)
+	e6:SetType(EFFECT_TYPE_IGNITION)
+	e6:SetRange(LOCATION_FZONE)
+	e6:SetProperty(EFFECT_FLAG_BOTH_SIDE+EFFECT_FLAG_PLAYER_TARGET)
+	e6:SetCountLimit(1,EFFECT_COUNT_CODE_SINGLE)
+	e6:SetCost(c67616300.effcost)
+	e6:SetTarget(c67616300.rectg)
+	e6:SetOperation(c67616300.recop)
+	c:RegisterEffect(e6)
 end
-function c67616300.abdcon1(e,tp,eg,ep,ev,re,r,rp)
-	local p=e:GetHandler():GetControler()
-	return Duel.GetLP(p)<Duel.GetLP(1-p)
+function c67616300.damcon1(e)
+	local tp=e:GetHandlerPlayer()
+	return Duel.GetLP(tp)<Duel.GetLP(1-tp)
 end
-function c67616300.abdcon2(e,tp,eg,ep,ev,re,r,rp)
-	local p=e:GetHandler():GetControler()
-	return Duel.GetLP(1-p)<Duel.GetLP(p)
+function c67616300.damcon2(e)
+	local tp=e:GetHandlerPlayer()
+	return Duel.GetLP(1-tp)<Duel.GetLP(tp)
 end
-
-function c67616300.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c67616300.effcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
+	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 end
-function c67616300.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp
-end
-function c67616300.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	op=Duel.SelectOption(tp,aux.Stringid(7616300,0),aux.Stringid(7616300,1),aux.Stringid(7616300,2))
-	e:SetLabel(op)
+function c67616300.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
+	Duel.SetTargetPlayer(tp)
+	Duel.SetTargetParam(1)
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 	Duel.SetChainLimit(aux.FALSE)
 end
-
-function c67616300.operation(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if e:GetLabel()==0 then
-		Duel.Draw(tp,1,REASON_EFFECT)
-	end
-	if e:GetLabel()==1 then
-		Duel.Destroy(c,REASON_EFFECT)
-	end
-	if e:GetLabel()==2 then
-		Duel.Recover(1-tp,1000,REASON_EFFECT)
-	end
+function c67616300.drop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	Duel.Draw(p,d,REASON_EFFECT)
+end
+function c67616300.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsDestructable() end
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,e:GetHandler(),1,0,0)
+	Duel.SetChainLimit(aux.FALSE)
+end
+function c67616300.desop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
+end
+function c67616300.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	Duel.SetTargetPlayer(1-tp)
+	Duel.SetTargetParam(1000)
+	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,1-tp,1000)
+	Duel.SetChainLimit(aux.FALSE)
+end
+function c67616300.recop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	Duel.Recover(p,d,REASON_EFFECT)
 end

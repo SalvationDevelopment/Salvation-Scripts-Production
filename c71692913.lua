@@ -1,4 +1,4 @@
---Destruction Magician
+--相克の魔術師
 function c71692913.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -50,7 +50,7 @@ function c71692913.xyzop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c71692913.xyzlv(e,c,rc)
-	return bit.lshift(e:GetHandler():GetRank(),16)
+	return c:GetRank()
 end
 function c71692913.disfilter(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_LIGHT) and not c:IsDisabled()
