@@ -1,4 +1,4 @@
---Barrier Bubble--Script by DailyShana
+--バリア・バブル
 function c79777187.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -16,45 +16,36 @@ function c79777187.initial_effect(c)
 	c:RegisterEffect(e2)
 	--indes
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetCode(15580)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e3:SetCode(EFFECT_DESTROY_REPLACE)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetTargetRange(LOCATION_MZONE,0)
-	e3:SetTarget(c79777187.target)
+	e3:SetTarget(c79777187.reptg)
+	e3:SetValue(c79777187.repval)
 	c:RegisterEffect(e3)
-	if not c79777187.global_check then
-		c79777187.global_check=true
-		local ex=Effect.CreateEffect(c)
-		ex:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ex:SetCode(EVENT_ADJUST)
-		ex:SetOperation(c79777187.regop)
-		Duel.RegisterEffect(ex,0)
-	end
+	local g=Group.CreateGroup()
+	g:KeepAlive()
+	e3:SetLabelObject(g)
 end
 function c79777187.target(e,c)
-	return c:IsSetCard(0xc7) or c:IsSetCard(0x9f)
+	return c:IsSetCard(0xc6) or c:IsSetCard(0x9f)
 end
-function c79777187.regfilter(c)
-	return (c:IsSetCard(0xc7) or c:IsSetCard(0x9f)) and c:GetFlagEffect(15580)==0
+function c79777187.repfilter(c,tp)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE)
+		and (c:IsSetCard(0xc6) or c:IsSetCard(0x9f)) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:GetFlagEffect(79777187)==0
 end
-function c79777187.regop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetFieldGroup(0,LOCATION_MZONE,LOCATION_MZONE):Filter(c79777187.regfilter,nil)
-	if g:GetCount()==0 then return end
+function c79777187.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg:IsExists(c79777187.repfilter,1,nil,tp) end
+	local g=eg:Filter(c79777187.repfilter,nil,tp)
 	local tc=g:GetFirst()
 	while tc do
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-		e1:SetRange(LOCATION_MZONE)
-		e1:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
-		e1:SetCountLimit(1)
-		e1:SetValue(c79777187.valcon)
-		tc:RegisterEffect(e1)
-		tc:RegisterFlagEffect(15580,0,0,1)
+		tc:RegisterFlagEffect(79777187,RESET_EVENT+0x1fc0000+RESET_PHASE+RESET_END,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(79777187,0))
 		tc=g:GetNext()
 	end
-	Duel.Readjust()
+	e:GetLabelObject():Clear()
+	e:GetLabelObject():Merge(g)
+	return true
 end
-function c79777187.valcon(e,re,r,rp)
-	return e:GetHandler():IsHasEffect(15580) and bit.band(r,REASON_BATTLE+REASON_EFFECT)~=0
+function c79777187.repval(e,c)
+	local g=e:GetLabelObject()
+	return g:IsContains(c)
 end

@@ -1,4 +1,4 @@
---Igknight Caliber
+--イグナイト・キャリバー
 function c96802306.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -7,46 +7,44 @@ function c96802306.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--scale change
+	--tohand
 	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCountLimit(1)
-	e2:SetCondition(c96802306.sccon)
-	e2:SetTarget(c96802306.sctg)
-	e2:SetOperation(c96802306.scop)
+	e2:SetCondition(c96802306.thcon)
+	e2:SetTarget(c96802306.thtg)
+	e2:SetOperation(c96802306.thop)
 	c:RegisterEffect(e2)
 end
-function c96802306.sccon(e,tp,eg,ep,ev,re,r,rp)
+function c96802306.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local seq=e:GetHandler():GetSequence()
-	local tc=Duel.GetFieldCard(e:GetHandlerPlayer(),LOCATION_SZONE,13-seq)
-	return tc and tc:IsSetCard(0xc6)
+	local pc=Duel.GetFieldCard(tp,LOCATION_SZONE,13-seq)
+	return pc and pc:IsSetCard(0xc8)
 end
 function c96802306.filter(c)
-	return c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAbleToHand()
+	return c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAbleToHand() and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
-function c96802306.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c96802306.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
+function c96802306.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	local pc=Duel.GetFieldCard(tp,LOCATION_SZONE,13-c:GetSequence())
+	if chk==0 then return c:IsDestructable() and pc:IsDestructable()
+		and Duel.IsExistingMatchingCard(c96802306.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
+	local g=Group.FromCards(c,pc)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,2,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
 end
-function c96802306.scop(e,tp,eg,ep,ev,re,r,rp)
+function c96802306.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local c1=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
-	local c2=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-	local g=Group.CreateGroup()
-	if c1 and c1:IsDestructable() then g:AddCard(c1) end
-	if c2 and c2:IsDestructable() then g:AddCard(c2) end
+	if not c:IsRelateToEffect(e) then return end
+	local pc=Duel.GetFieldCard(tp,LOCATION_SZONE,13-c:GetSequence())
+	if not pc then return end
+	local dg=Group.FromCards(c,pc)
+	if Duel.Destroy(dg,REASON_EFFECT)~=2 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,c96802306.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 then
-		local ct=Duel.Destroy(g,REASON_EFFECT)
-		if ct==2 then
-			local fg=Duel.GetMatchingGroup(c96802306.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,nil)
-			if fg:GetCount()>0 then
-				Duel.BreakEffect()
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-				local sg=fg:Select(tp,1,1,nil)
-				Duel.SendtoHand(sg,nil,REASON_EFFECT)
-				Duel.ConfirmCards(1-tp,sg)
-			end
-		end
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end

@@ -1,49 +1,43 @@
---Aromage - Bergamot
+--アロマージ－ベルガモット
 function c85967160.initial_effect(c)
+	--pierce
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e1:SetCode(EFFECT_PIERCE)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTargetRange(0,1)
-	e1:SetValue(c85967160.aclimit)
-	e1:SetCondition(c85967160.condition)
-	c:RegisterEffect(e1)	
+	e1:SetTargetRange(LOCATION_MZONE,0)
+	e1:SetCondition(c85967160.pccon)
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsRace,RACE_PLANT))
+	c:RegisterEffect(e1)
+	--atk & def
 	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_RECOVER)
+	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c85967160.cd)
-	e2:SetTarget(c85967160.postg)
-	e2:SetOperation(c85967160.posop)
+	e2:SetCondition(c85967160.adcon)
+	e2:SetOperation(c85967160.adop)
 	c:RegisterEffect(e2)
 end
-function c85967160.condition(e,tp,eg,ep,ev,re,r,rp)
+function c85967160.pccon(e)
 	local tp=e:GetHandlerPlayer()
-	local tc=Duel.GetAttacker()
-	if Duel.GetTurnPlayer()~=tp then return false end
-	return tc and tc:IsControler(tp) and tc:IsRace(RACE_PLANT) and Duel.GetLP(tp)>Duel.GetLP(1-tp)
+	return Duel.GetLP(tp)>Duel.GetLP(1-tp)
 end
-function c85967160.aclimit(e,re,tp)
-	return not re:GetHandler():IsImmuneToEffect(e) and re:IsActiveType(TYPE_MONSTER)
+function c85967160.adcon(e,tp,eg,ep,ev,re,r,rp)
+	return ep==tp
 end
-
-function c85967160.cd(e,tp,eg,ep,ev,re,r,rp)
-	return tp==ep
-end
-function c85967160.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
-	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
-end
-function c85967160.posop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE,0,POS_FACEUP_ATTACK,0)
+function c85967160.adop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) and c:IsFaceup() then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(1000)
+		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END+RESET_OPPO_TURN)
+		c:RegisterEffect(e1)
+		local e2=e1:Clone()
+		e2:SetCode(EFFECT_UPDATE_DEFENCE)
+		c:RegisterEffect(e2)
 	end
 end
-
