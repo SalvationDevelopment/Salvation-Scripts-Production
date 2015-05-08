@@ -1,103 +1,98 @@
---潤いの風
+--Moist Wind
+-- FIXUD NEW SETCODE
 function c92266279.initial_effect(c)
-	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c92266279.target)
+	e1:SetTarget(c92266279.target0)
+	e1:SetOperation(c92266279.operation0)
 	c:RegisterEffect(e1)
-	--to hand
+	--tohand
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(92266279,1))
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetCountLimit(1,92266279)
-	e2:SetCost(c92266279.thcost)
-	e2:SetTarget(c92266279.thtg)
-	e2:SetOperation(c92266279.thop)
+	e2:SetCost(c92266279.cost1)
+	e2:SetTarget(c92266279.target1)
+	e2:SetOperation(c92266279.operation1)
 	c:RegisterEffect(e2)
-	--recover
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(92266279,2))
-	e3:SetCategory(CATEGORY_RECOVER)
+	e3:SetDescription(aux.Stringid(92266279,0))
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e3:SetCountLimit(1,92266280)
-	e3:SetCondition(c92266279.reccon)
-	e3:SetTarget(c92266279.rectg)
-	e3:SetOperation(c92266279.recop)
+	e3:SetCost(c92266279.cost)
+	e3:SetTarget(c92266279.target)
+	e3:SetOperation(c92266279.operation)
 	c:RegisterEffect(e3)
+
 end
-function c92266279.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c92266279.target0(e,tp,eg,ep,ev,re,r,rp,chk)
+	local lp1=Duel.GetLP(tp)
+	local lp2=Duel.GetLP(1-tp)
+	e:SetLabel(5)
 	if chk==0 then return true end
-	local b1=c92266279.thcost(e,tp,eg,ep,ev,re,r,rp,0) and c92266279.thtg(e,tp,eg,ep,ev,re,r,rp,0)
-	local b2=c92266279.reccon(e,tp,eg,ep,ev,re,r,rp) and c92266279.rectg(e,tp,eg,ep,ev,re,r,rp,0)
-	if (b1 or b2) and Duel.SelectYesNo(tp,aux.Stringid(92266279,0)) then
-		local opt=0
-		if b1 and b2 then
-			opt=Duel.SelectOption(tp,aux.Stringid(92266279,1),aux.Stringid(92266279,2))
-		elseif b1 then
-			opt=Duel.SelectOption(tp,aux.Stringid(92266279,1))
-		else
-			opt=Duel.SelectOption(tp,aux.Stringid(92266279,2))+1
+	if Duel.IsExistingMatchingCard(c92266279.filter,tp,LOCATION_DECK,0,1,nil) and Duel.CheckLPCost(tp,1000)
+	and Duel.GetFlagEffect(tp,92266279)==0 and Duel.SelectYesNo(tp,aux.Stringid(92266279,0)) then e:SetLabel(0) end	
+	if (lp1<lp2) and Duel.GetFlagEffect(tp,92266280)==0 and Duel.SelectYesNo(tp,aux.Stringid(53670497,1)) then e:SetLabel(1) end
+	if e:GetLabel()==0 then Duel.RegisterFlagEffect(tp,92266279,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1) end
+	if e:GetLabel()==1 then Duel.RegisterFlagEffect(tp,92266280,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1) end
+end
+function c92266279.operation0(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) or e:GetLabel()==5 then return end
+	local lp1=Duel.GetLP(tp)
+	local lp2=Duel.GetLP(1-tp)
+	local op=e:GetLabel()
+	if op==0 then
+	Duel.PayLPCost(tp,1000)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,c92266279.filter,tp,LOCATION_DECK,0,1,1,nil)
+		if g:GetCount()>0 then
+			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
 		end
-		if opt==0 then
-			e:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-			e:SetProperty(0)
-			e:SetOperation(c92266279.thop)
-			c92266279.thcost(e,tp,eg,ep,ev,re,r,rp,1)
-			c92266279.thtg(e,tp,eg,ep,ev,re,r,rp,1)
-		else
-			e:SetCategory(CATEGORY_RECOVER)
-			e:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-			e:SetOperation(c92266279.recop)
-			c92266279.rectg(e,tp,eg,ep,ev,re,r,rp,1)
-		end
-	else
-		e:SetCategory(0)
-		e:SetProperty(0)
-		e:SetOperation(c92266279.nop)
+	end
+	if op==1 then
+	Duel.Recover(tp,500,REASON_EFFECT)
 	end
 end
-function c92266279.nop(e,tp,eg,ep,ev,re,r,rp)
-end
-function c92266279.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c92266279.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) and Duel.GetFlagEffect(tp,92266279)==0 end
 	Duel.PayLPCost(tp,1000)
-	Duel.RegisterFlagEffect(tp,92266279,RESET_PHASE+RESET_END,0,1)
+	Duel.RegisterFlagEffect(tp,92266279,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
-function c92266279.thfilter(c)
+function c92266279.filter(c)
 	return c:IsSetCard(0xc9) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
-function c92266279.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c92266279.thfilter,tp,LOCATION_DECK,0,1,nil) end
+function c92266279.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c92266279.filter,tp,LOCATION_DECK,0,1,nil) and Duel.GetFlagEffect(tp,92266279)==0 end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c92266279.thop(e,tp,eg,ep,ev,re,r,rp)
+function c92266279.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c92266279.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c92266279.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-function c92266279.reccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetLP(tp)<Duel.GetLP(1-tp)
-end
-function c92266279.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c92266279.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,92266280)==0 end
+	Duel.RegisterFlagEffect(tp,92266280,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+end
+function c92266279.target1(e,tp,eg,ep,ev,re,r,rp,chk)
+	local lp1=Duel.GetLP(tp)
+	local lp2=Duel.GetLP(1-tp)
+	if chk==0 then return lp1<lp2 and Duel.GetFlagEffect(tp,92266280)==0 end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(500)
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,500)
-	Duel.RegisterFlagEffect(tp,92266280,RESET_PHASE+RESET_END,0,1)
 end
-function c92266279.recop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
+function c92266279.operation1(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Recover(p,d,REASON_EFFECT)
 end
