@@ -1,4 +1,5 @@
 --Aroma Garden
+--Fixed Setcode issue nya
 function c5050644.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -58,7 +59,7 @@ function c5050644.atktg(e,c)
 end
 
 function c5050644.cfilter(c,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xc8) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xc9) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
 end
 function c5050644.condition2(e,tp,eg,ep,ev,re,r,rp)
 	return not eg:IsContains(e:GetHandler()) and eg:IsExists(c5050644.cfilter,1,nil,tp) and bit.band(r,REASON_DESTROY)~=0

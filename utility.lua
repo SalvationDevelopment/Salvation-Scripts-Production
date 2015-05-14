@@ -123,6 +123,7 @@ end
 function Auxiliary.SynCondition(f1,f2,minct,maxc)
 	return	function(e,c,smat,mg)
 				if c==nil then return true end
+				if c:IsFaceup() then return false end
 				local ft=Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)
 				local ct=-ft
 				local minc=minct
@@ -195,6 +196,7 @@ function Auxiliary.XyzCondition(f,lv,minc,maxc)
 	--og: use special material
 	return	function(e,c,og)
 				if c==nil then return true end
+				if c:IsFaceup() then return false end
 				local ft=Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)
 				local ct=-ft
 				if minc<=ct then return false end
@@ -232,6 +234,7 @@ end
 function Auxiliary.XyzCondition2(f,lv,minc,maxc,alterf,desc,op)
 	return	function(e,c,og)
 				if c==nil then return true end
+				if c:IsFaceup() then return false end
 				local tp=c:GetControler()
 				local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 				local ct=-ft
@@ -1103,6 +1106,7 @@ function Auxiliary.PendOperation()
 				Duel.HintSelection(Group.FromCards(rpz))
 			end
 end
+--card effect disable filter
 function Auxiliary.disfilter1(c)
 	return c:IsFaceup() and not c:IsDisabled()
 		and (c:IsType(TYPE_SPELL+TYPE_TRAP+TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)~=0)
@@ -1159,4 +1163,15 @@ end
 --filter for non-zero DEF
 function Auxiliary.nzdef(c)
 	return c:IsFaceup() and c:GetDefence()>0
+end
+--flag effect for summon/sp_summon turn
+function Auxiliary.sumreg(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	local code=e:GetLabel()
+	while tc do
+		if tc:GetOriginalCode()==code then 
+			tc:RegisterFlagEffect(code,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_END,0,1) 
+		end
+		tc=eg:GetNext()
+	end
 end
