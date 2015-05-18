@@ -19,6 +19,7 @@ function c13720023.initial_effect(c)
 	--destroy replace
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
+	e3:SetDescription(aux.Stringid(13720023,0))
 	e3:SetCode(EFFECT_DESTROY_REPLACE)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetTarget(c13720023.destg)
