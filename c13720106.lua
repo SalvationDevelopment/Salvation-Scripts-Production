@@ -76,13 +76,13 @@ end
 function c13720106.mfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x48)
 end
-function c13720106.xyzcon2(e,c,og,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13720106.cfilter,tp,LOCATION_HAND,0,1,nil) end
+function c13720106.xyzcon2(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local mg=Duel.GetMatchingGroup(c13720106.ovfilter,tp,LOCATION_MZONE,0,nil)
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and mg:IsExists(c13720106.ovfilter,1,nil,mg)
+		and Duel.IsExistingMatchingCard(c13720106.cfilter,tp,LOCATION_HAND,0,1,nil)
 end
 function c13720106.xyzop2(e,tp,eg,ep,ev,re,r,rp,c,og)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13720106.cfilter,tp,LOCATION_HAND,0,1,nil) end
