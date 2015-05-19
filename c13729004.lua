@@ -49,8 +49,7 @@ function c13729004.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13729004.filter(c)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0x99) or c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x98))
-	 and c:IsAbleToHand() and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
+	return c:IsSetCard(0x99) or (c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x98)) and c:IsAbleToHand()
 end
 function c13729004.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c13729004.filter(chkc) end
@@ -60,7 +59,6 @@ function c13729004.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c13729004.activate(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
