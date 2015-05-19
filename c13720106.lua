@@ -71,10 +71,10 @@ function c13720106.cfilter(c)
 	return c:IsSetCard(0x95) and c:IsType(TYPE_SPELL) and c:IsDiscardable() and not c:IsType(TYPE_QUICKPLAY)
 end
 function c13720106.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x7f)
+	return c:IsFaceup() and c:IsSetCard(0x7f)  and not c:IsCode(56832966)
 end
 function c13720106.mfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x48)
+	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x48) and not c:IsCode(56832966)
 end
 function c13720106.xyzcon2(e,c,og)
 	if c==nil then return true end
