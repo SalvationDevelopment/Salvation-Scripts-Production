@@ -1,11 +1,12 @@
 --Insight Magician
+--changed Desc...
 function c72714461.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(72714461,0))
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetDescription(aux.Stringid(72714461,0))
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
 	--destroy
@@ -17,7 +18,7 @@ function c72714461.initial_effect(c)
 	e2:SetOperation(c72714461.desop)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(72714461,1))
+	e3:SetDescription(aux.Stringid(72714461,1))
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_HAND)
