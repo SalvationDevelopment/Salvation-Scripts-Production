@@ -12,6 +12,9 @@ end
 function c222701.filter(c)
 	return c:IsType(TYPE_SPELL) and c:IsType(TYPE_PENDULUM) and c:IsDestructable()
 end
+function c222701.filter2(c)
+	return c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+end
 function c222701.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return Duel.IsExistingMatchingCard(c222701.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,c) end
@@ -25,21 +28,22 @@ function c222701.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Damage(1-tp,500,REASON_EFFECT)
 	end
 	if count>=2 then
-	local g=Duel.SelectMatchingCard(tp,Card.IsType,tp,LOCATION_DECK,0,1,1,nil,TYPE_PENDULUM)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+		local g=Duel.GetMatchingGroup(c222701.filter2,tp,LOCATION_DECK,0,nil,e,tp)
+		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(222701,0)) then
+			local sg=g:Select(tp,1,1,nil)
+			Duel.SendtoHand(sg,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
+		end
 	end
-	end
-	if count>=3 then
-	local g=Duel.SelectMatchingCard(tp,IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
+	if count>=3 and Duel.SelectYesNo(tp,aux.Stringid(222701,1)) then
+	local g=Duel.SelectTarget(tp,nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
 	if g:GetCount()>0 then
 		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 	end
 	end
 	if count>=4 then
 		local th=Duel.GetFirstMatchingCard(Card.IsCode,tp,LOCATION_DECK,0,nil,222701)
-		if th then
+		if th and Duel.SelectYesNo(tp,aux.Stringid(222701,2)) then
 			Duel.SendtoHand(th,nil,REASON_EFFECT)
 			Duel.ConfirmCards(1-tp,th)
 		end
