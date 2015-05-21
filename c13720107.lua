@@ -32,13 +32,13 @@ function c13720107.ffilter(c)
 	return c:IsSetCard(0x99)
 end
 function c13720107.filter(c)
-	return c:IsAbleToHand() and IsPosition(POS_FACEUP_ATTACK)
+	return c:IsAbleToHand() and c:IsPosition(POS_FACEUP_ATTACK)
 end
 function c13720107.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return Duel.IsExistingMatchingCard(c13720107.filter,tp,0,LOCATION_MZONE,1,nil) end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c13720107.filter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,1,nil)
+	local g=Duel.SelectTarget(tp,c13720107.filter,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c13720107.thop(e,tp,eg,ep,ev,re,r,rp)
