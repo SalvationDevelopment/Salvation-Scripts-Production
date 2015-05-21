@@ -1,6 +1,7 @@
 --Toon Briefcase
 function c5832914.initial_effect(c)
-	--Activate
+
+--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -10,10 +11,10 @@ function c5832914.initial_effect(c)
 	e1:SetOperation(c5832914.activate)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
-	e2:SetCode(EVENT_FLIP_SUMMON)
+	e2:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e2)
 	local e3=e1:Clone()
-	e3:SetCode(EVENT_SPSUMMON)
+	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 end
 function c5832914.cfilter(c)
