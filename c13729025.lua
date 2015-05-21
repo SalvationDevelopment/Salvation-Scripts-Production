@@ -8,11 +8,11 @@ function c13729025.initial_effect(c)
 	--indes
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_SZONE,0)
-	e2:SetTarget(c13729025.indtg)
-	e2:SetValue(c13729025.indval)
+	e2:SetTarget(c13729025.target)
+	e2:SetValue(c13729025.val)
 	c:RegisterEffect(e2)
 	--to hand
 	local e3=Effect.CreateEffect(c)
@@ -24,10 +24,10 @@ function c13729025.initial_effect(c)
 	e3:SetOperation(c13729025.thop)
 	c:RegisterEffect(e3)
 end
-function c13729025.indtg(e,c)
+function c13729025.target(e,c)
 	return c:GetSequence()>5  and c:IsControler(tp) and (c:IsSetCard(0x98) or c:IsSetCard(0x99) or c:IsSetCard(0x9f))
 end
-function c13729025.indval(e,re,tp)
+function c13729025.val(e,re,tp)
 	return tp~=e:GetHandlerPlayer()
 end
 
