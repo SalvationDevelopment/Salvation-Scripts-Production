@@ -12,6 +12,7 @@ function c72714461.initial_effect(c)
 	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_DRAW)
+	e1:SetDescription(aux.Stringid(72714461,0))
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetTarget(c72714461.destg)
