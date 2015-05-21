@@ -20,7 +20,7 @@ function c13720107.initial_effect(c)
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_NEGATE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
-	e2:SetCountLimit(1,137201072)
+	e2:SetCountLimit(1,13720108)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCondition(c13720107.codisable)
@@ -52,7 +52,7 @@ function c13720107.filter2(c)
 end
 function c13720107.codisable(e,tp,eg,ep,ev,re,r,rp)
 	return (re:IsHasType(EFFECT_TYPE_ACTIVATE) or re:IsActiveType(TYPE_MONSTER))
-		and not e:GetHandler():IsStatus(STATUS_CHAINING)
+	and re:GetHandler()~=e:GetHandler() and Duel.IsChainNegatable(ev) and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 end
 function c13720107.tgdisable(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_EXTRA) and chkc:IsControler(tp) and c13720107.filter2(chkc) end
