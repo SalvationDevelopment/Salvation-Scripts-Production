@@ -32,7 +32,6 @@ function c222701.activate(e,tp,eg,ep,ev,re,r,rp)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(222701,0)) then
 			local sg=g:Select(tp,1,1,nil)
 			Duel.SendtoHand(sg,nil,REASON_EFFECT)
-			Duel.ConfirmCards(1-tp,g)
 		end
 	end
 	if count>=3 and Duel.SelectYesNo(tp,aux.Stringid(222701,1)) then
