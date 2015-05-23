@@ -44,7 +44,7 @@ function c13702001.spfilter2(c,e,tp)
 end
 function c13702001.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP) then
+	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENCE) then
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		local sg=eg:Filter(c13702001.spfilter2,nil,e,tp)
 		if ft<sg:GetCount() then return end
@@ -52,11 +52,10 @@ function c13702001.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c13702001.sumcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsReleasable() end
+	if chk==0 then return e:GetHandler():IsReleasable() and Duel.GetFlagEffect(tp,13702001)==0 end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c13702001.sumop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,13702001)~=0 then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
