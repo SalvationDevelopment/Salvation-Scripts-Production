@@ -46,13 +46,10 @@ function c13729026.activate(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	e1:SetTargetRange(LOCATION_SZONE,0)
 	e1:SetTarget(c13729026.indtg)
-	e1:SetValue(c13729026.indval)
+	e1:SetValue(1)
 	e1:SetReset(RESET_PHASE+PHASE_END,2)
 	Duel.RegisterEffect(e1,tp)
 end
 function c13729026.indtg(e,c)
 	return c:GetSequence()>5 and c:IsSetCard(0x98)
-end
-function c13729026.indval(e,re,tp)
-	return tp~=e:GetHandlerPlayer()
 end
