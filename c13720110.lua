@@ -52,5 +52,5 @@ function c13720110.con(e)
 	return ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL
 end
 function c13720110.aclimit(e,re,tp)
-	return re:GetHandler():IsType(TYPE_MONSTER) and re:IsHasType(EFFECT_TYPE_ACTIVATE+EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_TRIGGER_F)
+	return re:GetHandler():IsType(TYPE_MONSTER)
 end
