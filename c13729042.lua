@@ -46,7 +46,7 @@ end
 
 function c13729042.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:GetSummonType()==SUMMON_TYPE_XYZ
+	return not c:IsReason(REASON_RETURN) and c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ
 end
 
 function c13729042.thfilter(c,e,tp)
