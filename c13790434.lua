@@ -64,7 +64,7 @@ function c13790434.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function c13790434.tgfilter(c)
-	return c:IsSetCard(0x95) and c:IsAbleToHand()
+	return c:IsSetCard(0x95) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_QUICKPLAY) and c:IsAbleToHand()
 end
 function c13790434.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_DECK) and chkc:IsControler(tp) and c13790434.tgfilter(chkc) end
