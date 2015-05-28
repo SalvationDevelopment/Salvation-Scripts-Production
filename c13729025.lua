@@ -46,6 +46,7 @@ function c13729025.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function c13729025.thop(e,tp,eg,ep,ev,re,r,rp)
+ if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
 	local g=Duel.SelectMatchingCard(tp,c13729025.oddfilter,tp,LOCATION_DECK,0,1,1,nil)
