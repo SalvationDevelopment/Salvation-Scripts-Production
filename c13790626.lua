@@ -14,6 +14,7 @@ function c13790626.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetCountLimit(1,13790626)
+	e2:SetTarget(c13790626.tg)
 	e2:SetOperation(c13790626.regop)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -40,26 +41,14 @@ end
 function c13790626.indval(e,re,tp)
 	return e:GetHandler():GetControler()~=tp
 end
-function c13790626.regop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PHASE+PHASE_END)
-		e1:SetRange(0xff)
-		e1:SetCountLimit(1)
-		e1:SetTarget(c13790626.thtg1)
-		e1:SetOperation(c13790626.thop1)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1)
-end
 function c13790626.filter1(c)
 	return c:IsSetCard(0x1e7) and c:IsAbleToHand() and c:IsType(TYPE_MONSTER)
 end
-function c13790626.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
+function c13790626.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790626.filter1,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c13790626.thop1(e,tp,eg,ep,ev,re,r,rp)
+function c13790626.regop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c13790626.filter1,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
