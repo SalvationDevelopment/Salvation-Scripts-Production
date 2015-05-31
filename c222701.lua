@@ -32,12 +32,14 @@ function c222701.activate(e,tp,eg,ep,ev,re,r,rp)
 		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(222701,0)) then
 			local sg=g:Select(tp,1,1,nil)
 			Duel.SendtoHand(sg,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,sg)
 		end
 	end
+	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler())
 	if count>=3 and Duel.SelectYesNo(tp,aux.Stringid(222701,1)) then
-	local g=Duel.SelectTarget(tp,nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
 	if g:GetCount()>0 then
-		Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
+	local sg=g:Select(tp,1,1,nil)
+		Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
 	end
 	end
 	if count>=4 then
