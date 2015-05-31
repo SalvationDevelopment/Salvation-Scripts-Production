@@ -36,7 +36,7 @@ function c13790627.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c13790627.con(e)
-	return e:GetHandler():IsFaceup()
+	return e:GetHandler():IsFaceup() and e:GetHandler():IsLocation(LOCATION_MZONE)
 end
 function c13790627.indval(e,re,tp)
 	return e:GetHandler():GetControler()~=tp
