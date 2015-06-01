@@ -1,4 +1,5 @@
 --Time Magic Hammer
+--CHANGED TO REMOVE
 function c13720009.initial_effect(c)
 	c:EnableReviveLimit()
     --cannot spsummon
@@ -64,7 +65,7 @@ function c13720009.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=c:GetEquipTarget():GetBattleTarget()
 	if chk==0 then return tc and tc:IsControler(1-tp) end
 	local g=Group.FromCards(tc,c)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,g:GetCount(),0,0)
 end
 function c13720009.desop(e,tp,eg,ep,ev,re,r,rp)
 	local eqc=e:GetHandler():GetEquipTarget()

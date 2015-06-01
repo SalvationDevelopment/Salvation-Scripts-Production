@@ -1,5 +1,5 @@
 --Dinosewing
-function c13790411.initial_effect(c)
+function c27143874.initial_effect(c)
 	--battle indestructable
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -23,11 +23,11 @@ function c13790411.initial_effect(c)
 	e3:SetOperation(c13790411.retop)
 	c:RegisterEffect(e3)
 end
-function c13790411.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c27143874.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,e:GetHandler(),1,0,0)
 end
-function c13790411.desop(e,tp,eg,ep,ev,re,r,rp)
+function c27143874.desop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) then
 		local c=e:GetHandler()
 		local e1=Effect.CreateEffect(c)
@@ -44,7 +44,7 @@ function c13790411.desop(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e2)
 	end
 end
-function c13790411.retop(e,tp,eg,ep,ev,re,r,rp)
+function c27143874.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if Duel.GetTurnPlayer()==tp and c:GetAttackedCount()~=0 then
 		c:ResetEffect(RESET_DISABLE,RESET_EVENT)
