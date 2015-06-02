@@ -21,6 +21,7 @@ function c98280324.initial_effect(c)
 end
 function c98280324.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0xa9)
+end
 function c98280324.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
