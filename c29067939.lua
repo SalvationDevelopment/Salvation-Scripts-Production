@@ -11,7 +11,7 @@ function c29067939.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c29067939.filter(c,e,tp)
-	return c:IsSetCard(0x72) and c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(7475314) and c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c29067939.xyzfilter(c,mg)
 	if c.xyz_count~=2 then return false end
