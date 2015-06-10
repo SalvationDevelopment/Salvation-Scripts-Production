@@ -33,11 +33,12 @@ function c13720011.eqop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if not Duel.Equip(tp,c,tc,false) then return end
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_F)
-	e3:SetCode(EVENT_CHAINING)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e3:SetCode(EVENT_CHAIN_SOLVING)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCountLimit(1)
+	e3:SetCondition(c13720011.discon)
 	e3:SetTarget(c13720011.distg)
 	e3:SetOperation(c13720011.disop)
 	c:RegisterEffect(e3)
@@ -62,20 +63,20 @@ function c13720011.eqlimit(e,c)
 end
 function c13720011.discon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
-	return ph>=0x08 and ph<=0x20 and (re:IsHasType(EFFECT_TYPE_ACTIVATE) or re:IsActiveType(TYPE_MONSTER))
-		and re:GetController()~=tp
-end
-function c13720011.discost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
+	return re:GetOwnerPlayer()~=tp
 end
 function c13720011.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function c13720011.disop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateEffect(ev)
-	e:GetHandler():RegisterFlagEffect(13720011,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_END,0,1)
+	local c=e:GetHandler()
+	local ec=c:GetEquipTarget()
+	local ph=Duel.GetCurrentPhase()
+	if re:GetOwnerPlayer()~=tp and (ph==PHASE_BATTLE or ph==PHASE_DAMAGE or ph==PHASE_DAMAGE_CAL)
+		and Duel.NegateEffect(ev) then
+		e:GetHandler():RegisterFlagEffect(13720011,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_END,0,1)
+	end
 end
 function c13720011.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(13720011)~=0
