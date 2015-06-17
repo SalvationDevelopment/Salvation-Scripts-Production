@@ -81,7 +81,10 @@ end
 function c13790604.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-		Duel.SSet(tp,tc)
+    local _useEffect = Duel.SelectYesNo(tp,aux.Stringid(13790604,2))
+    if (_useEffect) then
+      Duel.SSet(tp,tc)
+    end
 	end
 end
 
@@ -99,7 +102,10 @@ end
 function c13790604.operation2(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-		Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,6,POS_FACEUP,true)
-		Duel.ChangePosition(tc,POS_FACEUP)
+    local _useEffect = Duel.SelectYesNo(tp,aux.Stringid(13790604,3))
+    if (_useEffect) then
+      Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,6,POS_FACEUP,true)
+      Duel.ChangePosition(tc,POS_FACEUP)
+    end
 	end
 end
