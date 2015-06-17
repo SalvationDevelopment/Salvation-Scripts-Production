@@ -16,6 +16,7 @@ function c13790695.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetCountLimit(1,13791695)
+	e2:SetCondition(c13790695.tgcon)
 	e2:SetTarget(c13790695.tgtg)
 	e2:SetOperation(c13790695.tgop)
 	c:RegisterEffect(e2)
@@ -69,8 +70,9 @@ end
 function c13790695.atop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChainAttack()
 end
-
-
+function c13790695.tgcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
+end
 function c13790695.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
