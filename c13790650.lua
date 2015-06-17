@@ -1,4 +1,5 @@
 --D/D/D Kali Yuga the Twin Dawn Overlord
+-- FIXU NYAN
 function c13790650.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xaf),8,2)
@@ -11,6 +12,7 @@ function c13790650.initial_effect(c)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
+	e2:SetDescription(aux.Stringid(13790650,0))
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
@@ -21,6 +23,7 @@ function c13790650.initial_effect(c)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetDescription(aux.Stringid(13790650,1))
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCost(c13790650.cost)
 	e3:SetTarget(c13790650.target2)

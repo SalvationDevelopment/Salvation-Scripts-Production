@@ -74,15 +74,16 @@ function c13720044.spfilter(c,e,tp)
 end
 function c13720044.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
         if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-                and Duel.IsExistingMatchingCard(c13720044.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+                and Duel.IsExistingTarget(c13720044.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+        local g=Duel.SelectTarget(tp,c13720044.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
         Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 end
 function c13720044.spop(e,tp,eg,ep,ev,re,r,rp)
         if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-        Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-        local g=Duel.SelectMatchingCard(tp,c13720044.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
-        if g:GetCount()>0 then
-                Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+		local tc=Duel.GetFirstTarget()
+		if tc:IsRelateToEffect(e) then
+                Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
                 local e1=Effect.CreateEffect(e:GetHandler())
                 e1:SetType(EFFECT_TYPE_FIELD)
                 e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -91,8 +92,9 @@ function c13720044.spop(e,tp,eg,ep,ev,re,r,rp)
                 e1:SetTarget(c13720044.splimit)
                 e1:SetReset(RESET_PHASE+PHASE_END)
                 Duel.RegisterEffect(e1,tp)
-        end
-end
+			end
+		end
+
 function c13720044.splimit(e,c)
         return c:GetRace()~=RACE_AQUA
 end
