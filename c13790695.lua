@@ -23,7 +23,7 @@ function c13790695.initial_effect(c)
 end
 function c13790695.pscon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and r==REASON_RITUAL
-	and e:GetHandler():GetReasonCard():GetCode()==5405694
+	and (e:GetHandler():GetReasonCard():GetCode()==5405694 or e:GetHandler():GetReasonCard():GetCode()==13790642)
 end
 function c13790695.psop(e,tp,eg,ep,ev,re,r,rp)
 	local rc=e:GetHandler():GetReasonCard()
