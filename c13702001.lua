@@ -36,7 +36,8 @@ function c13702001.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c13702001.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,c:GetPreviousPosition()) and c:IsSetCard(0x3b)
+	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,c:GetPreviousPosition()) and c:IsSetCard(0x3b) and
+	c:GetPreviousControler()==tp
 end
 function c13702001.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
