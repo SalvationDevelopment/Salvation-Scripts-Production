@@ -16,14 +16,13 @@ function c13790696.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetCountLimit(1,13791696)
-	e2:SetCondition(c13790696.tgcon)
 	e2:SetTarget(c13790696.tgtg)
 	e2:SetOperation(c13790696.tgop)
 	c:RegisterEffect(e2)
 end
 function c13790696.pscon(e,tp,eg,ep,ev,re,r,rp)
-	return r==REASON_RITUAL
-	and (e:GetHandler():GetReasonCard():GetCode()==5405694 or e:GetHandler():GetReasonCard():GetCode()==13790642)
+	local c=e:GetHandler()
+	return r==REASON_RITUAL and (c:GetReasonCard():GetCode()==5405694  or c:GetReasonCard():GetCode()==13790642)
 end
 function c13790696.psop(e,tp,eg,ep,ev,re,r,rp)
 	local rc=e:GetHandler():GetReasonCard()
@@ -103,9 +102,7 @@ function c13790696.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 
-function c13790696.tgcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
-end
+
 function c13790696.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end

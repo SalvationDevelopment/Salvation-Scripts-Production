@@ -1,5 +1,4 @@
 --D/D/D Kali Yuga the Twin Dawn Overlord
--- FIXU NYAN
 function c13790650.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xaf),8,2)
@@ -12,7 +11,6 @@ function c13790650.initial_effect(c)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetDescription(aux.Stringid(13790650,0))
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
@@ -22,9 +20,11 @@ function c13790650.initial_effect(c)
 	e2:SetOperation(c13790650.operation)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetDescription(aux.Stringid(13790650,1))
+	e3:SetCategory(CATEGORY_DESTROY)
+	e3:SetType(EFFECT_TYPE_QUICK_O)
+	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_MZONE)
+	e3:SetCountLimit(1)
 	e3:SetCost(c13790650.cost)
 	e3:SetTarget(c13790650.target2)
 	e3:SetOperation(c13790650.operation2)
@@ -68,15 +68,15 @@ function c13790650.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c13790650.dfilter(c)
-	return c:IsDestructable()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
 end
 function c13790650.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790650.dfilter,tp,LOCATION_SZONE,LOCATION_SZONE,2,nil) end
-	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_SZONE,LOCATION_SZONE,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,2,nil) end
+	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c13790650.operation(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_SZONE,LOCATION_SZONE,nil)
+	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	Duel.Destroy(g,REASON_EFFECT)
 end
 
