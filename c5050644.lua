@@ -28,8 +28,11 @@ function c5050644.initial_effect(c)
 	e1:SetOperation(c5050644.operation2)
 	c:RegisterEffect(e1)
 end
-function c5050644.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingTarget(Card.IsSetCard,tp,LOCATION_MZONE,0,1,nil,0xc9)
+function c5050644.cfilter1(c)
+	return c:IsFaceup() and c:IsSetCard(0xc9)
+end
+function c5050644.recon1(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c5050644.cfilter1,tp,LOCATION_MZONE,0,1,nil)
 end
 function c5050644.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
