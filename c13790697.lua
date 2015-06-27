@@ -12,8 +12,9 @@ function c13790697.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c13790697.eqcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) 
-	and e:GetHandler():IsReason(REASON_DESTROY)
+	local c=e:GetHandler()
+	return c:IsPreviousLocation(LOCATION_MZONE) and re:IsActiveType(TYPE_MONSTER) 
+	and c:IsReason(REASON_DESTROY)
 end
 function c13790697.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsFaceup() end
