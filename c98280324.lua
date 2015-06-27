@@ -20,7 +20,7 @@ function c98280324.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c98280324.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0xa9)
+	return c:IsFaceup() and c:IsSetCard(0xa9) and not c:IsCode(98280324)
 end
 function c98280324.spcon(e,c)
 	if c==nil then return true end
