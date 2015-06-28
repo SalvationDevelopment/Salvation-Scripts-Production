@@ -54,7 +54,7 @@ function c13790625.regop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RegisterEffect(e1,tp)
 end
 function c13790625.filter1(c)
-	return c:IsSetCard(0x1e7) and c:GetCode()~=13790625 and c:IsAbleToHand()
+	return c:IsSetCard(0x1e7) and c:IsAbleToHand()
 end
 function c13790625.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790625.filter1,tp,LOCATION_DECK,0,1,nil) end
