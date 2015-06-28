@@ -45,7 +45,6 @@ function c75347539.spfilter(c,e,tp,code)
 	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c75347539.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return false end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>=2
 		and Duel.IsExistingTarget(c75347539.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp,99785935)
 		and Duel.IsExistingTarget(c75347539.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp,39256679)
