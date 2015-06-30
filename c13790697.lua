@@ -10,11 +10,18 @@ function c13790697.initial_effect(c)
 	e1:SetTarget(c13790697.eqtg)
 	e1:SetOperation(c13790697.eqop)
 	c:RegisterEffect(e1)
+	local e2=e1:Clone()
+	e2:SetCode(EVENT_BATTLE_DESTROYED)
+	e2:SetCondition(c13790697.eqcon2)
+	c:RegisterEffect(e2)
 end
 function c13790697.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and re:IsActiveType(TYPE_MONSTER) 
-	and c:IsReason(REASON_DESTROY)
+	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsReason(REASON_EFFECT) and 
+	c:IsReason(REASON_DESTROY) and re:IsActiveType(TYPE_MONSTER)  
+end
+function c13790697.eqcon2(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsLocation(LOCATION_GRAVE)
 end
 function c13790697.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsFaceup() end
