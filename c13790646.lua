@@ -28,13 +28,13 @@ function c13790646.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(c13790646.filter,tp,LOCATION_MZONE,LOCATION_MZONE,c,c:GetAttack())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
+	e:SetLabel(g:GetCount())
 end
 function c13790646.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c13790646.filter,tp,LOCATION_MZONE,LOCATION_MZONE,c,c:GetAttack())
-	local ct=Duel.Destroy(g,REASON_EFFECT)
-	if ct>0 then
-		Duel.Damage(1-tp,ct*500,REASON_EFFECT)
+	if g and e:GetLabel()>0 and Duel.Destroy(g,REASON_EFFECT) then
+		Duel.BreakEffect()
+		Duel.Damage(1-tp,e:GetLabel()*500,REASON_EFFECT)
 	end
 end
