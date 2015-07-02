@@ -10,6 +10,10 @@ function c13720045.initial_effect(c)
 	e1:SetOperation(c13720045.activate)
 	c:RegisterEffect(e1)
 end
+
+function c13720045.filter(c)
+	return c:IsFaceup() and c:IsType(TYPE_EFFECT) and not c:IsDisabled()
+end
 function c13720045.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) end
 	if chk==0 then return Duel.IsExistingTarget(c13720045.filter,tp,LOCATION_MZONE,0,1,nil) and 
