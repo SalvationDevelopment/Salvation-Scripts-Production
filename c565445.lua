@@ -21,13 +21,13 @@ function c565445.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c565445.filter1(c)
-	return c:IsSetCard(0x77)and c:GetCode()~=565445 and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x77) and c:GetCode()~=565445 and c:IsType(TYPE_MONSTER)
 end
 function c565445.filter2(c)
-	return c:IsSetCard(0x77)and c:GetCode()~=565445
+	return c:IsSetCard(0x77) and c:GetCode()~=565445
 end
 function c565445.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c565445.filter1,tp,LOCATION_DECK,0,2,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c565445.filter2,tp,LOCATION_DECK,0,2,nil) and Duel.IsExistingMatchingCard(c565445.filter1,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
 function c565445.activate(e,tp,eg,ep,ev,re,r,rp)

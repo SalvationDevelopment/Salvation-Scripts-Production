@@ -47,7 +47,8 @@ function c13790409.descon(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790409.filter(c,e,tp)
-	return c:IsSetCard(0xb2) and not c:IsCode(13790409) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xb2) and not c:IsCode(13790409) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) 
+	 and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function c13790409.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
