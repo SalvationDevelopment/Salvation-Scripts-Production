@@ -11,11 +11,12 @@ function c13790696.initial_effect(c)
 	c:RegisterEffect(e1)
 	--tograve
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOGRAVE)
+	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetCountLimit(1,13791696)
+	e2:SetCondition(c13790696.tgcon)
 	e2:SetTarget(c13790696.tgtg)
 	e2:SetOperation(c13790696.tgop)
 	c:RegisterEffect(e2)
@@ -102,7 +103,9 @@ function c13790696.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 
-
+function c13790696.tgcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+end
 function c13790696.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
