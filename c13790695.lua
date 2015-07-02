@@ -73,7 +73,7 @@ function c13790695.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790695.tgcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
 end
 function c13790695.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
