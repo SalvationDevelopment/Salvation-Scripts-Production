@@ -24,8 +24,9 @@ function c13729026.filter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x98) and c:IsAbleToHand()
 end
 function c13729026.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	local rg=Duel.GetMatchingGroup(c13729026.filter,tp,LOCATION_DECK,0,nil)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13729026.filter,tp,LOCATION_DECK,0,2,nil)
-	and Duel.GetCustomActivityCount(13729026,tp,ACTIVITY_CHAIN)==0 end
+	and Duel.GetCustomActivityCount(13729026,tp,ACTIVITY_CHAIN)==0 and rg:GetClassCount(Card.GetCode)>=2 end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c13729026.activate(e,tp,eg,ep,ev,re,r,rp)
