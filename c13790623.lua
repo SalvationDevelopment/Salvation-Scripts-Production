@@ -108,7 +108,7 @@ function c13790623.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c13790623.tgcon(e,tp,eg,ep,ev,re,r,rp)
-	return c:IsPreviousLocation(LOCATION_GRAVE)
+	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
 end 
 function c13790623.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790623.thfilter,tp,LOCATION_DECK,0,1,nil) end
