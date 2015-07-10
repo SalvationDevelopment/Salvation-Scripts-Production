@@ -9,14 +9,14 @@ function c13790619.initial_effect(c)
 	e1:SetOperation(c13790619.ntop)
 	c:RegisterEffect(e1)
 	--spsummon
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetCode(EVENT_RELEASE)
-	e3:SetCountLimit(1,13790619)
-	e3:SetTarget(c13790619.sptg)
-	e3:SetOperation(c13790619.spop)
-	c:RegisterEffect(e3)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetCode(EVENT_RELEASE)
+	e2:SetCountLimit(1,13790619)
+	e2:SetTarget(c13790619.sptg)
+	e2:SetOperation(c13790619.spop)
+	c:RegisterEffect(e2)
 end
 function c13790619.ntcon(e,c,minc)
 	if c==nil then return true end
@@ -36,8 +36,7 @@ end
 
 
 function c13790619.spfilter(c,e,tp)
-	local code=c:GetCode()
-	return code==5405694 or code==13790642 or code==72989439 or code==77498348
+	return c:IsSetCard(0x1373)
 end
 function c13790619.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790619.spfilter,tp,LOCATION_DECK,0,1,nil) end
