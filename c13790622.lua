@@ -1,4 +1,4 @@
---Knight of the Evening Twilight
+--Knight of the Beginning
 function c13790622.initial_effect(c)
 	--pierce
 	local e1=Effect.CreateEffect(c)
@@ -15,7 +15,7 @@ function c13790622.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_REMOVE)
-	e2:SetCountLimit(1,13791622)
+	e2:SetCountLimit(1,13790622)
 	e2:SetCondition(c13790622.tgcon)
 	e2:SetTarget(c13790622.tgtg)
 	e2:SetOperation(c13790622.tgop)
@@ -29,17 +29,14 @@ function c13790622.psop(e,tp,eg,ep,ev,re,r,rp)
 	local rc=e:GetHandler():GetReasonCard()
 	local c=e:GetHandler()
 	--chain attack
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(13790622,0))
-	e2:SetCategory(CATEGORY_REMOVE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetCountLimit(1)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetReset(RESET_EVENT+0x1fe0000)
-	e2:SetTarget(c13790622.rmtg1)
-	e2:SetOperation(c13790622.rmop1)
-	rc:RegisterEffect(e2)
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(13790622,2))
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCode(EVENT_BATTLED)
+	e1:SetReset(RESET_EVENT+0x1fe0000)
+	e1:SetCondition(c13790622.atcon)
+	e1:SetOperation(c13790622.atop)
+	rc:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(13790622,1))
 	e2:SetCategory(CATEGORY_REMOVE)
@@ -52,42 +49,6 @@ function c13790622.psop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetOperation(c13790622.rmop)
 	rc:RegisterEffect(e2)
 end
-function c13790622.rmtg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsAbleToRemove() end
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_HAND,1,nil) end
-end
-function c13790622.rmop1(e,tp,eg,ep,ev,re,r,rp)
-		local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_HAND,nil)
-		if g:GetCount()==0 then return end
-		local rg=g:RandomSelect(tp,1)
-		local tc=rg:GetFirst()
-		Duel.Remove(tc,POS_FACEDOWN,REASON_EFFECT)
-		tc:RegisterFlagEffect(13790622,RESET_EVENT+0x1fe0000,0,1)
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PHASE+PHASE_END)
-		e1:SetCountLimit(1)
-		e1:SetLabelObject(tc)
-		e1:SetReset(RESET_PHASE+PHASE_END,2)
-		e1:SetCondition(c13790622.retcon)
-		e1:SetOperation(c13790622.retop)
-		Duel.RegisterEffect(e1,tp)
-end
-function c13790622.retcon(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	if tc:GetFlagEffect(13790622)==0 then
-		e:Reset()
-		return false
-	else
-		return Duel.GetTurnPlayer()==1-tp
-	end
-end
-function c13790622.retop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	Duel.SendtoHand(tc,1-tp,REASON_EFFECT)
-end
-
-
 function c13790622.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsAbleToRemove() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,nil) end
@@ -101,15 +62,22 @@ function c13790622.rmop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end
-
-
-
-function c13790622.thfilter(c)
-	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+function c13790622.atcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=c:GetBattleTarget()
+	return bc and bc:IsStatus(STATUS_BATTLE_DESTROYED) and c:GetFlagEffect(13790622)==0
+		and c:IsChainAttackable() and c:IsStatus(STATUS_OPPO_BATTLE) 
 end
+function c13790622.atop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.ChainAttack()
+end
+
 function c13790622.tgcon(e,tp,eg,ep,ev,re,r,rp)
-	return c:IsPreviousLocation(LOCATION_GRAVE)
-end 
+	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+end
+function c13790622.thfilter(c)
+	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+end
 function c13790622.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790622.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
