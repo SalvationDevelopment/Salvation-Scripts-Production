@@ -11,11 +11,12 @@ function c13790622.initial_effect(c)
 	c:RegisterEffect(e1)
 	--tograve
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOGRAVE)
+	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_REMOVE)
-	e2:SetCountLimit(1,13791696)
+	e2:SetCountLimit(1,13791622)
+	e2:SetCondition(c13790622.tgcon)
 	e2:SetTarget(c13790622.tgtg)
 	e2:SetOperation(c13790622.tgop)
 	c:RegisterEffect(e2)
@@ -106,6 +107,9 @@ end
 function c13790622.thfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
+function c13790622.tgcon(e,tp,eg,ep,ev,re,r,rp)
+	return c:IsPreviousLocation(LOCATION_GRAVE)
+end 
 function c13790622.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13790622.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
