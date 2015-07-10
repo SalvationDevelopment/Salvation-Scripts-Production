@@ -11,7 +11,7 @@ function c13790656.initial_effect(c)
 	e1:SetOperation(c13790656.spop)
 	c:RegisterEffect(e1)
 end
-function c13790656.ritual_filter(c))
+function c13790656.ritual_filter(c)
 	return c:IsSetCard(0x1373) and c:IsType(TYPE_RITUAL)
 end
 function c13790656.spfilter(c,att)
