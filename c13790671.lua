@@ -48,7 +48,7 @@ function c13790671.spcon(e,c)
 end
 function c13790671.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,0,0x3001,1,REASON_COST) end
-	Duel.RemoveCounter(tp,1,0,0x3001,1,REASON_COST)
+	Duel.RemoveCounter(e:GetHandler():GetControler(),1,0,0x3001,1,REASON_COST)
 end
 function c13790671.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	local c=e:GetHandler()
