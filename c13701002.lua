@@ -25,7 +25,7 @@ function c13701002.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c13701002.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and (c:IsAttribute(ATTRIBUTE_LIGTH) or c:IsAttribute(ATTRIBUTE_DARK)) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:IsAbleToGrave()
 end
 function c13701002.rmfilter(c)
 	return c:IsAbleToRemove()
@@ -55,7 +55,7 @@ function c13701002.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsRelateToBattle() and c:GetBattleTarget():IsType(TYPE_MONSTER)
 end
 function c13701002.filter(c)
-	return c:IsRace(RACE_WARRIOR) and c:GetLevel()<=7 and c:IsAbleToHand()
+	return c:IsRace(RACE_WARRIOR) and c:GetLevel()<=7 and c:IsAbleToHand() and not c:IsType(TYPE_XYZ)
 end
 function c13701002.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13701002.filter(chkc) end

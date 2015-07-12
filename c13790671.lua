@@ -10,13 +10,14 @@ function c13790671.initial_effect(c)
 	e1:SetTarget(c13790671.target)
 	e1:SetOperation(c13790671.activate)
 	c:RegisterEffect(e1)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetRange(LOCATION_GRAVE)
-	e1:SetCondition(c13790671.spcon)
-	e1:SetOperation(c13790671.spop)
-	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCondition(c13790671.spcon)
+	e2:SetCost(c13790671.spcost)
+	e2:SetOperation(c13790671.spop)
+	c:RegisterEffect(e2)
 end
 function c13790671.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1373)
@@ -44,10 +45,12 @@ end
 
 function c13790671.spcon(e,c)
 	return Duel.GetLocationCount(e:GetHandler():GetControler(),LOCATION_SZONE)>0
-		and Duel.IsCanRemoveCounter(e:GetHandler():GetControler(),1,1,0x3001,1,REASON_COST)
+end
+function c13790671.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,0,0x3001,1,REASON_COST) end
+	Duel.RemoveCounter(tp,1,0,0x3001,1,REASON_COST)
 end
 function c13790671.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	Duel.RemoveCounter(tp,1,1,0x3001,1,REASON_COST)
 	local c=e:GetHandler()
 	Duel.SSet(tp,c)
 	Duel.ConfirmCards(1-tp,c)
