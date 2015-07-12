@@ -2,7 +2,6 @@
 function c34688023.initial_effect(c)
 	--draw
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(34688023,0))
 	e1:SetCategory(CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
@@ -32,7 +31,7 @@ function c34688023.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.BreakEffect()
-		if Duel.SelectOption(tp,aux.Stringid(34688023,1),aux.Stringid(34688023,2))==0 then
+		if Duel.SelectOption(tp,aux.Stringid(34688023,0),aux.Stringid(34688023,1))==0 then
 			Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 		else
 			Duel.SendtoDeck(g,nil,1,REASON_EFFECT)
