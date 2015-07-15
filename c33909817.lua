@@ -37,11 +37,11 @@ function c33909817.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ConfirmDecktop(tp,1)
 	local g=Duel.GetDecktopGroup(tp,1)
 	local tc=g:GetFirst()
-	if tc:GetType()==TYPE_SPELL or tc:GetType()==TYPE_TRAP then
+	if tc:IsType(TYPE_MONSTER) then
 		Duel.DisableShuffleCheck()
-		Duel.SendtoHand(g,REASON_EFFECT)
-	else
 		Duel.SendtoGrave(g,REASON_EFFECT)
+	else
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
 	end
 end
 function c33909817.cfilter(c)
