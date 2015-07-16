@@ -1,4 +1,5 @@
 --Swap Frog
+--tcg ruling
 function c9126351.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -62,12 +63,13 @@ function c9126351.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9126351.excost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,9126352)==0 and Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SendtoHand(g,nil,REASON_COST)
 end
 function c9126351.exop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFlagEffect(tp,9126352)~=0 then end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
