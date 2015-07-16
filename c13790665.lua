@@ -12,7 +12,7 @@ function c13790665.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c13790665.filter(c,tp)
-	return c:IsType(TYPE_NORMAL) and c:IsAbleToGrave()
+	return c:IsType(TYPE_NORMAL) and c:IsAbleToGrave() and c:IsLevelBelow(4)
 		and Duel.IsExistingMatchingCard(c13790665.filter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function c13790665.filter2(c,code)
