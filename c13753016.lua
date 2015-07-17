@@ -46,7 +46,7 @@ function c13753016.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(c13753016.filter2,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	local g=Duel.SelectTarget(tp,c13753016.filter2,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetTargetPlayer(tp)
-	Duel.SetTargetParam(g:GetFirst():GetBaseAttack())
+	Duel.SetTargetParam(g:GetFirst():GetAttack())
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,0)
 end
 function c13753016.operation(e,tp,eg,ep,ev,re,r,rp)
