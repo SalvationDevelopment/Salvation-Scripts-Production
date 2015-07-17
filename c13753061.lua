@@ -28,7 +28,7 @@ function c13753061.splimit(e,se,sp,st)
 end
 
 function c13753061.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,0)<=0
+	return rp~=tp and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)<=0
 end
 function c13753061.filter(c,e,tp)
 	return c:IsCode(13753060) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
