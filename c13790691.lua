@@ -1,4 +1,4 @@
---Majespecter Tempest
+--greydle impact
 function c13790691.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -41,6 +41,7 @@ function c13790691.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g1,2,0,0)
 end
 function c13790691.desop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
 	if tg:GetCount()>0 then
@@ -59,6 +60,7 @@ function c13790691.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c13790691.thop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c13790691.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 then
