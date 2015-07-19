@@ -1,62 +1,65 @@
---Black Dragon Archfiend
+--Kozmo Goodwitch
 function c13790503.initial_effect(c)
-	c:SetUniqueOnField(1,0,13790503)
-	--fusion material
-	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,c13790503.ffilter1,c13790503.ffilter2,true)
-	--actlimit
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e1:SetDescription(aux.Stringid(13790502,0))
+	e1:SetType(EFFECT_TYPE_QUICK_O+EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTargetRange(0,1)
-	e1:SetValue(c13790503.aclimit)
-	e1:SetCondition(c13790503.actcon)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCountLimit(1,13790503)
+	e1:SetCost(c13790503.cost)
+	e1:SetTarget(c13790503.sumtg)
+	e1:SetOperation(c13790503.sumop)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(13790503,0))
-	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_PHASE+PHASE_BATTLE)
+	e2:SetDescription(aux.Stringid(94997874,1))
+	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c13790503.descon)
-	e2:SetTarget(c13790503.destg)
-	e2:SetOperation(c13790503.desop)
+	e2:SetCost(c13790503.poscost)
+	e2:SetTarget(c13790503.postg)
+	e2:SetOperation(c13790503.posop)
 	c:RegisterEffect(e2)
 end
-function c13790503.ffilter1(c)
-	return c:IsSetCard(0x45) and c:IsType(TYPE_NORMAL) and c:GetLevel()==6
+function c13790503.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then return c:IsAbleToRemoveAsCost() end
+	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
-function c13790503.ffilter2(c)
-	return c:IsSetCard(0x3b) and c:IsType(TYPE_NORMAL)
+function c13790503.1filter(c,e,tp)
+	return (c:IsCode(13790502) or c:IsCode(13790503) or c:IsCode(13790504) or c:IsCode(13790505))
+		and c:GetLevel()>=5 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c13790503.aclimit(e,re,tp)
-	return not re:GetHandler():IsImmuneToEffect(e)
+function c13790503.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
+		and Duel.IsExistingMatchingCard(c13790503.1filter,tp,LOCATION_HAND,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
-function c13790503.actcon(e)
-	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
+function c13790503.sumop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,c13790503.1filter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	end
 end
 
-function c13790503.descon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetBattledGroupCount()>0
+function c13790503.poscost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.CheckLPCost(tp,900) end
+	Duel.PayLPCost(tp,900)
 end
-function c13790503.filter(c)
-	return c:IsSetCard(0x3b) and c:IsType(TYPE_NORMAL)
+function c13790503.pfilter(c)
+	return c:IsFaceup() and c:IsCanTurnSet()
 end
-function c13790503.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c13790503.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13790503.filter,tp,LOCATION_GRAVE,0,1,nil)
-	 and bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION end
+function c13790503.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:GetLocation()==LOCATION_MZONE and c13790503.pfilter(chkc) end
+	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,c13790503.filter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c13790503.pfilter,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
 end
-function c13790503.desop(e,tp,eg,ep,ev,re,r,rp)
+function c13790503.posop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		Duel.Damage(1-tp,tc:GetBaseAttack(),REASON_EFFECT)
-		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENCE)
 	end
 end

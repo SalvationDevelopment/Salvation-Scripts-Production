@@ -1,98 +1,67 @@
---Infernoid Terra
+--Kozmo Sliprider
 function c13790504.initial_effect(c)
-	--fusion material
-	c:EnableReviveLimit()
+	--destroy
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetCode(EFFECT_FUSION_MATERIAL)
-	e1:SetCondition(c13790504.fscon)
-	e1:SetOperation(c13790504.fsop)
+	e1:SetCategory(CATEGORY_DESTROY)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e1:SetTarget(c13790504.destg)
+	e1:SetOperation(c13790504.desop)
 	c:RegisterEffect(e1)
-	--summon success
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_MATERIAL_CHECK)
-	e2:SetValue(c13790504.matcheck)
+	local e2=e1:Clone()
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
-	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCondition(c13790504.regcon)
-	e3:SetOperation(c13790504.regop)
-	e3:SetLabelObject(e2)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetCost(c13790504.cost)
+	e3:SetCondition(c13790504.con)
+	e3:SetTarget(c13790504.target)
+	e3:SetOperation(c13790504.operation)
 	c:RegisterEffect(e3)
 end
-function c13790504.matcheck(e,c)
-	local g=c:GetMaterial()
-	e:SetLabel(g:GetClassCount(Card.GetCode))
+function c13790504.desfilter(c)
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
 end
-function c13790504.splimit(e,se,sp,st)
-	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
+function c13790504.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() and c13790504.desfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c13790504.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectTarget(tp,c13790504.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-function c13790504.mfilter1(c,mg)
-	return c:IsCode(14799437) and mg:IsExists(Card.IsSetCard,1,c,0xbb)
-end
-function c13790504.mfilter2(c,mg)
-	return c:IsCode(23440231) and mg:IsExists(Card.IsCode,1,c,14799437)
-end
-function c13790504.mfilter3(c,mg)
-	return c:IsSetCard(0xbb) and not (c:IsCode(14799437) or c:IsCode(23440231))
-end
-function c13790504.fscon(e,mg,gc)
-	if mg==nil then return false end
-	if gc then return false end
-	return mg:IsExists(c13790504.mfilter1,1,nil,mg)
-end
-function c13790504.fsop(e,tp,eg,ep,ev,re,r,rp,gc)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g1=eg:FilterSelect(tp,c13790504.mfilter1,1,1,nil,eg)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g2=eg:FilterSelect(tp,c13790504.mfilter2,1,1,nil,eg)
-	g1:Merge(g2)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	local g3=eg:FilterSelect(tp,c13790504.mfilter3,1,10,nil)
-	g1:Merge(g3)
-	Duel.SetFusionMaterial(g1)
+function c13790504.desop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.Destroy(tc,REASON_EFFECT)
+	end
 end
 
+function c13790504.con(e)
+	return e:GetHandler():IsReason(REASON_DESTROY)
+end
 
-function c13790504.regcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
+function c13790504.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
+	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
-function c13790504.regop(e,tp,eg,ep,ev,re,r,rp)
-	local ct=e:GetLabelObject():GetLabel()
-	local c=e:GetHandler()
-	if ct>=3 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-		local g1=Duel.SelectMatchingCard(tp,nil,tp,LOCATION_EXTRA,0,3,3,nil)
-		local tg=Duel.GetFieldGroup(tp,0,LOCATION_EXTRA)
-			Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TOGRAVE)
-			local g2=tg:Select(1-tp,3,3,nil)
-			g1:Merge(g2)
-			if g1:GetCount()>0 then
-			Duel.BreakEffect()
-			Duel.SendtoGrave(g1,REASON_EFFECT)
-		end
-	end
-	if ct>=5 then
-		Duel.DiscardDeck(0,3,REASON_EFFECT)
-		Duel.DiscardDeck(1,3,REASON_EFFECT)
-	end
-	if ct>=8 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-		local g1=Duel.SelectMatchingCard(tp,nil,tp,LOCATION_REMOVED,0,1,3,nil)
-		local tg=Duel.GetFieldGroup(tp,0,LOCATION_REMOVED)
-			Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TOGRAVE)
-			local g2=tg:Select(1-tp,1,3,nil)
-			g1:Merge(g2)
-			if g1:GetCount()>0 then
-			Duel.BreakEffect()
-			Duel.SendtoGrave(g1,REASON_EFFECT+REASON_RETURN)
-		end
-	end
-	if ct>=10 then
-	local g=Duel.GetFieldGroup(tp,LOCATION_HAND,LOCATION_HAND)
-	if g:GetCount()>0 then Duel.SendtoGrave(g,REASON_DISCARD+REASON_EFFECT) end
+function c13790504.filter(c,e,sp)
+	return (c:IsCode(13790502) or c:IsCode(13790503) or c:IsCode(13790504) or c:IsCode(13790505))
+		and c:GetLevel()<=4 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
+function c13790504.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c13790504.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+end
+function c13790504.operation(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,c13790504.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
+
