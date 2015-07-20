@@ -1,4 +1,5 @@
---Greydle Split
+--Greydle Split 
+-- EDITED NYAAAAN
 function c13790675.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -36,7 +37,7 @@ function c13790675.operation(e,tp,eg,ep,ev,re,r,rp)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_EQUIP)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(400)
+		e1:SetValue(500)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		c:RegisterEffect(e1)
 		if Duel.GetLocationCount(tp,LOCATION_MZONE)>=2 then
@@ -80,30 +81,28 @@ function c13790675.rmop(e,tp,eg,ep,ev,re,r,rp)
 			local g2=Duel.SelectMatchingCard(tp,c13790675.spfilter2,tp,LOCATION_DECK,0,1,1,tc,e,tp,g1:GetFirst():GetCode())
 			g1:Merge(g2)
 			Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)
-			local e4=Effect.CreateEffect(c)
-			e4:SetDescription(aux.Stringid(60549248,1))
-			e4:SetCategory(CATEGORY_DESTROY)
-			e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-			e4:SetCode(EVENT_PHASE+PHASE_END)
-			e4:SetRange(LOCATION_MZONE)
-			e4:SetCountLimit(1)
-			e4:SetOperation(c13790675.desop)
-			g1:GetFirst():RegisterEffect(e4)
-			local e4=Effect.CreateEffect(c)
-			e4:SetDescription(aux.Stringid(60549248,1))
-			e4:SetCategory(CATEGORY_DESTROY)
-			e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-			e4:SetCode(EVENT_PHASE+PHASE_END)
-			e4:SetRange(LOCATION_MZONE)
-			e4:SetCountLimit(1)
-			e4:SetOperation(c13790675.desop)
-			g1:GetNext():RegisterEffect(e4)
+			local e1=Effect.CreateEffect(e:GetHandler())
+			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+			e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+			e1:SetRange(LOCATION_MZONE)
+			e1:SetCode(EVENT_PHASE+PHASE_END)
+			e1:SetOperation(c13790675.desop)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			e1:SetCountLimit(1)
+			g1:GetFirst():RegisterEffect(e1,true)
+			local e2=Effect.CreateEffect(e:GetHandler())
+			e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+			e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+			e2:SetRange(LOCATION_MZONE)
+			e2:SetCode(EVENT_PHASE+PHASE_END)
+			e2:SetOperation(c13790675.desop)
+			e2:SetReset(RESET_EVENT+0x1fe0000)
+			e2:SetCountLimit(1)
+			g1:GetNext():RegisterEffect(e2,true)
 		end
 	end
 end
 function c13790675.desop(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsRelateToEffect(e) then
-		Duel.Destroy(e:GetHandler(),REASON_EFFECT)
-	end
+	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
 
