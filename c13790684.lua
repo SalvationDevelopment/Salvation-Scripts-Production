@@ -8,7 +8,7 @@ function c13790684.initial_effect(c)
 	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(12697630,0))
+	e2:SetDescription(aux.Stringid(13790684,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_TO_GRAVE)
@@ -18,18 +18,17 @@ function c13790684.initial_effect(c)
 	c:RegisterEffect(e2)
 	--destroy
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(12697630,1))
+	e3:SetDescription(aux.Stringid(13790684,1))
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCountLimit(1,12697630)
 	e3:SetCondition(c13790684.descon)
 	e3:SetTarget(c13790684.destg)
 	e3:SetOperation(c13790684.desop)
 	c:RegisterEffect(e3)
 	--spsummon
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(12423762,0))
+	e4:SetDescription(aux.Stringid(13790684,0))
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -62,12 +61,12 @@ function c13790684.filter(c)
 end
 function c13790684.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.IsExistingMatchingCard(c18144506.filter,tp,LOCATION_SZONE,0,1,c) end
-	local sg=Duel.GetMatchingGroup(c18144506.filter,tp,LOCATION_SZONE,0FIELD,c)
+	if chk==0 then return Duel.IsExistingMatchingCard(c13790684.filter,tp,LOCATION_SZONE,0,1,c) end
+	local sg=Duel.GetMatchingGroup(c13790684.filter,tp,LOCATION_SZONE,0,1,c)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
 end
 function c13790684.desop(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroup(c18144506.filter,tp,LOCATION_SZONE,0,e:GetHandler())
+	local sg=Duel.GetMatchingGroup(c13790684.filter,tp,LOCATION_SZONE,0,e:GetHandler())
 	Duel.Destroy(sg,REASON_EFFECT)
 end
 

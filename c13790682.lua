@@ -1,8 +1,9 @@
---Traptrix Rafflesia
+--Traptrix Rafflesia HELL YEAH FIXED NYAN!
 function c13790682.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,2)
 	c:EnableReviveLimit()
+	--Trap Immunity
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -25,12 +26,14 @@ function c13790682.initial_effect(c)
 	c:RegisterEffect(e3)
 	--cannot target
 	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE)
-	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e4:SetType(EFFECT_TYPE_FIELD)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+	e4:SetTarget(c13790682.etarget)
+	e4:SetTargetRange(LOCATION_MZONE,0)
 	e4:SetValue(aux.tgoval)
 	c:RegisterEffect(e4)
+	--Activate
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_O)
 	e5:SetCode(EVENT_FREE_CHAIN)
@@ -42,6 +45,10 @@ function c13790682.initial_effect(c)
 	e5:SetOperation(c13790682.operation)
 	c:RegisterEffect(e5)
 end
+
+function c13790682.etarget(e,c)
+	return c:IsSetCard(0x108a) and not c:IsCode(13790682)
+end
 function c13790682.effcon(e)
 	return e:GetHandler():GetOverlayCount()>0
 end
@@ -49,10 +56,9 @@ function c13790682.efilter(e,te)
 	return te:IsActiveType(TYPE_TRAP)
 end
 
-function c13790682.indtg(c)
-	return c:IsSetCard(0x108a) and not c:IsCode(13790682)
+function c13790682.indtg(e,c)
+	return c:IsSetCard(0x108A) and not c:IsCode(13790682)
 end
-
 
 function c13790682.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST)
