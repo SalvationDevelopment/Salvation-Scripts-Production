@@ -32,7 +32,8 @@ function c75249652.activate(e,tp,eg,ep,ev,re,r,rp)
                 		atk=atk+tc:GetTextAttack()
 			end
                		tc=g:GetNext()
-        	end   
+        	end 
+				atk=atk/2
                 if atk<0 then atk=0 end
                 local val=Duel.Damage(tp,atk,REASON_EFFECT)
 		if val>0 and Duel.GetLP(tp)>0 then
