@@ -25,7 +25,7 @@ function c13790609.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c13790609.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetControler()==tp and chkc:GetLocation()==LOCATION_GRAVE and chkc:IsAbleToRemove() end
-	if chk==0 then return Duel.IsExistingTarget(c13790609.filter,tp,LOCATION_GRAVE,0,1,nil) and Duel.IsPlayerCanDraw(tp,1) 
+	if chk==0 then return Duel.IsExistingTarget(c13790609.filter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) and Duel.IsPlayerCanDraw(tp,1) 
 	and Duel.IsExistingMatchingCard(c13790609.filter2,tp,LOCATION_SZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,c13790609.filter,tp,LOCATION_GRAVE,0,1,1,nil)

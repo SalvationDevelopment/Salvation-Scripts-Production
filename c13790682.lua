@@ -64,6 +64,7 @@ function c13790682.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST)
 	and Duel.IsExistingMatchingCard(c13790682.filter,tp,LOCATION_DECK,0,1,nil)  end
 	local g=Duel.SelectMatchingCard(tp,c13790682.filter,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()==0 then return end
 	local te=g:GetFirst():CheckActivateEffect(false,true,true)
 	c13790682[Duel.GetCurrentChain()]=te
 	Duel.SendtoGrave(g,REASON_EFFECT)

@@ -64,7 +64,7 @@ function c13790501.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790501.filter2(c)
-	return c:IsAbleToDeck() and (c:IsCode(13790502) or c:IsCode(13790503) or c:IsCode(13790504) or c:IsCode(13790505))
+	return c:IsAbleToDeck() and not c:IsPublic() and (c:IsCode(13790502) or c:IsCode(13790503) or c:IsCode(13790504) or c:IsCode(13790505))
 end
 
 function c13790501.target2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -79,6 +79,7 @@ function c13790501.activate2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,p,HINTMSG_TODECK)
 	local g=Duel.SelectMatchingCard(p,c13790501.filter2,p,LOCATION_HAND,0,1,63,nil)
 	if g:GetCount()==0 then return end
+	Duel.ConfirmCards(1-p,g)
 	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 	Duel.ShuffleDeck(p)
 	Duel.BreakEffect()

@@ -47,13 +47,14 @@ function c13753035.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,1-tp,LOCATION_HAND)
 end
 function c13753035.operation(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_HAND,nil)
 	if g:GetCount()==0 then return end
 	local rg=g:RandomSelect(tp,1)
 	local tc=rg:GetFirst()
-	Duel.Remove(tc,POS_FACEDOWN,REASON_EFFECT)
 	Duel.Remove(c,0,REASON_EFFECT+REASON_TEMPORARY)
+	Duel.Remove(tc,POS_FACEDOWN,REASON_EFFECT)
 	
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)

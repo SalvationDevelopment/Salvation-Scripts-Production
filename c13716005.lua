@@ -15,18 +15,16 @@ function c13716005.condition(e,tp,eg,ep,ev,re,r,rp)
 		and Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)>=3
 end
 function c13716005.activate(e,tp,eg,ep,ev,re,r,rp)
-	if 	Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>2 and Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)>2 then
-		Duel.BreakEffect()
-		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TODECK)
-		local g=Duel.GetFieldGroup(tp,LOCATION_HAND,LOCATION_HAND)
-		Duel.SendtoDeck(g,nil,1,REASON_EFFECT)
-		local og=Duel.GetOperatedGroup()
-		local ct=og:GetCount()
-		local lp=Duel.GetLP(tp)
-		if ct>0 and Duel.SetLP(tp,lp-ct*300)~=0 then
+	Duel.BreakEffect()
+	Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TODECK)
+	local g=Duel.GetFieldGroup(tp,LOCATION_HAND,LOCATION_HAND)
+	Duel.SendtoDeck(g,nil,1,REASON_EFFECT)
+	local og=Duel.GetOperatedGroup()
+	local ct=og:GetCount()
+	local lp=Duel.GetLP(tp)
+	if ct>0 and Duel.SetLP(tp,lp-ct*300)~=0 then
 		Duel.Draw(tp,5,REASON_EFFECT)
 		Duel.Draw(1-tp,5,REASON_EFFECT)
-		end
 	end
 end
 

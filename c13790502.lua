@@ -4,7 +4,7 @@ function c13790502.initial_effect(c)
 	-- Banish
 	e1:SetDescription(aux.Stringid(13790502,0))
 	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCategory(CATEGORY_SPSUMMON)
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,13790502)

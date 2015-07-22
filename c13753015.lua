@@ -7,12 +7,17 @@ function c13753015.initial_effect(c)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
 	e1:SetCountLimit(1,13753015)
 	e1:SetTarget(c13753015.sptg)
+	e1:SetCondition(c13753015.condition)
 	e1:SetOperation(c13753015.spop)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2)
 end
+function c13753015.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)<=1
+end
+
 function c13753015.filter(c,e,tp)
 	return c:IsRace(RACE_FIEND) and c:IsType(TYPE_TUNER) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
