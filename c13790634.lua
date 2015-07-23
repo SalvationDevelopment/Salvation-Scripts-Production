@@ -13,7 +13,7 @@ function c13790634.initial_effect(c)
 end
 function c13790634.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsReason(REASON_DESTROY) and
+	return c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE) and c:IsReason(REASON_DESTROY) and
 	 (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and re:IsActiveType(TYPE_TRAP)) or re:GetOwner():IsCode(13790675))
 end
 function c13790634.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
