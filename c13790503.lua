@@ -48,8 +48,8 @@ function c13790503.sumop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790503.poscost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLPCost(tp,900) end
-	Duel.PayLPCost(tp,900)
+	if chk==0 then return Duel.CheckLPCost(tp,500) end
+	Duel.PayLPCost(tp,500)
 end
 function c13790503.pfilter(c)
 	return c:IsFaceup() and c:IsCanTurnSet()
