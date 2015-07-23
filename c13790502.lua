@@ -50,8 +50,8 @@ function c13790502.sumop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13790502.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLPCost(tp,300) end
-	Duel.PayLPCost(tp,300)
+	if chk==0 then return Duel.CheckLPCost(tp,500) end
+	Duel.PayLPCost(tp,500)
 end
 function c13790502.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
