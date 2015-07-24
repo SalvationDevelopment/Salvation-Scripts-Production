@@ -33,7 +33,7 @@ function c13790646.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(c13790646.filter,tp,LOCATION_MZONE,LOCATION_MZONE,c,c:GetAttack())
 	if g and Duel.Destroy(g,REASON_EFFECT) then
-		local ct=Duel.GetOperatedGroup():FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)
+		local ct=Duel.GetOperatedGroup():GetCount()
 		Duel.BreakEffect()
 		Duel.Damage(1-tp,ct*500,REASON_EFFECT)
 	end
