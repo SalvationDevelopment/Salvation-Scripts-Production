@@ -22,7 +22,7 @@ function c13790665.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c13790665.operation(e,tp,eg,ep,ev,re,r,rp)
+function c13790665.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g1=Duel.SelectMatchingCard(tp,c13790665.filter,tp,LOCATION_DECK,0,1,1,nil,tp)
 	if g1:GetCount()>0 then
