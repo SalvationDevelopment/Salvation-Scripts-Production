@@ -47,6 +47,7 @@ function c47198668.atktg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SelectTarget(tp,c47198668.filter1,tp,LOCATION_MZONE,0,1,1,nil)
 end
 function c47198668.atkop1(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -61,7 +62,7 @@ end
 function c47198668.filter2(c,e,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsType(TYPE_MONSTER)
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
-		and c:IsCanBeEffectTarget(e)
+		and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c:IsCanBeEffectTarget(e)
 end
 function c47198668.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsDirectAttacked() end
