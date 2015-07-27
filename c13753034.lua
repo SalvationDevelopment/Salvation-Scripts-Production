@@ -81,7 +81,7 @@ function c13753034.thfilter(c)
 	return c:IsCode(13753034) or c:IsCode(13753060) or c:IsCode(13753061) and c:IsAbleToHand()
 end
 function c13753034.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13753034.thfilter,tp,LOCATION_GRAVE,0,1,c) 
+	if chk==0 then return Duel.IsExistingMatchingCard(c13753034.thfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) 
 	and e:GetHandler():IsAbleToDeck() end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
 end
