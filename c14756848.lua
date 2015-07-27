@@ -1,7 +1,8 @@
---超重武者ヌス－１０
+--超重武者ヌス－10
 function c14756848.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(14756848,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
@@ -57,13 +58,12 @@ function c14756848.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c14756848.desfilter1(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:GetSequence()<5 and c:IsDestructable()
+	return c:GetSequence()<5 and c:IsDestructable()
 end
 function c14756848.desfilter2(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and (c:GetSequence()==6 or c:GetSequence()==7) and c:IsDestructable()
+	return (c:GetSequence()==6 or c:GetSequence()==7) and c:IsDestructable()
 end
 function c14756848.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
 	if chk==0 then
 		local sel=0
 		if Duel.IsExistingMatchingCard(c14756848.desfilter1,tp,0,LOCATION_SZONE,1,nil) then sel=sel+1 end
@@ -73,14 +73,14 @@ function c14756848.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 	local sel=e:GetLabel()
 	if sel==3 then
-		sel=Duel.SelectOption(tp,aux.Stringid(14756848,0),aux.Stringid(14756848,1))+1
+		sel=Duel.SelectOption(tp,aux.Stringid(14756848,1),aux.Stringid(14756848,2))+1
 	elseif sel==1 then
-		Duel.SelectOption(tp,aux.Stringid(14756848,0))
-	else
 		Duel.SelectOption(tp,aux.Stringid(14756848,1))
+	else
+		Duel.SelectOption(tp,aux.Stringid(14756848,2))
 	end
 	e:SetLabel(sel)
-	if sel==0 then
+	if sel==1 then
 		local g=Duel.GetMatchingGroup(c14756848.desfilter1,tp,0,LOCATION_SZONE,nil)
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	else
@@ -89,33 +89,33 @@ function c14756848.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c14756848.desop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
 	local sel=e:GetLabel()
 	if sel==1 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 		local g=Duel.SelectMatchingCard(tp,c14756848.desfilter1,tp,0,LOCATION_SZONE,1,1,nil)
-		if g:GetCount()>0 then
-			Duel.HintSelection(g)
-			Duel.Destroy(g,REASON_EFFECT)
-			local tc=g:GetFirst()
-			if Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and tc:IsType(TYPE_SPELL+TYPE_TRAP)
-				and not tc:IsLocation(LOCATION_HAND+LOCATION_DECK)
-				and tc:IsSSetable(true) and Duel.SelectYesNo(tp,aux.Stringid(14756848,2)) then
-				Duel.SSet(tp,tc)
-				Duel.ConfirmCards(1-tp,tc)
-			end
+		local tc=g:GetFirst()
+		if not tc then return end
+		Duel.HintSelection(g)
+		if Duel.Destroy(g,REASON_EFFECT)~=0 and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+			and not tc:IsLocation(LOCATION_HAND+LOCATION_DECK)
+			and tc:IsType(TYPE_SPELL+TYPE_TRAP) and tc:IsSSetable()
+			and Duel.SelectYesNo(tp,aux.Stringid(14756848,3)) then
+			Duel.BreakEffect()
+			Duel.SSet(tp,tc)
+			Duel.ConfirmCards(1-tp,tc)
 		end
 	else
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 		local g=Duel.SelectMatchingCard(tp,c14756848.desfilter2,tp,0,LOCATION_SZONE,1,1,nil)
-		if g:GetCount()>0 then
-			Duel.HintSelection(g)
-			Duel.Destroy(g,REASON_EFFECT)
-			local tc=g:GetFirst()
-			if (Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7))
-				and not tc:IsLocation(LOCATION_HAND+LOCATION_DECK) and Duel.SelectYesNo(tp,aux.Stringid(14756848,3)) then
-				Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
-			end
+		local tc=g:GetFirst()
+		if not tc then return end
+		Duel.HintSelection(g)
+		if Duel.Destroy(g,REASON_EFFECT)~=0
+			and (Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7))
+			and not tc:IsLocation(LOCATION_HAND+LOCATION_DECK)
+			and Duel.SelectYesNo(tp,aux.Stringid(14756848,4)) then
+			Duel.BreakEffect()
+			Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 		end
 	end
 end

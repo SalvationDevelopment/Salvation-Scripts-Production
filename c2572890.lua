@@ -27,8 +27,8 @@ function c2572890.cfilter(c)
 end
 function c2572890.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c2572890.cfilter,1,nil) end
-	local rg=Duel.SelectReleaseGroup(tp,c2572890.cfilter,1,1,nil)
-	Duel.Release(rg,REASON_COST)
+	local g=Duel.SelectReleaseGroup(tp,c2572890.cfilter,1,1,nil)
+	Duel.Release(g,REASON_COST)
 end
 function c2572890.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentChain()==0
@@ -43,8 +43,7 @@ function c2572890.activate1(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(eg,REASON_EFFECT)
 end
 function c2572890.condition2(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsChainNegatable(ev) then return false end
-	return re:IsActiveType(TYPE_MONSTER)
+	return re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
 function c2572890.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

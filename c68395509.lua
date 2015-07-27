@@ -12,6 +12,7 @@ function c68395509.initial_effect(c)
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCountLimit(1,68395509)
 	e2:SetTarget(c68395509.thtg)
 	e2:SetOperation(c68395509.thop)
@@ -37,7 +38,7 @@ function c68395509.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c68395509.thfilter(c)
-	return c:IsSetCard(0xcf) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(0xd0) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function c68395509.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c68395509.thfilter,tp,LOCATION_DECK,0,1,nil) end

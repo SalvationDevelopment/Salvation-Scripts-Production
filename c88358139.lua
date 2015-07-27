@@ -1,9 +1,7 @@
---Scripted by Eerie Code
---Performapal Helprincess
+--EMヘルプリンセス
 function c88358139.initial_effect(c)
-	--Special Summon
+	--spsummon
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(88358139,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetRange(LOCATION_HAND)
@@ -14,11 +12,10 @@ function c88358139.initial_effect(c)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	c:RegisterEffect(e2)	
+	c:RegisterEffect(e2)
 end
-
 function c88358139.cfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x9f) and not c:IsCode(88358139)
+	return c:IsFaceup() and c:GetSummonPlayer()==tp and c:IsSetCard(0x9f) and not c:IsCode(88358139)
 end
 function c88358139.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c88358139.cfilter,1,nil,tp)

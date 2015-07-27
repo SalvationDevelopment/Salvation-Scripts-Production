@@ -1,9 +1,7 @@
---Scripted by Eerie Code
---Raidraptor - Wild Vulture
+--RR－ワイルド・ヴァルチャー
 function c8785161.initial_effect(c)
-	--Special Summon
+	--special summon
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(8785161,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
@@ -26,37 +24,34 @@ function c8785161.initial_effect(c)
 		Duel.RegisterEffect(ge2,0)
 	end
 end
-
 function c8785161.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(8785161)>0
-end
-function c8785161.spfilter1(c,e,tp)
-	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:GetLevel()>0 and c:GetLevel()<6
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
-		and Duel.IsExistingMatchingCard(c8785161.spfilter2,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,c,e,tp,c:GetLevel())
-end
-function c8785161.spfilter2(c,e,tp,lv)
-	return c:IsSetCard(0xba) and c:IsType(TYPE_MONSTER) and c:GetLevel()+lv==6
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function c8785161.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
-end 
+end
+function c8785161.spfilter1(c,e,tp)
+	local lv=c:GetLevel()
+	return lv>0 and lv<6 and c:IsSetCard(0xba) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+		and Duel.IsExistingMatchingCard(c8785161.spfilter2,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,c,e,tp,6-lv)
+end
+function c8785161.spfilter2(c,e,tp,lv)
+	return c:IsSetCard(0xba) and c:GetLevel()==lv and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+end
 function c8785161.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1
-		and Duel.IsExistingMatchingCard(c8785161.spfilter1,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_GRAVE+LOCATION_HAND)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c8785161.spfilter1,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
 end
 function c8785161.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectMatchingCard(tp,c8785161.spfilter1,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,1,nil,e,tp)
-	if g1:GetCount()>0 then
-		local tc=g1:GetFirst()
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local g2=Duel.SelectMatchingCard(tp,c8785161.spfilter2,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,1,tc,e,tp,tc:GetLevel())
-		g1:Merge(g2)
-		Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)
-	end
+	local g1=Duel.SelectMatchingCard(tp,c8785161.spfilter1,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local tc1=g1:GetFirst()
+	if not tc1 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g2=Duel.SelectMatchingCard(tp,c8785161.spfilter2,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,tc1,e,tp,6-tc1:GetLevel())
+	g1:Merge(g2)
+	Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP)
 end

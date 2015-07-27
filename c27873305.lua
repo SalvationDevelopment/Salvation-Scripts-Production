@@ -1,4 +1,4 @@
---ＤＤＤ怒濤壊薙王カエサル・ラグナロク
+--DDD怒濤壊薙王カエサル・ラグナロク
 function c27873305.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
@@ -26,7 +26,8 @@ end
 function c27873305.eqfilter(c)
 	return c:IsFaceup() and c:IsAbleToChangeControler()
 end
-function c27873305.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c27873305.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and c27873305.thfilter(chkc) and chkc~=e:GetHandler() end
 	if chk==0 then return Duel.IsExistingTarget(c27873305.thfilter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
 		and Duel.IsExistingMatchingCard(c27873305.eqfilter,tp,0,LOCATION_MZONE,1,e:GetHandler():GetBattleTarget()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
@@ -39,14 +40,14 @@ function c27873305.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 then
 		Duel.ConfirmCards(1-tp,tc)
-		local g=Duel.GetMatchingGroup(c27873305.eqfilter,tp,0,LOCATION_MZONE,c:GetBattleTarget())
-		if c:IsFaceup() and c:IsRelateToEffect(e) and g:GetCount()>0 then
+		local bc=c:GetBattleTarget()
+		if c:IsFaceup() and c:IsRelateToEffect(e) and bc:IsRelateToBattle() then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-			local ec=g:Select(tp,1,1,nil):GetFirst()
+			local g=Duel.SelectMatchingCard(tp,c27873305.eqfilter,tp,0,LOCATION_MZONE,1,1,bc)
+			local ec=g:GetFirst()
 			local atk=ec:GetTextAttack()
 			if atk<0 then atk=0 end
 			if not Duel.Equip(tp,ec,c,false) then return end
-			--Add Equip limit
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetProperty(EFFECT_FLAG_COPY_INHERIT+EFFECT_FLAG_OWNER_RELATE)

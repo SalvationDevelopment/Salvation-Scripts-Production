@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Majispecter Fox
+--マジェスペクター・フォックス
 function c94784213.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -13,6 +12,7 @@ function c94784213.initial_effect(c)
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCountLimit(1,94784213)
 	e2:SetTarget(c94784213.thtg)
 	e2:SetOperation(c94784213.thop)
@@ -38,7 +38,7 @@ function c94784213.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c94784213.thfilter(c)
-	return c:IsSetCard(0xcf) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0xd0) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
 function c94784213.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c94784213.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Chaos Field
+--混沌の場
 function c40089744.initial_effect(c)
 	c:EnableCounterPermit(0x3001)
 	c:SetCounterLimit(0x3001,6)
@@ -12,27 +11,26 @@ function c40089744.initial_effect(c)
 	e1:SetTarget(c40089744.target)
 	e1:SetOperation(c40089744.activate)
 	c:RegisterEffect(e1)
-	--Add counter
+	--add counter
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetRange(LOCATION_SZONE)
+	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e2:SetCode(EVENT_TO_GRAVE)
-	e2:SetOperation(c40089744.ctop)
-	c:RegisterEffect(e2)	
+	e2:SetRange(LOCATION_FZONE)
+	e2:SetOperation(c40089744.acop)
+	c:RegisterEffect(e2)
 	--to hand
-	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e4:SetType(EFFECT_TYPE_IGNITION)
-	e4:SetRange(LOCATION_SZONE)
-	e4:SetCountLimit(1)
-	e4:SetCost(c40089744.thcost)
-	e4:SetTarget(c40089744.thtg1)
-	e4:SetOperation(c40089744.thop1)
-	c:RegisterEffect(e4)
+	local e3=Effect.CreateEffect(c)
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetRange(LOCATION_FZONE)
+	e3:SetCountLimit(1)
+	e3:SetCost(c40089744.thcost)
+	e3:SetTarget(c40089744.thtg)
+	e3:SetOperation(c40089744.thop)
+	c:RegisterEffect(e3)
 end
-
 function c40089744.filter(c)
-	return c:IsType(TYPE_MONSTER) and ((c:IsSetCard(0xd0) and c:IsType(TYPE_RITUAL)) or c:IsSetCard(0xbd)) and c:IsAbleToHand()
+	return ((c:IsSetCard(0xcf) and c:IsType(TYPE_RITUAL)) or c:IsSetCard(0xbd)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c40089744.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c40089744.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -47,32 +45,30 @@ function c40089744.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-function c40089744.ctfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_HAND) and not c:IsType(TYPE_TOKEN)
+function c40089744.cfilter(c)
+	return c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD)
 end
-function c40089744.ctop(e,tp,eg,ep,ev,re,r,rp)
-	local ct=eg:FilterCount(c40089744.ctfilter,nil)
+function c40089744.acop(e,tp,eg,ep,ev,re,r,rp)
+	local ct=eg:FilterCount(c40089744.cfilter,nil)
 	if ct>0 then
 		e:GetHandler():AddCounter(0x3001,ct)
 	end
 end
-
 function c40089744.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsCanRemoveCounter(tp,0x3001,3,REASON_COST) end
 	e:GetHandler():RemoveCounter(tp,0x3001,3,REASON_COST)
 end
-function c40089744.thfilter1(c)
-	return bit.band(c:GetType(),0x82)==0x82 and c:IsAbleToHand()
+function c40089744.thfilter(c)
+	return c:GetType()==TYPE_SPELL+TYPE_RITUAL and c:IsAbleToHand()
 end
-function c40089744.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c40089744.thfilter1,tp,LOCATION_DECK,0,1,nil) end
+function c40089744.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c40089744.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c40089744.thop1(e,tp,eg,ep,ev,re,r,rp)
+function c40089744.thop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c40089744.thfilter1,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c40089744.thfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

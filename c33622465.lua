@@ -1,18 +1,17 @@
---Scripted by Eerie Code
---Relief Squad
+--救護部隊
 function c33622465.initial_effect(c)
-	--To Hand
+	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(33622465,0))
 	e1:SetCategory(CATEGORY_TOHAND)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c33622465.thtg)
-	e1:SetOperation(c33622465.thop)
+	e1:SetTarget(c33622465.target)
+	e1:SetOperation(c33622465.activate)
 	c:RegisterEffect(e1)
-	--Special Summon
+	--spsummon
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(33622465,1))
+	e2:SetDescription(aux.Stringid(33622465,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BATTLE_DESTROYED)
@@ -23,30 +22,28 @@ function c33622465.initial_effect(c)
 	e2:SetOperation(c33622465.spop)
 	c:RegisterEffect(e2)
 end
-
-function c33622465.thfilter(c)
+function c33622465.filter(c)
 	return c:IsType(TYPE_NORMAL) and c:IsAbleToHand()
 end
-function c33622465.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c33622465.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c33622465.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
+function c33622465.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c33622465.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c33622465.filter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c33622465.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c33622465.filter,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
-function c33622465.thop(e,tp,eg,ep,ev,re,r,rp)
+function c33622465.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then 
+	if tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,tc) 
+		Duel.ConfirmCards(1-tp,tc)
 	end
 end
-
-function c33622465.cfilter(c,tp)
-	return c:IsReason(REASON_BATTLE) and c:IsType(TYPE_NORMAL) and c:GetPreviousControler()==tp
+function c33622465.cfilter(c)
+	return bit.band(c:GetPreviousTypeOnField(),TYPE_NORMAL)~=0
 end
 function c33622465.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c33622465.cfilter,1,nil,tp)
+	return eg:IsExists(c33622465.cfilter,1,nil)
 end
 function c33622465.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -58,7 +55,6 @@ function c33622465.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e)
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,33622465,0,0x11,3,1200,400,RACE_WARRIOR,ATTRIBUTE_EARTH) then
-		c:AddTrapMonsterAttribute(TYPE_NORMAL,ATTRIBUTE_EARTH,RACE_WARRIOR,3,1200,400)
 		c:SetStatus(STATUS_NO_LEVEL,false)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -68,12 +64,12 @@ function c33622465.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x47c0000)
 		c:RegisterEffect(e1,true)
 		Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP_DEFENCE)
-		local e7=Effect.CreateEffect(c)
-		e7:SetType(EFFECT_TYPE_SINGLE)
-		e7:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
-		e7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e7:SetReset(RESET_EVENT+0x47e0000)
-		e7:SetValue(LOCATION_REMOVED)
-		c:RegisterEffect(e7,true)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2:SetReset(RESET_EVENT+0x47e0000)
+		e2:SetValue(LOCATION_REMOVED)
+		c:RegisterEffect(e2,true)
 	end
 end

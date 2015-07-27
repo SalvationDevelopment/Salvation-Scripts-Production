@@ -13,8 +13,9 @@ function c37209439.initial_effect(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetCountLimit(1)
-	e2:SetCost(c37209439.regcost)
-	e2:SetOperation(c37209439.regop)
+	e2:SetCondition(c37209439.negcon)
+	e2:SetCost(c37209439.negcost)
+	e2:SetOperation(c37209439.negop)
 	c:RegisterEffect(e2)
 	--damage
 	local e3=Effect.CreateEffect(c)
@@ -32,46 +33,54 @@ function c37209439.initial_effect(c)
 end
 function c37209439.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local b2=Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_STANDBY
-	if Duel.SelectYesNo(tp,aux.Stringid(37209439,2)) then
+	local b1=c37209439.negcon(e,tp,eg,ep,ev,re,r,rp)
+	local b2=c37209439.damcon(e,tp,eg,ep,ev,re,r,rp) and Duel.GetCurrentPhase()==PHASE_STANDBY
+	if (b1 or b2) and Duel.SelectYesNo(tp,aux.Stringid(37209439,2)) then
+		local c=e:GetHandler()
 		local op=0
-		if b2 then op=Duel.SelectOption(tp,aux.Stringid(37209439,0),aux.Stringid(37209439,1))
-		else op=Duel.SelectOption(tp,aux.Stringid(37209439,0)) end
+		if b1 and b2 then
+			op=Duel.SelectOption(tp,aux.Stringid(37209439,0),aux.Stringid(37209439,1))
+		elseif b1 then
+			op=Duel.SelectOption(tp,aux.Stringid(37209439,0))
+		else op=Duel.SelectOption(tp,aux.Stringid(37209439,1))+1 end
 		if op==0 then
-			e:GetHandler():RegisterFlagEffect(37209439,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
-			e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(37209439,3))
-			e:SetOperation(c37209439.regop)
+			c:RegisterFlagEffect(37209439,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+			e:SetCategory(0)
+			e:SetOperation(c37209439.negop)
 		else
-			e:GetHandler():RegisterFlagEffect(6811,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
-			e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(37209439,4))
-			Duel.SetTargetPlayer(tp)
-			Duel.SetTargetParam(1000)
-			Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,tp,1000)
+			c:RegisterFlagEffect(37209440,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+			c37209439.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
+			e:SetCategory(CATEGORY_DAMAGE)
 			e:SetOperation(c37209439.damop)
 		end
 	else
-		e:SetOperation(0)
+		e:SetCategory(0)
+		e:SetOperation(nil)
 	end
 end
-function c37209439.regcost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c37209439.cfilter(c)
+	return c:IsFaceup() and c:IsSetCard(0xaf)
+end
+function c37209439.negcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c37209439.cfilter,tp,LOCATION_MZONE,0,1,nil)
+end
+function c37209439.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(37209439)==0 end
 	e:GetHandler():RegisterFlagEffect(37209439,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
-function c37209439.regop(e,tp,eg,ep,ev,re,r,rp)
+function c37209439.negop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local fid=c:GetFieldID()
-	--disable
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_DISABLE)
 	e1:SetRange(LOCATION_SZONE)
 	e1:SetTargetRange(LOCATION_SZONE,LOCATION_SZONE)
-	e1:SetTarget(c37209439.distarget)
+	e1:SetTarget(c37209439.distg)
 	e1:SetLabel(fid)
 	e1:SetReset(RESET_PHASE+RESET_END)
 	Duel.RegisterEffect(e1,tp)
-	--disable effect
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_CHAIN_SOLVING)
@@ -80,18 +89,17 @@ function c37209439.regop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetLabel(fid)
 	e2:SetReset(RESET_PHASE+RESET_END)
 	Duel.RegisterEffect(e2,tp)
-	--disable trap monster
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_DISABLE_TRAPMONSTER)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e3:SetTarget(c37209439.distarget)
+	e3:SetTarget(c37209439.distg)
 	e3:SetLabel(fid)
 	e3:SetReset(RESET_PHASE+RESET_END)
 	Duel.RegisterEffect(e3,tp)
 end
-function c37209439.distarget(e,c)
+function c37209439.distg(e,c)
 	return c:GetFieldID()~=e:GetLabel() and c:IsType(TYPE_TRAP) and c:IsStatus(STATUS_ACTIVATED)
 end
 function c37209439.disop(e,tp,eg,ep,ev,re,r,rp)
@@ -104,8 +112,8 @@ function c37209439.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
 function c37209439.damcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetFlagEffect(6811)==0 end
-	e:GetHandler():RegisterFlagEffect(6811,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+	if chk==0 then return e:GetHandler():GetFlagEffect(37209440)==0 end
+	e:GetHandler():RegisterFlagEffect(37209440,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 function c37209439.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

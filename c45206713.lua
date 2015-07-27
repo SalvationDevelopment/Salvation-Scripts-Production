@@ -1,4 +1,4 @@
---ＤＤスワラル・スライム
+--DDスワラル・スライム
 function c45206713.initial_effect(c)
 	--spsummon
 	local e1=Effect.CreateEffect(c)
@@ -14,7 +14,7 @@ function c45206713.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,6828)
+	e2:SetCountLimit(1,45206714)
 	e2:SetCost(c45206713.spcost)
 	e2:SetTarget(c45206713.sptg)
 	e2:SetOperation(c45206713.spop)

@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Toon Barrel Dragon
+--トゥーン・リボルバー・ドラゴン
 function c28112535.initial_effect(c)
 	--cannot attack
 	local e1=Effect.CreateEffect(c)
@@ -21,7 +20,6 @@ function c28112535.initial_effect(c)
 	c:RegisterEffect(e4)
 	--destroy
 	local e5=Effect.CreateEffect(c)
-	e5:SetDescription(aux.Stringid(28112535,0))
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e5:SetCategory(CATEGORY_DESTROY+CATEGORY_COIN)
 	e5:SetType(EFFECT_TYPE_IGNITION)
@@ -31,7 +29,6 @@ function c28112535.initial_effect(c)
 	e5:SetOperation(c28112535.desop)
 	c:RegisterEffect(e5)
 end
-
 function c28112535.atklimit(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -50,12 +47,11 @@ function c28112535.dircon(e)
 	return Duel.IsExistingMatchingCard(c28112535.cfilter1,tp,LOCATION_ONFIELD,0,1,nil)
 		and not Duel.IsExistingMatchingCard(c28112535.cfilter2,tp,0,LOCATION_MZONE,1,nil)
 end
-
 function c28112535.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsDestructable() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,0,LOCATION_MZONE,1,nil) end
+	if chkc then return chkc:IsOnField() and chkc:IsDestructable() end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.SelectTarget(tp,Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_COIN,nil,0,tp,3)
 end
 function c28112535.desop(e,tp,eg,ep,ev,re,r,rp)

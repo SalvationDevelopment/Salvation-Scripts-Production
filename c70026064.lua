@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Bujin Hiroko
+--武神－ヒルコ
 function c70026064.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -8,44 +7,43 @@ function c70026064.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--Xyz Summon
+	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_PZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCost(c70026064.cost)
-	e2:SetTarget(c70026064.target)
-	e2:SetOperation(c70026064.activate)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCost(c70026064.spcost)
+	e2:SetTarget(c70026064.sptg)
+	e2:SetOperation(c70026064.spop)
 	c:RegisterEffect(e2)
 end
-
-function c70026064.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c70026064.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c70026064.filter1(c,e,tp)
-	local rk=c:GetRank()
-	return rk>0 and c:IsFaceup() and c:IsSetCard(0x88)
-		and Duel.IsExistingMatchingCard(c70026064.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,rk,c:GetCode())
+	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x88)
+		and Duel.IsExistingMatchingCard(c70026064.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,c:GetCode())
 end
-function c70026064.filter2(c,e,tp,mc,rk,code)
-	return c:GetRank()==rk and c:IsSetCard(0x88) and c:GetCode()~=code and mc:IsCanBeXyzMaterial(c) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+function c70026064.filter2(c,e,tp,mc,code)
+	return c:IsType(TYPE_XYZ) and c:IsSetCard(0x88) and not c:IsCode(code) and mc:IsCanBeXyzMaterial(c)
+		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
-function c70026064.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c70026064.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c70026064.filter1(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingTarget(c70026064.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	local g=Duel.SelectTarget(tp,c70026064.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+	Duel.SelectTarget(tp,c70026064.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c70026064.activate(e,tp,eg,ep,ev,re,r,rp)
+function c70026064.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<0 then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFacedown() or not tc:IsRelateToEffect(e) or tc:IsControler(1-tp) or tc:IsImmuneToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c70026064.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc,tc:GetRank(),tc:GetCode())
+	local g=Duel.SelectMatchingCard(tp,c70026064.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc,tc:GetCode())
 	local sc=g:GetFirst()
 	if sc then
 		local mg=tc:GetOverlayGroup()

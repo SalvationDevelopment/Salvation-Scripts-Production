@@ -1,4 +1,4 @@
---Knight of Dark Dragon
+--黒竜の聖騎士
 function c71408082.initial_effect(c)
 	c:EnableReviveLimit()
 	--destroy
@@ -22,17 +22,19 @@ function c71408082.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c71408082.descon(e,tp,eg,ep,ev,re,r,rp)
-	local d=Duel.GetAttackTarget()
-	return e:GetHandler()==Duel.GetAttacker() and d and d:IsPosition(POS_DEFENCE)
+	local c=e:GetHandler()
+	local tc=Duel.GetAttackTarget()
+	return tc and tc~=c and tc:IsDefencePos()
 end
 function c71408082.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,Duel.GetAttackTarget(),1,0,0)
+	local tc=Duel.GetAttackTarget()
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
 end
 function c71408082.desop(e,tp,eg,ep,ev,re,r,rp)
-	local d=Duel.GetAttackTarget()
-	if d:IsRelateToBattle() then
-		Duel.Destroy(d,REASON_EFFECT)
+	local tc=Duel.GetAttackTarget()
+	if tc:IsRelateToBattle() then
+		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
 function c71408082.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -43,13 +45,15 @@ function c71408082.spfilter(c,e,tp)
 	return c:IsSetCard(0x3b) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c71408082.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
-		and Duel.IsExistingMatchingCard(c71408082.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_DECK)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c71408082.spfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_HAND)
 end
 function c71408082.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c71408082.spfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp)
-	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	local g=Duel.SelectMatchingCard(tp,c71408082.spfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil,e,tp)
+	if g:GetCount()>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	end
 end

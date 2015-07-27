@@ -6,7 +6,6 @@ function c44968687.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
-	e1:SetValue(aux.FALSE)
 	c:RegisterEffect(e1)
 	--special summon
 	local e2=Effect.CreateEffect(c)
@@ -17,7 +16,7 @@ function c44968687.initial_effect(c)
 	e2:SetCondition(c44968687.spcon)
 	e2:SetOperation(c44968687.spop)
 	c:RegisterEffect(e2)
-	--destroy
+	--remove
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -56,7 +55,7 @@ function c44968687.spcon(e,c)
 	return Duel.CheckReleaseGroup(c:GetControler(),Card.IsCode,1,nil,3643300)
 end
 function c44968687.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectReleaseGroup(c:GetControler(),Card.IsCode,1,1,nil,3643300)
+	local g=Duel.SelectReleaseGroup(tp,Card.IsCode,1,1,nil,3643300)
 	Duel.Release(g,REASON_COST)
 end
 function c44968687.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -66,7 +65,7 @@ function c44968687.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c44968687.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,nil)
-	if g:GetCount()>0 and Duel.Remove(g,POS_FACEUP,REASON_EFFECT)~=0 then
+	if Duel.Remove(g,POS_FACEUP,REASON_EFFECT)~=0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_ATTACK)
@@ -79,13 +78,13 @@ function c44968687.efilter(e,te)
 	return te:IsActiveType(TYPE_SPELL+TYPE_TRAP)
 end
 function c44968687.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_REMOVED,1,nil) end
-	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_REMOVED,nil)
+	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_REMOVED)>0 end
+	local g=Duel.GetFieldGroup(tp,0,LOCATION_REMOVED)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,g:GetCount(),0,0)
 end
 function c44968687.damop(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_REMOVED,nil)
-	if sg:GetCount()>0 and Duel.SendtoGrave(sg,REASON_EFFECT+REASON_RETURN)~=0 then
+	local g=Duel.GetFieldGroup(tp,0,LOCATION_REMOVED)
+	if Duel.SendtoGrave(g,REASON_EFFECT+REASON_RETURN)~=0 then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetCode(EFFECT_CHANGE_DAMAGE)

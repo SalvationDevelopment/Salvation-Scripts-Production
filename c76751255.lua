@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Igknight Reload
+--イグナイト・リロード
 function c76751255.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -31,16 +30,12 @@ function c76751255.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ShuffleDeck(p)
 		Duel.BreakEffect()
 		Duel.Draw(p,ct+1,REASON_EFFECT)
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_FIELD)
-		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		e1:SetCode(EFFECT_CANNOT_DRAW)
-		e1:SetTargetRange(1,0)
-		e1:SetCondition(c76751255.con)
-		e1:SetReset(RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e1,tp)
 	end
-end
-function c76751255.con(e)
-	return Duel.GetCurrentPhase()~=PHASE_DRAW
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_DRAW)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetTargetRange(1,0)
+	e1:SetReset(RESET_PHASE+RESET_END)
+	Duel.RegisterEffect(e1,tp)
 end

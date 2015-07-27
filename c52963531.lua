@@ -1,4 +1,4 @@
---ＥＭマンモスプラッシュ
+--EMマンモスプラッシュ
 function c52963531.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)

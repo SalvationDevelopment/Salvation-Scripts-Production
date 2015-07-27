@@ -1,7 +1,8 @@
---超重武者ヒキャ－Ｑ
+--超重武者ヒキャ－Q
 function c41141943.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(41141943,0))
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
@@ -22,6 +23,7 @@ function c41141943.initial_effect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
+	e3:SetCountLimit(1,41141943)
 	e3:SetCondition(c41141943.spcon)
 	e3:SetCost(c41141943.spcost)
 	e3:SetTarget(c41141943.sptg)
@@ -72,13 +74,14 @@ function c41141943.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c41141943.spop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c41141943.spfilter,tp,LOCATION_HAND,0,nil,e,tp)
-	if g:GetCount()<=0 then return end
-	local ct=1
-	if g:GetCount()>=2 and Duel.IsPlayerCanDraw(tp,2) then ct=2 end
-	local sg=g:Select(tp,1,ct,nil)
-	local cnt=Duel.SpecialSummon(sg,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
-	if cnt>0 then
+	if g:GetCount()==0 then return end
+	local ft=Duel.GetLocationCount(1-tp,LOCATION_MZONE)
+	if ft>2 then ft=2 end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local sg=g:Select(tp,1,ft,nil)
+	local ct=Duel.SpecialSummon(sg,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+	if ct>0 then
 		Duel.BreakEffect()
-		Duel.Draw(tp,cnt,REASON_EFFECT)
+		Duel.Draw(tp,ct,REASON_EFFECT)
 	end
 end

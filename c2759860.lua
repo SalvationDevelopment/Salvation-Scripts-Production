@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---Greydle Impact
+--グレイドル・インパクト
 function c2759860.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -8,7 +7,6 @@ function c2759860.initial_effect(c)
 	c:RegisterEffect(e1)
 	--destroy
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(2759860,0))
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_SZONE)
@@ -17,20 +15,18 @@ function c2759860.initial_effect(c)
 	e2:SetTarget(c2759860.destg)
 	e2:SetOperation(c2759860.desop)
 	c:RegisterEffect(e2)
-	--To Hand
+	--tohand
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(2759860,1))
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e3:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_SZONE)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_PHASE+PHASE_END)
+	e3:SetRange(LOCATION_SZONE)
 	e3:SetCountLimit(1,2759860)
 	e3:SetCondition(c2759860.thcon)
 	e3:SetTarget(c2759860.thtg)
 	e3:SetOperation(c2759860.thop)
 	c:RegisterEffect(e3)
 end
-
 function c2759860.desfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xd1) and c:IsDestructable()
 end
@@ -46,13 +42,12 @@ function c2759860.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g1,2,0,0)
 end
 function c2759860.desop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
-	if tg:GetCount()>0 then
-		Duel.Destroy(tg,REASON_EFFECT)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
+	if g:GetCount()>0 then
+		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
-
 function c2759860.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
@@ -64,10 +59,11 @@ function c2759860.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c2759860.thop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c2759860.filter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 then
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
-		Duel.ShuffleHand(tp)
 	end
 end

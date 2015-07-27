@@ -17,30 +17,31 @@ function c48144509.filter1(c,e)
 	return c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 function c48144509.exfilter0(c)
-	return c:IsSetCard(0x99) and c48144509.filter0(c)
+	return c:IsSetCard(0x99) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
 end
 function c48144509.exfilter1(c,e)
-	return c:IsSetCard(0x99) and c48144509.filter1(c,e)
+	return c:IsSetCard(0x99) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
-function c48144509.filter2(c,e,tp,m,f,chkf,flag)
-	local mg=m:Clone()
-	mg:RemoveCard(c)
-	if flag then c:RegisterFlagEffect(48144509,RESET_CHAIN,0,1) end
-	local res=c:IsType(TYPE_FUSION) and c:IsRace(RACE_DRAGON) and (not f or f(c))
-		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(mg,nil,chkf)
-	c:ResetFlagEffect(48144509)
-	return res
+function c48144509.filter2(c,e,tp,m,f,chkf)
+	return c:IsType(TYPE_FUSION) and c:IsRace(RACE_DRAGON) and (not f or f(c))
+		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
+end
+function c48144509.filter3(c,e,tp,m,f,chkf)
+	if c:IsType(TYPE_FUSION) and c:IsRace(RACE_DRAGON) and (not f or f(c))
+		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) then
+		if c.check_fusion_material_48144509 then return c.check_fusion_material_48144509(m,chkf) end
+		return c:CheckFusionMaterial(m,nil,chkf)
+	else return false end
 end
 function c48144509.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 		local mg1=Duel.GetMatchingGroup(c48144509.filter0,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
-		if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
-			and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>=2 then
+		if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>1 then
 			local sg=Duel.GetMatchingGroup(c48144509.exfilter0,tp,LOCATION_EXTRA,0,nil)
 			mg1:Merge(sg)
 		end
-		local res=Duel.IsExistingMatchingCard(c48144509.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf,true)
+		local res=Duel.IsExistingMatchingCard(c48144509.filter3,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
 			if ce~=nil then
@@ -57,12 +58,11 @@ end
 function c48144509.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 	local mg1=Duel.GetMatchingGroup(c48144509.filter1,tp,LOCATION_HAND+LOCATION_MZONE,0,nil,e)
-	if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
-		and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>=2 then
+	if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>1 then
 		local sg=Duel.GetMatchingGroup(c48144509.exfilter1,tp,LOCATION_EXTRA,0,nil,e)
 		mg1:Merge(sg)
 	end
-	local sg1=Duel.GetMatchingGroup(c48144509.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf,true)
+	local sg1=Duel.GetMatchingGroup(c48144509.filter3,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -79,10 +79,12 @@ function c48144509.activate(e,tp,eg,ep,ev,re,r,rp)
 		local tg=sg:Select(tp,1,1,nil)
 		local tc=tg:GetFirst()
 		if sg1:IsContains(tc) and (sg2==nil or not sg2:IsContains(tc) or not Duel.SelectYesNo(tp,ce:GetDescription())) then
-			mg1:RemoveCard(tc)
-			tc:RegisterFlagEffect(48144509,RESET_CHAIN,0,1)
-			local mat1=Duel.SelectFusionMaterial(tp,tc,mg1,nil,chkf)
-			tc:ResetFlagEffect(48144509)
+			local mat1=nil
+			if tc.select_fusion_material_48144509 then
+				mat1=tc.select_fusion_material_48144509(tp,mg1,chkf)
+			else
+				mat1=Duel.SelectFusionMaterial(tp,tc,mg1,nil,chkf)
+			end
 			tc:SetMaterial(mat1)
 			Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()

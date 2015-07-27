@@ -1,4 +1,4 @@
---Deskbot 006
+--ブンボーグ006
 function c55106249.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -17,19 +17,19 @@ function c55106249.initial_effect(c)
 	e2:SetCondition(c55106249.splimcon)
 	e2:SetTarget(c55106249.splimit)
 	c:RegisterEffect(e2)
-	--destroy
+	--pos
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_POSITION)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_SUMMON_SUCCESS)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetCode(EVENT_SUMMON_SUCCESS)
 	e3:SetTarget(c55106249.postg)
 	e3:SetOperation(c55106249.posop)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
-	--atk up
+	--atk
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetCode(EFFECT_UPDATE_ATTACK)
@@ -37,7 +37,7 @@ function c55106249.initial_effect(c)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetValue(c55106249.atkval)
 	c:RegisterEffect(e5)
-	--tohand
+	--to hand
 	local e6=Effect.CreateEffect(c)
 	e6:SetCategory(CATEGORY_TOHAND)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -49,35 +49,31 @@ function c55106249.initial_effect(c)
 	e6:SetOperation(c55106249.thop)
 	c:RegisterEffect(e6)
 end
-
 function c55106249.splimcon(e)
 	return not e:GetHandler():IsForbidden()
 end
 function c55106249.splimit(e,c,tp,sumtp,sumpos)
 	return not c:IsSetCard(0xab) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
-
 function c55106249.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) end
 	if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
 	local g=Duel.SelectTarget(tp,nil,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 end
 function c55106249.posop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE,POS_FACEDOWN_DEFENCE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK)
+		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK)
 	end
 end
-
 function c55106249.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xab)
 end
 function c55106249.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c55106249.cfilter,c:GetControler(),LOCATION_EXTRA,0,nil)*500
 end
-
 function c55106249.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_SZONE) and (c:GetPreviousSequence()==6 or c:GetPreviousSequence()==7)

@@ -16,8 +16,8 @@ function c49366157.cfilter(c)
 end
 function c49366157.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c49366157.cfilter,1,nil) end
-	local rg=Duel.SelectReleaseGroup(tp,c49366157.cfilter,1,1,nil)
-	Duel.Release(rg,REASON_COST)
+	local g=Duel.SelectReleaseGroup(tp,c49366157.cfilter,1,1,nil)
+	Duel.Release(g,REASON_COST)
 end
 function c49366157.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsDestructable() end

@@ -1,49 +1,43 @@
---Scripted by Eerie Code
---D/D Baphomet
+--DDバフォメット
 function c19808608.initial_effect(c)
-	--Change Level
+	--lv change
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(19808608,0))
 	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetCountLimit(1)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetTarget(c19808608.thtg)
-	e1:SetOperation(c19808608.thop)
+	e1:SetTarget(c19808608.lvtg)
+	e1:SetOperation(c19808608.lvop)
 	c:RegisterEffect(e1)
 end
-
-function c19808608.thfil(c)
-	return c:IsFaceup() and c:GetLevel()>0 and c:IsSetCard(0xaf)
+function c19808608.filter(c)
+	return c:IsFaceup() and c:IsSetCard(0xaf) and not c:IsCode(19808608) and c:GetLevel()>0
 end
-function c19808608.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c19808608.thfil(chkc) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-		and Duel.IsExistingTarget(c19808608.thfil,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
-	Duel.SelectTarget(tp,c19808608.thfil,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
+function c19808608.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c19808608.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c19808608.filter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+	local g=Duel.SelectTarget(tp,c19808608.filter,tp,LOCATION_MZONE,0,1,1,nil)
 	local t={}
 	local i=1
 	local p=1
+	local lv=g:GetFirst():GetLevel()
 	for i=1,8 do
-		t[p]=i
-		p=p+1
+		if lv~=i then t[p]=i p=p+1 end
 	end
 	t[p]=nil
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(19808608,1))
+	Duel.Hint(HINT_SELECTMSG,tp,567)
 	e:SetLabel(Duel.AnnounceNumber(tp,table.unpack(t)))
 end
-function c19808608.lvfil(c,e)
-	return c:IsFaceup() and c:IsRelateToEffect(e)
-end
-function c19808608.thop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c19808608.lvfil,nil,e)
-	local tc=g:GetFirst()
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CHANGE_LEVEL)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetValue(e:GetLabel())
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	tc:RegisterEffect(e1)
+function c19808608.lvop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_CHANGE_LEVEL)
+		e1:SetValue(e:GetLabel())
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		tc:RegisterEffect(e1)
+	end
 	local e2=Effect.CreateEffect(e:GetHandler())
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -53,6 +47,6 @@ function c19808608.thop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e2,tp)
 end
-function c19808608.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+function c19808608.splimit(e,c)
 	return not c:IsSetCard(0xaf)
 end

@@ -1,4 +1,4 @@
---ＲＵＭ－レイド・フォース
+--RUM－レイド・フォース
 function c41201386.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -44,7 +44,7 @@ function c41201386.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFacedown() or not tc:IsRelateToEffect(e) or tc:IsControler(1-tp) or tc:IsImmuneToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c41201386.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc,tc:GetRank()+1,tc:GetCode())
+	local g=Duel.SelectMatchingCard(tp,c41201386.filter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,tc,tc:GetRank()+1)
 	local sc=g:GetFirst()
 	if sc then
 		local mg=tc:GetOverlayGroup()
@@ -75,8 +75,8 @@ function c41201386.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c41201386.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c41201386.thfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local sg=Duel.SelectTarget(tp,c41201386.thfilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,sg,sg:GetCount(),0,0)
+	local g=Duel.SelectTarget(tp,c41201386.thfilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c41201386.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()

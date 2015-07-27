@@ -1,5 +1,4 @@
---Scripted by Eerie Code
---D/D Necro Slime
+--DDネクロ・スライム
 function c72291412.initial_effect(c)
 	--spsummon
 	local e1=Effect.CreateEffect(c)
@@ -11,9 +10,11 @@ function c72291412.initial_effect(c)
 	e1:SetOperation(c72291412.operation)
 	c:RegisterEffect(e1)
 end
-
+function c72291412.filter0(c)
+	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove()
+end
 function c72291412.filter1(c,e)
-	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
+	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function c72291412.filter2(c,e,tp,m,f,gc)
 	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x10af) and (not f or f(c))
@@ -22,7 +23,7 @@ end
 function c72291412.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then
-		local mg1=Duel.GetMatchingGroup(Card.IsCanBeFusionMaterial,tp,LOCATION_GRAVE,0,c)
+		local mg1=Duel.GetMatchingGroup(c72291412.filter0,tp,LOCATION_GRAVE,0,c)
 		local res=Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 			and Duel.IsExistingMatchingCard(c72291412.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,c)
 		if not res then
@@ -61,7 +62,6 @@ function c72291412.operation(e,tp,eg,ep,ev,re,r,rp)
 		if sg1:IsContains(tc) and (sg2==nil or not sg2:IsContains(tc) or not Duel.SelectYesNo(tp,ce:GetDescription())) then
 			local mat1=Duel.SelectFusionMaterial(tp,tc,mg1,c)
 			tc:SetMaterial(mat1)
-			--Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.Remove(mat1,POS_FACEUP,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
 			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP)
