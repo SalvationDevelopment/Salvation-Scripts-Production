@@ -34,7 +34,7 @@ function c13753061.filter(c,e,tp)
 	return c:IsCode(13753060) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function c13753061.filter2(c)
-	return c:IsCode(13753060) and c:IsAbleToHand()
+	return (c:IsCode(13753060) or c:IsCode(13753063)) and c:IsAbleToHand()
 end
 function c13753061.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1
