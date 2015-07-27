@@ -17,13 +17,17 @@ function c44928016.cfilter(c)
 end
 function c44928016.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c44928016.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,1,nil) end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 then
+	local g=Duel.SelectMatchingCard(tp,c44928016.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SendtoGrave(g,REASON_COST)
+	else 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c44928016.cfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,1,1,nil)
 	Duel.SendtoGrave(g,REASON_COST)
+	end
 end
 function c44928016.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c44928016.operation(e,tp,eg,ep,ev,re,r,rp)
