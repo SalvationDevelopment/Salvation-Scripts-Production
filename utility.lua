@@ -112,7 +112,7 @@ function Auxiliary.NonTuner(f,a,b,c)
 				return target:IsNotTuner() and (not f or f(target,a,b,c))
 			end
 end
---Synchro monster, 1 tuner + n or more monsters
+--Synchron monster, 1 tuner + n or more monsters
 function Auxiliary.AddSynchroProcedure(c,f1,f2,ct)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -154,7 +154,7 @@ function Auxiliary.SynOperation(f1,f2,minct,maxc)
 				Duel.SendtoGrave(g,REASON_MATERIAL+REASON_SYNCHRO)
 			end
 end
---Synchro monster, 1 tuner + 1 monster
+--Synchron monster, 1 tuner + 1 monster
 function Auxiliary.AddSynchroProcedure2(c,f1,f2)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -917,8 +917,15 @@ function Auxiliary.AddRitualProcGreater(c,filter)
 end
 function Auxiliary.RPGFilter(c,filter,e,tp,m)
 	if (filter and not filter(c)) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
-	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
-	return mg:CheckWithSumGreater(Card.GetRitualLevel,c:GetOriginalLevel(),c)
+	local result=false
+	if m:IsContains(c) then
+		m:RemoveCard(c)
+		result=m:CheckWithSumGreater(Card.GetRitualLevel,c:GetOriginalLevel(),c)
+		m:AddCard(c)
+	else
+		result=m:CheckWithSumGreater(Card.GetRitualLevel,c:GetOriginalLevel(),c)
+	end
+	return result
 end
 function Auxiliary.RPGTarget(filter)
 	return	function(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -934,9 +941,9 @@ function Auxiliary.RPGOperation(filter)
 				local mg=Duel.GetRitualMaterial(tp)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 				local tg=Duel.SelectMatchingCard(tp,Auxiliary.RPGFilter,tp,LOCATION_HAND,0,1,1,nil,filter,e,tp,mg)
-				local tc=tg:GetFirst()
-				if tc then
-					mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
+				if tg:GetCount()>0 then
+					local tc=tg:GetFirst()
+					mg:RemoveCard(tc)
 					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 					local mat=mg:SelectWithSumGreater(tp,Card.GetRitualLevel,tc:GetOriginalLevel(),tc)
 					tc:SetMaterial(mat)
@@ -959,8 +966,15 @@ function Auxiliary.AddRitualProcEqual(c,filter)
 end
 function Auxiliary.RPEFilter(c,filter,e,tp,m)
 	if (filter and not filter(c)) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
-	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
-	return mg:CheckWithSumEqual(Card.GetRitualLevel,c:GetOriginalLevel(),1,99,c)
+	local result=false
+	if m:IsContains(c) then
+		m:RemoveCard(c)
+		result=m:CheckWithSumEqual(Card.GetRitualLevel,c:GetOriginalLevel(),1,99,c)
+		m:AddCard(c)
+	else
+		result=m:CheckWithSumEqual(Card.GetRitualLevel,c:GetOriginalLevel(),1,99,c)
+	end
+	return result
 end
 function Auxiliary.RPETarget(filter)
 	return	function(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -976,9 +990,9 @@ function Auxiliary.RPEOperation(filter)
 				local mg=Duel.GetRitualMaterial(tp)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 				local tg=Duel.SelectMatchingCard(tp,Auxiliary.RPEFilter,tp,LOCATION_HAND,0,1,1,nil,filter,e,tp,mg)
-				local tc=tg:GetFirst()
-				if tc then
-					mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
+				if tg:GetCount()>0 then
+					local tc=tg:GetFirst()
+					mg:RemoveCard(tc)
 					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 					local mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetOriginalLevel(),1,99,tc)
 					tc:SetMaterial(mat)
@@ -1001,8 +1015,15 @@ function Auxiliary.AddRitualProcEqual2(c,filter)
 end
 function Auxiliary.RPEFilter2(c,filter,e,tp,m)
 	if (filter and not filter(c)) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
-	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
-	return mg:CheckWithSumEqual(Card.GetRitualLevel,c:GetLevel(),1,99,c)
+	local result=false
+	if m:IsContains(c) then
+		m:RemoveCard(c)
+		result=m:CheckWithSumEqual(Card.GetRitualLevel,c:GetLevel(),1,99,c)
+		m:AddCard(c)
+	else
+		result=m:CheckWithSumEqual(Card.GetRitualLevel,c:GetLevel(),1,99,c)
+	end
+	return result
 end
 function Auxiliary.RPETarget2(filter)
 	return	function(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -1018,9 +1039,9 @@ function Auxiliary.RPEOperation2(filter)
 				local mg=Duel.GetRitualMaterial(tp)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 				local tg=Duel.SelectMatchingCard(tp,Auxiliary.RPEFilter2,tp,LOCATION_HAND,0,1,1,nil,filter,e,tp,mg)
-				local tc=tg:GetFirst()
-				if tc then
-					mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
+				if tg:GetCount()>0 then
+					local tc=tg:GetFirst()
+					mg:RemoveCard(tc)
 					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 					local mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),1,99,tc)
 					tc:SetMaterial(mat)
