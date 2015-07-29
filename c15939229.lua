@@ -43,19 +43,32 @@ function c15939229.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(c15939229.aclimit)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_DISABLE)
-	e2:SetTargetRange(LOCATION_ONFIELD,LOCATION_ONFIELD)
-	e2:SetTarget(c15939229.disable)
-	e2:SetReset(RESET_PHASE+RESET_END)
-	Duel.RegisterEffect(e2,tp)
+	local g=Duel.GetMatchingGroup(aux.disfilter1,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,c)
+	local tc=g:GetFirst()
+	if not tc then return end
+	while tc do
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_DISABLE)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
+		tc:RegisterEffect(e1)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetCode(EFFECT_DISABLE_EFFECT)
+		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
+		tc:RegisterEffect(e2)
+		if tc:IsType(TYPE_TRAPMONSTER) then
+			local e3=Effect.CreateEffect(c)
+			e3:SetType(EFFECT_TYPE_SINGLE)
+			e3:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+			e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_STANDBY,2)
+			tc:RegisterEffect(e3)
+		end
+		tc=g:GetNext()
+	end
 end
 function c15939229.aclimit(e,re,tp)
 	return re:GetHandler():IsOnField() and e:GetHandler()~=re:GetHandler()
-end
-function c15939229.disable(e,c)
-	return c~=e:GetHandler() and (not c:IsType(TYPE_MONSTER) or (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT))
 end
 function c15939229.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
