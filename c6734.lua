@@ -5,6 +5,8 @@ function c6734.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetTarget(c6734.target1)
+	e1:SetOperation(c6734.drop)
 	e1:SetHintTiming(0,0x1c0)
 	c:RegisterEffect(e1)
 	--Draw
@@ -35,6 +37,27 @@ end
 
 function c6734.filter(c)
 	return c:IsSetCard(0xbe) and c:IsAbleToDeck()
+end
+function c6734.target1(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	if Duel.GetFlagEffect(tp,6734)==0
+		and Duel.IsPlayerCanDraw(tp,1)
+		and Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,2,nil,0xbe)
+		and Duel.SelectYesNo(tp,aux.Stringid(6734,0)) then
+		e:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
+		e:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		Duel.RegisterFlagEffect(tp,6734,RESET_PHASE+PHASE_END,0,1)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+		local g=Duel.SelectTarget(tp,c6734.filter,tp,LOCATION_GRAVE,0,2,2,nil)
+		Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,tp,LOCATION_HAND)
+		Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
+		e:SetLabel(1)
+		e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(6734,2))
+	else
+		e:SetCategory(0)
+		e:SetProperty(0)
+		e:SetLabel(0)
+	end
 end
 function c6734.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_GRAVE and chkc:GetControler()==tp and c6734.filter(chkc) end
