@@ -93,7 +93,7 @@ function c6701.thfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttackAbove(2400) and c:GetDefence()==1000 and c:IsAbleToHand()
 end
 function c6701.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6701.thfilter(chkc) end
+	if chkc then return (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2) and chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6701.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c6701.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectTarget(tp,c6701.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
