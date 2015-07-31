@@ -25,7 +25,7 @@ function c6435.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
 	e3:SetCountLimit(1)
-	3:SetCondition(c6435.tgcon)
+	e3:SetCondition(c6435.tgcon)
 	e3:SetCost(c6435.tgcost)
 	e3:SetTarget(c6435.tgtg)
 	e3:SetOperation(c6435.operation)
@@ -118,7 +118,7 @@ function c6435.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
 end
 function c6435.operation(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
+	if e:GetLabel()==0 or not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if not tc:IsRelateToEffect(e) then return end
 	Duel.SendtoGrave(tc,REASON_EFFECT+REASON_RETURN)
