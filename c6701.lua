@@ -34,6 +34,7 @@ function c6701.initial_effect(c)
 	e4:SetRange(LOCATION_GRAVE)
 	e4:SetHintTiming(0,TIMING_MAIN_END)
 	e4:SetCountLimit(1)
+	e4:SetCondition(c6701.thcon)
 	e4:SetCost(c6701.thcost)
 	e4:SetTarget(c6701.thtg)
 	e4:SetOperation(c6701.thop)
@@ -85,6 +86,10 @@ end
 function c6701.thfil1(c)
 	return c:IsSetCard(0xbe) and c:IsDiscardable()
 end
+function c6701.thcon(e,tp,eg,ep,ev,re,r,rp)
+	local ph=Duel.GetCurrentPhase()
+	return ph==PHASE_MAIN1 or ph==PHASE_MAIN2
+end
 function c6701.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6701.thfil1,tp,LOCATION_HAND,0,1,nil) end
 	Duel.DiscardHand(tp,c6701.thfil1,1,1,REASON_COST+REASON_DISCARD)
@@ -93,7 +98,7 @@ function c6701.thfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttackAbove(2400) and c:GetDefence()==1000 and c:IsAbleToHand()
 end
 function c6701.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2) and chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6701.thfilter(chkc) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c6701.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c6701.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectTarget(tp,c6701.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
