@@ -10,7 +10,7 @@ function c811734.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c811734.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp
+	return Duel.GetAttacker():IsControler(1-tp)
 end
 function c811734.atkfilter(c)
 	return c:IsSetCard(0x10af) and c:GetAttack()>0 and c:IsAbleToRemove()
