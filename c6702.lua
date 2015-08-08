@@ -1,11 +1,12 @@
---Scripted by Eerie Code
+--Scripted by Eerie Code who sucks....therefore oneshot fixed it.
 --Eidos the Netherworld Knight
 function c6702.initial_effect(c)
-	--extra summon
+	--send to grave
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetOperation(c6702.sumop)
+	e1:SetOperation(c6702.operation)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -23,8 +24,7 @@ function c6702.initial_effect(c)
 	e3:SetOperation(c6702.spop)
 	c:RegisterEffect(e3)
 end
-
-function c6702.sumop(e,tp,eg,ep,ev,re,r,rp)
+function c6702.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(tp,6702)~=0 then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
