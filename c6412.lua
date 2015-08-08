@@ -14,10 +14,16 @@ end
 function c6412.costfilter(c,e,tp)
 	return c:IsSetCard(0x2016) and c:IsAbleToRemoveAsCost()
 end
+function c6412.desfilter(c)
+	return c:IsDestructable()
+end
 function c6412.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c6412.costfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	local dg=Duel.GetMatchingGroup(c6412.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler())
+	local gct=dg:GetCount()
+	if gct>2 then gct=2 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c6412.costfilter,tp,LOCATION_GRAVE,0,1,2,nil)
+	local g=Duel.SelectMatchingCard(tp,c6412.costfilter,tp,LOCATION_GRAVE,0,1,gct,nil)
 	ct=g:GetCount()
 	e:SetLabel(ct)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
