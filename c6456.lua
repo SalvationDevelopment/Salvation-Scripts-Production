@@ -7,16 +7,15 @@ function c6456.initial_effect(c)
         c:RegisterEffect(e1)
 --spsummon
         local e2=Effect.CreateEffect(c)
-        e2:SetDescription(aux.Stringid(91110378,0))
-        e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-        e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-        e2:SetProperty(EFFECT_FLAG_DELAY)
-        e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-		e2:SetCondition(c6456.condition)
-        e2:SetRange(LOCATION_FZONE)
-        e2:SetTarget(c6456.target)
-        e2:SetOperation(c6456.operation)
-        c:RegisterEffect(e2)
+		e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+		e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+		e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+		e2:SetRange(LOCATION_FZONE)
+		e2:SetCondition(c6456.sccon)
+		e2:SetTarget(c6456.sctg)
+		e2:SetOperation(c6456.scop)
+		c:RegisterEffect(e2)
 --remove
 		local e3=Effect.CreateEffect(c)
 		e3:SetCategory(CATEGORY_ATKCHANGE)
@@ -28,30 +27,38 @@ function c6456.initial_effect(c)
 		e3:SetOperation(c6456.operation2)
 		c:RegisterEffect(e3)
 end
-function c6456.filter(c)
-        return c:IsSetCard(0xd3) and c:IsAbleToGraveAsCost() and c:GetAttack()>0
+function c6456.psyfilter(c,tp)
+	return c:IsFaceup() and c:IsSetCard(0xd3) and c:IsControler(tp)
 end
-function c6456.filter2(c)
-        return c:IsSetCard(0xd3) and c:IsFaceup() and c:IsControler(tp)
+function c6456.sccon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c6456.psyfilter,1,nil,tp)
 end
-function c6456.condition(e,tp,eg,ep,ev,re,r,rp)
-        return eg:IsExists(c6456.filter2,1,nil,tp)
+function c6456.mfilter(c)
+	return c:IsSetCard(0xd3)
 end
-function c6456.target(e,tp,eg,ev,re,r,rp,chk)
-        if chk==0 then
-        local mg=Duel.GetMatchingGroup(c6456.filter2,tp,LOCATION_MZONE,0,nil)
-        return Duel.IsExistingMatchingCard(Card.IsSynchroSummonable,tp,LOCATION_EXTRA,0,1,nil,nil,mg) end
-        Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+function c6456.sfilter(c,syn)
+	return syn:IsSynchroSummonable(c)
 end
-function c6456.operation(e,tp,eg,ep,ev,re,r,rp)
-        if not e:GetHandler():IsRelateToEffect(e) then return end
-        local mg=Duel.GetMatchingGroup(c6456.filter2,tp,LOCATION_MZONE,0,nil)
-        local g=Duel.GetMatchingGroup(Card.IsSynchroSummonable,tp,LOCATION_EXTRA,0,nil,nil,mg)
-        if g:GetCount()>0 then
-                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-                local sg=g:Select(tp,1,1,nil)
-                Duel.SynchroSummon(tp,sg:GetFirst(),nil,mg)
-        end
+function c6456.spfilter(c,mg)
+	return mg:IsExists(c6456.sfilter,1,nil,c)
+end
+function c6456.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		local mg=Duel.GetMatchingGroup(c6456.mfilter,tp,LOCATION_MZONE,0,nil)
+		return Duel.IsExistingMatchingCard(c6456.spfilter,tp,LOCATION_EXTRA,0,1,nil,mg)
+	end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+end
+function c6456.scop(e,tp,eg,ep,ev,re,r,rp)
+	local mg=Duel.GetMatchingGroup(c6456.mfilter,tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(c6456.spfilter,tp,LOCATION_EXTRA,0,nil,mg)
+	if g:GetCount()>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local sg=g:Select(tp,1,1,nil)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SMATERIAL)
+		local tg=mg:FilterSelect(tp,c6456.psyfilter,1,1,nil,sg:GetFirst())
+		Duel.SynchroSummon(tp,sg:GetFirst(),tg:GetFirst())
+	end
 end
 function c6456.condition2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttackTarget()
