@@ -1,5 +1,5 @@
 --ハーピィ・レディ1
-function c91932350.initial_effect(c)
+function c91932351.initial_effect(c)
 	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
