@@ -112,9 +112,9 @@ function c6435.tgfilter(c)
 end
 function c6435.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c6435.tgfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c6435.tgfilter,tp,LOCATION_REMOVED,0,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c6435.tgfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,c6435.tgfilter,tp,LOCATION_REMOVED,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c6435.tgfilter,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
 end
 function c6435.operation(e,tp,eg,ep,ev,re,r,rp)
