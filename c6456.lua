@@ -53,6 +53,7 @@ function c6456.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c6456.scop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local mg=Duel.GetMatchingGroup(c6456.mfilter,tp,LOCATION_MZONE,0,nil)
 	local g=Duel.GetMatchingGroup(c6456.spfilter,tp,LOCATION_EXTRA,0,nil,mg)
 	if g:GetCount()>0 then
@@ -79,6 +80,7 @@ function c6456.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST+REASON_DISCARD)
 end
 function c6456.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local c=e:GetLabelObject()
 	local atk=e:GetLabel()
 	if c:IsFaceup() and c:IsRelateToBattle() then
