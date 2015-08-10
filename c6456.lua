@@ -43,7 +43,7 @@ function c6456.spfilter(c,mg)
 	return mg:IsExists(c6456.sfilter,1,nil,c)
 end
 function c6456.filter(c)
-	return c:IsSetCard(0xd3) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(0xd3) and c:IsAbleToGraveAsCost() and c:IsType(TYPE_MONSTER)
 end
 function c6456.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
