@@ -48,7 +48,7 @@ function c6435.rmcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c6435.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local pre=e:GetHandler():GetPreviousControler()
+	local pre=e:GetHandler():GetControler()
 	Duel.SetTargetPlayer(1-pre)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,1-pre,LOCATION_HAND)
 end
