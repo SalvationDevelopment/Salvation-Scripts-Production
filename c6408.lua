@@ -2,14 +2,13 @@
 function c6408.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(86585274,0))
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetRange(LOCATION_HAND+LOCATION_GRAVE)
 	e1:SetCountLimit(1,6408)
-	e1:SetCondition(c6408.spcon)
-	e1:SetTarget(c6408.sptg)
-	e1:SetOperation(c6408.spop)
+	e1:SetCondition(c13753019.condition)
+	e1:SetTarget(c13753019.target1)
+	e1:SetOperation(c13753019.activate)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(28150174,0))
@@ -21,32 +20,31 @@ function c6408.initial_effect(c)
 	e2:SetOperation(c6408.operation)
 	c:RegisterEffect(e2)
 end
-function c6408.cfilter(c)
-	return c:GetSummonLocation()==LOCATION_EXTRA
-end
-function c6408.spcon(e,c)
-	return Duel.IsExistingMatchingCard(c6408.cfilter,tp,0,LOCATION_MZONE,1,nil)
-	and not Duel.IsExistingMatchingCard(c6408.cfilter,tp,LOCATION_MZONE,0,1,nil)
-end
-function c6408.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
-end
-function c6408.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if c:IsRelateToEffect(e) then
-		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetReset(RESET_EVENT+0xfe0000)
-		e1:SetValue(LOCATION_REMOVED)
-		c:RegisterEffect(e1)
-	end
-end
++function c6408.cfilter(c)
++	return c:GetSummonLocation()==LOCATION_EXTRA
++end
++function c6408.condition(e,tp,eg,ep,ev,re,r,rp)
++	return not Duel.IsExistingMatchingCard(c6408.cfilter,tp,LOCATION_MZONE,0,1,nil)
++		and Duel.IsExistingMatchingCard(c6408.cfilter,tp,0,LOCATION_MZONE,1,nil)
++end
++function c6408.target1(e,tp,eg,ep,ev,re,r,rp,chk)
++	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
++		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
++	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
++end
++function c6408.activate(e,tp,eg,ep,ev,re,r,rp)
++	local c=e:GetHandler()
++	if e:GetHandler():IsRelateToEffect(e) then
++		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
++		local e1=Effect.CreateEffect(c)
++		e1:SetType(EFFECT_TYPE_SINGLE)
++		e1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
++		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
++		e1:SetReset(RESET_EVENT+0xfe0000)
++		e1:SetValue(LOCATION_REMOVED)
++		c:RegisterEffect(e1)
++	end
++end
 function c6408.filter(c)
 	return c:IsFaceup() and c:GetLevel()>0
 end
