@@ -25,7 +25,6 @@ function c6408.cfilter(c)
 	return c:GetSummonLocation()==LOCATION_EXTRA
 end
 function c6408.spcon(e,c)
-	if c==nil then return true end
 	return Duel.IsExistingMatchingCard(c6408.cfilter,tp,0,LOCATION_MZONE,1,nil)
 	and not Duel.IsExistingMatchingCard(c6408.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
@@ -61,7 +60,7 @@ function c6408.operation(e,tp,eg,ep,ev,re,r,rp,c)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	local lv=tc:GetLevel()
-	if c:IsFaceup() and c:IsRelateToEffect(e) and tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if c:IsFaceup() and c:IsRelateToEffect(e) and tc and tc:IsFaceup() then
 		--synchro level
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
