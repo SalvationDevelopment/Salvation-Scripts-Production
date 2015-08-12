@@ -27,15 +27,16 @@ function c6404.atklimit(e,tp,eg,ep,ev,re,r,rp)
 end
 function c6404.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DEFENCE)
+	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
+	and e:GetHandler():IsAttackPos() end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
 end
 function c6404.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsFaceup() and tc:IsRelateToEffect(e) then
+	if c:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsFaceup() 
+	and c:IsAttackPos() and c:IsRelateToEffect(e) then
 		Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
 		if c:IsPosition(POS_FACEUP_DEFENCE) then
 			local e1=Effect.CreateEffect(c)

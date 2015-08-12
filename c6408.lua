@@ -61,10 +61,12 @@ function c6408.operation(e,tp,eg,ep,ev,re,r,rp,c)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	local lv=tc:GetLevel()
-	--synchro level
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SYNCHRO_LEVEL)
-	e1:SetValue(lv)
-	c:RegisterEffect(e1)
+	if c:IsFaceup() and c:IsRelateToEffect(e) and tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
+		--synchro level
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_SYNCHRO_LEVEL)
+		e1:SetValue(lv)
+		c:RegisterEffect(e1)
+		end
 end
