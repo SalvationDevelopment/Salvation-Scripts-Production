@@ -31,8 +31,9 @@ function c6431.egfil(c,tp)
 	return c:GetSummonPlayer()==tp
 end
 function c6431.condition(e,tp,eg,ep,ev,re,r,rp)
-	--local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	local c=e:GetHandler()
 	return rp~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.GetFieldGroupCount(e:GetHandler():GetControler(),LOCATION_MZONE,0,nil)==0
+	and not c:IsStatus(STATUS_CHAINING)
 end
 function c6431.filter(c,e,tp)
 	return c:IsCode(6428) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
