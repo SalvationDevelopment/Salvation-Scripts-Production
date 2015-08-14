@@ -38,12 +38,12 @@ end
 function c61307542.efilter(e,te)
 	return te:IsActiveType(TYPE_MONSTER) and te:GetOwner()~=e:GetOwner()
 end
-function c61307542.filter(c,tp)
+function c61307542.exfilter(c,tp)
 	return c:IsPreviousLocation(LOCATION_SZONE) and c:IsControler(tp) and c:IsType(TYPE_TRAP)
 end
 function c61307542.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return eg:IsContains(chkc) and c61307542.filter(chkc,e,tp) end
-	if chk==0 then return eg:IsExists(c61307542.filter,1,nil,e,tp)
+	if chkc then return eg:IsContains(chkc) and c61307542.exfilter(chkc,e,tp) end
+	if chk==0 then return eg:IsExists(c61307542.exfilter,1,nil,e,tp)
 	and Duel.IsPlayerCanDiscardDeck(tp,1) end
 end
 function c61307542.operation(e,tp,eg,ep,ev,re,r,rp)
