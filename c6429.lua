@@ -58,6 +58,7 @@ function c6429.operation(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP)
 			tc:RegisterFlagEffect(6429,RESET_EVENT+0x1fe0000,0,1)
 			local de=Effect.CreateEffect(e:GetHandler())
+			de:SetDescription(aux.Stringid(6429,1))
 			de:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 			de:SetCode(EVENT_PHASE+PHASE_END)
 			de:SetCountLimit(1)
@@ -65,13 +66,8 @@ function c6429.operation(e,tp,eg,ep,ev,re,r,rp)
 			de:SetLabelObject(tc)
 			de:SetCondition(c6429.descon)
 			de:SetOperation(c6429.desop)
-			if Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_END then
-				de:SetLabel(Duel.GetTurnCount())
-				de:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN,2)
-			else
-				de:SetLabel(0)
-				de:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN)
-			end
+			de:SetLabel(0)
+			de:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN)
 			Duel.RegisterEffect(de,tp)
 			tc=g:GetNext()
 		end
