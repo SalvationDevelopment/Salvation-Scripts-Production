@@ -64,7 +64,6 @@ function c6424.operation(e,tp,eg,ep,ev,re,r,rp)
 			de:SetCondition(c6424.descon)
 			de:SetOperation(c6424.desop)
 			de:SetLabel(0)
-			de:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN)
 			Duel.RegisterEffect(de,tp)
 			tc=g:GetNext()
 		end
