@@ -61,7 +61,7 @@ function c6734.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6734.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_GRAVE and chkc:GetControler()==tp and c6734.filter(chkc) end
-	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) 
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) and Duel.GetFlagEffect(tp,6734)==0
 		and Duel.IsExistingTarget(c6734.filter,tp,LOCATION_GRAVE,0,2,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectTarget(tp,c6734.filter,tp,LOCATION_GRAVE,0,2,2,nil)
