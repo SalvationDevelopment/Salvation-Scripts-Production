@@ -73,7 +73,7 @@ function c6426.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c6426.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp and e:GetHandler():GetTurnID()~=Duel.GetTurnCount()
+	return e:GetHandler():GetTurnID()~=Duel.GetTurnCount()
 end
 function c6426.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
