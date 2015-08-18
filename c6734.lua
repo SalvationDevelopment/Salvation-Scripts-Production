@@ -40,13 +40,13 @@ function c6734.filter(c)
 end
 function c6734.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if Duel.GetFlagEffect(tp,6734)==0
+	if e:GetHandler():GetFlagEffect(tp,6734)==0
 		and Duel.IsPlayerCanDraw(tp,1)
 		and Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE,0,2,nil,0xbe)
 		and Duel.SelectYesNo(tp,aux.Stringid(6734,0)) then
 		e:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
 		e:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		Duel.RegisterFlagEffect(tp,6734,RESET_PHASE+PHASE_END,0,1)
+		e:GetHandler():RegisterFlagEffect(tp,RESET_PHASE+PHASE_END,0,1)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 		local g=Duel.SelectTarget(tp,c6734.filter,tp,LOCATION_GRAVE,0,2,2,nil)
 		Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,tp,LOCATION_HAND)
@@ -61,7 +61,7 @@ function c6734.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6734.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_GRAVE and chkc:GetControler()==tp and c6734.filter(chkc) end
-	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) and Duel.GetFlagEffect(tp,6734)==0
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) and e:GetHandler():GetFlagEffect(tp,6734)==0
 		and Duel.IsExistingTarget(c6734.filter,tp,LOCATION_GRAVE,0,2,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectTarget(tp,c6734.filter,tp,LOCATION_GRAVE,0,2,2,nil)

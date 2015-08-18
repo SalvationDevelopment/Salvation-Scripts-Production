@@ -84,7 +84,7 @@ end
 
 function c6429.descon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
-	return Duel.GetTurnPlayer()==tp and Duel.GetTurnCount()~=e:GetLabel() and tc:GetFlagEffect(6429)~=0
+	return Duel.GetTurnCount()~=e:GetLabel() and tc:GetFlagEffect(6429)~=0
 end
 function c6429.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
