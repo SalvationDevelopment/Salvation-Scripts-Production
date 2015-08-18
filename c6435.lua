@@ -55,6 +55,7 @@ function c6435.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	local g=Duel.GetFieldGroup(p,LOCATION_HAND,0)
+	if not c:IsFaceup() and c:IsLocation(LOCATION_MZONE) then return end
 	if g:GetCount()==0 then return end
 	local sg=g:RandomSelect(p,1)
 	Duel.Remove(sg,POS_FACEDOWN,REASON_EFFECT)

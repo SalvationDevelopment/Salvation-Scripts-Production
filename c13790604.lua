@@ -1,111 +1,87 @@
---Superheavy Samurai Nusutou
+--Superheavy Great General San-5
 function c13790604.initial_effect(c)
-	--special summon
+	--pendulum summon
+	aux.AddPendulumProcedure(c)
+	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c13790604.hspcon)
-	e1:SetValue(1)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--spsummon limit
+	--scale
 	local e2=Effect.CreateEffect(c)
-	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetCondition(c13790604.hspcon2)
-	e2:SetOperation(c13790604.hspop)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_CHANGE_LSCALE)
+	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCondition(c13790604.sccon)
+	e2:SetValue(4)
 	c:RegisterEffect(e2)
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(13790604,0))
-	e3:SetCategory(CATEGORY_DESTROY)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCost(c13790604.cost)
-	e3:SetTarget(c13790604.target)
-	e3:SetOperation(c13790604.operation)
+	local e3=e2:Clone()
+	e3:SetCode(EFFECT_CHANGE_RSCALE)
 	c:RegisterEffect(e3)
+	--chain attack
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(13790604,1))
-	e4:SetCategory(CATEGORY_DESTROY)
-	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e4:SetType(EFFECT_TYPE_IGNITION)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetCost(c13790604.cost)
-	e4:SetTarget(c13790604.target2)
-	e4:SetOperation(c13790604.operation2)
+	e4:SetDescription(aux.Stringid(33823832,1))
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_BATTLED)
+	e4:SetRange(LOCATION_PZONE)
+	e4:SetCountLimit(1)
+	e4:SetCondition(c13790604.cacon)
+	e4:SetOperation(c13790604.caop)
 	c:RegisterEffect(e4)
+	--draw
+	local e5=Effect.CreateEffect(c)
+	e5:SetDescription(aux.Stringid(25857246,1))
+	e5:SetCategory(CATEGORY_DRAW)
+	e5:SetType(EFFECT_TYPE_IGNITION)
+	e5:SetRange(LOCATION_MZONE)
+	e5:SetCountLimit(1,13790604)
+	e5:SetTarget(c13790604.target)
+	e5:SetOperation(c13790604.operation)
+	c:RegisterEffect(e5)
 end
-function c13790604.filter(c)
+function c13790604.scalefilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
-function c13790604.hspcon(e,c)
-	local c=e:GetHandler()
-	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and not Duel.IsExistingMatchingCard(c13790604.filter,tp,LOCATION_GRAVE,0,1,nil)
+function c13790604.sccon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c13790604.scalefilter,tp,LOCATION_GRAVE,0,1,nil)
 end
-function c13790604.hspcon2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+1
+function c13790604.cacon(e,tp,eg,ep,ev,re,r,rp)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	if not d then return false end
+	if a:IsStatus(STATUS_OPPO_BATTLE) and d:IsControler(tp) then a,d=d,a end
+	if a:IsSetCard(0x9a)
+		and not a:IsStatus(STATUS_BATTLE_DESTROYED) and d:IsStatus(STATUS_BATTLE_DESTROYED) then
+		e:SetLabelObject(a)
+		return true
+	else return false end
 end
-function c13790604.hspop(e,tp,eg,ep,ev,re,r,rp)
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetTargetRange(1,0)
-	e1:SetTarget(c13790604.splimit)
-	e1:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e1,tp)
+function c13790604.caop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=e:GetLabelObject()
+	if tc:IsFaceup() and tc:IsControler(tp) and tc:IsRelateToBattle() and tc:IsChainAttackable() then
+			Duel.ChainAttack()
+	end
 end
-function c13790604.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0x9a)
+function c13790604.filter(c)
+	return c:IsSetCard(0x9a) and c:IsType(TYPE_MONSTER) and c:IsReleasableByEffect()
 end
-
-function c13790604.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsReleasable() end
-	Duel.Release(e:GetHandler(),REASON_COST)
-end
-function c13790604.filter1(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP)and c:GetSequence()<=5 and c:IsDestructable()
-end
-function c13790604.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsDestructable() end
-	if chk==0 then return Duel.IsExistingTarget(c13790604.filter1,tp,0,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c13790604.filter1,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+function c13790604.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,1)
+		and Duel.CheckReleaseGroup(tp,c13790604.filter,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function c13790604.operation(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-    local _useEffect = Duel.SelectYesNo(tp,aux.Stringid(13790604,2))
-    if (_useEffect) then
-      Duel.SSet(tp,tc)
-    end
+	if not Duel.IsPlayerCanDraw(tp) then return end
+	local ct=Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)
+	if ct==0 then ct=1 end
+	if ct>2 then ct=2 end
+	local g=Duel.SelectReleaseGroup(tp,c13790604.filter,1,ct,nil)
+	if g:GetCount()>0 then
+		Duel.HintSelection(g)
+		local rct=Duel.Release(g,REASON_EFFECT)
+		Duel.Draw(tp,rct,REASON_EFFECT)
 	end
 end
 
 
-function c13790604.filter2(c)
-	return c:GetSequence()>5 and c:IsDestructable()
-end
-function c13790604.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsDestructable() end
-	if chk==0 then return Duel.IsExistingTarget(c13790604.filter2,tp,0,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c13790604.filter2,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-end
-function c13790604.operation2(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-    local _useEffect = Duel.SelectYesNo(tp,aux.Stringid(13790604,3))
-    if (_useEffect) then
-      Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,6,POS_FACEUP,true)
-      Duel.ChangePosition(tc,POS_FACEUP)
-    end
-	end
-end
