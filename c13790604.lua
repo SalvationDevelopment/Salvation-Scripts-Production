@@ -36,6 +36,7 @@ function c13790604.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCountLimit(1,13790604)
+	e5:SetCondition(c13790604.condition)
 	e5:SetTarget(c13790604.target)
 	e5:SetOperation(c13790604.operation)
 	c:RegisterEffect(e5)
@@ -65,6 +66,9 @@ function c13790604.caop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c13790604.filter(c)
 	return c:IsSetCard(0x9a) and c:IsType(TYPE_MONSTER) and c:IsReleasableByEffect()
+end
+function c13790604.condition(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(c13790604.scalefilter,tp,LOCATION_GRAVE,0,1,nil)
 end
 function c13790604.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1)
