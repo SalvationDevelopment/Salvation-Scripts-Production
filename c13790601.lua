@@ -41,7 +41,7 @@ function c13790601.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetCountLimit(1,13790601)
+	e1:SetCountLimit(1)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetTarget(c13790601.destg)
 	e1:SetOperation(c13790601.desop)
@@ -56,7 +56,6 @@ function c13790601.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c13790601.desop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c13790601.filter1,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
