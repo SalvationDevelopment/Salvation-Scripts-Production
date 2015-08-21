@@ -58,7 +58,7 @@ function c6435.rmop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsFaceup() or not c:IsLocation(LOCATION_MZONE) then return end
 	if g:GetCount()==0 then return end
 	local sg=g:RandomSelect(p,1)
-	Duel.Remove(sg,POS_FACEDOWN,REASON_EFFECT)
+	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
 	local tc=sg:GetFirst()
 	tc:RegisterFlagEffect(6435,RESET_EVENT+0x1fe0000,0,0)
 	local e1=Effect.CreateEffect(c)
