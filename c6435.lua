@@ -46,7 +46,7 @@ function c6435.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return ph==PHASE_MAIN1 or ph==PHASE_MAIN2
 end
 function c6435.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_HAND,1,nil) end
 	local pre=e:GetHandler():GetControler()
 	Duel.SetTargetPlayer(1-pre)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,1-pre,LOCATION_HAND)
