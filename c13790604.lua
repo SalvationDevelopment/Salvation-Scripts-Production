@@ -1,4 +1,4 @@
---Superheavy Great General San-5
+--Superheavy Great General San-nya
 function c13790604.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -11,7 +11,7 @@ function c13790604.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_CHANGE_LSCALE)
-	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	--e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetCondition(c13790604.sccon)
 	e2:SetValue(4)
@@ -41,11 +41,10 @@ function c13790604.initial_effect(c)
 	e5:SetOperation(c13790604.operation)
 	c:RegisterEffect(e5)
 end
-function c13790604.scalefilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP)
-end
+
 function c13790604.sccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c13790604.scalefilter,tp,LOCATION_GRAVE,0,1,nil)
+	local tp=e:GetHandlerPlayer()
+	return Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_SPELL+TYPE_TRAP)
 end
 function c13790604.cacon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
