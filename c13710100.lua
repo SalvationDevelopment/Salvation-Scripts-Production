@@ -75,9 +75,9 @@ function c13710100.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Group.CreateGroup()
 	for i=1,2 do
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local tc=rg:Select(tp,1,1,nil):GetFirst()
-		rg:Remove(Card.IsCode,nil,tc:GetCode())
-		g:AddCard(tc)
+		local sc=rg:Select(tp,1,1,nil):GetFirst()
+		rg:Remove(Card.IsCode,nil,sc:GetCode())
+		g:AddCard(sc)
 	end
 	local g2=Duel.SelectMatchingCard(tp,c13710100.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	local tc=g2:GetFirst()
