@@ -53,7 +53,7 @@ function c13710103.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 end
 
 function c13710103.mfilter(c)
-	return c:IsSetCard(0xbe) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0xbe) and c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c13710103.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13710103.mfilter(chkc) end
