@@ -26,11 +26,19 @@ function c6426.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_GRAVE)
-	e3:SetCondition(c6426.thcon)
 	e3:SetCost(c6426.thcost)
 	e3:SetTarget(c6426.thtg)
 	e3:SetOperation(c6426.thop)
 	c:RegisterEffect(e3)
+	--sent to grave flag
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(15341821,0))
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_TO_GRAVE)
+	e4:SetCondition(c6426.condition)
+	e4:SetOperation(c6426.operation)
+	c:RegisterEffect(e4)
+	
 end
 function c6426.cfilter(c)
 	return (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsSetCard(0xd3) and c:IsAbleToRemoveAsCost()
@@ -72,9 +80,6 @@ function c6426.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(tc,POS_FACEDOWN,REASON_EFFECT)
 	end
 end
-function c6426.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetTurnID()~=Duel.GetTurnCount()
-end
 function c6426.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
@@ -83,7 +88,8 @@ function c6426.thfilter(c)
 	return c:IsSetCard(0xd3) and c:IsAbleToHand() and not c:IsCode(6426)
 end
 function c6426.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c6426.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c6426.thfilter,tp,LOCATION_DECK,0,1,nil) 
+	and e:GetHandler():GetFlagEffect(64126)==0 end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c6426.thop(e,tp,eg,ep,ev,re,r,rp)
@@ -94,4 +100,9 @@ function c6426.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
+function c6426.condition(e,tp,eg,ep,ev,re,r,rp)
+	return not e:GetHandler():IsReason(REASON_RETURN)
+end
+function c6426.operation(e,tp,eg,ep,ev,re,r,rp)
+	e:GetHandler():RegisterFlagEffect(64126,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+end
