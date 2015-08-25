@@ -36,7 +36,7 @@ function c6426.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e4:SetCode(EVENT_TO_GRAVE)
 	e4:SetCondition(c6426.condition)
-	e4:SetOperation(c6426.operation)
+	e4:SetOperation(c6426.op)
 	c:RegisterEffect(e4)
 	
 end
@@ -103,6 +103,6 @@ end
 function c6426.condition(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsReason(REASON_RETURN)
 end
-function c6426.operation(e,tp,eg,ep,ev,re,r,rp)
+function c6426.op(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(64126,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
