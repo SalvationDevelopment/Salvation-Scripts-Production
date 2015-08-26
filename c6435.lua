@@ -29,10 +29,10 @@ function c6435.initial_effect(c)
 	e3:SetTarget(c6435.tgtg)
 	e3:SetOperation(c6435.operation)
 	c:RegisterEffect(e3)
-	--To Hand
+	--To Deck, why the hell did this say To Hand before?
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(6435,2))
-	e2:SetCategory(CATEGORY_TOHAND)
+	e2:SetCategory(CATEGORY_TODECK)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
