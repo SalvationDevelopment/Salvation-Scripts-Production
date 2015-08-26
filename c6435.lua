@@ -25,7 +25,6 @@ function c6435.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
 	e3:SetCondition(c6435.tgcon)
-	e3:SetCost(c6435.tgcost)
 	e3:SetTarget(c6435.tgtg)
 	e3:SetOperation(c6435.operation)
 	c:RegisterEffect(e3)
@@ -102,10 +101,6 @@ end
 
 function c6435.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
-end
-function c6435.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,6436)==0 end
-	Duel.RegisterFlagEffect(tp,6436,RESET_PHASE+PHASE_END,0,1)
 end
 function c6435.tgfilter(c)
 	return c:IsFaceup()
