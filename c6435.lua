@@ -130,9 +130,9 @@ end
 function c6435.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c6435.thfil(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c6435.thfil,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,e:GetHandler()) and e:GetHandler():IsAbleToDeck() end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATODECK)
 	local g=Duel.SelectTarget(tp,c6435.thfil,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c6435.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
