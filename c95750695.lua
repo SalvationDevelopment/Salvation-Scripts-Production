@@ -56,6 +56,7 @@ end
 function c95750695.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousPosition(POS_FACEUP)
 		and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+		and not (bit.band(r,REASON_BATTLE+REASON_DESTROY)==REASON_BATTLE+REASON_DESTROY)
 end
 function c95750695.spfilter(c,e,tp)
 	return c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
