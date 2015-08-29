@@ -40,7 +40,7 @@ function c61307542.efilter(e,te)
 	return te:IsActiveType(TYPE_MONSTER) and te:GetOwner()~=e:GetOwner()
 end
 function c61307542.exfilter(c,tp)
-	return c:IsPreviousLocation(LOCATION_SZONE) and c:IsControler(tp) and c:IsType(TYPE_TRAP)
+	return c:IsPreviousLocation(LOCATION_SZONE) and c:GetPreviousControler()==tp and c:IsType(TYPE_TRAP)
 end
 function c61307542.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return eg:IsContains(chkc) and c61307542.exfilter(chkc,e,tp) end
