@@ -52,7 +52,7 @@ function c6025.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local tc2=g:GetFirst()
 	if tc1==tc2 then tc2=g:GetNext() end
 	if tc1:IsRelateToEffect(e) and Duel.SendtoGrave(tc1,REASON_EFFECT+REASON_RETURN)~=0 then
-		if tc2:IsFaceup() and tc2:IsRelateToEffect(e) then
+		if tc2:IsRelateToEffect(e) then
 			Duel.Remove(tc2,POS_FACEUP,REASON_EFFECT)
 		end
 	end
