@@ -18,6 +18,7 @@ function c61307542.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
+	e2:SetCondition(c61307542.condition)
 	e2:SetTarget(c61307542.target)
 	e2:SetOperation(c61307542.operation)
 	c:RegisterEffect(e2)
@@ -40,12 +41,14 @@ function c61307542.efilter(e,te)
 	return te:IsActiveType(TYPE_MONSTER) and te:GetOwner()~=e:GetOwner()
 end
 function c61307542.exfilter(c,tp)
-	return c:IsPreviousLocation(LOCATION_SZONE) and c:GetPreviousControler()==tp and c:IsType(TYPE_TRAP)
+	return c:IsPreviousLocation(LOCATION_SZONE) and c:IsType(TYPE_TRAP)
+	and c:GetPreviousControler()==tp
 end
-function c61307542.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return eg:IsContains(chkc) and c61307542.exfilter(chkc,e,tp) end
-	if chk==0 then return eg:IsExists(c61307542.exfilter,1,nil,e,tp)
-	and Duel.IsPlayerCanDiscardDeck(tp,1) end
+function c61307542.condition(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c61307542.exfilter,1,nil,tp)
+end
+function c61307542.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsPlayerCanDiscardDeck(tp,1) end
 end
 function c61307542.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsPlayerCanDiscardDeck(tp,1) then return end

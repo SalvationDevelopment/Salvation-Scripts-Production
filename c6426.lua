@@ -41,7 +41,8 @@ function c6426.initial_effect(c)
 	
 end
 function c6426.cfilter(c)
-	return (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsSetCard(0xd3) and c:IsAbleToRemoveAsCost()
+	return (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsType(TYPE_MONSTER) and
+	c:IsSetCard(0xd3) and c:IsAbleToRemoveAsCost()
 end
 function c6426.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return (chkc:IsLocation(LOCATION_HAND) or chkc:IsLocation(LOCATION_MZONE)) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
