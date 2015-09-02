@@ -32,7 +32,7 @@ end
 function c6424.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return rp~=tp and re:IsActiveType(TYPE_TRAP) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
-	and re:IsLocation(LOCATION_SZONE) and Duel.GetFieldGroupCount(e:GetHandler():GetControler(),LOCATION_MZONE,0,nil)==0
+	and Duel.GetFieldGroupCount(e:GetHandler():GetControler(),LOCATION_MZONE,0,nil)==0
 	and not c:IsStatus(STATUS_CHAINING)
 end
 function c6424.filter(c,e,tp)
