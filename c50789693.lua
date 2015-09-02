@@ -5,6 +5,8 @@ function c50789693.initial_effect(c)
 	c:EnableReviveLimit()
 	--attack up
 	local e1=Effect.CreateEffect(c)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetHintTiming(TIMING_DAMAGE_STEP) 
 	e1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e1:SetDescription(aux.Stringid(50789693,0))
 	e1:SetType(EFFECT_TYPE_IGNITION)
