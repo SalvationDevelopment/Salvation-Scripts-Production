@@ -15,7 +15,7 @@ function c72090671.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c72090671.filter(c,e,tp)
 	return c:IsType(TYPE_TUNER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	and Duel.IsExistingMatchingCard(c72090671.filter2,tp,LOCATION_GRAVE,0,1,c,e,tp)s
+	and Duel.IsExistingMatchingCard(c72090671.filter2,tp,LOCATION_GRAVE,0,1,c,e,tp)
 end
 function c72090671.filter2(c,e,tp)
 	return c:IsType(TYPE_SYNCHRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
