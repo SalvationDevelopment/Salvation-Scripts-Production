@@ -32,7 +32,7 @@ function c72090669.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
-		c:SetCardTarget(tc)
+		e:SetLabelObject(tc)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetRange(LOCATION_SZONE)
@@ -50,7 +50,7 @@ end
 function c72090669.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsStatus(STATUS_DESTROY_CONFIRMED) then return false end
-	local tc=c:GetFirstCardTarget()
+	local tc=e:GetLabelObject()
 	return tc and eg:IsContains(tc)
 end
 function c72090669.desop(e,tp,eg,ep,ev,re,r,rp)
