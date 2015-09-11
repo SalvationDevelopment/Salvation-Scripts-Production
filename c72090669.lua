@@ -19,7 +19,7 @@ function c72090669.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c72090669.filter(c)
-	return c:IsRace(RACE_DRAGON) and c:IsAttackBelow(2500) and c:IsDefenceBelow(2500)
+	return c:IsRace(RACE_DRAGON) and c:GetAttack()<=2500 and c:GetDefence()<=2500
 end
 function c72090669.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetControler()==tp end
@@ -50,7 +50,7 @@ end
 function c72090669.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsStatus(STATUS_DESTROY_CONFIRMED) then return false end
-	local tc=c:GetFirstCardTarget()
+	local tc=e:GetHandler():GetFirstCardTarget()
 	return tc and eg:IsContains(tc)
 end
 function c72090669.desop(e,tp,eg,ep,ev,re,r,rp)
