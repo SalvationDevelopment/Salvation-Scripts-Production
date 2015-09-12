@@ -48,13 +48,13 @@ function c6426.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return (chkc:IsLocation(LOCATION_HAND) or chkc:IsLocation(LOCATION_MZONE)) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
 	if chk==0 then return true end
 	if Duel.IsExistingMatchingCard(c6426.cfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil)
-		and Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(6426,0)) then
+		and Duel.IsExistingTarget(Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(6426,0)) then
 		e:SetProperty(EFFECT_FLAG_CARD_TARGET)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 		local cg=Duel.SelectMatchingCard(tp,c6426.cfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil)
 		Duel.Remove(cg,POS_FACEUP,REASON_COST)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,1,nil)
+		local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 		Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 		e:GetHandler():RegisterFlagEffect(6426,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 	else e:SetProperty(0) end
@@ -68,9 +68,9 @@ end
 function c6426.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
 	if chk==0 then return e:GetHandler():GetFlagEffect(6426)==0
-		and Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,nil) end
+		and Duel.IsExistingTarget(Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 	e:GetHandler():RegisterFlagEffect(6426,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
