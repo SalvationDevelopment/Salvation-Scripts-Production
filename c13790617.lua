@@ -38,7 +38,7 @@ function c13790617.initial_effect(c)
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD)
 	e6:SetCode(EFFECT_CANNOT_TRIGGER)
-	e6:SetTargetRange(0,LOCATION_MZONE)
+	e6:SetTargetRange(0,1)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetTarget(c13790617.target)
 	c:RegisterEffect(e6)
@@ -49,7 +49,7 @@ function c13790617.initial_effect(c)
 	c:RegisterEffect(e7)
 end
 function c13790617.val(e,c)
-	return Duel.GetMatchingGroupCount(c78193831.filter,c:GetControler(),0,LOCATION_GRAVE+LOCATION_MZONE,nil)*1000
+	return Duel.GetMatchingGroupCount(c13790617.filter,c:GetControler(),0,LOCATION_GRAVE+LOCATION_MZONE,nil)*1000
 end
 function c13790617.filter(c)
 	return c:IsRace(RACE_DRAGON) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
