@@ -25,13 +25,13 @@ function c13754003.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13754003.filter(c)
-	return c:IsAttribute(ATTRIBUTE_DARK)
+	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK)
 end
 function c13754003.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c13754003.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c13754003.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,c13754003.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,c13754003.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 end
 function c13754003.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
