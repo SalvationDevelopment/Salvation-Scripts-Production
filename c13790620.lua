@@ -1,40 +1,59 @@
---kruiball	
+--Tuning Magician
 function c13790620.initial_effect(c)
---pos
+	--recover
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(13790620,0))
-	e1:SetCategory(CATEGORY_POSITION)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e1:SetRange(LOCATION_HAND)
-	e1:SetCost(c13790620.spcost)
-	e1:SetCondition(c13790620.spcon)
-	e1:SetTarget(c13790620.sptg)
-	e1:SetOperation(c13790620.spop)
+	e1:SetCategory(CATEGORY_RECOVER)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetCountLimit(1,13790620)
+	e1:SetTarget(c13790620.rectg)
+	e1:SetOperation(c13790620.recop)
 	c:RegisterEffect(e1)
-	--ritual material
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
+	local e2=e1:Clone()
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e2)
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(88935103,1))
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetRange(LOCATION_HAND+LOCATION_GRAVE)
+	e3:SetTarget(c13790620.sptg)
+	e3:SetOperation(c13790620.spop)
+	c:RegisterEffect(e3)
 end
-function c13790620.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsDiscardable() end
-	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
+function c13790620.cfilter(c)
+	return (c:GetSequence()==6 or c:GetSequence()==7) and c:IsSetCard(0x98)
 end
-function c13790620.spcon(e,tp,eg,ep,ev,re,r,rp)
-	local at=Duel.GetAttacker()
-	return at:GetControler()~=tp
-end
-function c13790620.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local at=Duel.GetAttacker()
-	if chk==0 then return at:IsCanTurnSet() end
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,at,1,0,0)
+function c13790620.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(tp) and c13790620.cfilter(chkc) end
+	local c=e:GetHandler()
+	if chk==0 then return Duel.IsExistingTarget(c13790620.cfilter,tp,LOCATION_SZONE,0,2,nil)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
 end
 function c13790620.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local at=Duel.GetAttacker()
-	if at:IsRelateToBattle() and at:IsFaceup() then
-	Duel.ChangePosition(at,POS_FACEUP_DEFENCE)
+	if c:IsRelateToEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e1:SetReset(RESET_EVENT+0xfe0000)
+		e1:SetValue(LOCATION_REMOVED)
+		c:RegisterEffect(e1)
 	end
+end
+
+function c13790620.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	Duel.SetTargetPlayer(1-tp)
+	Duel.SetTargetParam(400)
+	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,val)
+end
+function c13790620.recop(e,tp,eg,ep,ev,re,r,rp)
+	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
+	if Duel.Recover(p,400,REASON_EFFECT) then
+		Duel.Damage(tp,400,REASON_EFFECT) end
 end

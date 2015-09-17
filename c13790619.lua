@@ -1,53 +1,77 @@
---Galloping Gaia The Fierce Knight
+--Enlightment Paladin
 function c13790619.initial_effect(c)
-	--summon & set with no tribute
+	--synchro summon
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
+	c:EnableReviveLimit()
 	local e1=Effect.CreateEffect(c)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SUMMON_PROC)
-	e1:SetCondition(c13790619.ntcon)
-	e1:SetOperation(c13790619.ntop)
+	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_RECOVER)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCountLimit(1,13790619)
+	e1:SetCondition(c13790619.thcon)
+	e1:SetTarget(c13790619.thtg)
+	e1:SetOperation(c13790619.thop)
 	c:RegisterEffect(e1)
-	--spsummon
+	--damage
 	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_DAMAGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetCode(EVENT_RELEASE)
-	e2:SetCountLimit(1,13790619)
-	e2:SetTarget(c13790619.sptg)
-	e2:SetOperation(c13790619.spop)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetCode(EVENT_BATTLE_DESTROYING)
+	e2:SetCondition(c13790619.damcon)
+	e2:SetTarget(c13790619.damtg)
+	e2:SetOperation(c13790619.damop)
 	c:RegisterEffect(e2)
 end
-function c13790619.ntcon(e,c,minc)
-	if c==nil then return true end
-	return minc==0 and c:GetLevel()>4 and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
+function c13790619.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
-function c13790619.ntop(e,tp,eg,ep,ev,re,r,rp,c)
-	--change base attack
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetReset(RESET_EVENT+0xff0000)
-	e1:SetCode(EFFECT_SET_BASE_ATTACK)
-	e1:SetValue(1900)
-	c:RegisterEffect(e1)
+function c13790619.thfilter(c)
+	return c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
-
-
-function c13790619.spfilter(c,e,tp)
-	return c:IsSetCard(0x1373)
+function c13790619.pmfilter(c)
+	return c:IsSetCard(0x98) and c:IsType(TYPE_PENDULUM)
 end
-function c13790619.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790619.spfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
-function c13790619.spop(e,tp,eg,ep,ev,re,r,rp)
+function c13790619.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	local g=c:GetMaterial()
+	if not g:IsExists(c13790619.pmfilter,1,nil) then return false end
+	if chkc then return chkc:GetLocation()==LOCATION_GRAVE and chkc:GetControler()==tp and c13790619.thfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c13790619.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790619.spfilter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+	local g=Duel.SelectTarget(tp,c13790619.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
+end
+function c13790619.thop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc and tc:IsRelateToEffect(e) then
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,tc)
 	end
 end
 
+function c13790619.damcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=c:GetBattleTarget()
+	return c:IsRelateToBattle() and bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
+end
+function c13790619.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	local bc=e:GetHandler():GetBattleTarget()
+	Duel.SetTargetCard(bc)
+	local dam=bc:GetAttack()
+	if dam<0 then dam=0 end
+	Duel.SetTargetPlayer(1-tp)
+	Duel.SetTargetParam(dam)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dam)
+end
+function c13790619.damop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
+		local dam=tc:GetAttack()
+		if dam<0 then dam=0 end
+		Duel.Damage(p,dam,REASON_EFFECT)
+	end
+end
