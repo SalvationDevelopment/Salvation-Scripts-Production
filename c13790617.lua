@@ -1,4 +1,5 @@
 --Buster Blader, the Dragon Destroyer
+--Fixed by Ragna as well... 
 function c13790617.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
@@ -35,11 +36,14 @@ function c13790617.initial_effect(c)
 	e5:SetTargetRange(0,LOCATION_MZONE)
 	e5:SetValue(POS_FACEUP_DEFENCE)
 	c:RegisterEffect(e5)
+	--Prevent Activation
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD)
-	e6:SetCode(EFFECT_CANNOT_TRIGGER)
-	e6:SetTargetRange(0,1)
 	e6:SetRange(LOCATION_MZONE)
+	e6:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e6:SetTargetRange(0,1)
+	e6:SetValue(c13790617.aclimit)
 	e6:SetTarget(c13790617.target)
 	c:RegisterEffect(e6)
 	--pierce
@@ -56,4 +60,7 @@ function c13790617.filter(c)
 end
 function c13790617.target(e,c)
 	return c:IsRace(RACE_DRAGON)
+end
+function c13790617.aclimit(e,re,tp)
+	return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
 end
