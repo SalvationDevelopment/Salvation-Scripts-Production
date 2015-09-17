@@ -44,7 +44,6 @@ function c13790617.initial_effect(c)
 	e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e6:SetTargetRange(0,1)
 	e6:SetValue(c13790617.aclimit)
-	e6:SetTarget(c13790617.target)
 	c:RegisterEffect(e6)
 	--pierce
 	local e7=Effect.CreateEffect(c)
@@ -62,5 +61,5 @@ function c13790617.target(e,c)
 	return c:IsRace(RACE_DRAGON)
 end
 function c13790617.aclimit(e,re,tp)
-	return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
+	return re:GetHandler():IsRace(RACE_DRAGON) and re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
 end
