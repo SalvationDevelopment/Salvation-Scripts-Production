@@ -57,7 +57,7 @@ function c13790622.thcon(e,tp,eg,ep,ev,re,r,rp)
 		and e:GetHandler():GetPreviousControler()==tp
 end
 function c13790622.filter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsRace(RACE_ZOMBIE)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsRace(RACE_ZOMBIE) and c:GetDefence()==0
 end
 function c13790622.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and c13790622.filter(chkc) end
