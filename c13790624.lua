@@ -33,7 +33,7 @@ function c13790624.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c13790624.tfilter(c,ec,tp)
-	return c~=ec and c:IsFaceup() and c:IsSetCard(0xe7) and c:IsControler(tp)
+	return c~=ec and c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp)
 end
 function c13790624.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
@@ -54,8 +54,8 @@ function c13790624.effcon(e,tp,eg,ep,ev,re,r,rp)
 	and ((Duel.IsExistingMatchingCard(Card.IsAbleToDeck,tp,0,LOCATION_HAND+LOCATION_ONFIELD,1,nil)) or (Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)~=0 and e:GetHandler():IsChainAttackable(2,true)))
 end
 function c13790624.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,e:GetHandler(),0xe7) end
-	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,e:GetHandler(),0xe7)
+	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,e:GetHandler(),0x1e71) end
+	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,e:GetHandler(),0x1e71)
 	Duel.Release(g,REASON_COST)
 	local opt=0
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)==0 then
