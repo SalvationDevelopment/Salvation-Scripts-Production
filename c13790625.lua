@@ -99,19 +99,24 @@ function c13790625.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local bc=tc:GetBattleTarget()
 	return ph==PHASE_DAMAGE and not c:IsStatus(STATUS_CHAINING)
 	and a:IsLocation(LOCATION_MZONE) and d:IsLocation(LOCATION_MZONE) 
-	and (tc==a or tc==d) and bc:IsLevelAbove(5)
+	and (tc==a or tc==d) and bc:IsLevelAbove(5) and not Duel.IsDamageCalculated()
+	and e:GetHandler():GetFlagEffect(13790625)==0
 end
 function c13790625.adesop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetFirstCardTarget()
 	local bc=tc:GetBattleTarget()
 	local atk=bc:GetBaseAttack()
-	if bc:IsRelateToBattle() and Duel.Destroy(bc,REASON_EFFECT) then
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(atk)
-		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END)
-		tc:RegisterEffect(e1)
+	if bc:IsRelateToBattle() then 
+		Duel.Destroy(bc,REASON_EFFECT) 
+		if bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER) then
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_UPDATE_ATTACK)
+			e1:SetValue(atk)
+			e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END)
+			tc:RegisterEffect(e1)
+		end
 	end
+	e:GetHandler():RegisterFlagEffect(13790625,RESET_PHASE+RESET_DAMAGE_CAL,0,1)
 end
