@@ -1,92 +1,74 @@
---Knight of the Beginning
+--Ikusagami - Shiranui
 function c13790622.initial_effect(c)
-	--pierce
+	c:SetSPSummonOnce(13790622)
+	--synchro summon
+	aux.AddSynchroProcedure(c,c13790622.synfilter,aux.NonTuner(c13790622.synfilter),1)
+	c:EnableReviveLimit()
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e1:SetCode(EVENT_BE_MATERIAL)
-	e1:SetCountLimit(1,13790622)
-	e1:SetCondition(c13790622.pscon)
-	e1:SetOperation(c13790622.psop)
+	e1:SetDescription(aux.Stringid(11260714,0))
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
+	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCost(c13790622.cost)
+	e1:SetOperation(c13790622.operation)
 	c:RegisterEffect(e1)
-	--tograve
+	--add to hand
 	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(36733451,1))
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetCode(EVENT_REMOVE)
-	e2:SetCountLimit(1,13791622)
-	e2:SetCondition(c13790622.tgcon)
-	e2:SetTarget(c13790622.tgtg)
-	e2:SetOperation(c13790622.tgop)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCode(EVENT_TO_GRAVE)
+	e2:SetCondition(c13790622.thcon)
+	e2:SetTarget(c13790622.thtg)
+	e2:SetOperation(c13790622.thop)
 	c:RegisterEffect(e2)
 end
-function c13790622.pscon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return r==REASON_RITUAL and (c:GetReasonCard():GetCode()==5405694  or c:GetReasonCard():GetCode()==13790642)
+function c13790622.synfilter(c)
+	return c:IsRace(RACE_ZOMBIE)
 end
-function c13790622.psop(e,tp,eg,ep,ev,re,r,rp)
-	local rc=e:GetHandler():GetReasonCard()
-	local c=e:GetHandler()
-	--chain attack
-	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(13790622,2))
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_BATTLED)
-	e1:SetReset(RESET_EVENT+0x1fe0000)
-	e1:SetCondition(c13790622.atcon)
-	e1:SetOperation(c13790622.atop)
-	rc:RegisterEffect(e1)
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(13790622,1))
-	e2:SetCategory(CATEGORY_REMOVE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetCountLimit(1)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetReset(RESET_EVENT+0x1fe0000)
-	e2:SetTarget(c13790622.rmtg)
-	e2:SetOperation(c13790622.rmop)
-	rc:RegisterEffect(e2)
+function c13790622.cfilter(c)
+	return c:IsRace(RACE_ZOMBIE) and c:IsAbleToRemoveAsCost()
 end
-function c13790622.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:GetLocation()==LOCATION_MZONE and chkc:IsAbleToRemove() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,nil) end
+function c13790622.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c13790622.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
+	local g=Duel.SelectMatchingCard(tp,c13790622.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	e:SetLabel(g:GetFirst():GetAttack())
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
-function c13790622.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
+function c13790622.operation(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if e:GetLabel()~=0 and c:IsFaceup() and c:IsRelateToEffect(e) then
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetProperty(EFFECT_FLAG_COPY_INHERIT)
+		e1:SetValue(e:GetLabel())
+		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
+		c:RegisterEffect(e1)
 	end
 end
-function c13790622.atcon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local bc=c:GetBattleTarget()
-	return bc and bc:IsStatus(STATUS_BATTLE_DESTROYED) and c:GetFlagEffect(13790622)==0
-		and c:IsChainAttackable() and c:IsStatus(STATUS_OPPO_BATTLE) 
-end
-function c13790622.atop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ChainAttack()
-end
 
-function c13790622.tgcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
+function c13790622.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return bit.band(r,REASON_DESTROY)>0
+		and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+		and e:GetHandler():GetPreviousControler()==tp
 end
-function c13790622.thfilter(c)
-	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+function c13790622.filter(c)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsRace(RACE_ZOMBIE) and c:GetDefence()==0
 end
-function c13790622.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790622.thfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
-function c13790622.tgop(e,tp,eg,ep,ev,re,r,rp)
+function c13790622.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and c13790622.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c13790622.filter,tp,LOCATION_REMOVED,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790622.thfilter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+	local g=Duel.SelectTarget(tp,c13790622.filter,tp,LOCATION_REMOVED,0,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
+end
+function c13790622.thop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc and tc:IsRelateToEffect(e) then
+		Duel.SendtoGrave(tc,REASON_EFFECT+REASON_RETURN)
 	end
 end
