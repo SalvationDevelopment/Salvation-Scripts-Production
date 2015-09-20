@@ -1,59 +1,89 @@
---Magispecter Raccoon
+--Goyo King
 function c13790626.initial_effect(c)
-	--pendulum summon
-	aux.AddPendulumProcedure(c)
-	--Activate
+	--synchro summon
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsType,TYPE_SYNCHRO),1)
+	c:EnableReviveLimit()
+	--atk up
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetDescription(aux.Stringid(13790626,0))
+	e1:SetCategory(CATEGORY_ATKCHANGE)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e1:SetCondition(c13790626.atkcon)
+	e1:SetOperation(c13790626.atkop)
 	c:RegisterEffect(e1)
-	--tohand
-	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
-	e2:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
-	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetCountLimit(1,13790626)
-	e2:SetTarget(c13790626.target)
-	e2:SetOperation(c13790626.operation)
-	c:RegisterEffect(e2)
-	local e3=e2:Clone()
-	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	c:RegisterEffect(e3)
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE)
-	e4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetValue(aux.tgoval)
-	c:RegisterEffect(e4)
-	local e5=Effect.CreateEffect(c)
-	e5:SetType(EFFECT_TYPE_SINGLE)
-	e5:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-	e5:SetRange(LOCATION_MZONE)
-	e5:SetCondition(c13790626.con)
-	e5:SetValue(c13790626.indval)
-	c:RegisterEffect(e5)
+	--special summon
+	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetCode(EVENT_BATTLE_DESTROYING)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCondition(c13790626.spcon)
+	e1:SetTarget(c13790626.sptg)
+	e1:SetOperation(c13790626.spop)
+	c:RegisterEffect(e1)
 end
-function c13790626.con(e)
-	return e:GetHandler():IsFaceup() and e:GetHandler():IsLocation(LOCATION_MZONE)
+function c13790626.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetAttackTarget()~=nil
 end
-function c13790626.indval(e,re,tp)
-	return e:GetHandler():GetControler()~=tp
+function c13790626.atkop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetValue(c13790626.atkval)
+	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
+	c:RegisterEffect(e1)
+end
+function c13790626.filter(c)
+	return c:IsFaceup() and c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO)
+end
+function c13790626.atkval(e,c)
+	return Duel.GetMatchingGroupCount(c13790626.filter,c:GetControler(),LOCATION_MZONE,0,nil)*400
 end
 
-function c13790626.filter(c)
-	return c:IsSetCard(0x1e7) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+function c13790626.cfilter(c)
+	return c:IsFaceup() and c:IsControlerCanBeChanged()
 end
-function c13790626.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790626.filter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+function c13790626.spcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=c:GetBattleTarget()
+	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
+	return bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
 end
-function c13790626.operation(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790626.filter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+function c13790626.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local bc=e:GetHandler():GetBattleTarget()
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and (bc:IsCanBeSpecialSummoned(e,0,tp,false,false) or Duel.IsExistingTarget(c13790626.cfilter,tp,0,LOCATION_MZONE,1,nil)) end
+	local op=0
+	if bc:IsCanBeSpecialSummoned(e,0,tp,false,false) then op=op+1 end
+	if Duel.IsExistingTarget(c13790626.cfilter,tp,0,LOCATION_MZONE,1,nil) then op=op+2 end
+	if op==3 then
+		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(13790626,0))
+		op=Duel.SelectOption(tp,aux.Stringid(13790626,1),aux.Stringid(13790626,2))+1
+	end
+	if op==1 then
+		Duel.SetTargetCard(bc)
+	elseif op==2 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
+	local g=Duel.SelectTarget(tp,c13790626.cfilter,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_CONTROL,g,1,0,0)
+	end
+	e:SetLabel(op)
+end
+function c13790626.spop(e,tp,eg,ep,ev,re,r,rp)
+	local op=e:GetLabel()
+	if op==0 then return end
+	local tc=Duel.GetFirstTarget()
+	if op==1 then
+		if tc:IsRelateToEffect(e) then
+			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+		end
+	end
+	if op==2 then
+		if tc:IsRelateToEffect(e) and not Duel.GetControl(tc,tp) then
+			if not tc:IsImmuneToEffect(e) and tc:IsAbleToChangeControler() then
+				Duel.Destroy(tc,REASON_EFFECT)
+			end
+		end
 	end
 end
