@@ -23,9 +23,9 @@ function c13790624.initial_effect(c)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TODECK)
-	e3:SetDescription(aux.Stringid(13790624,0))
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_DAMAGE_STEP_END)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(c13790624.effcon)
 	e3:SetTarget(c13790624.efftg)
@@ -36,8 +36,7 @@ function c13790624.tfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp)
 end
 function c13790624.negcon(e,tp,eg,ep,ev,re,r,rp)
-	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
-	if not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
+	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return g and g:IsExists(c13790624.tfilter,1,nil)and g:GetFirst()~=e:GetHandler() and Duel.IsChainDisablable(ev)
 end
