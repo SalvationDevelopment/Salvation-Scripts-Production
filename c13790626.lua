@@ -58,8 +58,7 @@ function c13790626.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if bc:IsCanBeSpecialSummoned(e,0,tp,false,false) then op=op+1 end
 	if Duel.IsExistingTarget(c13790626.cfilter,tp,0,LOCATION_MZONE,1,nil) then op=op+2 end
 	if op==3 then
-		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(13790626,0))
-		op=Duel.SelectOption(tp,aux.Stringid(13790626,1),aux.Stringid(13790626,2))+1
+		op=Duel.SelectOption(tp,aux.Stringid(13790626,0),aux.Stringid(13790626,1))+1
 	end
 	if op==1 then
 		Duel.SetTargetCard(bc)
