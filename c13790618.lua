@@ -12,7 +12,7 @@ function c13790618.initial_effect(c)
 	e1:SetOperation(c13790618.desop)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(33184167,0))
+	e2:SetDescription(aux.Stringid(13790618,0))
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
@@ -82,11 +82,11 @@ function c13790618.dfilter(c,rc)
 end
 function c13790618.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local g=Duel.GetMatchingGroup(c13790618.dfilter,0,0,LOCATION_MZONE,nil,e:GetLabel())
+	local g=Duel.GetMatchingGroup(c13790618.dfilter,tp,0,LOCATION_MZONE,nil,e:GetLabel())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c13790618.operation(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c13790618.dfilter,0,0,LOCATION_MZONE,nil,e:GetLabel())
+	local g=Duel.GetMatchingGroup(c13790618.dfilter,tp,0,LOCATION_MZONE,nil,e:GetLabel())
 	Duel.Destroy(g,REASON_EFFECT)
 end
 
