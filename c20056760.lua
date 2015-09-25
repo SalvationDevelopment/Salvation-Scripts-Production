@@ -47,7 +47,9 @@ function c20056760.sptg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		g:Merge(g2)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,2,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+	if e:GetHandler():GetLocation()==LOCATION_HAND or e:GetHandler():GetLocation()==LOCATION_GRAVE then
+		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+	end
 end
 function c20056760.spop1(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
