@@ -27,7 +27,7 @@ function c13701809.initial_effect(c)
 end
 function c13701809.filter(c,e,tp)
 	return c:IsSetCard(0x54) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
+		and not c:IsHasEffect(EFFECT_NECRO_VALLEY) and not c:IsCode(13701809)
 end
 function c13701809.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c13701809.filter(chkc,e,tp) end
