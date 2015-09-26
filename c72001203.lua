@@ -19,7 +19,7 @@ function c72001203.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c72001203.activate(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	local ct=Duel.GetMatchingGroupCount(c72001203.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	local ct=Duel.GetMatchingGroupCount(c72001203.filter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	local tc=sg:GetFirst()
 	while tc do
 		if tc:IsFaceup() then
