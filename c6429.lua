@@ -1,7 +1,7 @@
 --Scripted by Eerie Code
 --PSYFrame Gear Alpha
 function c6429.initial_effect(c)
-	c:SetStatus(STATUS_UNSUMMONABLE_CARD,true)
+	c:EnableUnsummonable()
 	--cannot pendulum summon
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
