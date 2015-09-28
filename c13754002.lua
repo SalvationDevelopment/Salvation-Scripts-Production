@@ -22,7 +22,7 @@ function c13754002.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13754002.efcon(e,tp,eg,ep,ev,re,r,rp)
-	return r==REASON_XYZ
+	return r==REASON_XYZ and e:GetHandler():GetAttribute()==ATTRIBUTE_DARK
 end
 function c13754002.efop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -47,7 +47,7 @@ function c13754002.efop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c13754002.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ and e:GetHandler():GetAttribute()==ATTRIBUTE_DARK
 end
 function c13754002.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
