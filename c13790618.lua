@@ -1,4 +1,5 @@
---Buster Blader, Prodigal Destroyer
+--Buster Blader, The Destruction Swordmaster
+--Fixed by Ragna_Edge
 function c13790618.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(13790618,0))
@@ -29,15 +30,14 @@ function c13790618.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
 	e3:SetValue(78193831)
 	c:RegisterEffect(e3)
-
 end
 function c13790618.descon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	return eg:GetCount()==1 and tc:IsReason(REASON_DESTROY) and tc:IsReason(REASON_BATTLE+REASON_EFFECT)
-		and tc:IsPreviousLocation(LOCATION_MZONE) and tc:GetPreviousControler()~=tp
+	return eg:GetCount()~=0 and tc:IsReason(REASON_DESTROY) and tc:IsReason(REASON_BATTLE+REASON_EFFECT)
+		and tc:IsPreviousLocation(LOCATION_MZONE) and tc:GetOwner()~=tp
 end
 function c13790618.cfilter1(c,e,tp)
-	return c:GetPreviousControler()~=tp and c:IsReason(REASON_EFFECT+REASON_BATTLE)
+	return c:GetOwner()~=tp and c:IsReason(REASON_EFFECT+REASON_BATTLE)
 	and c:IsCanBeEffectTarget(e) and c:IsLocation(LOCATION_GRAVE)
 end
 function c13790618.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -89,4 +89,3 @@ function c13790618.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c13790618.dfilter,tp,0,LOCATION_MZONE,nil,e:GetLabel())
 	Duel.Destroy(g,REASON_EFFECT)
 end
-
