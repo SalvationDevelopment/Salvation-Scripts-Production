@@ -14,7 +14,7 @@ function c13790624.initial_effect(c)
 	e2:SetCategory(CATEGORY_DISABLE)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
-	e2:SetCode(EVENT_CHAIN_SOLVING)
+	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_PZONE)
 	e2:SetCountLimit(1)
 	e2:SetCondition(c13790624.negcon)
@@ -37,6 +37,7 @@ function c13790624.tfilter(c)
 end
 function c13790624.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
+	if not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return g and g:IsExists(c13790624.tfilter,1,nil)and g:GetFirst()~=e:GetHandler() and Duel.IsChainDisablable(ev)
 end
@@ -45,7 +46,7 @@ function c13790624.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
 end
 function c13790624.negop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.SelectYesNo(tp,aux.Stringid(13790624,3)) then 
+	if Duel.SelectYesNo(tp,aux.Stringid(13790624,3)) then
 		Duel.NegateEffect(ev)
 		Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 	else end
@@ -62,7 +63,7 @@ function c13790624.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)==0 then
 		opt=Duel.SelectOption(tp,aux.Stringid(13790624,1))
 	else
-		opt=Duel.SelectOption(tp,aux.Stringid(13790624,2),aux.Stringid(13790624,1))
+		opt=Duel.SelectOption(tp,aux.Stringid(13790624,0),aux.Stringid(13790624,1))
 	end
 	e:SetLabel(opt)
 	if opt==0 then
