@@ -1,79 +1,76 @@
---Greydle Slime
+--Destruction Sword - Dragon Buster Blade
 function c13790632.initial_effect(c)
-	--spsummon
+	--equip
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetRange(LOCATION_HAND+LOCATION_GRAVE)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1,13790632)
-	e1:SetTarget(c13790632.ssptg)
-	e1:SetOperation(c13790632.sspop)
+	e1:SetCategory(CATEGORY_EQUIP)
+	e1:SetRange(LOCATION_HAND+LOCATION_MZONE)
+	e1:SetTarget(c13790632.eqtg)
+	e1:SetOperation(c13790632.eqop)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetTarget(c13790632.sptg)
-	e2:SetOperation(c13790632.spop)
+	e2:SetType(EFFECT_TYPE_EQUIP+EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetTargetRange(0,1)
+	e2:SetTarget(c13790632.splimit)
 	c:RegisterEffect(e2)
+	--special summon
+	local e3=Effect.CreateEffect(c)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetCountLimit(1,13790632)
+	e3:SetRange(LOCATION_SZONE)
+	e3:SetTarget(c13790632.sptg)
+	e3:SetOperation(c13790632.spop)
+	c:RegisterEffect(e3)
 end
-function c13790632.desfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsDestructable()
+function c13790632.filter(c)
+	return c:IsFaceup() and c:GetCode()==78193831
 end
-function c13790632.desfilter2(c,e)
-	return c13790632.desfilter(c) and c:IsCanBeEffectTarget(e)
+function c13790632.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c13790632.filter(chkc) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingTarget(c13790632.filter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+	Duel.SelectTarget(tp,c13790632.filter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function c13790632.ssptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and c13790632.desfilter(chkc) end
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	local ct=-ft+1
-	if chk==0 then return ct<=2 and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and Duel.IsExistingTarget(c13790632.desfilter,tp,LOCATION_ONFIELD,0,2,nil)
-		and (ct<=0 or Duel.IsExistingTarget(c13790632.desfilter,tp,LOCATION_MZONE,0,ct,nil)) end
-	local g=nil
-	if ct>0 then
-		local tg=Duel.GetMatchingGroup(c13790632.desfilter2,tp,LOCATION_ONFIELD,0,nil,e)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		g=tg:FilterSelect(tp,Card.IsLocation,ct,ct,nil,LOCATION_MZONE)
-		if ct<2 then
-			tg:Sub(g)
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-			local g2=tg:Select(tp,2-ct,2-ct,nil)
-			g:Merge(g2)
-		end
-		Duel.SetTargetCard(g)
-	else
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		g=Duel.SelectTarget(tp,c13790632.desfilter,tp,LOCATION_ONFIELD,0,2,2,nil)
+function c13790632.eqop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
+	if c:IsLocation(LOCATION_MZONE) and c:IsFacedown() then return end
+	local tc=Duel.GetFirstTarget()
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or tc:GetControler()~=tp or tc:IsFacedown() or not tc:IsRelateToEffect(e) or not c:CheckUniqueOnField(tp) then
+		Duel.SendtoGrave(c,REASON_EFFECT)
+		return
 	end
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,2,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+	Duel.Equip(tp,c,tc,true)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_EQUIP_LIMIT)
+	e1:SetReset(RESET_EVENT+0x1fe0000)
+	e1:SetValue(c13790632.eqlimit)
+	e1:SetLabelObject(tc)
+	c:RegisterEffect(e1)
 end
-function c13790632.sspop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
-	if Duel.Destroy(g,REASON_EFFECT)~=0 then
-		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
-	end
-	e:GetHandler():RegisterFlagEffect(13790632,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_END,0,1)
+function c13790632.eqlimit(e,c)
+	return c==e:GetLabelObject()
 end
 
-function c13790632.spfilter(c,e,tp)
-	return c:IsSetCard(0x1e71) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
-end
 function c13790632.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetFlagEffect(13790632)~=0 and 
-	Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and
-	Duel.IsExistingMatchingCard(c13790632.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c13790632.spop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c13790632.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
-	local tc=g:GetFirst()
-	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE) then
-		Duel.SpecialSummonComplete()
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
 	end
+end
+
+function c13790632.splimit(e,c)
+	return c:IsLocation(LOCATION_EXTRA)
 end

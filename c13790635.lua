@@ -1,66 +1,53 @@
---Greydoll Eagle
+--Dinomist Charge
 function c13790635.initial_effect(c)
-	--equip
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_EQUIP)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e1:SetCode(EVENT_TO_GRAVE)
-	e1:SetCondition(c13790635.eqcon)
-	e1:SetTarget(c13790635.eqtg)
-	e1:SetOperation(c13790635.eqop)
+	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCountLimit(1,13790635+EFFECT_COUNT_CODE_OATH)
+	e1:SetOperation(c13790635.activate)
 	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e2:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)
+	e2:SetCode(EVENT_TO_DECK)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetCountLimit(1)
+	e2:SetCondition(c13790635.condition)
+	e2:SetTarget(c13790635.target)
+	e2:SetOperation(c13790635.acop)
+	c:RegisterEffect(e2)
 end
-function c13790635.eqcon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsReason(REASON_DESTROY) and
-	 (c:IsReason(REASON_BATTLE) or c:IsReason(REASON_EFFECT) and re:IsActiveType(TYPE_MONSTER))
+function c13790635.dfilter(c)
+	return c:IsSetCard(0x1e71) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
-function c13790635.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsFaceup() end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-		and Duel.IsExistingTarget(Card.IsFaceup,tp,0,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	Duel.SelectTarget(tp,Card.IsFaceup,tp,0,LOCATION_MZONE,1,1,nil)
-end
-function c13790635.eqop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return end
-	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		Duel.Equip(tp,c,tc,true)
-		--Add Equip limit
-		local e1=Effect.CreateEffect(tc)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_EQUIP_LIMIT)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetReset(RESET_EVENT+0x1fe0000)
-		e1:SetValue(c13790635.eqlimit)
-		c:RegisterEffect(e1)
-		--control
-		local e2=Effect.CreateEffect(c)
-		e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-		e2:SetCode(EVENT_LEAVE_FIELD)
-		e2:SetOperation(c13790635.rmop)
-		c:RegisterEffect(e2)
-		local e3=Effect.CreateEffect(c)
-		e3:SetType(EFFECT_TYPE_EQUIP)
-		e3:SetCode(EFFECT_SET_CONTROL)
-		e3:SetValue(c13790635.ctval)
-		c:RegisterEffect(e3)
+function c13790635.activate(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
+	local g=Duel.GetMatchingGroup(c13790635.dfilter,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+		local sg=g:Select(tp,1,1,nil)
+		Duel.SendtoHand(sg,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,sg)
 	end
-end
-function c13790635.ctval(e,c)
-	return e:GetHandlerPlayer()
 end
 
-function c13790635.eqlimit(e,c)
-	return e:GetOwner()==c
+function c13790635.filter(c,e,tp)
+	return c:IsSetCard(0x1e71) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsLocation(LOCATION_EXTRA) and c:IsFaceup() and c:IsControler(tp)
 end
-function c13790635.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local tc=e:GetHandler():GetEquipTarget()
-	if tc then
-		Duel.Destroy(tc,REASON_EFFECT)
-	end
+function c13790635.condition(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c13790635.filter,1,nil,tp)
+end
+function c13790635.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	Duel.SetTargetCard(eg)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,eg,1,0,0)
+end
+function c13790635.acop(e,tp,eg,ep,ev,re,r,rp)
+	local g=eg:Filter(c13790635.filter,nil,e,tp)
+	if g:GetCount()==0 then return end
+	Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TODECK)
+	local rg=g:Select(tp,1,1,nil)
+	Duel.SendtoHand(rg,nil,REASON_EFFECT)
+	Duel.ConfirmCards(1-tp,rg)
 end
