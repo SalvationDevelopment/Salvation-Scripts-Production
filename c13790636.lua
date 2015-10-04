@@ -77,9 +77,9 @@ function c13790636.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		and Duel.IsExistingTarget(c13790636.filter,tp,LOCATION_GRAVE,0,5,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectTarget(tp,c13790636.filter,tp,LOCATION_GRAVE,0,5,5,nil)
+	Duel.ConfirmCards(tp,g)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
-	Duel.ConfirmCards(tp,g)
 end
 function c13790636.tgfilter(c,e)
 	return not c:IsRelateToEffect(e)
