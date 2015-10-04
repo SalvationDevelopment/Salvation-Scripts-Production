@@ -42,7 +42,7 @@ function c13790638.ngcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
 	local loc,tg=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION,CHAININFO_TARGET_CARDS)
 	local tc=tg:GetFirst()
-	if tg:GetCount()~=1 or not tc:IsLocation(LOCATION_MZONE) or not (tc:IsCode(13790617) or tc:IsCode(13790618) or tc:IsCode(13790637) or tc:IsCode(78193831)) or tc:GetController()~=tp then return false end
+	if tg:GetCount()~=1 or not tc:IsLocation(LOCATION_MZONE) or not (tc:IsCode(13790617) or tc:IsCode(13790618) or tc:IsCode(13790637) or tc:IsCode(78193831)) or tc:IsControler(1-tp) then return false end
 	return Duel.IsChainDisablable(ev) and loc~=LOCATION_DECK
 end
 function c13790638.ngcost(e,tp,eg,ep,ev,re,r,rp,chk)
