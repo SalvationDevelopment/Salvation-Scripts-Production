@@ -94,7 +94,7 @@ function c13790636.drop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
-	Duel.confirmCards(tp,g)
+	Duel.ConfirmCards(tp,g)
 end
 
 
