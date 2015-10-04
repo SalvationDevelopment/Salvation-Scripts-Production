@@ -79,6 +79,7 @@ function c13790636.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.SelectTarget(tp,c13790636.filter,tp,LOCATION_GRAVE,0,5,5,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
+	Duel.ConfirmCards(tp,g)
 end
 function c13790636.tgfilter(c,e)
 	return not c:IsRelateToEffect(e)
@@ -94,7 +95,6 @@ function c13790636.drop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
-	Duel.ConfirmCards(tp,g)
 end
 
 
