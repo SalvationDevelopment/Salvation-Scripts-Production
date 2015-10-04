@@ -34,7 +34,7 @@ function c13790639.tgfilter(c,e)
 	return c:IsDestructable() and c:IsCanBeEffectTarget(e)
 end
 function c13790639.filter(c)
-	return c:IsSetCard(0x1374) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
+	return c:IsSetCard(0xd7) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
 end
 function c13790639.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then
