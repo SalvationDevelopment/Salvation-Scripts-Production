@@ -106,5 +106,5 @@ function c13790636.effectfilter(e,ct)
 	local p=e:GetHandler():GetControler()
 	local te,tp=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER)
 	local tc=te:GetHandler()
-	return p==tp and tc:IsType(TYPE_SPELL+TYPE_TRAP) and tc:IsSetCard(0xd0) and tc~=e:GetHandler()
+	return p==tp and tc:IsType(TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP) and tc:IsSetCard(0xd0) and tc~=e:GetHandler()
 end
