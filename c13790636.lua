@@ -89,7 +89,7 @@ function c13790636.drop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
 	local g=Duel.GetOperatedGroup()
 	local ct=g:FilterCount(Card.IsLocation,nil,LOCATION_DECK+LOCATION_EXTRA)
-	if ct==2 then
+	if ct==5 then
 		Duel.ShuffleDeck(tp)
 		Duel.BreakEffect()
 		Duel.Draw(tp,1,REASON_EFFECT)
