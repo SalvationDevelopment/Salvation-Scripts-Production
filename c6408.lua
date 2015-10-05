@@ -64,6 +64,7 @@ function c6408.operation(e,tp,eg,ep,ev,re,r,rp,c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SYNCHRO_LEVEL)
 		e1:SetValue(lv)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 		c:RegisterEffect(e1)
 		end
 end
