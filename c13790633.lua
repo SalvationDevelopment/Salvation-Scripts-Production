@@ -29,7 +29,7 @@ function c13790633.initial_effect(c)
 end
 
 function c13790633.tfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp) and c:GetLocation()==LOCATION_ONFIELD
 end
 function c13790633.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
