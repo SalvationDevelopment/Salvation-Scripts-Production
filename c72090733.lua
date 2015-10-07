@@ -30,7 +30,9 @@ function c72090733.activate(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 			e1:SetLabelObject(tc)
 			e1:SetOperation(c72090733.desop)
+			e1:SetCondition(c72090733.descon)
 			Duel.RegisterEffect(e1,tp)
+			tc:RegisterFlagEffect(72090733,RESET_EVENT+0x1fe0000,0,1)
 			local e2=Effect.CreateEffect(tc)
 			e2:SetType(EFFECT_TYPE_SINGLE)
 			e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -39,6 +41,15 @@ function c72090733.activate(e,tp,eg,ep,ev,re,r,rp)
 			e2:SetValue(c72090733.efilter)
 			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 			tc:RegisterEffect(e2)
+	end
+end
+function c72090733.descon(e,tp,eg,ep,ev,re,r,rp)
+	local tc=e:GetLabelObject()
+	if tc:GetFlagEffect(72090733)~=0 then
+		return true
+	else
+		e:Reset()
+		return false
 	end
 end
 function c72090733.desop(e,tp,eg,ep,ev,re,r,rp)
