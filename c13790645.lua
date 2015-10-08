@@ -1,68 +1,86 @@
---Odd-Eyes Vortex Dragon
+--Destruction Sword – Wizard Buster Blade
 function c13790645.initial_effect(c)
-	--fusion material
-	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsSetCard,0x99),aux.FilterBoolFunction(Card.IsType,TYPE_PENDULUM),true)
+	--equip
 	local e1=Effect.CreateEffect(c)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetCountLimit(1,13791645)
-	e1:SetTarget(c13790645.target)
-	e1:SetOperation(c13790645.operation)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetCategory(CATEGORY_EQUIP)
+	e1:SetRange(LOCATION_HAND+LOCATION_MZONE)
+	e1:SetTarget(c13790645.eqtg)
+	e1:SetOperation(c13790645.eqop)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
-	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_CHAINING)
-	e2:SetCountLimit(1,13790645)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(c13790645.discon)
-	e2:SetTarget(c13790645.distg)
-	e2:SetOperation(c13790645.disop)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e2:SetRange(LOCATION_SZONE)
+	e2:SetTargetRange(1,1)
+	e2:SetValue(c13790645.aclimit)
 	c:RegisterEffect(e2)
-	
 end
 function c13790645.filter(c)
-	return c:IsFaceup() and c:IsAttackPos() and c:IsAbleToHand()
+	return c:IsFaceup() and (c:GetCode()==13790617 or c:GetCode()==13790618 or c:GetCode()==78193831)
 end
-function c13790645.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c13790645.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13790645.filter,tp,0,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,c13790645.filter,tp,0,LOCATION_MZONE,1,1,nil)
+function c13790645.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c13790645.filter(chkc) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingTarget(c13790645.filter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+	Duel.SelectTarget(tp,c13790645.filter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function c13790645.operation(e,tp,eg,ep,ev,re,r,rp)
+function c13790645.eqop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
+	if c:IsLocation(LOCATION_MZONE) and c:IsFacedown() then return end
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or tc:GetControler()~=tp or tc:IsFacedown() or not tc:IsRelateToEffect(e) or not c:CheckUniqueOnField(tp) then
+		Duel.SendtoGrave(c,REASON_EFFECT)
+		return
 	end
+	Duel.Equip(tp,c,tc,true)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_EQUIP_LIMIT)
+	e1:SetReset(RESET_EVENT+0x1fe0000)
+	e1:SetValue(c13790645.eqlimit)
+	e1:SetLabelObject(tc)
+	c:RegisterEffect(e1)
+	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_TOHAND)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_SZONE)
+	e1:SetCost(c13790645.descost)
+	e1:SetTarget(c13790645.target)
+	e1:SetOperation(c13790645.activate)
+	c:RegisterEffect(e1)
+end
+function c13790645.eqlimit(e,c)
+	return c==e:GetLabelObject()
+end
+function c13790645.aclimit(e,re,tp)
+	local loc=re:GetActivateLocation()
+	return loc==LOCATION_GRAVE and re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
 end
 
-function c13790645.discon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:GetHandler()~=e:GetHandler() and Duel.IsChainNegatable(ev)
+function c13790645.descost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
+	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
-function c13790645.rpfilter(c)
-	return c:IsType(TYPE_PENDULUM) and c:IsFaceup() and c:IsAbleToDeck()
+function c13790645.rfilter(c)
+	return (c:IsSetCard(0x1e7) and c:IsType(TYPE_MONSTER)) and c:IsAbleToHand()
 end
-function c13790645.distg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790645.rpfilter,tp,LOCATION_EXTRA,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
-	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
-		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
-	end
+function c13790645.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:GetControler()==tp and chkc:GetLocation()==LOCATION_GRAVE and c13790645.rfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c13790645.rfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectTarget(tp,c13790645.rfilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
-function c13790645.disop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c13790645.rpfilter,tp,LOCATION_EXTRA,0,nil)
-	if g:GetCount()<1 then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local sg=g:Select(tp,1,1,nil)
-	if Duel.SendtoDeck(sg,nil,0,REASON_EFFECT)~=0 then
-	Duel.ShuffleDeck(tp)
-	Duel.NegateActivation(ev)
-		if re:GetHandler():IsRelateToEffect(re) then
-			Duel.Destroy(eg,REASON_EFFECT)
-		end
+function c13790645.activate(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,tc)
 	end
 end
