@@ -1,73 +1,57 @@
 --Chaos Field
 function c13790657.initial_effect(c)
-	c:EnableCounterPermit(0x3001)
-	c:SetCounterLimit(0x3001,6)
+	--pendulum summon
+	aux.AddPendulumProcedure(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,13790657+EFFECT_COUNT_CODE_OATH)
-	e1:SetOperation(c13790657.activate)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_FZONE)
-	e2:SetCountLimit(1,13790657)
-	e2:SetCost(c13790657.thcost)
-	e2:SetTarget(c13790657.thtg1)
-	e2:SetOperation(c13790657.thop1)
+	e2:SetDescription(aux.Stringid(13790624,0))
+	e2:SetCategory(CATEGORY_DISABLE)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
+	e2:SetCode(EVENT_CHAINING)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCountLimit(1)
+	e2:SetCondition(c13790657.negcon)
+	e2:SetTarget(c13790657.negtg)
+	e2:SetOperation(c13790657.negop)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
-	e3:SetRange(LOCATION_FZONE)
-	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetCondition(c13790657.descon)
-	e3:SetOperation(c13790657.desop)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_UPDATE_ATTACK)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetTargetRange(0,LOCATION_MZONE)
+	e3:SetValue(c13790657.atkval)
 	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD)
+	e4:SetCode(EFFECT_UPDATE_DEFENCE)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetTargetRange(0,LOCATION_MZONE)
+	e4:SetValue(c13790657.atkval)
+	c:RegisterEffect(e4)
 end
-function c13790657.filter(c)
-	return (c:IsSetCard(0xbd) and c:IsType(TYPE_MONSTER))
-		or (c:IsSetCard(0x1373) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL)) and c:IsAbleToHand()
+function c13790657.tfilter(c)
+	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp)
 end
-function c13790657.activate(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c13790657.filter,tp,LOCATION_DECK,0,1,nil) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790657.filter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
-	end
+function c13790657.negcon(e,tp,eg,ep,ev,re,r,rp)
+	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
+	if not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
+	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	return g and g:IsExists(c13790657.tfilter,1,nil)and g:GetFirst()~=e:GetHandler() and Duel.IsChainDisablable(ev)
+end
+function c13790657.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
+end
+function c13790657.negop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.NegateEffect(ev)
+	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
 
-function c13790657.cfilter(c,tp)
-	return c:IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD) and c:IsLocation(LOCATION_GRAVE) and c:IsType(TYPE_MONSTER)
-end
-function c13790657.descon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c13790657.cfilter,1,nil,tp)
-end
-function c13790657.desop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():AddCounter(0x3001,1)
-end
-
-function c13790657.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsCanRemoveCounter(tp,0x3001,3,REASON_COST) end
-	e:GetHandler():RemoveCounter(tp,0x3001,3,REASON_COST)
-end
-function c13790657.thfilter1(c)
-	return c:IsType(TYPE_SPELL) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
-end
-function c13790657.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790657.thfilter1,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
-function c13790657.thop1(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790657.thfilter1,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
-	end
+function c13790657.atkval(e,c)
+	return Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_ONFIELD,0,nil,0x1e71)*-100
 end

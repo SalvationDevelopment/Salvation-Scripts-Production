@@ -1,103 +1,53 @@
---D/D/D Kali Yuga the Twin Dawn Overlord
+--Deskbot 007
 function c13790650.initial_effect(c)
-	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xaf),8,2)
-	c:EnableReviveLimit()
+	--pendulum summon
+	aux.AddPendulumProcedure(c)
+	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetCondition(c13790650.sumcon)
-	e1:SetOperation(c13790650.negop)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--Destroy ST
+	--splimit
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetDescription(aux.Stringid(13790650,1))
-	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
-	e2:SetCost(c13790650.cost)
-	e2:SetTarget(c13790650.target)
-	e2:SetOperation(c13790650.operation)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE)
+	e2:SetTargetRange(1,0)
+	e2:SetCondition(c13790650.splimcon)
+	e2:SetTarget(c13790650.splimit)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetDescription(aux.Stringid(13790650,2))
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1)
-	e3:SetCost(c13790650.cost)
-	e3:SetTarget(c13790650.target2)
-	e3:SetOperation(c13790650.operation2)
+	e3:SetCode(EFFECT_UPDATE_ATTACK)
+	e3:SetValue(c13790650.value)
 	c:RegisterEffect(e3)
+	--pierce
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetCode(EFFECT_PIERCE)
+	c:RegisterEffect(e5)
+	local e6=Effect.CreateEffect(c)
+	e6:SetType(EFFECT_TYPE_FIELD)
+	e6:SetRange(LOCATION_MZONE)
+	e6:SetTargetRange(0,LOCATION_MZONE)
+	e6:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+	e6:SetValue(c13790650.atlimit)
+	c:RegisterEffect(e6)
 end
-function c13790650.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
+function c13790650.splimcon(e)
+	return not e:GetHandler():IsForbidden()
 end
-function c13790650.filter(c)
-	return (c:IsLocation(LOCATION_SZONE) or c:IsType(TYPE_EFFECT)) and not c:IsDisabled()
+function c13790650.splimit(e,c,tp,sumtp,sumpos)
+	return not c:IsSetCard(0xab) and bit.band(sumtp,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
-function c13790650.negop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(c13790650.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,c)
-	local tc=g:GetFirst()
-	while tc do
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_DISABLE)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e1)
-		local e2=Effect.CreateEffect(c)
-		e2:SetType(EFFECT_TYPE_SINGLE)
-		e2:SetCode(EFFECT_DISABLE_EFFECT)
-		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e2)
-		local e3=Effect.CreateEffect(e:GetHandler())
-		e3:SetType(EFFECT_TYPE_SINGLE)
-		e3:SetCode(EFFECT_CANNOT_TRIGGER)
-		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e3)
-		tc=g:GetNext()
-	end
-end
-function c13790650.aclimit(e,re,tp)
-	return re:GetHandler():IsOnField() and re~=e:GetHandler()
-end
-
-function c13790650.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
-end
-function c13790650.dfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
-end
-function c13790650.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
-end
-function c13790650.operation(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c13790650.dfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	Duel.Destroy(g,REASON_EFFECT)
+function c13790650.value(e,c)
+	return Duel.GetMatchingGroupCount(Card.IsSetCard,c:GetControler(),LOCATION_GRAVE,0,nil,0xab)*500
 end
 
 
-
-function c13790650.thfilter(c)
-	return c:IsSetCard(0xae) and c:IsSSetable()
-end
-function c13790650.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13790650.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13790650.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c13790650.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
-end
-function c13790650.operation2(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SSet(tp,tc)
-		Duel.ConfirmCards(1-tp,tc)
-	end
+function c13790650.atlimit(e,c)
+	return c~=e:GetHandler() and c:IsSetCard(0xab)
 end

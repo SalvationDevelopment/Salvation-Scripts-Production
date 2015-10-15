@@ -1,78 +1,62 @@
---D/D/D Contract Modification
+--Goyo Defender
 function c13790668.initial_effect(c)
-	--Activate
+	--synchro summon
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
+	c:EnableReviveLimit()
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(13790668,0))
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e1:SetCost(c13790668.cost)
-	e1:SetCondition(c13790668.condition)
-	e1:SetTarget(c13790668.target1)
-	e1:SetOperation(c13790668.activate1)
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1)
+	e1:SetCondition(c13790668.sccon)
+	e1:SetTarget(c13790668.sctg)
+	e1:SetOperation(c13790668.scop)
 	c:RegisterEffect(e1)
-	--Activate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(13790668,1))
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetType(EFFECT_TYPE_ACTIVATE)
-	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e2:SetCondition(c13790668.condition)
-	e2:SetTarget(c13790668.target2)
-	e2:SetOperation(c13790668.activate2)
+	e2:SetDescription(aux.Stringid(13790626,0))
+	e2:SetCategory(CATEGORY_ATKCHANGE)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e2:SetCode(EVENT_BE_BATTLE_TARGET)
+	e2:SetOperation(c13790668.atkop)
 	c:RegisterEffect(e2)
 end
 function c13790668.cfilter(c)
-	return c:IsSetCard(0x10af) and c:GetAttack()>0 and c:IsAbleToRemoveAsCost()
+	return c:IsFacedown() or not (c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO))
 end
-function c13790668.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790668.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-	local g=Duel.SelectMatchingCard(tp,c13790668.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-	e:SetLabelObject(g:GetFirst())
-end
-function c13790668.condition(e,tp,eg,ep,ev,re,r,rp)
-	return tp~=Duel.GetTurnPlayer()
-end
-function c13790668.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790668.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-	local g=Duel.SelectMatchingCard(tp,c13790668.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	e:SetLabel(g:GetFirst():GetAttack())
-	Duel.Remove(g,POS_FACEUP,REASON_COST+REASON_DISCARD)
-end
-function c13790668.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local tg=Duel.GetAttacker()
-	if chkc then return chkc==tg end
-	if chk==0 then return tg:IsOnField() end
-	Duel.SetTargetCard(tg)
-end
-function c13790668.activate1(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(-e:GetLabel())
-		e1:SetReset(RESET_EVENT+0x1fe0000)
-		tc:RegisterEffect(e1)
-	end
+function c13790668.sccon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(c13790668.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 
-
-function c13790668.filter1(c)
-	return c:IsLevelBelow(4) and c:IsType(TYPE_PENDULUM) and c:IsSetCard(0xaf) and c:IsAbleToHand()
+function c13790668.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_EXTRA,0,1,nil,13790668) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c13790668.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790668.filter1,tp,LOCATION_DECK,0,1,nil)  end
-end
-function c13790668.activate2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c13790668.filter1,tp,LOCATION_DECK,0,1,1,nil)
+function c13790668.scop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_EXTRA,0,1,1,nil,13790668)
 	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	end
+end
+
+
+function c13790668.atkop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetValue(c13790668.atkval)
+	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
+	c:RegisterEffect(e1)
+end
+function c13790668.filter(c)
+	return c:IsFaceup() and c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO)
+end
+function c13790668.atkval(e,c)
+	return Duel.GetMatchingGroupCount(c13790668.filter,c:GetControler(),LOCATION_MZONE,0,e:GetHandler())*1000
 end
 
 

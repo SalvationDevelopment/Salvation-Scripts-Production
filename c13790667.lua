@@ -1,30 +1,29 @@
---Great Horn of Heaven
+--Superheavy Maju Kyu-B
 function c13790667.initial_effect(c)
+	--synchro summon
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0x9a),1)
+	c:EnableReviveLimit()
+	--defence attack
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_DISABLE_SUMMON+CATEGORY_DESTROY)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_SPSUMMON)
-	e1:SetCondition(c13790667.condition1)
-	e1:SetTarget(c13790667.target1)
-	e1:SetOperation(c13790667.activate1)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_DEFENCE_ATTACK)
+	e1:SetValue(1)
 	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetCode(EFFECT_UPDATE_DEFENCE)
+	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetCondition(c13790667.sccon)
+	e2:SetValue(c13790667.adval)
+	c:RegisterEffect(e2)
 end
-function c13790667.condition1(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentChain()==0 and Duel.GetTurnPlayer()~=tp and
-	(Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+function c13790667.sccon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_SPELL+TYPE_TRAP)
 end
-function c13790667.target1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,eg:GetCount(),0,0)
+function c13790667.adval(tp,c)
+	return Duel.GetMatchingGroupCount(c13790667.ctfilter,tp,0,LOCATION_MZONE,nil)*900
 end
-function c13790667.activate1(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateSummon(eg)
-	Duel.Destroy(eg,REASON_EFFECT)
-	Duel.Draw(1-tp,1,REASON_EFFECT)
-	if Duel.GetCurrentPhase()==PHASE_MAIN1 then
-		Duel.SkipPhase(1-tp,PHASE_MAIN1,RESET_PHASE+PHASE_MAIN1,1)
-	else
-		Duel.SkipPhase(1-tp,PHASE_MAIN2,RESET_PHASE+PHASE_MAIN2,1)
-	end
+function c13790667.ctfilter(c)
+	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL
 end
