@@ -6,8 +6,9 @@ function c13754000.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c13754000.spcon)
+	e1:SetCondition(c13754000.spcon2)
 	c:RegisterEffect(e1)
+	--On summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(13754000,0))
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -34,7 +35,8 @@ function c13754000.initial_effect(c)
 	e4:SetOperation(c13754000.spop)
 	c:RegisterEffect(e4)
 end
-function c13754000.spcon(e,c)
+
+function c13754000.spcon2(e,c)
 	if c==nil then return true end
 	return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_MZONE,0)==0
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
@@ -43,6 +45,7 @@ end
 function c13754000.filter(c)
 	return c:IsSetCard(0x1e72) and c:IsAbleToHand()
 end
+
 function c13754000.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13754000.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c13754000.filter,tp,LOCATION_GRAVE,0,1,nil) end
@@ -64,9 +67,11 @@ end
 function c13754000.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsReason(REASON_RETURN)
 end
+
 function c13754000.spfilter(c,e,tp)
 	return c:IsSetCard(0x1e72) and not c:IsCode(13754000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
+
 function c13754000.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13754000.spfilter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -75,6 +80,7 @@ function c13754000.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.SelectTarget(tp,c13754000.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
+
 function c13754000.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
