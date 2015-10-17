@@ -1,5 +1,6 @@
 --Dynaster Pendulum, the Powerful Dracoslayer
 function c13790666.initial_effect(c)
+	--fusion material
 	c:EnableReviveLimit()
 	--special summon rule
 	local e1=Effect.CreateEffect(c)
@@ -10,6 +11,7 @@ function c13790666.initial_effect(c)
 	e1:SetCondition(c13790666.spcon)
 	e1:SetOperation(c13790666.spop)
 	c:RegisterEffect(e1)
+	--Other effects
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -35,11 +37,10 @@ function c13790666.initial_effect(c)
 	e4:SetValue(aux.tgoval)
 	c:RegisterEffect(e4)
 end
-function c13790666.splimit(e,se,sp,st)
-	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
-end
+
+
 function c13790666.spfilter1(c,tp)
-	return c:IsSetCard(0xc7) and c:IsType(TYPE_PENDULUM) and c:IsCanBeFusionMaterial()
+	return ((c:IsSetCard(0xc7) and c:IsType(TYPE_PENDULUM) and c:IsCanBeFusionMaterial()) or c:IsCode(92746535))
 		and Duel.CheckReleaseGroup(tp,c13790666.spfilter2,1,c)
 end
 function c13790666.spfilter2(c)
