@@ -9,10 +9,9 @@ function c13790660.initial_effect(c)
 	c:RegisterEffect(e1)
 	--search
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	--e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCountLimit(1,13790660)
 	e2:SetTarget(c13790660.thtg)
 	e2:SetOperation(c13790660.thop)
@@ -41,8 +40,7 @@ function c13790660.thfilter(c)
 	return c:IsSetCard(0xd0) and (not c:IsType(TYPE_MONSTER)) and c:IsSSetable()
 end
 function c13790660.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13790660.thfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(c13790660.thfilter,tp,LOCATION_DECK,0,1,nil) end
 end
 function c13790660.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
