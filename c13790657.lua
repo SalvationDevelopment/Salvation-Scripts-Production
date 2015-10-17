@@ -1,4 +1,4 @@
---Chaos Field
+--Dinomist Plesios
 function c13790657.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -52,6 +52,10 @@ function c13790657.negop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
 
+function c13790657.afilter(c)
+	return c:IsFaceup() and c:IsSetCard(0x1e71)
+end
+
 function c13790657.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_ONFIELD,0,nil,0x1e71)*-100
+	return Duel.GetMatchingGroupCount(c13790657.afilter,e:GetOwnerPlayer(),LOCATION_ONFIELD,0,nil)*-100
 end
