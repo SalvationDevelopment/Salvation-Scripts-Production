@@ -33,7 +33,7 @@ function c64973287.filter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x1e71) and (c:IsReason(REASON_BATTLE) or c:IsReason(REASON_EFFECT))
 end
 function c64973287.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c64973287.filter,1,e:GetHandler(),tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
+	if chk==0 then return eg:IsExists(c64973287.filter,1,e:GetHandler(),e,tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
 	return Duel.SelectYesNo(tp,aux.Stringid(37752990,0))
 end
 function c64973287.repval(e,c)
