@@ -1,6 +1,6 @@
 --Buster Dragon, the Preceptrampler Dragon
 --Scripted by Ragna_Edge
-function c39090004.initial_effect(c)
+function c11790356.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
@@ -18,9 +18,9 @@ function c39090004.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c39090004.spcon)
-	e2:SetTarget(c39090004.sptg)
-	e2:SetOperation(c39090004.spop)
+	e2:SetCondition(c11790356.spcon)
+	e2:SetTarget(c11790356.sptg)
+	e2:SetOperation(c11790356.spop)
 	c:RegisterEffect(e2)
 	--Equip
 	local e3=Effect.CreateEffect(c)
@@ -29,53 +29,53 @@ function c39090004.initial_effect(c)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetCountLimit(1)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCondition(c39090004.condition)
-	e3:SetTarget(c39090004.target)
-	e3:SetOperation(c39090004.operation)
+	e3:SetCondition(c11790356.condition)
+	e3:SetTarget(c11790356.target)
+	e3:SetOperation(c11790356.operation)
 	c:RegisterEffect(e3)
 end
-function c39090004.cfilter(c)
+function c11790356.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1e8)
 end
-function c39090004.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(c39090004.cfilter,tp,LOCATION_MZONE,0,1,nil)
+function c11790356.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(c11790356.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
-function c39090004.filter(c,e,tp)
+function c11790356.filter(c,e,tp)
 	return c:IsCode(78193831) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c39090004.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c39090004.filter(chkc,e,tp) end
+function c11790356.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c11790356.filter(chkc,e,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(c39090004.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+		and Duel.IsExistingTarget(c11790356.filter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c39090004.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,c11790356.filter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
-function c39090004.spop(e,tp,eg,ep,ev,re,r,rp)
+function c11790356.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function c39090004.condition(e,tp,eg,ep,ev,re,r,rp)
+function c11790356.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
-function c39090004.filter2(c)
+function c11790356.filter2(c)
 	return c:IsSetCard(0x1e7) and c:IsType(TYPE_MONSTER)
 end
-function c39090004.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c11790356.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
-		and Duel.IsExistingTarget(c39090004.cfilter,tp,LOCATION_MZONE,0,1,nil)
-		and Duel.IsExistingMatchingCard(c39090004.filter2,tp,LOCATION_GRAVE,0,1,nil) end
+		and Duel.IsExistingTarget(c11790356.cfilter,tp,LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(c11790356.filter2,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,c39090004.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,c11790356.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function c39090004.operation(e,tp,eg,ep,ev,re,r,rp)
+function c11790356.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local sg=Duel.SelectMatchingCard(tp,c39090004.filter2,tp,LOCATION_GRAVE,0,1,1,nil)
+	local sg=Duel.SelectMatchingCard(tp,c11790356.filter2,tp,LOCATION_GRAVE,0,1,1,nil)
 	local sc=sg:GetFirst()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		if not Duel.Equip(tp,sc,tc,true) then return end
@@ -84,10 +84,10 @@ function c39090004.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_EQUIP_LIMIT)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
-		e1:SetValue(c39090004.eqlimit)
+		e1:SetValue(c11790356.eqlimit)
 		sc:RegisterEffect(e1)
 	end
 end
-function c39090004.eqlimit(e,c)
+function c11790356.eqlimit(e,c)
 	return e:GetOwner()==c
 end

@@ -1,5 +1,5 @@
 --Score the Melodious Diva
-function c72090713.initial_effect(c)
+function c41767843.initial_effect(c)
 	--atkdef 0
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(79853073,0))
@@ -7,22 +7,22 @@ function c72090713.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)
 	e1:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCondition(c72090713.con)
-	e1:SetCost(c72090713.cos)
-	e1:SetOperation(c72090713.op)
+	e1:SetCondition(c41767843.con)
+	e1:SetCost(c41767843.cos)
+	e1:SetOperation(c41767843.op)
 	c:RegisterEffect(e1)
 end
-function c72090713.con(e,tp,eg,ep,ev,re,r,rp)
+function c41767843.con(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	return (a:GetControler()==tp and a:IsSetCard(0x9b) and a:IsRelateToBattle())
 		or (d and d:GetControler()==tp and d:IsSetCard(0x9b) and d:IsRelateToBattle())
 end
-function c72090713.cos(e,tp,eg,ep,ev,re,r,rp,chk)
+function c41767843.cos(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
-function c72090713.op(e,tp,eg,ep,ev,re,r,rp,chk)
+function c41767843.op(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if not a:IsRelateToBattle() or not d:IsRelateToBattle() then return end
