@@ -55,12 +55,13 @@ function c368382.cfilter(c)
 end
 function c368382.mafilter(c)
 	local atk=c:GetAttack()
-	return c:IsFaceup() and not Duel.IsExistingMatchingCard(c368382.cmafilter,tp,LOCATION_MZONE,0,1,nil,atk)
+	return c:IsFaceup() and not Duel.IsExistingMatchingCard(c368382.cmafilter,1-c:GetControler(),LOCATION_MZONE,0,1,nil,atk)
 end
 function c368382.cmafilter(c,atk)
 	return c:IsFaceup() and c:GetAttack()>=atk
 end
-function c368382.spcon(e,tp)
-	return Duel.IsExistingMatchingCard(c368382.mafilter,tp,0,LOCATION_MZONE,1,nil)
-		and not Duel.IsExistingMatchingCard(c368382.cfilter,tp,LOCATION_MZONE,0,1,nil)
+function c368382.spcon(e,c)
+	if c==nil then return true end
+	return Duel.IsExistingMatchingCard(c368382.mafilter,c:GetControler(),0,LOCATION_MZONE,1,nil)
+		and not Duel.IsExistingMatchingCard(c368382.cfilter,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
