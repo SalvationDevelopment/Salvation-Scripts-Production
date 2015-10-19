@@ -45,8 +45,9 @@ end
 function c37752990.sdfilter2(c)
 	return c:IsFaceup() and c:IsSetCard(0x1e71)
 end
-function c37752990.spcon(e,tp)
+function c37752990.spcon(e,c)
+	if c==nil then return true end
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and
-		Duel.IsExistingMatchingCard(c37752990.sdfilter2,tp,LOCATION_MZONE,0,1,nil)
-		and not	Duel.IsExistingMatchingCard(c37752990.sdfilter,tp,LOCATION_MZONE,0,1,nil)
+		Duel.IsExistingMatchingCard(c37752990.sdfilter2,c:GetControler(),LOCATION_MZONE,0,1,nil)
+		and not	Duel.IsExistingMatchingCard(c37752990.sdfilter,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
