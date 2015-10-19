@@ -9,6 +9,7 @@ function c85528209.initial_effect(c)
 	e1:SetCode(EFFECT_DEFENCE_ATTACK)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
+	--Def Gain
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_UPDATE_DEFENCE)
@@ -25,5 +26,5 @@ function c85528209.adval(tp,c)
 	return Duel.GetMatchingGroupCount(c85528209.ctfilter,tp,0,LOCATION_MZONE,nil)*900
 end
 function c85528209.ctfilter(c)
-	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL and c:GetControler()~=e:GetHandler():GetControler()
+	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL 
 end
