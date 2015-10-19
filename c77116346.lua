@@ -36,7 +36,7 @@ function c77116346.filter(c,e,tp)
 	return c:IsSetCard(0x1e71) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsLocation(LOCATION_EXTRA) and c:IsFaceup() and c:IsControler(tp)
 end
 function c77116346.condition(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c77116346.filter,1,nil,tp)
+	return eg:IsExists(c77116346.filter,1,nil,e,tp)
 end
 function c77116346.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
