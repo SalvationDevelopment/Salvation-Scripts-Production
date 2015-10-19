@@ -1,4 +1,5 @@
 --Dinomist Stegosaurus
+--Fixed by Ragna_edge
 function c1580833.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -17,21 +18,21 @@ function c1580833.initial_effect(c)
 	e2:SetOperation(c1580833.repop)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(36088082,0))
+	e3:SetDescription(aux.Stringid(1580833,0))
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(c1580833.regcon)
 	e3:SetOperation(c1580833.regop)
 	c:RegisterEffect(e3)
-	
 end
 function c1580833.filter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x1e71) and (c:IsReason(REASON_BATTLE) or c:IsReason(REASON_EFFECT))
+	return c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) and c:IsSetCard(0x1e71)
+	and not c:IsReason(REASON_REPLACE)
 end
 function c1580833.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c1580833.filter,1,e:GetHandler(),tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
-	return Duel.SelectYesNo(tp,aux.Stringid(37752990,0))
+	return Duel.SelectYesNo(tp,aux.Stringid(1580833,0))
 end
 function c1580833.repval(e,c)
 	return c1580833.filter(c,e:GetHandlerPlayer())

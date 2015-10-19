@@ -1,4 +1,5 @@
---Dinomist Stegosaurus
+--Dinomist Pteran
+--Fixed by Ragna_Edge
 function c64973287.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -23,31 +24,24 @@ function c64973287.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_BATTLE_DESTROYING)
 	e3:SetCountLimit(1,64973287)
-	e3:SetCondition(c64973287.condition)
+	e3:SetCondition(aux.bdocon)
 	e3:SetTarget(c64973287.target)
 	e3:SetOperation(c64973287.operation)
 	c:RegisterEffect(e3)
-	
 end
 function c64973287.filter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x1e71) and (c:IsReason(REASON_BATTLE) or c:IsReason(REASON_EFFECT))
+	return c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) and c:IsSetCard(0x1e71)
+	and not c:IsReason(REASON_REPLACE)
 end
 function c64973287.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c64973287.filter,1,e:GetHandler(),e,tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
-	return Duel.SelectYesNo(tp,aux.Stringid(37752990,0))
+	if chk==0 then return eg:IsExists(c64973287.filter,1,e:GetHandler(),tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
+	return Duel.SelectYesNo(tp,aux.Stringid(64973287,0))
 end
 function c64973287.repval(e,c)
 	return c64973287.filter(c,e:GetHandlerPlayer())
 end
 function c64973287.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
-end
-
-
-function c64973287.condition(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local bc=c:GetBattleTarget()
-	return c:IsRelateToBattle() and bc:IsType(TYPE_MONSTER)
 end
 function c64973287.filter(c)
 	return c:IsSetCard(0x1e71) and c:IsAbleToHand()

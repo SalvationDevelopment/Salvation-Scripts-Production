@@ -1,4 +1,5 @@
 --Dinomist Brachion
+--Fixed by Ragna_Edge
 function c368382.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -14,8 +15,6 @@ function c368382.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCondition(c368382.negcon)
-	e2:SetTarget(c368382.negtg)
 	e2:SetOperation(c368382.negop)
 	c:RegisterEffect(e2)
 	--special summon
@@ -27,29 +26,19 @@ function c368382.initial_effect(c)
 	e3:SetCondition(c368382.spcon)
 	c:RegisterEffect(e3)
 end
-
-function c368382.tfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1e71) and c:IsControler(tp) and c:GetLocation()==LOCATION_ONFIELD
-end
-function c368382.negcon(e,tp,eg,ep,ev,re,r,rp)
-	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
-	if not e:GetHandler():GetFlagEffect(368382)==0 then return end
-	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return g and g:IsExists(c368382.tfilter,1,nil)and g:GetFirst()~=e:GetHandler() and Duel.IsChainDisablable(ev)
-end
-function c368382.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
+function c368382.tfilter(c,tp)
+	return c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) and c:IsFaceup() and c:IsSetCard(0x1e71)
 end
 function c368382.negop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.SelectYesNo(tp,aux.Stringid(368382,1)) then
-		e:GetHandler():RegisterFlagEffect(368382,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+	if ep==tp then return end
+	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
+	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	if g and g:IsExists(c368382.tfilter,1,nil,tp) and g~=e:GetHandler() and Duel.IsChainDisablable(ev) 
+		and Duel.SelectYesNo(tp,aux.Stringid(368382,0))then
 		Duel.NegateEffect(ev)
 		Duel.Destroy(e:GetHandler(),REASON_EFFECT)
-	else end
+	end
 end
-
-
 function c368382.cfilter(c)
 	return c:IsFaceup() and c:GetCode()==368382
 end
