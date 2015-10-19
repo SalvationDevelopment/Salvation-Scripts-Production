@@ -74,7 +74,7 @@ function c35818851.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c35818851.filter(c,e,tp)
-	return c:IsSetCard(0xd7) and c:GetCode()~=35818851
+	return c:IsSetCard(0xd7) and c:IsType(TYPE_MONSTER) and c:GetCode()~=35818851
 end
 function c35818851.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetControler()==tp and chkc:GetLocation()==LOCATION_GRAVE and c35818851.filter(chkc) end
