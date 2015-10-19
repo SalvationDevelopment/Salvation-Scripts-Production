@@ -87,7 +87,7 @@ function c13703002.damval(e,re,val,r,rp,rc)
 end
 
 function c13703002.tgfilter(c)
-	return (c:IsSetCard(0xaf) or c:IsSetCard(0xae)) and c:IsAbleToGrave()
+	return (c:IsSetCard(0xaf) or c:IsSetCard(0xae)) and c:IsAbleToGrave() and not c:IsCode(13703002)
 end
 function c13703002.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13703002.tgfilter,tp,LOCATION_DECK,0,1,nil) end
