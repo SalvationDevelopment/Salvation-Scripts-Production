@@ -2,7 +2,7 @@
 function c41767843.initial_effect(c)
 	--atkdef 0
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(79853073,0))
+	e1:SetDescription(aux.Stringid(41767843,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e1:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)
 	e1:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
