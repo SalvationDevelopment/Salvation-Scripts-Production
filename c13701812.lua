@@ -5,12 +5,16 @@ function c13701812.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetTarget(c13701812.target0)
+	e1:SetOperation(c13701812.operation1)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCategory(CATEGORY_TOGRAVE+CATEGORY_TOHAND)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetCountLimit(1,13701812)
+	e2:SetLabel(1)
+	e2:SetCost(c13701812.cost)
 	e2:SetTarget(c13701812.target1)
 	e2:SetOperation(c13701812.operation1)
 	c:RegisterEffect(e2)
@@ -37,15 +41,25 @@ function c13701812.target0(e,tp,eg,ep,ev,re,r,rp,chk)
 	if Duel.GetFlagEffect(tp,13701812)==0 and Duel.IsExistingMatchingCard(c13701812.exodfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) and 
 	Duel.IsExistingTarget(Card.IsAbleToHand,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) and
 	Duel.SelectYesNo(tp,aux.Stringid(13701812,0)) then 
-	e:SetCountLimit(1,13701812)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.RegisterFlagEffect(tp,13701812,RESET_PHASE+PHASE_END,0,1)
-	c13701812.operation1(e,tp,eg,ep,ev,re,r,rp)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
+		local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
+		Duel.RegisterFlagEffect(tp,13701812,RESET_PHASE+PHASE_END,0,1)
+		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
+		e:SetLabel(1)
+		e:GetHandler():RegisterFlagEffect(0,RESET_CHAIN,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(13701812,2))
+	
 	else 
+		e:SetCategory(0)
+		e:SetProperty(0)
+		e:SetLabel(0)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
+
+function c13701812.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetFlagEffect(tp,13701812)==0 end
+	Duel.RegisterFlagEffect(tp,13701812,RESET_PHASE+PHASE_END,0,1)
+	
+	
 function c13701812.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,13701812)==0 and Duel.IsExistingMatchingCard(c13701812.exodfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) and 
 	Duel.IsExistingTarget(Card.IsAbleToHand,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end 
@@ -55,6 +69,7 @@ function c13701812.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterFlagEffect(tp,13701812,RESET_PHASE+PHASE_END,0,1)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
+
 function c13701812.operation1(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
