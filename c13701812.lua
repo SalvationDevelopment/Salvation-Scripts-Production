@@ -29,7 +29,7 @@ function c13701812.initial_effect(c)
 end
 function c13701812.exodfilter(c)
 	return (c:IsCode(12600382) or c:IsCode(33244944) or c:IsCode(8124921) or c:IsCode(44519536) or 
-	c:IsCode(70903634) or c:IsCode(7902349) or c:IsCode(33396948) or c:IsCode(13701813) and 
+	c:IsCode(70903634) or c:IsCode(7902349) or c:IsCode(33396948) or c:IsCode(13701813)) and 
 	((c:IsLocation(LOCATION_DECK+LOCATION_HAND) and c:IsAbleToGrave()) or (c:IsLocation(LOCATION_GRAVE) and c:IsAbleToHand()))
 end
 function c13701812.target0(e,tp,eg,ep,ev,re,r,rp,chk)
