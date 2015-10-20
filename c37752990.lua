@@ -41,14 +41,15 @@ function c37752990.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
 end
 function c37752990.sdfilter(c)
-	return c:GetCode()==37752990 or c:IsFacedown()
+	return c:GetCode()==13790634 or c:IsFacedown() or not c:IsSetCard(0x1e71)
 end
 function c37752990.sdfilter2(c)
 	return c:IsFaceup() and c:IsSetCard(0x1e71)
 end
 function c37752990.spcon(e,c)
 	if c==nil then return true end
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and
-		Duel.IsExistingMatchingCard(c37752990.sdfilter2,c:GetControler(),LOCATION_MZONE,0,1,nil)
-		and not	Duel.IsExistingMatchingCard(c37752990.sdfilter,c:GetControler(),LOCATION_MZONE,0,1,nil)
+	local tp=c:GetControler()
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c37752990.sdfilter2,tp,LOCATION_MZONE,0,1,nil)
+		and not	Duel.IsExistingMatchingCard(c37752990.sdfilter,tp,LOCATION_MZONE,0,1,nil)
 end
