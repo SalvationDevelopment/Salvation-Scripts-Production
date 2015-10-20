@@ -52,13 +52,12 @@ function c13754003.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e2)
 	end
 end
-
 function c13754003.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c13754003.tgfilter(c)
-	return  c:IsAbleToHand() and (c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1373) and c:GetCode()~=13754003) or (c:GetCode()==77462146)
+	return  c:IsAbleToHand() and c:IsSetCard(0x1373) and c:GetCode()~=13754003
 end
 function c13754003.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13754003.tgfilter,tp,LOCATION_DECK,0,1,nil) end
