@@ -60,14 +60,12 @@ function c13754002.atkop(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e1)
 	end
 end
-
-
 function c13754002.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c13754002.tgfilter(c)
-	return (c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1373)) or (c:GetCode()==77462146 or c:GetCode()==13754004) and c:IsAbleToGrave()
+	return c:IsSetCard(0x1373) or (c:IsType(TYPE_SPELL+TYPE_TRAP) or c:IsSetCard(0x1374)) and c:IsAbleToGrave()
 end
 function c13754002.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13754002.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -80,4 +78,3 @@ function c13754002.tdop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end
-
