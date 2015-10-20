@@ -56,7 +56,7 @@ function c63251695.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)==0 then
 		opt=Duel.SelectOption(tp,aux.Stringid(63251695,1))
 	else
-		opt=Duel.SelectOption(tp,aux.Stringid(63251695,2),aux.Stringid(63251695,1))
+		opt=Duel.SelectOption(tp,aux.Stringid(63251695,1),aux.Stringid(63251695,2))
 	end
 	e:SetLabel(opt)
 	if opt==0 then
@@ -64,11 +64,10 @@ function c63251695.efftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c63251695.effop(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetLabel()==1 then
+	if e:GetLabel()==0 then
 		local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,0,LOCATION_HAND+LOCATION_ONFIELD,1,1,nil)
-		local tc=g:GetFirst()
 		local c=e:GetHandler()
-		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+		if g:GetCount()>0 then Duel.SendtoDeck(g,nil,2,REASON_EFFECT) end
 		if c:IsRelateToEffect(e) and c:IsFaceup() then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
