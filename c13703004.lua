@@ -1,4 +1,5 @@
 --D/D/D Cruel Dragon King Beowulf
+--Fixed by Ragna_Edge
 function c13703004.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
@@ -34,11 +35,11 @@ function c13703004.filter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
 end
 function c13703004.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c13703004.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	local sg=Duel.GetMatchingGroup(c13703004.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(c13703004.filter,tp,LOCATION_SZONE,LOCATION_SZONE,1,nil) end
+	local sg=Duel.GetMatchingGroup(c13703004.filter,tp,LOCATION_SZONE,LOCATION_SZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
 end
 function c13703004.activate(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroup(c13703004.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler())
+	local sg=Duel.GetMatchingGroup(c13703004.filter,tp,LOCATION_SZONE,LOCATION_SZONE,e:GetHandler())
 	Duel.Destroy(sg,REASON_EFFECT)
 end
