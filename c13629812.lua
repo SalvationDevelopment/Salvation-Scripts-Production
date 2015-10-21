@@ -41,7 +41,7 @@ function c13629812.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local seq=tc:GetSequence()
 	if tc:IsControler(1-tp) then seq=seq+16 end
-	if tc:IsRelateToEffect(e) and Duel.Remove(tc,POS_FACEUP,REASON_EFFECT+REASON_TEMPORARY)~=0 then
+	if tc:IsRelateToEffect(e) and Duel.Remove(tc,0,REASON_EFFECT+REASON_TEMPORARY)~=0 then
 		c:SetCardTarget(tc)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD)
@@ -63,7 +63,7 @@ end
 function c13629812.retcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetFirstCardTarget()
-	if tc and tc:IsLocation(LOCATION_REMOVED) and tc:IsFaceup() and not c:IsLocation(LOCATION_DECK) then
+	if tc and tc:IsLocation(LOCATION_REMOVED) and not c:IsLocation(LOCATION_DECK) then
 		e:SetLabelObject(tc)
 		tc:CreateEffectRelation(e)
 		return true
