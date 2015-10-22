@@ -44,6 +44,7 @@ function c77116346.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,eg,1,0,0)
 end
 function c77116346.acop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=eg:Filter(c77116346.filter,nil,e,tp)
 	if g:GetCount()==0 then return end
 	Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TODECK)
