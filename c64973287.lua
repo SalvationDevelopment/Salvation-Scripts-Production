@@ -29,16 +29,17 @@ function c64973287.initial_effect(c)
 	e3:SetOperation(c64973287.operation)
 	c:RegisterEffect(e3)
 end
-function c64973287.filter(c,tp)
+function c64973287.xfilter(c,tp)
 	return c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) and c:IsSetCard(0x1e71)
 	and not c:IsReason(REASON_REPLACE)
 end
 function c64973287.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c64973287.filter,1,e:GetHandler(),tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
+	if chk==0 then return not eg:IsContains(e:GetHandler())
+		and eg:IsExists(c64973287.xfilter,1,nil,tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
 	return Duel.SelectYesNo(tp,aux.Stringid(64973287,0))
 end
 function c64973287.repval(e,c)
-	return c64973287.filter(c,e:GetHandlerPlayer())
+	return c64973287.xfilter(c,e:GetHandlerPlayer())
 end
 function c64973287.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
