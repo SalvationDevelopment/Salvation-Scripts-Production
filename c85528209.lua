@@ -1,4 +1,5 @@
 --Superheavy Maju Kyu-B
+--Fixed by Ragna_Edge
 function c85528209.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0x9a),1)
@@ -20,10 +21,10 @@ function c85528209.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c85528209.sccon(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsExistingMatchingCard(Card.IsType,tp,LOCATION_GRAVE,0,1,nil,TYPE_SPELL+TYPE_TRAP)
+	return not Duel.IsExistingMatchingCard(Card.IsType,e:GetHandler():GetControler(),LOCATION_GRAVE,0,1,nil,TYPE_SPELL+TYPE_TRAP)
 end
 function c85528209.adval(tp,c)
-	return Duel.GetMatchingGroupCount(c85528209.ctfilter,tp,0,LOCATION_MZONE,nil)*900
+	return Duel.GetMatchingGroupCount(c85528209.ctfilter,c:GetControler(),0,LOCATION_MZONE,nil)*900
 end
 function c85528209.ctfilter(c)
 	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL 
