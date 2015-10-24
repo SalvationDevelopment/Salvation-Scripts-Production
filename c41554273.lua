@@ -1,5 +1,6 @@
 --Dinomist Rush
 --Fixed by Ragna_Edge
+--Last edited by: HelixReactor
 function c41554273.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -25,7 +26,7 @@ function c41554273.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,c41554273.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()
 	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
-			local e1=Effect.CreateEffect(c)
+			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 			e1:SetCode(EVENT_PHASE+PHASE_END)
 			e1:SetCountLimit(1)
@@ -35,7 +36,7 @@ function c41554273.activate(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetCondition(c41554273.descon)
 			Duel.RegisterEffect(e1,tp)
 			tc:RegisterFlagEffect(41554273,RESET_EVENT+0x1fe0000,0,1)
-			local e2=Effect.CreateEffect(c)
+			local e2=Effect.CreateEffect(e:GetHandler())
 			e2:SetType(EFFECT_TYPE_SINGLE)
 			e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 			e2:SetRange(LOCATION_MZONE)
