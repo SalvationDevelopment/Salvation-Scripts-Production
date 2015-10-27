@@ -27,10 +27,8 @@ function c72091689.initial_effect(c)
 	e3:SetDescription(aux.Stringid(72091689,1))
 	e3:SetCategory(CATEGORY_DRAW)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e3:SetCode(EVENT_TO_GRAVE+EVENT_DESTROYED)
+	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetCountLimit(1,72091689)
-	e3:SetCondition(c72091689.limcon)
 	e3:SetTarget(c72091689.drtg)
 	e3:SetOperation(c72091689.drop)
 	c:RegisterEffect(e3)
@@ -76,7 +74,8 @@ function c72091689.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c72091689.limcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp and e:GetHandler():GetPreviousControler()==tp
+	local c=e:GetHandler()
+	return rp~=tp and c:IsReason(REASON_DESTROY) and c:GetPreviousControler()==tp
 end
 function c72091689.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
