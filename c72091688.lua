@@ -63,8 +63,8 @@ function c72091688.negcon(e,tp,eg,ep,ev,re,r,rp)
 	and not re:GetHandler():IsCode(72091688)
 end
 function c72091688.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,1,0x2a,3,REASON_COST) end
-	Duel.RemoveCounter(tp,1,1,0x2a,3,REASON_COST)
+	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,1,0x2a,2,REASON_COST) end
+	Duel.RemoveCounter(tp,1,1,0x2a,2,REASON_COST)
 end
 function c72091688.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

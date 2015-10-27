@@ -42,12 +42,12 @@ function c72091689.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c72091689.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if Duel.IsExistingTarget(c72091689.filter,tp,LOCATION_MZONE,0,1,nil)
+	if Duel.IsExistingTarget(c72091689.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
 		and e:GetHandler():GetFlagEffect(72091689)==0
 		and Duel.SelectYesNo(tp,aux.Stringid(72091689,0)) then
 		e:SetCategory(CATEGORY_POSITION)
 		e:SetProperty(EFFECT_FLAG_CARD_TARGET)
-		local g=Duel.SelectTarget(tp,c72091689.filter,tp,LOCATION_MZONE,0,1,1,nil)
+		local g=Duel.SelectTarget(tp,c72091689.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 		Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 		e:SetLabel(1)
 		e:GetHandler():RegisterFlagEffect(72091689,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
@@ -59,10 +59,10 @@ function c72091689.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c72091689.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c72091689.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c72091689.filter,tp,LOCATION_MZONE,0,1,nil)
+	if chk==0 then return Duel.IsExistingTarget(c72091689.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
 	and e:GetHandler():GetFlagEffect(72091689)==0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,c72091689.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c72091689.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 end
 function c72091689.operation(e,tp,eg,ep,ev,re,r,rp)

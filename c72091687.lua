@@ -53,8 +53,8 @@ function c72091687.spcon2(e,c)
 		Duel.IsExistingMatchingCard(c72091687.spfilter,c:GetControler(),0,LOCATION_MZONE,1,nil)
 end
 function c72091687.tkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,1,0x2a,3,REASON_COST) end
-	Duel.RemoveCounter(tp,1,1,0x2a,3,REASON_COST)
+	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,1,0x2a,2,REASON_COST) end
+	Duel.RemoveCounter(tp,1,1,0x2a,2,REASON_COST)
 end
 function c72091687.filter(c,e,tp)
 	return c:IsFaceup() and c:IsControler(1-tp) and (not e or c:IsRelateToEffect(e))
