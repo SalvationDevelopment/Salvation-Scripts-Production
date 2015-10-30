@@ -1,4 +1,5 @@
---Supermassive Megamech Great Magnas
+--Super Quantum Mecha Lord Great Magnus
+--Fixed by Ragna_Edge
 function c13754008.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,12,3)
@@ -68,7 +69,7 @@ function c13754008.con2(e)
 end
 function c13754008.efilter(e,te)
 	local c=te:GetHandler()
-	return not c:IsSetCard(0x1e72)
+	return not c:IsSetCard(0xd5)
 end
 function c13754008.con3(e)
 	return e:GetHandler():GetOverlayCount()>=5
@@ -79,7 +80,7 @@ function c13754008.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13754008.filter(c,e,tp)
-	return c:IsSetCard(0x1e72) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x20d5) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c13754008.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13754008.filter(chkc,e,tp) end
