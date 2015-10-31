@@ -59,7 +59,7 @@ function c72091688.filter(c,e,tp)
 	return c:IsFaceup() and c:IsControler(1-tp) and (not e or c:IsRelateToEffect(e))
 end
 function c72091688.negcon(e,tp,eg,ep,ev,re,r,rp)
-	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
+	return rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
 	and not re:GetHandler():IsCode(72091688)
 end
 function c72091688.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
