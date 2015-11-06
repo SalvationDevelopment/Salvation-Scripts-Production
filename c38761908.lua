@@ -25,8 +25,10 @@ function c38761908.filter(c)
 	return c:IsFaceup() and c:IsAbleToRemove()
 end
 function c38761908.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	local hd=c:IsLocation(LOCATION_SZONE) or (c:IsLocation(LOCATION_HAND) and Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>1)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and c38761908.filter(chkc) end
-	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>0
+	if chk==0 then return hd and Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>0
 		and Duel.IsExistingTarget(c38761908.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,c38761908.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
