@@ -53,7 +53,7 @@ end
 function c13754001.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
-		and c:GetSummonType()==SUMMON_TYPE_XYZ
+		and bit.band(c:GetSummonType(),SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ
 end
 
 function c13754001.spfil1(c,e,tp)
