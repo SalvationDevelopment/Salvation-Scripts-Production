@@ -6,7 +6,7 @@ function c72001810.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_GRAVE)
-	e1:SetCountLimit(1,72001811)
+	e1:SetCountLimit(1,72001810)
 	e1:SetTarget(c72001810.sptg)
 	e1:SetOperation(c72001810.spop)
 	c:RegisterEffect(e1)
@@ -64,14 +64,14 @@ function c72001810.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 		if e:GetLabel()~=100 then return false end
 		e:SetLabel(0)
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c72001810.spfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil,e,tp) 
+		and Duel.IsExistingMatchingCard(c72001810.thfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil,e,tp) 
 		and Duel.IsExistingMatchingCard(c72001810.thfilter2,tp,LOCATION_MZONE,0,1,e:GetHandler(),e,tp) end
 	local g=Duel.SelectMatchingCard(tp,c72001810.thfilter2,tp,LOCATION_MZONE,0,1,1,e:GetHandler(),e,tp)
 	Duel.SendtoGrave(g,REASON_COST)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c72001810.thop(e,tp,eg,ep,ev,re,r,rp)
-	local rg=Duel.GetMatchingGroup(c72001810.spfilter,tp,LOCATION_DECK,0,nil)
+	local rg=Duel.GetMatchingGroup(c72001810.thfilter,tp,LOCATION_DECK,0,nil)
 	local g=Group.CreateGroup()
 	local tc=rg:GetFirst()
 	local ct=0
