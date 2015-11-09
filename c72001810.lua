@@ -82,7 +82,7 @@ function c72001810.thop(e,tp,eg,ep,ev,re,r,rp)
 		ct=ct+1
 		tc=rg:GetNext()
 		rg:Remove(Card.IsCode,nil,sc:GetCode())
-		if rg:GetCount()==0 or not Duel.SelectYesNo(tp,aux.Stringid(72001810,0)) then ct=2 end
+		if ct==2 or rg:GetCount()==0 or not Duel.SelectYesNo(tp,aux.Stringid(72001810,0)) then ct=2 end
 	end
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
