@@ -1,15 +1,16 @@
 --The Phantom Knights of Dusty Robe
 --Remember kids, double-check your card ID instances
 function c13754003.initial_effect(c)
-	--negate
+	--ATK-up
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(13754003,0))
-	e1:SetCategory(CATEGORY_DISABLE)
+	e1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCountLimit(1,13754003)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
+	e1:SetCondition(c13754003.condition)
 	e1:SetTarget(c13754003.target)
 	e1:SetOperation(c13754003.operation)
 	c:RegisterEffect(e1)
@@ -24,6 +25,9 @@ function c13754003.initial_effect(c)
 	e2:SetTarget(c13754003.tdtg)
 	e2:SetOperation(c13754003.tdop)
 	c:RegisterEffect(e2)
+end
+function c13754003.condition(e)
+	return e:GetHandler():IsAttackPos()
 end
 function c13754003.filter(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK)
