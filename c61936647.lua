@@ -3,11 +3,12 @@
 function c61936647.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
+	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetHintTiming(TIMING_BATTLE_PHASE,0x1c0+TIMING_BATTLE_PHASE+TIMING_DAMAGE_STEP)
+	e1:SetHintTiming(TIMING_BATTLE_PHASE+TIMING_DAMAGE_STEP,0x1c0+TIMING_BATTLE_PHASE+TIMING_DAMAGE_STEP)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
+	e1:SetCondition(c61936647.condition)
 	e1:SetTarget(c61936647.target)
 	e1:SetOperation(c61936647.activate)
 	c:RegisterEffect(e1)
@@ -40,6 +41,9 @@ function c61936647.initial_effect(c)
 	e4:SetTarget(c61936647.sptg)
 	e4:SetOperation(c61936647.spop)
 	c:RegisterEffect(e4)
+end
+function c61936647.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
 function c61936647.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
