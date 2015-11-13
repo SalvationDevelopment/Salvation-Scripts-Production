@@ -19,7 +19,7 @@ function c99115583.initial_effect(c)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCost(c99115583.thcost)
 	e2:SetTarget(c99115583.thtg)
-	e2:SetOperation(c99115583.thop)
+	e2:SetOperation(c99115583.wop)
 	c:RegisterEffect(e2)
 end
 function c99115583.atkfilter(c,tp)
@@ -47,10 +47,20 @@ function c99115583.thfilter(c)
 	return (c:IsSetCard(0x1373) or (c:IsSetCard(0x1374) and c:IsType(TYPE_SPELL+TYPE_TRAP))) and c:IsAbleToHand()
 end
 function c99115583.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c99115583.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c99115583.thfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
 end
+function c99115583.wop(e,tp,eg,ep,ev,re,r,rp)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_PHASE+PHASE_END)
+	e1:SetCountLimit(1)
+	e1:SetOperation(c99115583.thop)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+end
 function c99115583.thop(e,tp,eg,ep,ev,re,r,rp)
+	if not Duel.IsExistingMatchingCard(c99115583.thfilter,tp,LOCATION_GRAVE,0,1,nil) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c99115583.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 then
