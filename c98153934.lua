@@ -34,12 +34,12 @@ function c98153934.initial_effect(c)
 end
 function c98153934.regcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
+	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
 	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	local tgc=false
 	local tc=tg:GetFirst()
 	while tc do
-		if tc:IsSetCard(0x1373) and tc:IsType(TYPE_MONSTER) and tc:IsLocation(LOCATION_MZONE) then tgc=true end
+		if tc:IsSetCard(0x1373) and tc:IsType(TYPE_MONSTER) and tc:IsControler(tp) then tgc=true end
 		tc=tg:GetNext()
 	end
 	return ep~=tp and tgc
