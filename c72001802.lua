@@ -13,11 +13,11 @@ function c72001802.initial_effect(c)
 end
 function c72001802.filter(c,e,tp)
 	return c:IsFaceup() and c:IsLevelBelow(4)
-		and Duel.IsExistingMatchingCard(c72001802.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode(),c:GetAttribute(),c:GetRace(),c:GetLevel())
+		and Duel.IsExistingMatchingCard(c72001802.spfilter1,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode(),c:GetAttribute(),c:GetRace(),c:GetLevel())
 end
 function c72001802.spfilter1(c,e,tp,code,attribute,race,level)
 	return c:IsAttribute(attribute) and c:IsRace(race) and c:GetLevel()==level and not c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-	and Duel.IsExistingMatchingCard(c72001802.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,code,c:GetCode(),c:GetAttribute(),c:GetRace(),c:GetLevel())
+	and Duel.IsExistingMatchingCard(c72001802.spfilter2,tp,LOCATION_DECK,0,1,nil,e,tp,code,c:GetCode(),c:GetAttribute(),c:GetRace(),c:GetLevel())
 end
 function c72001802.spfilter2(c,e,tp,code1,code2,attribute,race,level)
 	return c:IsAttribute(attribute) and c:IsRace(race) and c:GetLevel()==level and not (c:IsCode(code1) or c:IsCode(code2))  and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
