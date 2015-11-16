@@ -1,0 +1,16 @@
+﻿Revert "Merge branch 'master' of https://github.com/SalvationDevelopment/Salvation-Scripts-TCG"
+
+This reverts commit a38751169455a500c9ebe45c2be421184e34709a, reversing
+changes made to f0d19e8dbfd96ea7d345cded5da5f14ebd5084b2.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   c13754008.lua
+#	modified:   c13754009.lua
+#	modified:   c72001802.lua
+#	modified:   c98153934.lua
+#

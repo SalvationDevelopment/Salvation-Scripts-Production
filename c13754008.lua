@@ -7,9 +7,9 @@ function c13754008.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(13754008,0))
 	e1:SetCategory(CATEGORY_TODECK)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1)
 	e1:SetCondition(c13754008.con1)
 	e1:SetCost(c13754008.tdcost)
@@ -41,21 +41,27 @@ function c13754008.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c13754008.con1(e)
-	return e:GetHandler():GetOverlayCount()>=2
+	return e:GetHandler():GetOverlayCount()>=3
 end
 function c13754008.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function c13754008.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+function c13754008.tdfilter(c)
+	return c:IsAbleToDeck()
+end
+function c13754008.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() and c13754008.tdfilter(chkc) and chkc~=e:GetHandler() end
+	if chk==0 then return Duel.IsExistingTarget(c13754008.tdfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectTarget(tp,c13754008.tdfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c13754008.tdop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
-	local tc=g:GetFirst()
-	if tc then Duel.SendtoDeck(tc,nil,2,REASON_EFFECT) end
+	local tc=Duel.GetFirstTarget()
+	if tc:IsRelateToEffect(e) then
+		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
+	end
 end
 
 function c13754008.con2(e)
@@ -66,7 +72,7 @@ function c13754008.efilter(e,te)
 	return not c:IsSetCard(0xd5)
 end
 function c13754008.con3(e)
-	return e:GetHandler():GetOverlayCount()>=6
+	return e:GetHandler():GetOverlayCount()>=5
 end
 
 function c13754008.condition(e,tp,eg,ep,ev,re,r,rp)
