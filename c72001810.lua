@@ -29,7 +29,7 @@ function c72001810.thfilter(c)
 	return c:IsSetCard(0xd8) and c:IsAbleToHand()
 end
 function c72001810.thfilter2(c)
-	return c:IsType(TYPE_EFFECT) and c:IsAbleToGraveAsCost()
+	return c:IsType(TYPE_EFFECT) and c:IsAbleToGrave()
 end
 function c72001810.tdfilter(c)
 	return c:IsSetCard(0xd8) and c:IsAbleToDeck()
@@ -70,7 +70,7 @@ function c72001810.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c72001810.thop(e,tp,eg,ep,ev,re,r,rp)
 	local gv=Duel.SelectMatchingCard(tp,c72001810.thfilter2,tp,LOCATION_MZONE,0,1,1,nil)
-	if Duel.SendtoGrave(gv,REASON_EFFECT) then
+	if Duel.SendtoGrave(gv,REASON_EFFECT)~=0 then
 		local rg=Duel.GetMatchingGroup(c72001810.thfilter,tp,LOCATION_DECK,0,nil)
 		local g=Group.CreateGroup()
 		local tc=rg:GetFirst()
