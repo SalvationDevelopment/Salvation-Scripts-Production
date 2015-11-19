@@ -25,10 +25,10 @@ function c72001810.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function c72001810.thfilter(c,e,tp)
+function c72001810.thfilter(c)
 	return c:IsSetCard(0xd8) and c:IsAbleToHand()
 end
-function c72001810.thfilter2(c,e,tp)
+function c72001810.thfilter2(c)
 	return c:IsType(TYPE_EFFECT) and c:IsAbleToGraveAsCost()
 end
 function c72001810.tdfilter(c)
@@ -64,28 +64,29 @@ function c72001810.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 		if e:GetLabel()~=100 then return false end
 		e:SetLabel(0)
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c72001810.thfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil,e,tp) 
-		and Duel.IsExistingMatchingCard(c72001810.thfilter2,tp,LOCATION_MZONE,0,1,e:GetHandler(),e,tp) end
-	local g=Duel.SelectMatchingCard(tp,c72001810.thfilter2,tp,LOCATION_MZONE,0,1,1,e:GetHandler(),e,tp)
-	Duel.SendtoGrave(g,REASON_COST)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+		and Duel.IsExistingMatchingCard(c72001810.thfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil) 
+		and Duel.IsExistingMatchingCard(c72001810.thfilter2,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,0)
 end
 function c72001810.thop(e,tp,eg,ep,ev,re,r,rp)
-	local rg=Duel.GetMatchingGroup(c72001810.thfilter,tp,LOCATION_DECK,0,nil)
-	local g=Group.CreateGroup()
-	local tc=rg:GetFirst()
-	local ct=0
-	while tc and ct~=2 do 
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-		local sc=rg:Select(tp,1,1,nil):GetFirst()
-		g:AddCard(sc)
-		ct=ct+1
-		tc=rg:GetNext()
-		rg:Remove(Card.IsCode,nil,sc:GetCode())
-		if ct==2 or rg:GetCount()==0 or not Duel.SelectYesNo(tp,aux.Stringid(72001810,0)) then ct=2 end
-	end
-	if g:GetCount()>0 then
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
+	local gv=Duel.SelectMatchingCard(tp,c72001810.thfilter2,tp,LOCATION_MZONE,0,1,1,nil)
+	if Duel.SendtoGrave(gv,REASON_EFFECT) then
+		local rg=Duel.GetMatchingGroup(c72001810.thfilter,tp,LOCATION_DECK,0,nil)
+		local g=Group.CreateGroup()
+		local tc=rg:GetFirst()
+		local ct=0
+		while tc and ct~=2 do 
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+			local sc=rg:Select(tp,1,1,nil):GetFirst()
+			g:AddCard(sc)
+			ct=ct+1
+			tc=rg:GetNext()
+			rg:Remove(Card.IsCode,nil,sc:GetCode())
+			if ct==2 or rg:GetCount()==0 or not Duel.SelectYesNo(tp,aux.Stringid(72001810,0)) then ct=2 end
+		end
+		if g:GetCount()>0 then
+			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
+		end
 	end
 end
