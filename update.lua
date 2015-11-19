@@ -18,3 +18,5 @@ Dank memes
 Liger and Great Magnus corrected
 
 Blue-Eyes and some God stuff added to DB
+
+Made SQL fixes to new cards
