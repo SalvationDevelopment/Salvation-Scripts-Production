@@ -17,9 +17,9 @@ function c43898403.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c43898403.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsDestructable() and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_SZONE,LOCATION_SZONE,1,e:GetHandler()) end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,LOCATION_SZONE,LOCATION_SZONE,1,2,e:GetHandler())
+	local g=Duel.SelectTarget(tp,Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,2,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function c43898403.activate(e,tp,eg,ep,ev,re,r,rp)
