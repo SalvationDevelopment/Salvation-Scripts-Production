@@ -44,7 +44,8 @@ function c72001812.spfilter2(c,e,tp)
 end
 function c72001812.gvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c72001812.gvfilter(chkc) end
-	if chk==0 then return Duel.IsExistingMatchingCard(c72001812.gvfilter,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c72001812.gvfilter,tp,LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(c72001812.spfilter2,tp,LOCATION_HAND,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,c72001812.gvfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,0)
@@ -52,7 +53,7 @@ end
 function c72001812.gvop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
-		if Duel.SendtoGrave(tc,REASON_EFFECT) 
+		if Duel.SendtoGrave(tc,REASON_EFFECT)~=0 
 			and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 			and Duel.IsExistingMatchingCard(c72001812.spfilter2,tp,LOCATION_HAND,0,1,nil,e,tp) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)

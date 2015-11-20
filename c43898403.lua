@@ -19,7 +19,7 @@ function c43898403.filter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
 end
 function c43898403.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsDestructable() and chkc~=e:GetHandler() and c43898403.filter(chkc) end
+	if chkc then return chkc:IsOnField() and chkc~=e:GetHandler() and c43898403.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c43898403.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,c43898403.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,2,e:GetHandler())
