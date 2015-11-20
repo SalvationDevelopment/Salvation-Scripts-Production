@@ -32,20 +32,20 @@ function c13703006.initial_effect(c)
 	e3:SetOperation(c13703006.spop2)
 	c:RegisterEffect(e3)
 end
-function c13703006.filter(c)
-	return c:IsFaceup() and (c:IsSetCard(0xae)or c:IsSetCard(0xaf)) and c:IsDestructable()
+function c13703006.filter(c,e)
+	return c:IsFaceup() and (c:IsSetCard(0xae)or c:IsSetCard(0xaf)) and c:IsDestructable() and c~=e:GetHandler()
 end
-function c13703006.desfilter2(c)
+function c13703006.desfilter2(c,e)
 	return c:IsDestructable() and c:IsType(TYPE_SPELL+TYPE_TRAP)
-		and Duel.IsExistingTarget(c13703006.filter,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,c)
+		and Duel.IsExistingTarget(c13703006.filter,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,c,e)
 end
 function c13703006.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	if chk==0 then return Duel.IsExistingTarget(c13703006.desfilter2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
+	if chk==0 then return Duel.IsExistingTarget(c13703006.desfilter2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil,e) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g1=Duel.SelectTarget(tp,c13703006.desfilter2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
+	local g1=Duel.SelectTarget(tp,c13703006.desfilter2,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil,e)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g2=Duel.SelectTarget(tp,c13703006.filter,tp,LOCATION_ONFIELD,0,1,1,g1:GetFirst())
+	local g2=Duel.SelectTarget(tp,c13703006.filter,tp,LOCATION_ONFIELD,0,1,1,g1:GetFirst(),e)
 	g1:Merge(g2)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g1,2,0,0)
 end
