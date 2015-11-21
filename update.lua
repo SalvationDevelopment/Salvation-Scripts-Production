@@ -22,3 +22,5 @@ Blue-Eyes and some God stuff added to DB
 Made SQL fixes to new cards
 
 Not sure if the update link even works, trying this instead
+
+Update link is not responding
