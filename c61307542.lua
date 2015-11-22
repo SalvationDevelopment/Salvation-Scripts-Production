@@ -55,8 +55,8 @@ function c61307542.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ConfirmDecktop(tp,1)
 	local g=Duel.GetDecktopGroup(tp,1)
 	local tc=g:GetFirst()
+	Duel.DisableShuffleCheck()
 	if not tc:IsType(TYPE_TRAP) then
-		Duel.DisableShuffleCheck()
 		Duel.SendtoGrave(g,REASON_EFFECT+REASON_REVEAL)
 	else
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
