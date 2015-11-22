@@ -3,7 +3,14 @@
 function c72001816.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeRep(c,89631139,2,true,true)
+	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsCode,89631139),2,false)
+	--Spsummon condition
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e0:SetValue(c72001816.splimit)
+	c:RegisterEffect(e0)
 	--special summon rule
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -43,6 +50,9 @@ function c72001816.initial_effect(c)
 	e6:SetCondition(c72001816.rmcon)
 	e6:SetOperation(c72001816.rmop)
 	c:RegisterEffect(e6)
+end
+function c72001816.splimit(e,se,sp,st)
+	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 function c72001816.spfilter(c)
 	return c:IsFaceup() and c:IsCode(89631139) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
