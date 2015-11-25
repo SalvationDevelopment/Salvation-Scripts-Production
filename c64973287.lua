@@ -24,7 +24,7 @@ function c64973287.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c64973287.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0xd8)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x1e71)
 		and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()~=tp))
 end
 function c64973287.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -38,7 +38,7 @@ function c64973287.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
 end
 function c64973287.filter(c)
-	return c:IsSetCard(0xd8) and c:IsAbleToHand()
+	return c:IsSetCard(0x1e71) and c:IsAbleToHand()
 end
 function c64973287.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c64973287.filter,tp,LOCATION_DECK,0,1,nil) end
