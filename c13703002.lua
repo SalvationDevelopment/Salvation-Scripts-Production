@@ -1,4 +1,5 @@
 --D/D Magical Astronomer Copernicus
+--Edited by: HelixReactor
 function c13703002.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -33,7 +34,7 @@ function c13703002.initial_effect(c)
 	e3:SetDescription(aux.Stringid(28985331,0))
 	e3:SetCategory(CATEGORY_TOGRAVE)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_SUMMON_SUCCESS)
 	e3:SetCountLimit(1,13703002)
 	e3:SetTarget(c13703002.target)

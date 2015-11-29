@@ -6,24 +6,12 @@ function c72537897.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCondition(c72537897.condition)
-	e1:SetCost(c72537897.cost)
 	e1:SetTarget(c72537897.target)
 	e1:SetOperation(c72537897.activate)
 	c:RegisterEffect(e1)
 end
 function c72537897.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
-end
-function c72537897.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e1:SetTargetRange(1,0)
-	e1:SetTarget(c72537897.splimit)
-	e1:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e1,tp)
 end
 function c72537897.splimit(e,c)
 	return c:GetRace()~=RACE_BEAST
@@ -80,6 +68,15 @@ function c72537897.activate(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetCondition(c72537897.descon)
 		e3:SetOperation(c72537897.desop)
 		Duel.RegisterEffect(e3,tp)
+		Duel.SpecialSummonComplete()
+		local e4=Effect.CreateEffect(c)
+		e4:SetType(EFFECT_TYPE_FIELD)
+		e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e4:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+		e4:SetTargetRange(1,0)
+		e4:SetTarget(c72537897.splimit)
+		e4:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e4,tp)
 		Duel.SpecialSummonComplete()
 	end
 end

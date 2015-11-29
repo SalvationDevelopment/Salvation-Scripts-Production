@@ -1,4 +1,5 @@
---Supermassive Megamech Great Magnas
+--Super Quantum Mecha Lord Great Magnus
+--Fixed by Ragna_Edge
 function c13754008.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,12,3)
@@ -6,9 +7,9 @@ function c13754008.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(13754008,0))
 	e1:SetCategory(CATEGORY_TODECK)
-	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetType(EFFECT_TYPE_QUICK_O)
+	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1)
 	e1:SetCondition(c13754008.con1)
 	e1:SetCost(c13754008.tdcost)
@@ -20,7 +21,7 @@ function c13754008.initial_effect(c)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(c13754008.con1)
+	e2:SetCondition(c13754008.con2)
 	e2:SetValue(c13754008.efilter)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
@@ -40,27 +41,21 @@ function c13754008.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c13754008.con1(e)
-	return e:GetHandler():GetOverlayCount()>=3
+	return e:GetHandler():GetOverlayCount()>=2
 end
 function c13754008.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function c13754008.tdfilter(c)
-	return c:IsAbleToDeck()
-end
-function c13754008.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and c13754008.tdfilter(chkc) and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(c13754008.tdfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,c13754008.tdfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
+function c13754008.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c13754008.tdop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
-	end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	local tc=g:GetFirst()
+	if tc then Duel.SendtoDeck(tc,nil,2,REASON_EFFECT) end
 end
 
 function c13754008.con2(e)
@@ -68,10 +63,10 @@ function c13754008.con2(e)
 end
 function c13754008.efilter(e,te)
 	local c=te:GetHandler()
-	return not c:IsSetCard(0x1e72)
+	return not c:IsSetCard(0xd5)
 end
 function c13754008.con3(e)
-	return e:GetHandler():GetOverlayCount()>=5
+	return e:GetHandler():GetOverlayCount()>=6
 end
 
 function c13754008.condition(e,tp,eg,ep,ev,re,r,rp)
@@ -79,7 +74,7 @@ function c13754008.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13754008.filter(c,e,tp)
-	return c:IsSetCard(0x1e72) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x20d5) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c13754008.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13754008.filter(chkc,e,tp) end

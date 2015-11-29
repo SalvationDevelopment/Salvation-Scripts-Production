@@ -1,4 +1,4 @@
---Supermassive Megasword - Magnaslayer
+--Super Quantum Megasword - Magnaslayer
 function c13754009.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -33,13 +33,13 @@ function c13754009.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13754009.atkval(e,c)
-	return c:GetRank()*200
+	return c:GetRank()*100
 end
 function c13754009.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
 function c13754009.filter(c)
-	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x1e72)
+	return c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0xd5)
 end
 function c13754009.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c13754009.filter(chkc) end

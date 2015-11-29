@@ -25,7 +25,7 @@ function c24903843.filter(c)
 end
 function c24903843.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) and
-	Duel.IsExistingMatchingCard(c24903843.filter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.IsExistingMatchingCard(c24903843.filter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(2)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)

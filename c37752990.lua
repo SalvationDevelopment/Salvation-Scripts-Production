@@ -1,5 +1,5 @@
 --Dinomist Ceratops
---Fixed by Ragna_Edge
+--FH version
 function c37752990.initial_effect(c)
 	--pendulum summon
 	aux.AddPendulumProcedure(c)
@@ -27,8 +27,8 @@ function c37752990.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c37752990.filter(c,tp)
-	return c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) and c:IsSetCard(0x1e71)
-	and not c:IsReason(REASON_REPLACE)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x1e71)
+		and (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()~=tp))
 end
 function c37752990.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c37752990.filter,1,e:GetHandler(),tp) and not e:GetHandler():IsStatus(STATUS_DESTROY_CONFIRMED) end
@@ -40,16 +40,13 @@ end
 function c37752990.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
 end
-function c37752990.sdfilter(c)
-	return c:GetCode()==13790634 or c:IsFacedown() or not c:IsSetCard(0x1e71)
-end
-function c37752990.sdfilter2(c)
-	return c:IsFaceup() and c:IsSetCard(0x1e71)
+function c37752990.cfilter(c)
+	return c:IsFacedown() or c:IsCode(37752990) or not c:IsSetCard(0x1e71)
 end
 function c37752990.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c37752990.sdfilter2,tp,LOCATION_MZONE,0,1,nil)
-		and not	Duel.IsExistingMatchingCard(c37752990.sdfilter,tp,LOCATION_MZONE,0,1,nil)
+		and Duel.GetFieldGroupCount(c:GetControler(),LOCATION_MZONE,0)>0
+		and not	Duel.IsExistingMatchingCard(c37752990.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end

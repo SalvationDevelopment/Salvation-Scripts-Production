@@ -43,7 +43,7 @@ function c13754000.spcon2(e,c)
 end
 
 function c13754000.filter(c)
-	return c:IsSetCard(0x1e72) and c:IsAbleToHand()
+	return c:IsSetCard(0xd5) and c:IsAbleToHand()
 end
 
 function c13754000.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -69,7 +69,7 @@ function c13754000.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13754000.spfilter(c,e,tp)
-	return c:IsSetCard(0x1e72) and not c:IsCode(13754000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xd5) and not c:IsCode(13754000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 
 function c13754000.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -85,12 +85,11 @@ function c13754000.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
-		local e1=Effect.CreateEffect(c)
+		local e1=Effect.CreateEffect(tc)
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+		e1:SetCode(EFFECT_CANNOT_TRIGGER)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetReset(RESET_EVENT+0xfe0000)
-		e1:SetValue(LOCATION_REMOVED)
 		tc:RegisterEffect(e1)
 	end
 end

@@ -1,4 +1,5 @@
---Supermassive Beastmech Magnaliger
+--Super Quantum Mecha Beast Magnalier
+--Fixed by Ragna_Edge
 function c13754007.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,5,2)
@@ -56,7 +57,7 @@ function c13754007.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c13754007.mtfilter(c)
-	return c:IsSetCard(0x1e72)
+	return c:IsSetCard(0x10d5) and c:IsType(TYPE_MONSTER)
 end
 function c13754007.mttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13754007.mtfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,1,e:GetHandler()) end

@@ -21,7 +21,7 @@ function c13754001.initial_effect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e2:SetCode(EVENT_TO_GRAVE)
+	e2:SetCode(EVENT_DESTROYED)
 	e2:SetCondition(c13754001.thcon)
 	e2:SetTarget(c13754001.thtg)
 	e2:SetOperation(c13754001.thop)
@@ -53,7 +53,7 @@ end
 function c13754001.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
-		and c:GetSummonType()==SUMMON_TYPE_XYZ
+		and c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_XYZ)==SUMMON_TYPE_XYZ
 end
 
 function c13754001.spfil1(c,e,tp)

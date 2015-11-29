@@ -46,11 +46,9 @@ function c13753038.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummonComplete()
 	end
 end
-
-
 function c13753038.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO)
 end
 function c13753038.atkval(e,c)
-	return Duel.GetMatchingGroupCount(c13753038.filter,c:GetControler(),LOCATION_MZONE,0,c)*300
+	return Duel.GetMatchingGroupCount(c13753038.filter,c:GetControler(),LOCATION_MZONE,LOCATION_MZONE,c)*300
 end
