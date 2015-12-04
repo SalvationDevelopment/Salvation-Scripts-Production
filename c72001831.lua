@@ -29,7 +29,7 @@ function c72001831.initial_effect(c)
 	e4:SetCondition(c72001831.thcon)
 	e4:SetTarget(c72001831.thtg)
 	e4:SetOperation(c72001831.thop)
-	c:RegisterEffect(e3)
+	c:RegisterEffect(e4)
 	local e5=e4:Clone()
 	e5:SetCode(EVENT_DESTROYED)
 	c:RegisterEffect(e5)
@@ -44,7 +44,7 @@ function c72001831.value(e,c)
 	return Duel.GetMatchingGroupCount(c72001831.stfilter,c:GetControler(),LOCATION_ONFIELD,0,nil)*100
 end
 function c72001831.confilter(c,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsReason(REASON_BATTLE+REASON_EFFECT+REASON_RELEASE) 
+	return c:IsType(TYPE_MONSTER) and c:IsReason(REASON_BATTLE+REASON_EFFECT+REASON_RELEASE)
 		and c:IsPreviousLocation(LOCATION_MZONE+LOCATION_HAND) and c:GetPreviousControler()==tp
 end
 function c72001831.thcon(e,tp,eg,ep,ev,re,r,rp)
