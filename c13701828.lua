@@ -2,20 +2,15 @@
 function c13701828.initial_effect(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e1:SetCategory(CATEGORY_DESTROY)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
 	e1:SetTarget(c13701828.destg)
 	e1:SetOperation(c13701828.desop)
 	c:RegisterEffect(e1)
-	local e2=Effect.CreateEffect(c)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	local e2=e1:Clone()
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetTarget(c13701828.destg)
-	e2:SetOperation(c13701828.desop)
 	c:RegisterEffect(e2)
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -27,13 +22,13 @@ function c13701828.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13701828.filter(c)
-	return c:IsFaceup() and c:IsType(TYPE_FIELD) and c:IsDestructable()
+	return c:IsType(TYPE_FIELD) and c:IsDestructable()
 end
 function c13701828.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c13701828.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13701828.filter,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chkc then return chkc:IsOnField() and c13701828.filter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c13701828.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c13701828.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,c13701828.filter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function c13701828.desop(e,tp,eg,ep,ev,re,r,rp)
