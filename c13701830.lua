@@ -28,8 +28,7 @@ function c13701830.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c13701830.tgfilter(c)
-	return (c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0x1374)) or (c:IsSetCard(0xdf) and c:IsType(TYPE_SPELL+TYPE_TRAP))
-	-- Salv Setcode and YGOPro Setcode
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0x1374)
 end
 function c13701830.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c13701830.tgfilter,tp,LOCATION_DECK,0,1,nil) end
