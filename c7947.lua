@@ -95,23 +95,23 @@ end
 function c7947.unop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if c:GetFlagEffect(6949)==0 then
+	if c:GetFlagEffect(7949)==0 then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
 		c:RegisterEffect(e1)
-		c:RegisterFlagEffect(6949,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+		c:RegisterFlagEffect(7949,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 	end
 	if bc then
 		if bc:GetFlagEffect(7947)>0 then
-			bc:RegisterFlagEffect(6948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+			bc:RegisterFlagEffect(7948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 		end
 	end
 end
 function c7947.valtg(e,c)
-	return c:GetFlagEffect(6948)>0
+	return c:GetFlagEffect(7948)>0
 end
 function c7947.vala(e,c)
 	return c==e:GetHandler()
