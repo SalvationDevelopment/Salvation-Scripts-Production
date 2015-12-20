@@ -132,7 +132,7 @@ function c7947.indesop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(1)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
 	bc:RegisterEffect(e1,true)
-endd
+end
 
 function c7947.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
