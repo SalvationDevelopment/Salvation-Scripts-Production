@@ -81,7 +81,7 @@ function c7947.operation(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 		c:RegisterEffect(e3)
 		local e4=Effect.CreateEffect(c)
-		e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+		e4:SetType(EFFECT_TYPE_FIELD)
 		e4:SetRange(LOCATION_MZONE)
 		e4:SetTargetRange(0,LOCATION_MZONE)
 		e4:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -100,13 +100,15 @@ function c7947.unop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_BATTLE)
 		c:RegisterEffect(e1)
 		c:RegisterFlagEffect(7949,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 	end
 	if bc then
 		if bc:GetFlagEffect(7947)>0 then
 			bc:RegisterFlagEffect(7948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+		else
+			bc:RegisterFlagEffect(7947,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 		end
 	end
 end
@@ -115,10 +117,6 @@ function c7947.valtg(e,c)
 end
 function c7947.vala(e,c)
 	return c==e:GetHandler()
-end
-
-function c7947.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(1-tp) and c:IsLocation(LOCATION_MZONE) and c:IsReason(REASON_BATTLE) and c:GetFlagEffect(7947)==0
 end
 function c7947.indescon(e,tp,eg,ep,ev,re,r,rp)
 	local bc=e:GetHandler():GetBattleTarget()
@@ -133,7 +131,6 @@ function c7947.indesop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
 	bc:RegisterEffect(e1,true)
 end
-
 function c7947.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
