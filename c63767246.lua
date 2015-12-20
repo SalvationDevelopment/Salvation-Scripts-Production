@@ -75,7 +75,7 @@ function c63767246.atkfilter1(c,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsType(TYPE_XYZ)
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
-function c63767246.atkcon1(e,tp,eg,ep,ev,re,r,rp)
+function c63767246.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c63767246.atkfilter1,1,nil,tp)
 end
 function c63767246.atkfilter2(c,tp)
