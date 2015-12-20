@@ -20,7 +20,7 @@ function c90162951.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e3:SetCondition(c90162951.damcon)
-	e3:SetOperation(c13478040.damop)
+	e3:SetOperation(c90162951.damop)
 	c:RegisterEffect(e3)
 	--destroy
 	local e4=Effect.CreateEffect(c)
