@@ -92,13 +92,8 @@ function c63767246.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local g=eg:Filter(c63767246.atkfilter1,nil,tp)
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		local sg=nil
-		if g:GetCount()>=2 then
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-			sg=g:Select(tp,1,1,nil)
-		else
-			g:GetFirst()
-		end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+		local sg=g:Select(tp,1,1,nil)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
