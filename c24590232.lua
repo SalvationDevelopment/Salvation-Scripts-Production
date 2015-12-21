@@ -6,7 +6,6 @@ function c24590232.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e1:SetCondition(c24590232.condition)
-	e1:SetCost(c24590232.cost)
 	e1:SetOperation(c24590232.activate)
 	c:RegisterEffect(e1)
 end
