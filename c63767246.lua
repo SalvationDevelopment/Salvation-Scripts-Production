@@ -75,7 +75,7 @@ function c63767246.atkfilter1(c,tp)
 	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsType(TYPE_XYZ)
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
-function c63767246.atkcon1(e,tp,eg,ep,ev,re,r,rp)
+function c63767246.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c63767246.atkfilter1,1,nil,tp)
 end
 function c63767246.atkfilter2(c,tp)
@@ -92,13 +92,8 @@ function c63767246.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local g=eg:Filter(c63767246.atkfilter1,nil,tp)
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		local sg=nil
-		if g:GetCount()>=2 then
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-			sg=g:Select(tp,1,1,nil)
-		else
-			g:GetFirst()
-		end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+		local sg=g:Select(tp,1,1,nil)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
