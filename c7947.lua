@@ -3,7 +3,7 @@
 function c7947.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeFun(c,7947,c7947.mat_filter,1,false,false)
+	aux.AddFusionProcCodeFun(c,6946,c7947.mat_filter,1,false,false)
 	--spsummon condition
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
@@ -95,32 +95,28 @@ end
 function c7947.unop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if c:GetFlagEffect(6948)==0 then
+	if c:GetFlagEffect(7949)==0 then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_BATTLE)
 		c:RegisterEffect(e1)
-		c:RegisterFlagEffect(6948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+		c:RegisterFlagEffect(7949,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 	end
 	if bc then
 		if bc:GetFlagEffect(7947)>0 then
-			bc:RegisterFlagEffect(6947,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
+			bc:RegisterFlagEffect(7948,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 		else
 			bc:RegisterFlagEffect(7947,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE,0,1)
 		end
 	end
 end
 function c7947.valtg(e,c)
-	return c:GetFlagEffect(6948)>0
+	return c:GetFlagEffect(7948)>0
 end
 function c7947.vala(e,c)
 	return c==e:GetHandler()
-end
-
-function c7947.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(1-tp) and c:IsLocation(LOCATION_MZONE) and c:IsReason(REASON_BATTLE) and c:GetFlagEffect(7947)==0
 end
 function c7947.indescon(e,tp,eg,ep,ev,re,r,rp)
 	local bc=e:GetHandler():GetBattleTarget()
@@ -135,11 +131,6 @@ function c7947.indesop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
 	bc:RegisterEffect(e1,true)
 end
-
-function c7947.vala(e,c)
-	return c==e:GetHandler()
-end
-
 function c7947.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
