@@ -75,6 +75,6 @@ end
 function c26556950.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
-	local g=Duel.GetMatchingGroup(c26556950.desfilter,tp,LOCATION_MZONE,0,nil,c:GetDefence())
+	local g=Duel.GetMatchingGroup(c26556950.desfilter,tp,0,LOCATION_MZONE,nil,c:GetDefence())
 	Duel.Destroy(g,REASON_EFFECT)
 end

@@ -82,6 +82,6 @@ function c13701600.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_DISABLE_EFFECT)
 		e2:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e2)
-		Duel.CalculateDamage(a,tc)
+		Duel.ChangeAttackTarget(tc)
 	end
 end
