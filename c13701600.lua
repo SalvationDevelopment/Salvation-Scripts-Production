@@ -10,6 +10,7 @@ function c13701600.initial_effect(c)
 	e1:SetTarget(c13701600.thtg)
 	e1:SetOperation(c13701600.thop)
 	c:RegisterEffect(e1)
+	--Special Summon + change battle target
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
