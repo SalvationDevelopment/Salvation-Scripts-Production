@@ -13,7 +13,7 @@ function c13790813.initial_effect(c)
 	e1:SetTarget(c13790813.extg)
 	c:RegisterEffect(e1)
 	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -42,7 +42,8 @@ function c13790813.cfilter(c,tc)
 end
 function c13790813.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c13790813.tgfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13790813.tgfilter,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c13790813.tgfilter,tp,LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(c13790813.cfilter,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,c13790813.tgfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end

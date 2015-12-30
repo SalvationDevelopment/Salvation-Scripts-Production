@@ -40,12 +40,11 @@ function c10678778.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c10678778.filter(c)
-	local ctype=c:GetType()
-	return c:IsFaceup() and (c:IsType(TYPE_XYZ) or c:IsType(TYPE_FUSION) or c:IsType(TYPE_SYNCHRO)) and c:IsAbleToHand()
-	 and Duel.IsExistingTarget(c10678778.filter2,tp,0,LOCATION_MZONE,1,nil,ctype)
+	return c:IsFaceup() and c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsAbleToHand()
+	 and Duel.IsExistingTarget(c10678778.filter2,tp,0,LOCATION_MZONE,1,nil,c:GetType())
 end
 function c10678778.filter2(c,ctype)
-	return c:GetType()==ctype
+	return c:IsType(ctype) and c:IsDestructable()
 end
 function c10678778.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and c10678778.filter(chkc) end
@@ -57,9 +56,10 @@ end
 function c10678778.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
-		local g=Duel.SelectMatchingCard(tp,c10678778.filter2,tp,0,LOCATION_MZONE,1,1,nil,tc:GetType())
-		local tc2=g:GetFirst()
-		Duel.Destroy(tc2,REASON_EFFECT)
+		if Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 then
+			local g=Duel.SelectMatchingCard(tp,c10678778.filter2,tp,0,LOCATION_MZONE,1,1,nil,tc:GetType())
+			local tc2=g:GetFirst()
+			Duel.Destroy(tc2,REASON_EFFECT)
+		end
 	end
 end
