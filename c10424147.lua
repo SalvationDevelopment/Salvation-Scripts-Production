@@ -33,11 +33,11 @@ function c10424147.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c10424147.spfilter1(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x10d5)
+	return c:IsFaceup() and c:IsSetCard(0x10dc)
 		and Duel.IsExistingMatchingCard(c10424147.spfilter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,c:GetAttribute())
 end
 function c10424147.spfilter2(c,e,tp,mc,att)
-	return c:IsType(TYPE_XYZ) and c:IsSetCard(0x20d5) and c:IsAttribute(att) and mc:IsCanBeXyzMaterial(c)
+	return c:IsType(TYPE_XYZ) and c:IsSetCard(0x20dc) and c:IsAttribute(att) and mc:IsCanBeXyzMaterial(c)
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function c10424147.sptg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -67,7 +67,7 @@ function c10424147.spop1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c10424147.spfilter3(c,e)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x20d5) and c:IsType(TYPE_XYZ) and c:IsCanBeEffectTarget(e)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x20dc) and c:IsType(TYPE_XYZ) and c:IsCanBeEffectTarget(e)
 end
 function c10424147.spfilter4(c,e,tp)
 	return c:IsCode(84025439) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
