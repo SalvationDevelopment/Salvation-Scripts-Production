@@ -30,7 +30,7 @@ function c63767246.initial_effect(c)
 	e3:SetDescription(aux.Stringid(63767246,2))
 	e3:SetCategory(CATEGORY_ATKCHANGE)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_DESTROYED)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(c63767246.atkcon)
@@ -52,6 +52,7 @@ function c63767246.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=re:GetHandler()
 	if c:IsRelateToEffect(e) and rc:IsRelateToEffect(re) then
+		rc:CancelToGrave()
 		Duel.Overlay(c,Group.FromCards(rc))
 	end
 end
@@ -78,7 +79,7 @@ end
 function c63767246.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c63767246.atkfilter1,1,nil,tp)
 end
-function c63767246.atkfilter2(c,tp)
+function c63767246.atkfilter2(c)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ)
 end
 function c63767246.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -92,13 +93,15 @@ function c63767246.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local g=eg:Filter(c63767246.atkfilter1,nil,tp)
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-		local sg=g:Select(tp,1,1,nil)
+		if g:GetCount()>=2 then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+			g=g:Select(tp,1,1,nil)
+		end
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetValue(sg:GetFirst():GetBaseAttack())
+		e1:SetValue(g:GetFirst():GetBaseAttack())
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 	end

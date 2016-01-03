@@ -2,7 +2,7 @@
 --Blue-Eyes Spirit Dragon
 function c6952.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0xd8),1)
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0xdd),1)
 	c:EnableReviveLimit()
 	--Limit summon
 	local e1=Effect.CreateEffect(c)
@@ -81,7 +81,7 @@ function c6952.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetCountLimit(1)
 		e1:SetOperation(c6952.desop)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 	end
 end
