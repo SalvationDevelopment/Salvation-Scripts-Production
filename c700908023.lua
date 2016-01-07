@@ -1,5 +1,7 @@
 --Rector Pendulum, the Dracoverlord
 function c700908023.initial_effect(c)
+	--pendulum summon
+	aux.EnablePendulumAttribute(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(72001832,0))
