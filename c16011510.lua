@@ -1,13 +1,8 @@
 --Samurai Cavalry of Reptier
 --By: HelixReactor
 function c16011510.initial_effect(c)
-	--Pendulum summon
-	aux.AddPendulumProcedure(c)
-	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
+	--pendulum summon
+	aux.EnablePendulumAttribute(c)
 	--Destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DESTROY)
