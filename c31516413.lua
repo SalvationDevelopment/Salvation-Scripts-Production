@@ -61,7 +61,6 @@ function c31516413.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c31516413.spfilter(c,e,tp)
 	return c:IsType(TYPE_NORMAL) and c:IsRace(RACE_DRAGON) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function c31516413.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -72,6 +71,7 @@ function c31516413.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c31516413.spfilter,tp,0x13,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()
+	if tc and tc:IsHasEffect(EFFECT_NECRO_VALLEY) then return end
 	if tc and Duel.SpecialSummonStep(g:GetFirst(),0,tp,tp,false,false,POS_FACEUP) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
