@@ -1,60 +1,50 @@
---Scripted by Eerie Code
---Moon-Light Wolf
+--月光狼
+--Script by mercury233
 function c47705572.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
-	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
 	--splimit
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetRange(LOCATION_PZONE)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetTargetRange(1,0)
+	e1:SetCondition(aux.nfbdncon)
+	e1:SetTarget(c47705572.splimit)
+	c:RegisterEffect(e1)
+	--fusion
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_PZONE)
-	e2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE)
-	e2:SetTargetRange(1,0)
-	e2:SetCondition(aux.nfbdncon)
-	e2:SetTarget(c47705572.splimit)
+	e2:SetCountLimit(1)
+	e2:SetTarget(c47705572.sptg)
+	e2:SetOperation(c47705572.spop)
 	c:RegisterEffect(e2)
-	--spsummon
-	local e3=Effect.CreateEffect(c)
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_IGNITION)
-	e3:SetRange(LOCATION_PZONE)
-	e3:SetCountLimit(1)
-	e3:SetTarget(c47705572.sptg)
-	e3:SetOperation(c47705572.spop)
-	c:RegisterEffect(e3)
 	--pierce
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_FIELD)
-	e4:SetCode(EFFECT_PIERCE)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetTargetRange(LOCATION_MZONE,0)
-	e4:SetTarget(c47705572.prcfil)
-	c:RegisterEffect(e4)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_PIERCE)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetTargetRange(LOCATION_MZONE,0)
+	e3:SetTarget(c47705572.ptg)
+	c:RegisterEffect(e3)
 end
-
 function c47705572.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0xe1) and not c:IsSetCard(0x209) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
-end
-
-function c47705572.filter0(c)
-	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove()
+	return not (c:IsSetCard(0xdf) and c:IsType(TYPE_MONSTER)) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c47705572.filter1(c,e)
-	return c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
+	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e) and c:IsAbleToRemove()
 end
 function c47705572.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and (c:IsSetCard(0xe1) or c:IsSetCard(0x209)) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xdf) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c47705572.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(c47705572.filter0,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil)
+		local mg1=Duel.GetMatchingGroup(Card.IsCanBeFusionMaterial,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil)
 		local res=Duel.IsExistingMatchingCard(c47705572.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
 			local ce=Duel.GetChainMaterial(tp)
@@ -72,8 +62,8 @@ end
 function c47705572.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(c47705572.filter1,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil,e)
-	local sg1=Duel.GetMatchingGroup(c47705572.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg1=Duel.GetMatchingGroup(c47705572.filter1,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil,e)
+	local sg1=Duel.GetMatchingGroup(c47705572.filter2,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil
 	local sg2=nil
 	local ce=Duel.GetChainMaterial(tp)
@@ -103,7 +93,6 @@ function c47705572.spop(e,tp,eg,ep,ev,re,r,rp)
 		tc:CompleteProcedure()
 	end
 end
-
-function c47705572.prcfil(e,c)
-	return c:IsSetCard(0xe1) or c:IsSetCard(0x209)
+function c47705572.ptg(e,c)
+	return c:IsSetCard(0xdf) and c:IsType(TYPE_MONSTER)
 end
