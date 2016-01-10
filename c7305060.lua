@@ -1,6 +1,5 @@
 --アモルファージ・ガストル
 --Amorphage Plest
---Script by mercury233
 function c7305060.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
@@ -44,6 +43,21 @@ end
 function c7305060.flipop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(7305060,RESET_EVENT+0x1fe0000,0,1)
 end
+function c7305060.descon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetTurnPlayer()==tp
+end
+function c7305060.desop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	Duel.Hint(HINT_CARD,0,c:GetCode())
+	if Duel.CheckReleaseGroup(tp,Card.IsReleasableByEffect,1,c) and Duel.SelectYesNo(tp,aux.Stringid(7305060,0)) then
+		local g=Duel.SelectReleaseGroup(tp,Card.IsReleasableByEffect,1,1,c)
+		Duel.Release(g,REASON_RULE)
+	else Duel.Destroy(c,REASON_RULE) end
+end
+function c7305060.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return c:IsLocation(LOCATION_EXTRA) and not c:IsSetCard(0xe0)
+	and (e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM or e:GetHandler():GetFlagEffect(7305060)~=0)
+end
 function c7305060.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xe0)
 end
@@ -53,19 +67,4 @@ end
 function c7305060.limval(e,re,rp)
 	local rc=re:GetHandler()
 	return re:IsActiveType(TYPE_TRAP) and not rc:IsSetCard(0xe0) and not rc:IsImmuneToEffect(e)
-end
-function c7305060.descon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp
-end
-function c7305060.desop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.Hint(HINT_CARD,0,c:GetCode())
-	if Duel.CheckReleaseGroup(tp,Card.IsReleasableByEffect,1,c) and Duel.SelectYesNo(tp,500) then
-		local g=Duel.SelectReleaseGroup(tp,Card.IsReleasableByEffect,1,1,c)
-		Duel.Release(g,REASON_RULE)
-	else Duel.Destroy(c,REASON_RULE) end
-end
-function c7305060.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return c:IsLocation(LOCATION_EXTRA) and not c:IsSetCard(0xe0)
-	and (e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM or e:GetHandler():GetFlagEffect(7305060)~=0)
 end
