@@ -1,5 +1,6 @@
+﻿--月光虎
+--Lunalight Tiger
 --Scripted by Eerie Code
---Moon-Light Tiger
 function c83199280.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
