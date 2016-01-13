@@ -1,5 +1,5 @@
---Scripted by Eerie Code
 --Ultimate Providence
+--Scripted by Eerie Code
 function c38891741.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -12,7 +12,6 @@ function c38891741.initial_effect(c)
 	e1:SetOperation(c38891741.activate)
 	c:RegisterEffect(e1)
 end
-
 function c38891741.condition(e,tp,eg,ep,ev,re,r,rp)
 	return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)
 end
@@ -25,8 +24,6 @@ function c38891741.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if re:IsActiveType(TYPE_MONSTER) then typ=TYPE_MONSTER
 	elseif re:IsActiveType(TYPE_SPELL) then typ=TYPE_SPELL else typ=TYPE_TRAP end
 	if chk==0 then return Duel.IsExistingMatchingCard(c38891741.cfilter,tp,LOCATION_HAND,0,1,nil,typ) end
-	--local g=Duel.SelectMatchingCard(tp,c38891741.cfilter,tp,LOCATION_HAND,0,1,1,nil,typ)
-	--Duel.SendtoGrave(g,REASON_COST+REASON_DISCARD)
 	Duel.DiscardHand(tp,c38891741.cfilter,1,1,REASON_COST+REASON_DISCARD,nil,typ)
 end
 function c38891741.target(e,tp,eg,ep,ev,re,r,rp,chk)

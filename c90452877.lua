@@ -9,18 +9,15 @@ function c90452877.initial_effect(c)
 	e1:SetOperation(c90452877.desop)
 	c:RegisterEffect(e1)
 end
-
 function c90452877.desfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xd2) and c:IsDestructable()
 end
-
 function c90452877.destg(e,tp,eg,ep,ev,re,r,rp,chk)
- if chk==0 then return Duel.IsExistingTarget(c90452877.desfilter,tp,LOCATION_MZONE,0,1,nil) end
- Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
- local g=Duel.SelectTarget(tp,c90452877.desfilter,tp,LOCATION_MZONE,0,1,1,nil)
- Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	if chk==0 then return Duel.IsExistingTarget(c90452877.desfilter,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectTarget(tp,c90452877.desfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-
 function c90452877.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
