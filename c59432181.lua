@@ -1,6 +1,4 @@
 --融合識別
---Fusion Tag
---Script by mercury233
 function c59432181.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

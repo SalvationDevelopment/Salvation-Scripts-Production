@@ -1,6 +1,4 @@
 --ブンボーグ009
---Deskbot 009
---Script by mercury233
 function c25494711.initial_effect(c)
 	--atkup
 	local e1=Effect.CreateEffect(c)

@@ -1,5 +1,4 @@
 --レッドアイズ・トゥーン・ドラゴン
---Red-Eyes Toon Dragon
 function c31733941.initial_effect(c)
 	--cannot attack
 	local e1=Effect.CreateEffect(c)

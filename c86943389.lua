@@ -1,5 +1,4 @@
 --HSR快刀乱破ズール
---Hi-Speedroid Puzzle
 function c86943389.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)

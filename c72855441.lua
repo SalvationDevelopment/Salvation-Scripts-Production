@@ -1,6 +1,4 @@
 --青き眼の護人
---Guard with Eyes of Blue
---By: HelixReactor
 function c72855441.initial_effect(c)
 	--Special Summon
 	local e1=Effect.CreateEffect(c)

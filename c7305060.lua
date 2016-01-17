@@ -1,6 +1,5 @@
---アモルファージ・ガストル
---Amorphage Plest
-function c7305060.initial_effect(c)
+--アモルファージ・プレスト
+function c73050602.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	--flip

@@ -1,5 +1,4 @@
 --ブンボーグ・ベース
---Deskbot Base
 function c12215894.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

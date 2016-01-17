@@ -1,6 +1,4 @@
 --電子光虫－ライノセバス
---Digital Bug Rhinocebus
---ygohack137-13790812
 function c85004150.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,c85004150.mfilter,7,2,nil,nil,5,nil)

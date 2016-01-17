@@ -1,6 +1,4 @@
 --虚竜魔王アモルファクターP
---Amorphactor Psycho, the Vain Dracoverlord
---Script by mercury233
 function c98287529.initial_effect(c)
 	c:EnableReviveLimit()
 	--skip

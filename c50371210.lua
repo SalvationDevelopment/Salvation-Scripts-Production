@@ -1,5 +1,4 @@
 --光の導き
---Light Guidance
 function c50371210.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

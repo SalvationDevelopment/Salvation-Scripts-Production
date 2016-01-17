@@ -1,6 +1,4 @@
 --龍大神
---Ryuu Ookami
---Scripted by Eerie Code
 function c63737050.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(63737050,0))

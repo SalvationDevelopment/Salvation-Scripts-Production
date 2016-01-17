@@ -1,5 +1,4 @@
 --アモルファージ・キャヴム
---Amorphage Cavum
 function c33300669.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

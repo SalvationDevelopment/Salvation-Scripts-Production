@@ -1,5 +1,4 @@
 --SRパチンゴーカート
---Speedroid Pachingo-Kart
 function c85034450.initial_effect(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)

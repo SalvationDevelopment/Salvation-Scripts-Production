@@ -1,5 +1,4 @@
 --光の霊堂
---Light Mausoleum
 function c24382602.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

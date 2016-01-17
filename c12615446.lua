@@ -1,6 +1,4 @@
 --電子光虫－スカラジエータ
---Digital Bug - Scaradiator
---Scripted by Eerie Code
 function c12615446.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,c12615446.matfil,3,2,nil,nil,5)

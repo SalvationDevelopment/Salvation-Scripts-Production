@@ -1,5 +1,4 @@
 --アモルファージ・ルクス
---Amorphage Lux
 function c70917315.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

@@ -1,6 +1,4 @@
 --月光舞獅子姫
---Moon-Light Lio Dancer
---Scripted by Eerie Code
 function c24550676.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

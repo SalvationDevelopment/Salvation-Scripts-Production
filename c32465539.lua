@@ -1,6 +1,4 @@
 --電子光虫－コクーンデンサ
---Digital Bug - Cocoondensor
---Scripted by Eerie Code
 function c32465539.initial_effect(c)
 	--xyzlimit
 	local e0=Effect.CreateEffect(c)

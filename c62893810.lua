@@ -1,6 +1,4 @@
 --サイコロプス
---Diceclops
---Script by mercury233
 function c62893810.initial_effect(c)
 	--dice
 	local e1=Effect.CreateEffect(c)

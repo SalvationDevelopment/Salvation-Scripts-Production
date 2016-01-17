@@ -1,5 +1,4 @@
 --SR電々大公
---Speedroid Den-Den Archduke
 function c59640711.initial_effect(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)

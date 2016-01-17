@@ -1,5 +1,4 @@
 --RUM－スキップ・フォース
---Rank-Up-Magic Skip Force
 function c58988903.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

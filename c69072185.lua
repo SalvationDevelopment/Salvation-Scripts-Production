@@ -1,5 +1,4 @@
 --アモルファージ・イリテュム
---Amorphage Irritum
 function c69072185.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

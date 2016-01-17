@@ -1,5 +1,4 @@
 --A BF－涙雨のチドリ
---Assault Blackwing - Chidori the Light Rain
 function c23338098.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)

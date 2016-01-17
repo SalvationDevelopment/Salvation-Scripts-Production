@@ -1,5 +1,4 @@
 --太古の白石
---Ancient White Stone
 function c71039903.initial_effect(c)
 	--to grave
 	local e1=Effect.CreateEffect(c)

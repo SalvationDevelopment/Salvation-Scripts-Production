@@ -1,6 +1,4 @@
 --フォルテッシモ
---Fortissimo
---Script by mercury233
 function c11493868.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

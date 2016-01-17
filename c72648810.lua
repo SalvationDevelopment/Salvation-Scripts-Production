@@ -1,5 +1,4 @@
 --揺るがぬ絆
---Unwavering Bonds
 function c72648810.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

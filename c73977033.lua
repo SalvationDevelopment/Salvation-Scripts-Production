@@ -1,6 +1,4 @@
 --RR－ブースター・ストリクス
---Raidraptor - Boost Strix
---ygohack137-13790814
 function c73977033.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

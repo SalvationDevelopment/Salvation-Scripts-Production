@@ -1,6 +1,4 @@
---天使の淚
---Graceful Tears
---Script by mercury233
+--天使の涙
 function c9032529.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

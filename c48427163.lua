@@ -1,6 +1,4 @@
 --月光紫蝶
---Lunalight Purple Butterfly
---Script by mercury233
 function c48427163.initial_effect(c)
 	--atk up
 	local e1=Effect.CreateEffect(c)

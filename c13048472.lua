@@ -1,6 +1,4 @@
 --儀式の下準備
---Pre-Preparation of Rites
---Script by mercury233
 function c13048472.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

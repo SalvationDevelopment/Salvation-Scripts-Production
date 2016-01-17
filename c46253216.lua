@@ -1,6 +1,4 @@
---フレンドリーファイア
---Friendly Fire
---Script by mercury233
+--フレンドリーファイヤ
 function c46253216.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --竜魔王レクターP
---Rector Pendulum, the Dracoverlord
---Script by mercury233
 function c7127502.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

@@ -1,5 +1,4 @@
 --アモルファージ・ヒュペル
---Amorphage Hyper
 function c6283472.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

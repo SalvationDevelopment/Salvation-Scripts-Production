@@ -1,6 +1,4 @@
 --EMホタルクス
---Performapal Fireflux
---Script by mercury233
 function c12255007.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

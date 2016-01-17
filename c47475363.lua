@@ -1,6 +1,4 @@
 --波紋のバリア －ウェーブ・フォース－
---Rippling Mirror Force
---Script by mercury233
 function c47475363.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -24,7 +22,7 @@ function c47475363.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
 end
 function c47475363.operation(e,tp,eg,ep,ev,re,r,rp)
-    local g=Duel.GetMatchingGroup(c47475363.filter,tp,0,LOCATION_MZONE,nil)
+	local g=Duel.GetMatchingGroup(c47475363.filter,tp,0,LOCATION_MZONE,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 	end

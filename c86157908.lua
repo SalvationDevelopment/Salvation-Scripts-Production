@@ -1,6 +1,4 @@
 --EMオッドアイズ・ユニコーン
---Performapal Odd-Eyes Unicorn
---ygohack137-13790815
 function c86157908.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
@@ -38,7 +36,7 @@ end
 function c86157908.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local at=Duel.GetAttacker()
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c86157908.filter(chkc,tp) and chkc~=e:GetHandler() end
-	if chk==0 then return  Duel.IsExistingTarget(c86157908.filter,tp,LOCATION_MZONE,0,1,at,tp) end
+	if chk==0 then return Duel.IsExistingTarget(c86157908.filter,tp,LOCATION_MZONE,0,1,at,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,c86157908.filter,tp,LOCATION_MZONE,0,1,1,at,tp)
 end
