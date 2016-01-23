@@ -49,13 +49,8 @@ end
 function c25494711.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		local atk=0
 		local g=Duel.GetMatchingGroup(c25494711.atkfilter,tp,LOCATION_MZONE,0,nil)
-		local bc=g:GetFirst()
-		while bc do
-			atk=atk+bc:GetAttack()
-			bc=g:GetNext()
-		end
+		local atk=g:GetSum(Card.GetAttack)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -80,7 +75,7 @@ function c25494711.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return not c:IsReason(REASON_REPLACE) and c:IsOnField() and c:IsFaceup()
 		and Duel.IsExistingMatchingCard(c25494711.repfilter,tp,LOCATION_ONFIELD,0,1,c) end
-	if Duel.SelectYesNo(tp,521) then
+	if Duel.SelectYesNo(tp,aux.Stringid(25494711,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESREPLACE)
 		local g=Duel.SelectMatchingCard(tp,c25494711.repfilter,tp,LOCATION_ONFIELD,0,1,1,c)
 		Duel.SetTargetCard(g)
