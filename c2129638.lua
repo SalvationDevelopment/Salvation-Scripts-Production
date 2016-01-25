@@ -1,107 +1,99 @@
---Blue-Eyes Twin Burst Dragon
---By: HelixReactor
+--青眼の双爆裂龍
 function c2129638.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcCodeRep(c,89631139,2,true,true)
-	--Spsummon condition
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
-	e0:SetValue(c2129638.splimit)
-	c:RegisterEffect(e0)
-	--special summon rule
+	--spsummon condition
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(c2129638.spcon)
-	e1:SetOperation(c2129638.spop)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e1:SetValue(c2129638.splimit)
 	c:RegisterEffect(e1)
-	--battle indestructable
+	--special summon rule
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-	e2:SetValue(1)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_SPSUMMON_PROC)
+	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e2:SetRange(LOCATION_EXTRA)
+	e2:SetCondition(c2129638.spcon)
+	e2:SetOperation(c2129638.spop)
 	c:RegisterEffect(e2)
-	--Extra attack
+	--indes
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetCode(EFFECT_EXTRA_ATTACK)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
+	--attack twice
 	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e4:SetCode(EVENT_DAMAGE_STEP_END)
-	e4:SetCondition(c2129638.dircon1)
-	e4:SetOperation(c2129638.dirop1)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetCode(EFFECT_EXTRA_ATTACK)
+	e4:SetValue(1)
 	c:RegisterEffect(e4)
-	local e5=e4:Clone()
-	e5:SetCondition(c2129638.dircon2)
-	e5:SetOperation(c2129638.dirop2)
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetRange(LOCATION_MZONE)
+	e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e5:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
+	e5:SetCondition(c2129638.dircon)
 	c:RegisterEffect(e5)
-	--Banish
-	local e6=Effect.CreateEffect(c)
-	e6:SetCategory(CATEGORY_REMOVE)
-	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e6:SetCode(EVENT_DAMAGE_STEP_END)
-	e6:SetCondition(c2129638.rmcon)
-	e6:SetOperation(c2129638.rmop)
+	local e6=e5:Clone()
+	e6:SetCode(EFFECT_CANNOT_ATTACK)
+	e6:SetCondition(c2129638.atkcon)
 	c:RegisterEffect(e6)
+	--remove
+	local e7=Effect.CreateEffect(c)
+	e7:SetDescription(aux.Stringid(2129638,0))
+	e7:SetCategory(CATEGORY_REMOVE)
+	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e7:SetCode(EVENT_DAMAGE_STEP_END)
+	e7:SetCondition(c2129638.rmcon)
+	e7:SetTarget(c2129638.rmtg)
+	e7:SetOperation(c2129638.rmop)
+	c:RegisterEffect(e7)
 end
 function c2129638.splimit(e,se,sp,st)
 	return bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
-function c2129638.spfilter(c)
-	return c:IsFaceup() and c:IsCode(89631139) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
+function c2129638.spfilter(c,fc)
+	return c:IsFusionCode(89631139) and c:IsCanBeFusionMaterial(fc) and c:IsAbleToGraveAsCost()
 end
 function c2129638.spcon(e,c)
 	if c==nil then return true end
-	return Duel.IsExistingMatchingCard(c2129638.spfilter,e:GetHandler():GetControler(),LOCATION_MZONE,0,2,nil)
+	local tp=c:GetControler()
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>-2
+		and Duel.IsExistingMatchingCard(c2129638.spfilter,tp,LOCATION_MZONE,0,2,nil,c)
 end
 function c2129638.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectMatchingCard(tp,c2129638.spfilter,tp,LOCATION_MZONE,0,2,2,nil)
-	Duel.SendtoGrave(g,REASON_COST+REASON_FUSION+REASON_MATERIAL)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g=Duel.SelectMatchingCard(tp,c2129638.spfilter,tp,LOCATION_MZONE,0,2,2,nil,c)
+	c:SetMaterial(g)
+	Duel.SendtoGrave(g,REASON_COST)
 end
-function c2129638.dircon1(e)
+function c2129638.dircon(e)
 	return e:GetHandler():GetAttackAnnouncedCount()>0
 end
-function c2129638.dirop1(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-	e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END)
-	c:RegisterEffect(e1)
-end
-function c2129638.dircon2(e)
+function c2129638.atkcon(e)
 	return e:GetHandler():IsDirectAttacked()
-end
-function c2129638.dirop2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_CANNOT_ATTACK)
-	e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+RESET_END)
-	c:RegisterEffect(e1)
 end
 function c2129638.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tc
-	if not c:IsRelateToBattle() then return false end
-	if c==Duel.GetAttacker() then
-		tc=Duel.GetAttackTarget()
-	end
-	if tc and tc:IsLocation(LOCATION_MZONE) then
-		e:SetLabelObject(tc)
-		return true
-	else
-		return false
-	end
+	local bc=c:GetBattleTarget()
+	e:SetLabelObject(bc)
+	return c==Duel.GetAttacker() and bc and c:IsStatus(STATUS_OPPO_BATTLE) and bc:IsOnField() and bc:IsRelateToBattle()
+end
+function c2129638.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetLabelObject():IsAbleToRemove() end
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,e:GetLabelObject(),1,0,0)
 end
 function c2129638.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
+	local bc=e:GetLabelObject()
+	if bc:IsRelateToBattle() then
+		Duel.Remove(bc,POS_FACEUP,REASON_EFFECT)
+	end
 end
