@@ -51,7 +51,7 @@ function c49352945.initial_effect(c)
 	e6:SetDescription(aux.Stringid(49352945,2))
 	e6:SetCategory(CATEGORY_TODECK)
 	e6:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e6:SetCode(49352945)
+	e6:SetCode(EVENT_CUSTOM+49352945)
 	e6:SetTarget(c49352945.tdtg)
 	e6:SetOperation(c49352945.tdop)
 	c:RegisterEffect(e6)
@@ -63,7 +63,7 @@ function c49352945.spfilter(c,code)
 	return c:IsAbleToDeckOrExtraAsCost() and c:IsFusionCode(code)
 end
 function c49352945.spcon(e,c)
-	if c==nil then return true end 
+	if c==nil then return true end
 	local tp=c:GetControler()
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<-2 then return false end
@@ -96,7 +96,13 @@ function c49352945.spop(e,tp,eg,ep,ev,re,r,rp,c)
 			tc=g1:Select(tp,1,1,nil):GetFirst()
 		end
 		g:AddCard(tc)
-		g1:Remove(Card.IsCode,nil,tc:GetCode())
+		if tc:IsFusionCode(89943723) then
+			g1:Remove(Card.IsFusionCode,nil,89943723)
+		elseif tc:IsFusionCode(17955766) then
+			g1:Remove(Card.IsFusionCode,nil,17955766)
+		elseif tc:IsFusionCode(54959865) then
+			g1:Remove(Card.IsFusionCode,nil,54959865)
+		end
 		ft=ft+1
 	end
 	local cg=g:Filter(Card.IsFacedown,nil)
@@ -105,10 +111,10 @@ function c49352945.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	end
 	Duel.SendtoDeck(g,nil,2,REASON_COST)
 end
-function c49352945.retcon1(e,tp,eg,ep,ev,re,r,rp,chk)
+function c49352945.retcon1(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsHasEffect(42015635)
 end
-function c49352945.retcon2(e,tp,eg,ep,ev,re,r,rp,chk)
+function c49352945.retcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsHasEffect(42015635)
 end
 function c49352945.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -120,7 +126,7 @@ function c49352945.retop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
 	Duel.SendtoDeck(c,nil,2,REASON_EFFECT)
 	if c:IsLocation(LOCATION_EXTRA) then
-		Duel.RaiseSingleEvent(c,49352945,e,0,0,0,0)
+		Duel.RaiseSingleEvent(c,EVENT_CUSTOM+49352945,e,0,0,0,0)
 	end
 end
 function c49352945.desfilter(c)

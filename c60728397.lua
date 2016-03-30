@@ -12,8 +12,7 @@ function c60728397.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c60728397.cfilter(c)
-	local code=c:GetCode()
-	return c:IsFaceup() and (code==72677437 or code==8062132 or c:IsSetCard(0x50))
+	return c:IsFaceup() and (c:IsCode(72677437,8062132) or c:IsSetCard(0x50))
 end
 function c60728397.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c60728397.cfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -36,7 +35,11 @@ function c60728397.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(g,REASON_EFFECT)
 		local tc=Duel.GetFirstTarget()
 		if tc:IsRelateToEffect(e) and tc:IsCanAddCounter(0x9,2) and g:GetFirst():IsLocation(LOCATION_GRAVE) then
+			local atk=tc:GetAttack()
 			tc:AddCounter(0x9,2)
+			if atk>0 and tc:GetAttack()==0 then
+				Duel.RaiseEvent(tc,EVENT_CUSTOM+54306223,e,0,0,0,0)
+			end
 		end
 	end
 end

@@ -14,7 +14,7 @@ function c27383110.initial_effect(c)
 	e2:SetDescription(aux.Stringid(27383110,0))
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e2:SetCode(27383110)
+	e2:SetCode(EVENT_CUSTOM+27383110)
 	e2:SetCost(c27383110.thcost)
 	e2:SetTarget(c27383110.thtg)
 	e2:SetOperation(c27383110.thop)
@@ -22,34 +22,56 @@ function c27383110.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 c27383110.fit_monster={44665365}
-function c27383110.filter(c,e,tp,m)
+function c27383110.filter(c,e,tp,m,ft)
 	if not c:IsCode(44665365) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
-	return mg:CheckWithSumEqual(Card.GetRitualLevel,6,1,99,c)
+	if ft>0 then
+		return mg:CheckWithSumEqual(Card.GetRitualLevel,6,1,99,c)
+	else
+		return mg:IsExists(c27383110.mfilterf,1,nil,tp,mg,c)
+	end
+end
+function c27383110.mfilterf(c,tp,mg,rc)
+	if c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) then
+		Duel.SetSelectedCard(c)
+		return mg:CheckWithSumEqual(Card.GetRitualLevel,6,0,99,rc)
+	else return false end
 end
 function c27383110.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
-		return Duel.IsExistingMatchingCard(c27383110.filter,tp,LOCATION_HAND,0,1,nil,e,tp,mg)
+		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+		return ft>-1 and Duel.IsExistingMatchingCard(c27383110.filter,tp,LOCATION_HAND,0,1,nil,e,tp,mg,ft)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function c27383110.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetRitualMaterial(tp)
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,c27383110.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg)
+	local tg=Duel.SelectMatchingCard(tp,c27383110.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-		local mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,6,1,99,tc)
+		local mat=nil
+		if ft>0 then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+			mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,6,1,99,tc)
+		else
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+			mat=mg:FilterSelect(tp,c27383110.mfilterf,1,1,nil,tp,mg,tc)
+			Duel.SetSelectedCard(mat)
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+			local mat2=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,6,0,99,tc)
+			mat:Merge(mat2)
+		end
 		tc:SetMaterial(mat)
 		Duel.ReleaseRitualMaterial(mat)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(tc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)
 		tc:CompleteProcedure()
 		e:SetLabelObject(tc)
-		Duel.RaiseSingleEvent(e:GetHandler(),27383110,e,0,tp,tp,0)
+		Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+27383110,e,0,tp,tp,0)
 	end
 end
 function c27383110.thcost(e,tp,eg,ep,ev,re,r,rp,chk)

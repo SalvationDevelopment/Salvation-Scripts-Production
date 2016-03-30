@@ -34,6 +34,7 @@ end
 function c11317977.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
+	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 end
 function c11317977.thfilter(c)
 	return c:IsSetCard(0xdf) and c:IsType(TYPE_MONSTER) and not c:IsCode(11317977) and c:IsAbleToHand()
@@ -79,7 +80,7 @@ end
 function c11317977.thop2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c11317977.thfilter2,tp,LOCATION_GRAVE+LOCATION_EXTRA,0,1,1,nil)
-	if g:GetCount()>0 then
+	if g:GetCount()>0 and not g:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end

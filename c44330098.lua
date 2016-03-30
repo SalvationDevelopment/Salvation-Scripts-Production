@@ -48,11 +48,14 @@ function c44330098.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c44330098.sumop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
-		local sumtype=1
-		if bit.band(r,REASON_BATTLE)~=0 then sumtype=2 end
-		if Duel.SpecialSummon(c,sumtype,tp,tp,false,false,POS_FACEUP)==0 then return end
+	if not c:IsRelateToEffect(e) then return end
+	local sumtype=1
+	if bit.band(r,REASON_BATTLE)~=0 then sumtype=2 end
+	if Duel.SpecialSummon(c,sumtype,tp,tp,false,false,POS_FACEUP)~=0 then
 		e:SetLabel(ev)
+	elseif Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) then
+		Duel.SendtoGrave(c,REASON_RULE)
 	end
 end
 function c44330098.sumcon2(e,tp,eg,ep,ev,re,r,rp)
@@ -62,7 +65,6 @@ function c44330098.sumtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
-	Duel.RegisterFlagEffect(tp,EFFECT_SPSUM_EFFECT_ACTIVATED,RESET_PHASE+PHASE_END,EFFECT_FLAG_OATH,1)
 end
 function c44330098.sumop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
