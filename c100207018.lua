@@ -23,7 +23,7 @@ function c100207018.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCountLimit(1,100207018)
-	e3:SetCondition(c100207018.spcon)
+	e3:SetCondition(c100207018.spcon2)
 	e3:SetTarget(c100207018.sptg2)
 	e3:SetOperation(c100207018.spop2)
 	c:RegisterEffect(e3)
@@ -44,7 +44,7 @@ function c100207018.spop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function c100207018.spcon(e,tp,eg,ep,ev,re,r,rp)
+function c100207018.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c100207018.spfilter2(c,e,tp)
