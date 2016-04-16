@@ -47,7 +47,7 @@ function c100207032.disop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterFlagEffect(100207032,RESET_EVENT+0x1fc0000,0,1)
 	local bc=c:GetBattleTarget()
 	if bc:IsRelateToBattle() and bc:IsFaceup() then
-		bc:AddCounter(0x1039,1)
+		bc:AddCounter(0x39,1)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_ATTACK)
@@ -60,7 +60,7 @@ function c100207032.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c100207032.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x1039)>0
+	return e:GetHandler():GetCounter(0x39)>0
 end
 function c100207032.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(100207032)~=0
