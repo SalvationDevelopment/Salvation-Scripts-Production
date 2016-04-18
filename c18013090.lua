@@ -42,7 +42,7 @@ function c18013090.atop1(e,tp,eg,ep,ev,re,r,rp)
 end
 function c18013090.atkcon(e)
 	local c=e:GetHandler()
-	return c==Duel.GetAttacker()
+	return Duel.GetCurrentPhase()==PHASE_DAMAGE_CAL and c==Duel.GetAttacker()
 end
 function c18013090.cacon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
