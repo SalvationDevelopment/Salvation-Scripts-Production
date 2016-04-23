@@ -76,7 +76,7 @@ function c35058588.counterop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
 		if tc:IsRelateToEffect(e) then
-			tc:AddCounter(0x1038,1)
+			tc:AddCounter(0x38,1)
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_CANNOT_ATTACK)

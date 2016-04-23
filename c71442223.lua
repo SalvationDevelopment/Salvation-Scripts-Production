@@ -77,7 +77,7 @@ function c71442223.counter(tc,ec)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
 	tc:RegisterEffect(e1)
 	--
-	tc:AddCounter(0x1038,1)
+	tc:AddCounter(0x38,1)
 	--
 	local e2=Effect.CreateEffect(ec)
 	e2:SetType(EFFECT_TYPE_SINGLE)
