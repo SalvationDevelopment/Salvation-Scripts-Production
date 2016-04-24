@@ -29,9 +29,9 @@ function c43959432.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,43959432,0,0x21,1000,1000,4,RACE_ROCK,ATTRIBUTE_EARTH) then return end
-	c:AddMonsterAttribute(0,0,0,0,0)
+	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_EARTH,RACE_ROCK,4,1000,1000)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
-	c:TrapMonsterComplete(TYPE_EFFECT)
+	c:TrapMonsterBlock()
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e1:SetCode(EVENT_DAMAGE_STEP_END)

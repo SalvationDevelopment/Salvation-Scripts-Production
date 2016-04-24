@@ -50,9 +50,9 @@ function c42237854.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,42237854,0,0x21,0,0,4,RACE_MACHINE,ATTRIBUTE_EARTH) then return end
-	c:AddMonsterAttribute(0,0,0,0,0)
+	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_EARTH,RACE_MACHINE,4,0,0)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
-	c:TrapMonsterComplete(TYPE_EFFECT)
+	c:TrapMonsterBlock()
 	if tg0:GetCount()<=0 or ft<=0 then return end
 	local tg=nil
 	if ft<tg0:GetCount() then
