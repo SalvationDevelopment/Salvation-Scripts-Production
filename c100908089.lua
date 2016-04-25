@@ -62,17 +62,18 @@ function c100908089.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c100908089.filter(chkc,e,tp) end
 	if chk==0 then return Duel.IsExistingTarget(c100908089.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c100908089.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,c100908089.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function c100908089.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsRelateToEffect(e) then return end
+	if not (tc and tc:IsRelateToEffect(e) and c:IsRelateToEffect(e)) then return end
 	local cc=tc:GetControler()
 	local code=tc:GetCode()
 	local g=Duel.GetMatchingGroup(c100908089.chkfilter,tp,LOCATION_DECK,0,nil,e,tp,cc,code)
-	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 and g:GetCount()>0 then
+	if Duel.Destroy(tc,REASON_EFFECT)~=0 and g:GetCount()>0 then
 		Duel.BreakEffect()
 		g=Duel.GetMatchingGroup(c100908089.spfilter,tp,LOCATION_DECK,0,nil,e,tp,cc,code)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
