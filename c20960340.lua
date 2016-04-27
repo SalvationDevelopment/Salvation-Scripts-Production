@@ -26,9 +26,9 @@ function c20960340.activate(e,tp,eg,ep,ev,re,r,rp)
 	local atk=Duel.GetLP(tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,20960340,0,0x21,atk,0,4,RACE_WARRIOR,ATTRIBUTE_LIGHT) then return end
-	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_LIGHT,RACE_WARRIOR,4,atk,0)
+	c:AddMonsterAttribute(0,0,0,0,0)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP_ATTACK)
-	c:TrapMonsterBlock()
+	c:TrapMonsterComplete(TYPE_EFFECT)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SET_ATTACK)

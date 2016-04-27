@@ -1,6 +1,4 @@
 --チョコ・マジシャン・ガール
---Choco Magician Girl
---Script by nekrozar
 function c7198399.initial_effect(c)
 	--draw
 	local e1=Effect.CreateEffect(c)
@@ -16,11 +14,10 @@ function c7198399.initial_effect(c)
 	--change battle target
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(7198399,1))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_BE_BATTLE_TARGET)
-	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
 	e2:SetTarget(c7198399.sptg)
 	e2:SetOperation(c7198399.spop)
@@ -56,7 +53,7 @@ function c7198399.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c7198399.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
+	if tc:IsRelateToEffect(e) and Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0 then
 		local a=Duel.GetAttacker()
 		if a and a:IsAttackable() and a:IsFaceup() and not a:IsImmuneToEffect(e) and not a:IsStatus(STATUS_ATTACK_CANCELED) then
 			Duel.BreakEffect()

@@ -13,6 +13,7 @@ function c54297661.initial_effect(c)
 end
 function c54297661.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,2,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemoveAsCost,tp,LOCATION_MZONE,0,2,2,nil)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
@@ -20,7 +21,8 @@ function c54297661.filter(c,tp)
 	return c:IsFaceup()
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,54297661,0,0x21,c:GetAttack(),c:GetDefence(),4,RACE_SPELLCASTER,ATTRIBUTE_DARK)
 end
-function c54297661.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c54297661.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c54297661.filter(chkc,tp) end
 	if chk==0 then return Duel.IsExistingTarget(c54297661.filter,tp,0,LOCATION_MZONE,1,nil,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
@@ -34,10 +36,10 @@ function c54297661.activate(e,tp,eg,ep,ev,re,r,rp)
 	local atk=tc:GetAttack()
 	local def=tc:GetDefence()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
-		or not Duel.IsPlayerCanSpecialSummonMonster(tp,54297661,0,0x21,atk,atk,4,RACE_SPELLCASTER,ATTRIBUTE_DARK) then return end
-	c:AddTrapMonsterAttribute(TYPE_EFFECT,ATTRIBUTE_DARK,RACE_SPELLCASTER,4,atk,ark)
+		or not Duel.IsPlayerCanSpecialSummonMonster(tp,54297661,0,0x21,atk,def,4,RACE_SPELLCASTER,ATTRIBUTE_DARK) then return end
+	c:AddMonsterAttribute(0,0,0,0,0)
 	if Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP_ATTACK) then
-		c:TrapMonsterBlock()
+		c:TrapMonsterComplete(TYPE_EFFECT)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SET_ATTACK)
@@ -46,7 +48,7 @@ function c54297661.activate(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e1)
 		local e2=e1:Clone()
 		e2:SetCode(EFFECT_SET_DEFENCE)
-		--e2:SetValue(def)
+		e2:SetValue(def)
 		c:RegisterEffect(e2)
 		--damage
 		local e3=Effect.CreateEffect(c)

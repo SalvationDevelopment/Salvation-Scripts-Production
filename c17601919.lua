@@ -1,5 +1,6 @@
 --ゴースト姫－パンプリンセス－
 function c17601919.initial_effect(c)
+	c:EnableCounterPermit(0x2f,LOCATION_SZONE)
 	--send replace
 	local e1=Effect.CreateEffect(c)
 	e1:SetCode(EFFECT_SEND_REPLACE)
@@ -16,7 +17,7 @@ function c17601919.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return false end
 	return Duel.SelectYesNo(tp,aux.Stringid(17601919,0))
 end
-function c17601919.repop(e,tp,eg,ep,ev,re,r,rp,chk)
+function c17601919.repop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 	local e1=Effect.CreateEffect(c)
@@ -57,7 +58,7 @@ function c17601919.addct(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c17601919.addc(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) then
-		e:GetHandler():AddCounter(0x2f+COUNTER_NEED_ENABLE,1)
+		e:GetHandler():AddCounter(0x2f,1)
 	end
 end
 function c17601919.adval(e,c)

@@ -1,6 +1,4 @@
 --エルフの聖剣士
---Sacred Celtic Guard
---Scripted by Eerie Code
 function c45531624.initial_effect(c)
 	--cannot attack
 	local e1=Effect.CreateEffect(c)
