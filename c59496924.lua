@@ -1,5 +1,4 @@
 --Kozmo Landwalker
---Script by dest
 function c59496924.initial_effect(c)
 	--destroy replace
 	local e1=Effect.CreateEffect(c)

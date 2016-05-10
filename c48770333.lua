@@ -1,5 +1,4 @@
 --Thunder King, the Lightningstrike Kaiju
---Script by nekrozar
 function c48770333.initial_effect(c)
 	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
 	--special summon rule
@@ -64,7 +63,7 @@ function c48770333.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c48770333.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local e1=Effect.CreateEffect(e:GetHandler())
+	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
@@ -87,10 +86,10 @@ function c48770333.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetCondition(c48770333.dircon)
 		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		c:RegisterEffect(e3)
-		local e3=e2:Clone()
-		e3:SetCode(EFFECT_CANNOT_ATTACK)
-		e3:SetCondition(c48770333.atkcon2)
-		c:RegisterEffect(e3)
+		local e4=e3:Clone()
+		e4:SetCode(EFFECT_CANNOT_ATTACK)
+		e4:SetCondition(c48770333.atkcon2)
+		c:RegisterEffect(e4)
 	end
 end
 function c48770333.aclimit(e,re,tp)

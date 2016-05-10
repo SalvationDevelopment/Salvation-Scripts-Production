@@ -1,5 +1,4 @@
 --Kozmo Dark Planet
---Script by dest
 function c85991529.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon condition
@@ -8,7 +7,7 @@ function c85991529.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	c:RegisterEffect(e1)
-	--special summon
+	--special summon rule
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
@@ -43,7 +42,7 @@ function c85991529.initial_effect(c)
 	e5:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e5:SetCode(EVENT_TO_GRAVE)
-	e5:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e5:SetProperty(EFFECT_FLAG_DELAY)
 	e5:SetCondition(c85991529.thcon)
 	e5:SetCost(c85991529.thcost)
 	e5:SetTarget(c85991529.thtg)
@@ -57,9 +56,9 @@ function c85991529.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if ft<0 then return false end
+	if ft<=0 then return false end
 	local g=Duel.GetMatchingGroup(c85991529.spfilter,tp,LOCATION_HAND,0,c)
-	return ft>0 and g:CheckWithSumGreater(Card.GetLevel,10)
+	return g:CheckWithSumGreater(Card.GetLevel,10)
 end
 function c85991529.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	local g=Duel.GetMatchingGroup(c85991529.spfilter,tp,LOCATION_HAND,0,c)
@@ -85,8 +84,6 @@ function c85991529.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c85991529.disop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
 	Duel.NegateActivation(ev)
 	if re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)

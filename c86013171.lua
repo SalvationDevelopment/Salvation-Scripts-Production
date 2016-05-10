@@ -1,5 +1,4 @@
---Kozmo Fearful Lion
---Script by dest
+--Kozmo Scaredy Lion
 function c86013171.initial_effect(c)
 	--spsummon
 	local e1=Effect.CreateEffect(c)

@@ -1,5 +1,4 @@
 --Magical Cavalry of Cxulub
---Script by mercury233
 function c23220863.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

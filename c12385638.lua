@@ -1,5 +1,4 @@
 --Kozmourning
---Script by dest
 function c12385638.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -37,22 +36,19 @@ function c12385638.operation(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e1:SetCode(EFFECT_REVERSE_DAMAGE)
 	e1:SetTargetRange(1,0)
-	e1:SetCondition(c12385638.condition)
 	e1:SetValue(c12385638.valcon)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end
-function c12385638.condition(e,tp,eg,ep,ev,re,r,rp)
-	local a=Duel.GetAttacker()
-	local d=Duel.GetAttackTarget()
-	return (a:IsSetCard(0xd2) and a:IsControler(tp)) or (d and d:IsSetCard(0xd2) and d:IsControler(tp))
-end
-function c12385638.valcon(e,re,r,rp)
-	local c=e:GetHandler()
-	if c:GetFlagEffect(c:GetControler(),12385638)==0 and bit.band(r,REASON_BATTLE)~=0 then
-		c:RegisterFlagEffect(c:GetControler(),12385638,RESET_PHASE+PHASE_END,0,1)
-		return true
-	else
-		return false
+function c12385638.valcon(e,re,r,rp,rc)
+	if bit.band(r,REASON_BATTLE)~=0 then
+		local tp=e:GetHandlerPlayer()
+		local bc=rc:GetBattleTarget()
+		if bc and bc:IsSetCard(0xd2) and bc:IsControler(tp)
+			and Duel.GetFlagEffect(tp,12385638)==0 then
+			Duel.RegisterFlagEffect(tp,12385638,RESET_PHASE+PHASE_END,0,1)
+			return true
+		end
 	end
+	return false
 end

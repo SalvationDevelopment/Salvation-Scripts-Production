@@ -1,5 +1,4 @@
 --Super Anti-Kaiju War Machine Mecha-Dogoran
---Script by nekrozar
 function c84769941.initial_effect(c)
 	c:EnableReviveLimit()
 	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
@@ -26,7 +25,7 @@ function c84769941.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e3:SetCode(EFFECT_SET_ATTACK)
+	e3:SetCode(EFFECT_UPDATE_ATTACK)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(c84769941.atkval)
 	c:RegisterEffect(e3)
@@ -75,7 +74,7 @@ function c84769941.eqlimit(e,c)
 	return e:GetOwner()==c
 end
 function c84769941.atkfilter(c)
-	return c:IsSetCard(0xd3) and c:GetFlagEffect(84769941)~=0
+	return c:IsSetCard(0xd3) and c:GetAttack()>=0 and c:GetFlagEffect(84769941)~=0
 end
 function c84769941.atkval(e,c)
 	local g=e:GetHandler():GetEquipGroup():Filter(c84769941.atkfilter,nil)
