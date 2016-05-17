@@ -1,6 +1,4 @@
 --守護神官マハード
---Mahad the Protector Priest
---Script by nekrozar
 function c71703785.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
