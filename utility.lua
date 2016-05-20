@@ -512,7 +512,7 @@ function Auxiliary.FOperationCode2(code1,code2,sub,insf)
 						g=g:Filter(Auxiliary.FConditionCheckF,nil,chkf)
 					end
 				else
-					local sg=g:Filter(Auxiliary.FConditionFilter22,nil,code1,code2,sub)
+					local sg=g:Filter(Auxiliary.FConditionFilter22,nil,code1,code2,sub,e:GetHandler())
 					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
 					if chkf~=PLAYER_NONE then g1=sg:FilterSelect(tp,Auxiliary.FConditionCheckF,1,1,nil,chkf)
 					else g1=sg:Select(tp,1,1,nil) end
