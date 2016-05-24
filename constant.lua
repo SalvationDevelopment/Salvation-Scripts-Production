@@ -267,8 +267,8 @@ EFFECT_FLAG_COF				=0x20000000 --N/A
 EFFECT_FLAG_CVAL_CHECK		=0x40000000	--以卡为COST的诱发效果需要使用
 EFFECT_FLAG_IMMEDIATELY_APPLY	=0x80000000	--卡在发动时效果就立即适用（卡通王國）
 
-EFFECT_FLAG2_NAGA			=0x0001 --
-EFFECT_FLAG2_COF			=0x0002 --
+EFFECT_FLAG2_NAGA			=0x0001 --特殊情况时发动不会被无效（神卡纳迦的特殊处理）
+EFFECT_FLAG2_COF			=0x0002 --通常魔法卡在MP1以外发动（邪恶的仪式的特殊处理）
 --========== Codes ==========	--对永续性效果表示效果类型(EFFECT开头)，对诱发型效果表示触发效果的事件/时点(EVENT开头)
 EFFECT_IMMUNE_EFFECT			=1		--效果免疫
 EFFECT_DISABLE					=2		--效果无效（技能抽取）
@@ -486,6 +486,7 @@ EFFECT_RISE_TO_FULL_HEIGHT		=342	--仁王立
 EFFECT_ONLY_ATTACK_MONSTER		=343	--只能攻擊X
 EFFECT_MUST_ATTACK_MONSTER		=344	--若攻擊則必須攻擊X
 EFFECT_PATRICIAN_OF_DARKNESS	=345	--由對手選擇攻擊對象(黑暗貴族)
+EFFECT_EXTRA_ATTACK_MONSTER		=346	--對怪獸攻擊X次
 
 --下面是诱发效果的诱发事件、时点 （如果是TYPE_SINGLE则自己发生以下事件后触发，如果TYPE_FIELD则场上任何卡发生以下事件都触发）
 EVENT_STARTUP					=1000	--游戏开始时
