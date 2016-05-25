@@ -1,6 +1,5 @@
 --Super Anti-Kaiju War Machine Mecha-Dogoran
 function c84769941.initial_effect(c)
-	c:EnableReviveLimit()
 	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
 	--special summon
 	local e1=Effect.CreateEffect(c)

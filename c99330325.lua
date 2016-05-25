@@ -23,8 +23,7 @@ function c99330325.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c99330325.filter1(c,e,tp)
-	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-		and Duel.IsExistingMatchingCard(c99330325.filter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
+	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and Duel.IsExistingMatchingCard(c99330325.filter2,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetCode())
 end
 function c99330325.filter2(c,e,tp,cd)
 	return c:IsSetCard(0xd3) and c:IsType(TYPE_MONSTER) and not c:IsCode(cd)
