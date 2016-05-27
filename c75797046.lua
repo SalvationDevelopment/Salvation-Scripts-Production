@@ -33,7 +33,7 @@ function c75797046.retop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoHand(g,nil,REASON_EFFECT)
 	local ct1=g:FilterCount(c75797046.hfilter,nil,tp)
 	local ct2=g:FilterCount(c75797046.hfilter,nil,1-tp)
-	Duel.Damage(tp,ct1*300,REASON_EFFECT,true)
-	Duel.Damage(1-tp,ct2*300,REASON_EFFECT,true)
-	Duel.RDComplete()
+	Duel.Damage(tp,ct1*300,REASON_EFFECT)
+	Duel.Damage(1-tp,ct2*300,REASON_EFFECT)
+	
 end
