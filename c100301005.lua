@@ -1,6 +1,8 @@
 --クリボーン
 --Kuribohrn
 --Script by nekrozar
+--Fixed by OneShot 
+--DevPro sucks :)
 function c100301005.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -62,8 +64,8 @@ function c100301005.spfilter2(c,e,tp)
 end
 function c100301005.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c100301005.spfilter2(chkc,e,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		Duel.IsExistingTarget(c100301005.spfilter2,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and
+		Duel.IsExistingTarget(c100301005.spfilter2,tp,LOCATION_GRAVE,0,1,e:GetHandler(),e,tp) end
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
