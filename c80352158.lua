@@ -1,6 +1,4 @@
 --マグネット・リバース
---Magnet Reverse
---Script by mercury233
 function c80352158.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --沈黙の魔術師－サイレント・マジシャン
---Silent Magician
---Script by mercury233
 function c41175645.initial_effect(c)
 	c:EnableReviveLimit()
 	--cannot special summon
@@ -13,7 +11,7 @@ function c41175645.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
-	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e2:SetRange(LOCATION_HAND)
 	e2:SetCondition(c41175645.spcon)
 	e2:SetOperation(c41175645.spop)

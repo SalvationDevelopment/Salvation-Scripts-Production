@@ -1,6 +1,4 @@
 --アルティメット・バースト
---Ultimate Burst
---Script by nekrozar
 function c43845801.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

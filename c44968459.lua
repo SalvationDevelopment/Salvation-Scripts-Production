@@ -1,6 +1,4 @@
 --サイレント・バーニング
---Silent Burning
---Script by mercury233
 function c44968459.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

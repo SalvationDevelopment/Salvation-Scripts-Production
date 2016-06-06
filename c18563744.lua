@@ -1,6 +1,4 @@
 --沈黙の剣
---Silent Sword
---Script by mercury233
 function c18563744.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -53,6 +51,8 @@ function c18563744.activate(e,tp,eg,ep,ev,re,r,rp)
 		local e3=Effect.CreateEffect(c)
 		e3:SetType(EFFECT_TYPE_SINGLE)
 		e3:SetCode(EFFECT_IMMUNE_EFFECT)
+		e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+		e3:SetRange(LOCATION_MZONE)
 		e3:SetValue(c18563744.efilter)
 		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		e3:SetOwnerPlayer(tp)
