@@ -61,7 +61,7 @@ end
 function c100910030.splimit(e,c)
 	return not c:IsAttribute(ATTRIBUTE_WATER)
 end
-function c100910030.spcon(e,tp,eg,ep,ev,re,r,rp)
+function c100910030.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and e:GetHandler():IsReason(REASON_BATTLE)
 end
 function c100910030.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
