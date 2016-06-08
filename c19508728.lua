@@ -59,7 +59,7 @@ function c19508728.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local ec=e:GetHandler():GetEquipTarget()
 	local tc=ec:GetBattleTarget()
 	if ec and tc and ec:IsFaceup() and tc:IsFaceup() then
-		local val=math.max(tc:GetAttack(),tc:GetDEFENCE())
+		local val=math.max(tc:GetAttack(),tc:GetDefence())
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SET_ATTACK_FINAL)
