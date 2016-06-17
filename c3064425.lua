@@ -52,7 +52,7 @@ function c3064425.eqop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
-	e2:SetCode(EFFECT_UPDATE_DEFENCE)
+	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	e2:SetValue(1000)
 	e2:SetReset(RESET_EVENT+0x1fe0000)
 	c:RegisterEffect(e2)
@@ -61,7 +61,7 @@ function c3064425.eqlimit(e,c)
 	return c:IsSetCard(0x9a)
 end
 function c3064425.cfilter(c)
-	return c:IsPosition(POS_FACEUP_DEFENCE) and c:IsSetCard(0x9a)
+	return c:IsPosition(POS_FACEUP_DEFENSE) and c:IsSetCard(0x9a)
 end
 function c3064425.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
@@ -85,8 +85,8 @@ function c3064425.negop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		local g=Duel.GetMatchingGroup(Card.IsDestructable,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 		if Duel.Destroy(g,REASON_EFFECT)==0 then return end
-		Duel.Damage(tp,1000,REASON_EFFECT)
-		Duel.Damage(1-tp,1000,REASON_EFFECT)
-		
+		Duel.Damage(tp,1000,REASON_EFFECT,true)
+		Duel.Damage(1-tp,1000,REASON_EFFECT,true)
+		Duel.RDComplete()
 	end
 end

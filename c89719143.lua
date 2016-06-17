@@ -32,9 +32,9 @@ function c89719143.activate(e,tp,eg,ep,ev,re,r,rp)
 	local dam=tc1:GetAttack()+tc2:GetAttack()
 	if Duel.NegateAttack() then
 		if tc1:IsRelateToEffect(e) and tc1:IsFaceup() and tc2:IsRelateToEffect(e) and tc2:IsFaceup() then
-			Duel.Damage(1-tp,dam,REASON_EFFECT)
-			Duel.Damage(tp,dam,REASON_EFFECT)
-			
+			Duel.Damage(1-tp,dam,REASON_EFFECT,true)
+			Duel.Damage(tp,dam,REASON_EFFECT,true)
+			Duel.RDComplete()
 		end
 	end
 end

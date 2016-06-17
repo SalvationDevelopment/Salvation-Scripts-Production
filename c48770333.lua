@@ -1,5 +1,4 @@
 --Thunder King, the Lightningstrike Kaiju
---Fixed by OneShot
 function c48770333.initial_effect(c)
 	c:SetUniqueOnField(1,0,20000000,LOCATION_MZONE)
 	--special summon rule
@@ -69,35 +68,15 @@ function c48770333.atkop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 	if c:IsRelateToEffect(e) then
-	--attack twice
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCode(EFFECT_EXTRA_ATTACK)
-	e2:SetValue(2)
-	e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e2)
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e3:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-	e3:SetCondition(c48770333.dircon)
-	e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e3)
-	local e4=e3:Clone()
-	e4:SetCode(EFFECT_CANNOT_ATTACK)
-	e4:SetCondition(c48770333.atkcon2)
-	c:RegisterEffect(e4)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
+		e2:SetValue(2)
+		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		c:RegisterEffect(e2)
 	end
 end
 function c48770333.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
-end
-function c48770333.dircon(e)
-	return e:GetHandler():GetAttackAnnouncedCount()>0
-end
-function c48770333.atkcon2(e)
-	return e:GetHandler():IsDirectAttacked()
 end
