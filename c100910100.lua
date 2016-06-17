@@ -24,14 +24,15 @@ function c100910100.initial_effect(c)
 	e2:SetOperation(c100910100.repop)
 	c:RegisterEffect(e2)
 end
-function c100910100.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c100910100.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc=eg:GetFirst()
-	if chk==0 then return tc:IsControler(tp) and not tc==e:GetHandler() end
-	tc:CreateEffectRelation(e)
+	if chkc then return false end
+	if chk==0 then return tc:IsType(TYPE_DUAL) and tc~=e:GetHandler() end
+	Duel.SetTargetCard(eg)
 end
 function c100910100.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tc=eg:GetFirst()
+	local tc=Duel.GetFirstTarget()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -40,7 +41,7 @@ function c100910100.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
-		e2:SetCode(EFFECT_UPDATE_DEFENSE)
+		e2:SetCode(EFFECT_UPDATE_DEFENCE)
 		tc:RegisterEffect(e2)
 	end
 end
