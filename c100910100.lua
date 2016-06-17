@@ -25,10 +25,11 @@ function c100910100.initial_effect(c)
 	e2:SetOperation(c100910100.repop)
 	c:RegisterEffect(e2)
 end
-function c100910100.target(e,tp,eg,ep,ev,re,r,rp,chk)
+function c100910100.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc=eg:GetFirst()
-	if chk==0 then return tc:IsType(TYPE_DUAL) and not tc==e:GetHandler() end
-	Duel.SetTargetCard(tc)
+	if chkc then return false end
+	if chk==0 then return tc:IsType(TYPE_DUAL) and tc~=e:GetHandler() end
+	Duel.SetTargetCard(eg)
 end
 function c100910100.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -45,9 +46,9 @@ function c100910100.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e2)
 	end
 end
-function c100910100.repfilter(c,tp,e)
+function c100910100.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE)
-		and c:IsType(TYPE_DUAL) and c:IsReason(REASON_EFFECT) and c:GetReasonCard()~=e:GetHandler()
+		and c:IsType(TYPE_DUAL) and c:IsReason(REASON_EFFECT)
 end
 function c100910100.desfilter(c,tp)
 	return c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD)
@@ -55,9 +56,9 @@ function c100910100.desfilter(c,tp)
 end
 function c100910100.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c100910100.desfilter,tp,LOCATION_ONFIELD,0,1,nil,tp)
-		and eg:IsExists(c100910100.repfilter,1,nil,tp,e) end
+		and eg:IsExists(c100910100.repfilter,1,nil,tp) end
 	if Duel.SelectYesNo(tp,aux.Stringid(100910100,1)) then
-		local g=eg:Filter(c100910100.repfilter,nil,tp,e)
+		local g=eg:Filter(c100910100.repfilter,nil,tp)
 		if g:GetCount()==1 then
 			e:SetLabelObject(g:GetFirst())
 		else
