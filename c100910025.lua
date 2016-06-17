@@ -43,7 +43,7 @@ function c100910025.spop(e,tp,eg,ep,ev,re,r,rp,chk)
 				e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 				tc:RegisterEffect(e1)
 			end
-		tc=tg:GetNext()
+			tc=tg:GetNext()
 		end
 	end
 end
