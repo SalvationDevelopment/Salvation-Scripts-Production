@@ -39,12 +39,12 @@ function c100405002.dmop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetOperation(c100405002.damop)
 	e1:SetReset(RESET_PHASE+PHASE_DAMAGE)
 	Duel.RegisterEffect(e1,tp)
-	Duel.Damage(tp,1000,REASON_EFFECT)
-	Duel.Damage(1-tp,1000,REASON_EFFECT)
+	Duel.Damage(tp,1000,REASON_EFFECT,true)
+	Duel.Damage(1-tp,1000,REASON_EFFECT,true)
+	Duel.RDComplete()
 end
 function c100405002.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(tp,0)
-	--Duel.ChangeBattleDamage(1-tp,0)
 end
 function c100405002.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
