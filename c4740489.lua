@@ -1,6 +1,4 @@
 --マグネット・フィールド
---Magnet Field
---Script by mercury233
 function c4740489.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

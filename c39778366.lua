@@ -1,6 +1,4 @@
 --スクランブル・ユニオン
---Scramble Union
---Script be mercury233
 function c39778366.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --超電導戦機インペリオン・マグナム
---Super Conduction Machine Imperion Magnum
---Script by mercury233
 function c4628897.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

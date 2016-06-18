@@ -1,6 +1,4 @@
 --C－クラッシュ・ワイバーン
---C-Crush Wyvern
---Script by mercury233
 function c3405259.initial_effect(c)
 	--equip
 	local e1=Effect.CreateEffect(c)

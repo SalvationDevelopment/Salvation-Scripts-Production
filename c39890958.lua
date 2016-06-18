@@ -1,6 +1,4 @@
 --強化支援メカ・ヘビーアーマー
---Heavy Mech Support Armor
---Script by mercury233
 function c39890958.initial_effect(c)
 	--equip
 	local e1=Effect.CreateEffect(c)

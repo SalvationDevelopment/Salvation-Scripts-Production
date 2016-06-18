@@ -1,6 +1,4 @@
 --ユニオン格納庫
---Union Hangar
---Script by mercury233
 function c66399653.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

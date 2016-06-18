@@ -1,6 +1,4 @@
 --青き眼の威光
---Honor of the Eyes of Blue
---Script by dest
 function c2783661.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

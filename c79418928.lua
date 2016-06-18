@@ -1,6 +1,4 @@
 --電磁石の戦士β
---Electromagnet Warrior Beta
---Script by mercury233
 function c79418928.initial_effect(c)
 	--to hand
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --A－アサルト・コア
---A-Assault Core
---Script by mercury233
 function c30012506.initial_effect(c)
 	--equip
 	local e1=Effect.CreateEffect(c)

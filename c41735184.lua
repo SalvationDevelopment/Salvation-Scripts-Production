@@ -1,6 +1,4 @@
 --黒魔術の継承
---Dark Magic Succession
---Script by nekrozar
 function c41735184.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --電磁石の戦士γ
---Electromagnet Warrior Gamma
---Script by mercury233
 function c15502037.initial_effect(c)
 	--to hand
 	local e1=Effect.CreateEffect(c)

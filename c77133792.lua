@@ -1,6 +1,4 @@
 --マグネット・コンバージョン
---Magnet Conversion
---Script be mercury233
 function c77133792.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

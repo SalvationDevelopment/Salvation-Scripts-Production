@@ -1,6 +1,4 @@
 --B－バスター・ドレイク
---B-Buster Drake
---Script by mercury233
 function c77411244.initial_effect(c)
 	--equip
 	local e1=Effect.CreateEffect(c)

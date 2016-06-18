@@ -1,6 +1,4 @@
 --電磁石の戦士マグネット・ベルセリオン
---Verserion the Electromagna Warrior
---Script by mercury233
 function c42901635.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon
