@@ -1,6 +1,4 @@
 --沈黙の魔導剣士－サイレント・パラディン
---Silent Paladin
---Script by mercury233
 function c19502505.initial_effect(c)
 	--search
 	local e1=Effect.CreateEffect(c)
@@ -29,7 +27,7 @@ function c19502505.initial_effect(c)
 	e3:SetDescription(aux.Stringid(19502505,2))
 	e3:SetCategory(CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCondition(c19502505.thcon)
 	e3:SetTarget(c19502505.thtg)
