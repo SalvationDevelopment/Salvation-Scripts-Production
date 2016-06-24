@@ -24,7 +24,7 @@ end
 function c13790674.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c13790674.filter,tp,0,LOCATION_MZONE,nil)
 	if g:GetCount()>0 then
-		Duel.ChangePosition(g,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(g,POS_FACEDOWN_DEFENSE)
 		local tc=g:GetFirst()
 		while tc do
 			local e1=Effect.CreateEffect(e:GetHandler())

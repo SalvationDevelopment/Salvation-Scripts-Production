@@ -47,7 +47,7 @@ function c13790611.desop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
 		local g=Duel.GetMatchingGroup(c13790611.dfilter,tp,0,LOCATION_MZONE,nil,tc:GetAttack())
-		Duel.ChangePosition(g,POS_FACEUP_DEFENCE)
+		Duel.ChangePosition(g,POS_FACEUP_DEFENSE)
 		Duel.ConfirmCards(1-tp,tc)
 	end
 end

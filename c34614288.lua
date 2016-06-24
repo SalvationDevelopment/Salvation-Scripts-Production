@@ -51,7 +51,7 @@ end
 function c34614288.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local sg=eg:Filter(c34614288.filter3,nil,e,tp)
-	if sg:GetCount()>0 and Duel.ChangePosition(sg,POS_FACEUP_DEFENCE,0,POS_FACEUP_ATTACK,0)~=0 then
+	if sg:GetCount()>0 and Duel.ChangePosition(sg,POS_FACEUP_DEFENSE,0,POS_FACEUP_ATTACK,0)~=0 then
 	local tc=sg:GetFirst()
 	while tc do
 		local e1=Effect.CreateEffect(c)

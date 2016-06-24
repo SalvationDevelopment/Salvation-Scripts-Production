@@ -52,7 +52,7 @@ function c13790603.initial_effect(c)
 	c:RegisterEffect(e7)
 	local e8=Effect.CreateEffect(c)
 	e8:SetType(EFFECT_TYPE_SINGLE)
-	e8:SetCode(EFFECT_DEFENCE_ATTACK)
+	e8:SetCode(EFFECT_DEFENSE_ATTACK)
 	e8:SetValue(1)
 	c:RegisterEffect(e8)
 end
@@ -87,7 +87,7 @@ end
 function c13790603.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
-		Duel.ChangePosition(c,POS_FACEUP_DEFENCE,0,POS_FACEUP_ATTACK,0)
+		Duel.ChangePosition(c,POS_FACEUP_DEFENSE,0,POS_FACEUP_ATTACK,0)
 	end
 end
 

@@ -20,22 +20,22 @@ function c404675.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c404675.tokencon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENCE,1-tp)
+	return Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENSE,1-tp)
 end
 function c404675.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENCE,1-tp)
+	if chk==0 then return Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENSE,1-tp)
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c404675.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	if Duel.GetLocationCount(1-tp,LOCATION_MZONE,tp)<=0
-		or not Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENCE,1-tp) then return end
+		or not Duel.IsPlayerCanSpecialSummonMonster(tp,65145614,0,0x4011,800,1000,1,RACE_THUNDER,ATTRIBUTE_LIGHT,POS_FACEUP_DEFENSE,1-tp) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 		if e:GetHandler():IsRelateToEffect(e) then
 		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
 	end
 	local token=Duel.CreateToken(tp,65145614)
-	Duel.SpecialSummonStep(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+	Duel.SpecialSummonStep(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENSE)
 	Duel.SpecialSummonComplete()
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)

@@ -28,10 +28,10 @@ function c100000432.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c100000432.condition(e,tp,eg,ep,ev,re,r,rp,chk)
-	return ep==tp and Duel.IsExistingMatchingCard(Card.IsPosition,tp,LOCATION_MZONE,0,1,nil,POS_FACEUP_DEFENCE) 
+	return ep==tp and Duel.IsExistingMatchingCard(Card.IsPosition,tp,LOCATION_MZONE,0,1,nil,POS_FACEUP_DEFENSE) 
 end
 function c100000432.ctop(e,tp,eg,ep,ev,re,r,rp)
-	local sg=Duel.GetMatchingGroupCount(Card.IsPosition,tp,LOCATION_MZONE,0,nil,POS_FACEUP_DEFENCE)
+	local sg=Duel.GetMatchingGroupCount(Card.IsPosition,tp,LOCATION_MZONE,0,nil,POS_FACEUP_DEFENSE)
 	if sg==0 then return false end
 	e:GetHandler():AddCounter(0x94,sg)
 end

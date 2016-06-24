@@ -71,7 +71,7 @@ function c72091689.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetLabel()==0 then return end
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
-		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)
 		e:GetHandler():AddCounter(0x2a,1)
 	end
 end

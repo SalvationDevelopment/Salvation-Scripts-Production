@@ -42,10 +42,10 @@ function c511000056.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sp1=Duel.SelectMatchingCard(tp,c511000056.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,2403771):GetFirst()
-		Duel.SpecialSummonStep(sp1,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(sp1,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sp2=Duel.SelectMatchingCard(tp,c511000056.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,25862681):GetFirst()
-		Duel.SpecialSummonStep(sp2,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(sp2,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		Duel.SpecialSummonComplete()
 	end
 end

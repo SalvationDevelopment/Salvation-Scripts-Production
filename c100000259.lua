@@ -36,7 +36,7 @@ function c100000259.operation(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 		if c:IsRelateToEffect(e) and c:IsPosition(POS_FACEUP_ATTACK) then
 			Duel.BreakEffect()
-			Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
+			Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 		end
 	end
 end

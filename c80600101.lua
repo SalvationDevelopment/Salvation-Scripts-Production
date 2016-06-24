@@ -28,7 +28,7 @@ function c80600101.ngattack(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateAttack() then
 		local c=e:GetHandler()
 		if c:IsFaceup() and c:IsRelateToEffect(e) then
-			Duel.ChangePosition(c,POS_FACEUP_DEFENCE,0,POS_FACEUP_ATTACK,0)
+			Duel.ChangePosition(c,POS_FACEUP_DEFENSE,0,POS_FACEUP_ATTACK,0)
 			if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 				local g=Duel.SelectMatchingCard(tp,c80600101.filter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,e,tp)

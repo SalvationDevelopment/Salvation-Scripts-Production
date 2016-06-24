@@ -35,7 +35,7 @@ function c13790573.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1ff0000)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
-		e2:SetCode(EFFECT_SET_DEFENCE)
+		e2:SetCode(EFFECT_SET_DEFENSE)
 		tc:RegisterEffect(e2)
 		Duel.Damage(tp,1000,REASON_EFFECT)
 	end

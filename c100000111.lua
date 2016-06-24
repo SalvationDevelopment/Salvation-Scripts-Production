@@ -17,14 +17,14 @@ function c100000111.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c100000111.filter(c)
-	return c:IsPosition(POS_FACEUP_DEFENCE)
+	return c:IsPosition(POS_FACEUP_DEFENSE)
 end
 function c100000111.spcon(e,c)
 	local c=e:GetHandler()
 	return Duel.IsExistingMatchingCard(c100000111.filter,c:GetControler(),LOCATION_MZONE,0,2,nil)
 end
 function c100000111.tg(e,c)
-	return c:IsPosition(POS_FACEUP_DEFENCE)
+	return c:IsPosition(POS_FACEUP_DEFENSE)
 end
 function c100000111.tgval(e,te)
 	return te:GetOwnerPlayer()~=e:GetHandlerPlayer()

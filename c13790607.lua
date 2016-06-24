@@ -63,7 +63,7 @@ function c13790607.spop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
 	if sg:GetCount()==0 then return end
 	if c:IsRelateToEffect(e) and c:IsPosition(POS_FACEUP_ATTACK) and ft>=sg:GetCount() then
-		Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP)
 	end
 end

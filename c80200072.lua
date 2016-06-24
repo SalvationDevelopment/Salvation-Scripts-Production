@@ -42,7 +42,7 @@ function c80200072.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(300)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
-		e2:SetCode(EFFECT_UPDATE_DEFENCE)
+		e2:SetCode(EFFECT_UPDATE_DEFENSE)
 		tc:RegisterEffect(e2)
 	end
 end
@@ -59,7 +59,7 @@ function c80200072.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,80200072,0,0,0,300,4,RACE_WARRIOR,ATTRIBUTE_DARK) then return end
-	Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP_DEFENCE)
+	Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -84,7 +84,7 @@ function c80200072.spop(e,tp,eg,ep,ev,re,r,rp)
 	e5:SetValue(0)
 	c:RegisterEffect(e5)
 	local e6=e1:Clone()
-	e6:SetCode(EFFECT_SET_BASE_DEFENCE)
+	e6:SetCode(EFFECT_SET_BASE_DEFENSE)
 	e6:SetValue(300)
 	c:RegisterEffect(e6)
 	local e7=Effect.CreateEffect(c)

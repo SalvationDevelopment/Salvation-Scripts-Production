@@ -37,7 +37,7 @@ function c13790655.sumop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if c:IsRelateToEffect(e) and c:IsPosition(POS_FACEUP_ATTACK) then
 		Duel.BreakEffect()
-		Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	end
 end
 

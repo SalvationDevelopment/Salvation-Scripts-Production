@@ -11,7 +11,7 @@ function c80600058.initial_effect(c)
 	e2:SetValue(c80600058.val)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetCode(EFFECT_UPDATE_DEFENCE)
+	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
 end
 function c80600058.con(e,tp,eg,ep,ev,re,r,rp)

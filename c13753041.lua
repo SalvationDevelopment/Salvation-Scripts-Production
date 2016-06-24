@@ -49,13 +49,13 @@ function c13753041.setop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	local lv=tc:GetLevel()
 	if tc then
-		Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	g=Duel.SelectMatchingCard(tp,c13753041.filter2,tp,LOCATION_DECK,0,1,1,nil,e,tp,lv)
 	tc=g:GetFirst()
 	if tc then
-		Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 	Duel.SpecialSummonComplete()
 end

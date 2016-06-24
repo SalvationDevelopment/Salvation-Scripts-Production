@@ -46,12 +46,12 @@ end
 function c80001033.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local tc=Duel.GetFirstTarget()
-	if tc and Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)~=0 then
+	if tc and Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)~=0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local g=Duel.SelectMatchingCard(tp,c80001033.spfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
 		if g:GetCount()>0 then
 			local tg=g:GetFirst()
-			Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+			Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		end
 	end
 end
@@ -94,12 +94,12 @@ function c80001033.defop(e,tp,eg,ep,ev,re,r,rp)
 	while tg do
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
+		e1:SetCode(EFFECT_SET_DEFENSE_FINAL)
 		e1:SetValue(0)
 		e1:SetReset(RESET_EVENT+0x1ff0000)
 		tg:RegisterEffect(e1)
 		if tg:GetDefence()==0 then
-			Duel.ChangePosition(tg,POS_FACEUP_DEFENCE)
+			Duel.ChangePosition(tg,POS_FACEUP_DEFENSE)
 		end
 		tg=g:GetNext()
 	end

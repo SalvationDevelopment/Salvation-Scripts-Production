@@ -66,5 +66,5 @@ function c1066.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c1066.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c1066.filter,nil,e)
-	Duel.ChangePosition(g,POS_FACEUP_DEFENCE)
+	Duel.ChangePosition(g,POS_FACEUP_DEFENSE)
 end

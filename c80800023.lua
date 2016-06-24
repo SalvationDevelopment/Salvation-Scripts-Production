@@ -45,7 +45,7 @@ end
 function c80800023.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		Duel.ChangePosition(c,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEDOWN_DEFENSE)
 	end
 end
 function c80800023.condition(e)
@@ -61,5 +61,5 @@ function c80800023.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c80800023.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c80800023.filter,nil,e,tp)
-	Duel.ChangePosition(g,POS_FACEDOWN_DEFENCE)
+	Duel.ChangePosition(g,POS_FACEDOWN_DEFENSE)
 end

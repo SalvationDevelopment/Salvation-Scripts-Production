@@ -53,13 +53,13 @@ function c94000189.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c94000189.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-    if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENCE) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end 
+    if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end 
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),nil,0,0)
 end
 function c94000189.spop(e,tp,eg,ep,ev,re,r,rp)
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return false end 
     local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then 
-        Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+        Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 end

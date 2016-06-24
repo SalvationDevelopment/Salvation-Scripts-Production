@@ -49,7 +49,7 @@ function c80001034.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c80001034.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
-	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 end
 
 function c80001034.efcon(e,tp,eg,ep,ev,re,r,rp)
@@ -74,5 +74,5 @@ function c80001034.efop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c80001034.atkfilter(e,c)
-	return c:IsPosition(POS_DEFENCE)
+	return c:IsPosition(POS_DEFENSE)
 end

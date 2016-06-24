@@ -22,8 +22,8 @@ end
 function c800000060.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsAttackPos() and tc:IsRelateToEffect(e) then
-		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
-		if tc:IsPosition(POS_FACEUP_DEFENCE) then
+		Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)
+		if tc:IsPosition(POS_FACEUP_DEFENSE) then
 			c800000060[tp]=1
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_FIELD)

@@ -158,7 +158,7 @@ function c80800034.operation(e,tp,eg,ep,ev,re,r,rp)
 			e2:SetValue(-2000)
 			sc:RegisterEffect(e2)
 			local e3=e2:Clone()
-			e3:SetCode(EFFECT_UPDATE_DEFENCE)
+			e3:SetCode(EFFECT_UPDATE_DEFENSE)
 			sc:RegisterEffect(e3)
 			sc=dg:GetNext()
 		end

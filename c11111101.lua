@@ -24,7 +24,7 @@ end
 
 
 function c11111101.drfilter(c)
-	return c:IsPosition(POS_FACEUP_DEFENCE)
+	return c:IsPosition(POS_FACEUP_DEFENSE)
 end
 
 function c11111101.operation(e,tp,eg,ep,ev,re,r,rp)

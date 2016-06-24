@@ -27,7 +27,7 @@ function c12388.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCondition(c12388.condition)
-	e4:SetCode(EFFECT_SET_DEFENCE)
+	e4:SetCode(EFFECT_SET_DEFENSE)
 	e4:SetValue(3000)
 	c:RegisterEffect(e4)
 end

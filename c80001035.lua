@@ -46,8 +46,8 @@ end
 function c80001035.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and Duel.ChangePosition(e:GetHandler(),POS_FACEUP_DEFENCE)~=0 then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+	if tc and tc:IsRelateToEffect(e) and Duel.ChangePosition(e:GetHandler(),POS_FACEUP_DEFENSE)~=0 then
+		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 end
 
@@ -80,5 +80,5 @@ function c80001035.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
 end
 function c80001035.actcon(e)
-	return Duel.GetAttacker()==e:GetHandler() and Duel.GetAttackTarget()~=nil and Duel.GetAttackTarget():IsPosition(POS_DEFENCE)
+	return Duel.GetAttacker()==e:GetHandler() and Duel.GetAttackTarget()~=nil and Duel.GetAttackTarget():IsPosition(POS_DEFENSE)
 end

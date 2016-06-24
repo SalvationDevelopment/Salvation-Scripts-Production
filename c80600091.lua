@@ -29,7 +29,7 @@ function c80600091.sumop(e,tp,eg,ep,ev,re,r,rp)
 					and Duel.IsExistingMatchingCard(c80600091.mfilter,tp,LOCATION_HAND,0,1,nil,e) then return end
 				if Duel.SelectYesNo(tp,aux.Stringid(80600091,0)) then
 					local c=Duel.SelectMatchingCard(tp,c80600091.mfilter,tp,LOCATION_HAND,0,1,1,nil,e)
-					Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+					Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 				end
 			end
 		end

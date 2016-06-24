@@ -57,7 +57,7 @@ function c123102.initial_effect(c)
 
 	e5:SetTargetRange(LOCATION_ONFIELD,LOCATION_OFFFIELD)
 
-	e5:SetCode(EFFECT_UPDATE_DEFENCE)
+	e5:SetCode(EFFECT_UPDATE_DEFENSE)
 	
                   e5:SetTarget(c123102.filter)
 

@@ -12,7 +12,7 @@ function c1112.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c1112.filter(c)
-	return not c:IsPosition(POS_FACEUP_DEFENCE)
+	return not c:IsPosition(POS_FACEUP_DEFENSE)
 end
 function c1112.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c1112.filter(chkc) end
@@ -22,7 +22,7 @@ function c1112.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c1112.posop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsPosition(POS_FACEUP_DEFENCE) then
-		Duel.ChangePosition(tc,POS_FACEUP_DEFENCE)
+	if tc:IsRelateToEffect(e) and not tc:IsPosition(POS_FACEUP_DEFENSE) then
+		Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)
 	end
 end

@@ -73,7 +73,7 @@ function c12397.cbop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c12397.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENCE)
+	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
 end
 
 function c12397.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -87,6 +87,6 @@ end
 function c12397.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEDOWN_DEFENCE)
+		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEDOWN_DEFENSE)
 	end
 end

@@ -19,7 +19,7 @@ function c100000529.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local dg=Duel.GetMatchingGroup(c100000529.filter,tp,LOCATION_MZONE,0,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local sg=dg:Select(tp,1,1,nil)
-	Duel.ChangePosition(sg,POS_FACEUP_DEFENCE)
+	Duel.ChangePosition(sg,POS_FACEUP_DEFENSE)
 end
 function c100000529.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsAbleToRemove() end

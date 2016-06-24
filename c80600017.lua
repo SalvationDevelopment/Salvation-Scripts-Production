@@ -40,7 +40,7 @@ end
 function c80600017.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		Duel.ChangePosition(c,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEDOWN_DEFENSE)
 	end
 end
 function c80600017.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -58,7 +58,7 @@ function c80600017.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return false
 end
 function c80600017.spop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEDOWN_DEFENCE) then
+	if Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEDOWN_DEFENSE) then
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
 end

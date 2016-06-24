@@ -41,7 +41,7 @@ end
 function c80600016.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		Duel.ChangePosition(c,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEDOWN_DEFENSE)
 	end
 end
 function c80600016.negcon(e,tp,eg,ep,ev,re,r,rp)
@@ -56,6 +56,6 @@ function c80600016.negtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c80600016.negop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateAttack() and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) then
-		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEDOWN_DEFENCE)
+		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEDOWN_DEFENSE)
 	end
 end

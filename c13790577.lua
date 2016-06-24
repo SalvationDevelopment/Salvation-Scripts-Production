@@ -42,7 +42,7 @@ function c13790577.atkop1(e,tp,eg,ep,ev,re,r,rp)
 		while tg do
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_UPDATE_DEFENCE)
+			e1:SetCode(EFFECT_UPDATE_DEFENSE)
 			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+RESET_END)
 			e1:SetValue(-800)
 			tg:RegisterEffect(e1)

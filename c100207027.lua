@@ -63,7 +63,7 @@ function c100207027.activate(e,tp,eg,ep,ev,re,r,rp)
 			e3:SetValue(atk)
 			tc:RegisterEffect(e3)
 			local e4=e3:Clone()
-			e4:SetCode(EFFECT_UPDATE_DEFENCE)
+			e4:SetCode(EFFECT_UPDATE_DEFENSE)
 			tc:RegisterEffect(e4)
 		end
 	end
@@ -75,7 +75,7 @@ end
 function c100207027.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsAttackPos() then
-		Duel.ChangePosition(c,POS_FACEUP_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	end
 end
 function c100207027.eqlimit(e,c)

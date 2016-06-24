@@ -11,7 +11,7 @@ end
 function c100000321.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetBattleTarget()
-	if tc and tc:IsType(TYPE_FLIP) and tc:IsPreviousPosition(POS_FACEDOWN_DEFENCE)
+	if tc and tc:IsType(TYPE_FLIP) and tc:IsPreviousPosition(POS_FACEDOWN_DEFENSE)
 	and Duel.GetAttacker()==c then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

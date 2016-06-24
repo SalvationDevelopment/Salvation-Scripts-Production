@@ -26,7 +26,7 @@ function c80002000.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
 		c:RegisterEffect(e1)
 		local e2=e1:Clone()
-		e2:SetCode(EFFECT_SET_DEFENCE_FINAL)
+		e2:SetCode(EFFECT_SET_DEFENSE_FINAL)
 		e2:SetValue(c:GetDefence()/2)
 		c:RegisterEffect(e2)
 	end

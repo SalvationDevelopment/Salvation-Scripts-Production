@@ -56,7 +56,7 @@ function c22.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) or c:IsDefencePos() then return end
-	Duel.ChangePosition(c,POS_FACEUP_DEFENCE,POS_FACEDOWN_DEFENCE,0,0)
+	Duel.ChangePosition(c,POS_FACEUP_DEFENSE,POS_FACEDOWN_DEFENSE,0,0)
 	while tc do
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

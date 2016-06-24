@@ -27,7 +27,7 @@ function c292357.initial_effect(c)
 	e3:SetValue(3300)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
-	e4:SetCode(EFFECT_SET_DEFENCE)
+	e4:SetCode(EFFECT_SET_DEFENSE)
 	c:RegisterEffect(e4)
 end
 function c292357.spcon(e,c)

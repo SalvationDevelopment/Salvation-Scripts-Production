@@ -37,5 +37,5 @@ function c80600009.spop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetCode(EFFECT_DISABLE_EFFECT)
 	e2:SetReset(RESET_EVENT+0xfe0000)
 	tc:RegisterEffect(e2)
-	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENCE)
+	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 end

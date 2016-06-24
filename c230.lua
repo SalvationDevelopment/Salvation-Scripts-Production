@@ -61,7 +61,7 @@ end
 
 
 function c230.filter(c)
-	return c:GetPosition()~=POS_FACEUP_DEFENCE and c:IsLevelBelow(9)
+	return c:GetPosition()~=POS_FACEUP_DEFENSE and c:IsLevelBelow(9)
 end
 
 function c230.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -72,12 +72,12 @@ end
 
 function c230.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c230.filter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	Duel.ChangePosition(g,POS_FACEUP_DEFENCE,POS_FACEUP_DEFENCE,POS_FACEUP_DEFENCE,POS_FACEUP_DEFENCE)
+	Duel.ChangePosition(g,POS_FACEUP_DEFENSE,POS_FACEUP_DEFENSE,POS_FACEUP_DEFENSE,POS_FACEUP_DEFENSE)
 end
 
 
 function c230.cfilter(c,tp)
-	return c:IsPreviousPosition(POS_FACEUP_ATTACK) and c:IsPosition(POS_FACEUP_DEFENCE)
+	return c:IsPreviousPosition(POS_FACEUP_ATTACK) and c:IsPosition(POS_FACEUP_DEFENSE)
 end
 function c230.dcondition(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c230.cfilter,1,nil,1-tp)
@@ -96,7 +96,7 @@ function c230.dop(e,tp,eg,ep,ev,re,r,rp)
 	while tc do
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
+		e1:SetCode(EFFECT_SET_DEFENSE_FINAL)
 		e1:SetValue(0)
 		tc:RegisterEffect(e1)
 		tc=g:GetNext()

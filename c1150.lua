@@ -19,5 +19,5 @@ function c1150.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c1150.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c1150.filter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	Duel.ChangePosition(g,POS_FACEUP_DEFENCE)
+	Duel.ChangePosition(g,POS_FACEUP_DEFENSE)
 end

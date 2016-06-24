@@ -16,7 +16,7 @@ function c100100118.con(e,tp,eg,ep,ev,re,r,rp)
 	return td:GetCounter(0x91)>3
 end
 function c100100118.filter(c)
-	return c:IsControlerCanBeChanged() and c:IsPosition(POS_FACEUP_DEFENCE)
+	return c:IsControlerCanBeChanged() and c:IsPosition(POS_FACEUP_DEFENSE)
 end
 function c100100118.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c100100118.filter(chkc) end

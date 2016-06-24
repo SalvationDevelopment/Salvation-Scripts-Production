@@ -43,7 +43,7 @@ function c80800008.activate(e,tp,eg,ep,ev,re,r,rp)
 			og=og:Select(tp,ft,ft,nil)
 			local tc1=og:GetFirst()
 			while tc1 do
-				Duel.SpecialSummonStep(tc1,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+				Duel.SpecialSummonStep(tc1,0,tp,1-tp,false,false,POS_FACEUP_DEFENSE)
 				if tc1:GetLevel()>1 then
 					local e1=Effect.CreateEffect(c)
 					e1:SetType(EFFECT_TYPE_SINGLE)

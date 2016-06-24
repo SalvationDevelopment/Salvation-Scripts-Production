@@ -17,7 +17,7 @@ function c100909060.initial_effect(c)
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetCode(EFFECT_UPDATE_DEFENCE)
+	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
 	--immune effect
 	local e4=Effect.CreateEffect(c)

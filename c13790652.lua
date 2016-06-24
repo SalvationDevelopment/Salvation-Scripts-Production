@@ -65,7 +65,7 @@ end
 function c13790652.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_ONFIELD) and c13790652.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c13790652.filter,tp,LOCATION_ONFIELD,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUPDEFENCE)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUPDEFENSE)
 	Duel.SelectTarget(tp,c13790652.filter,tp,LOCATION_ONFIELD,0,1,1,nil)
 end
 function c13790652.operation2(e,tp,eg,ep,ev,re,r,rp)

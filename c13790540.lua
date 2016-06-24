@@ -49,7 +49,7 @@ function c13790540.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_PHASE+RESET_END,2)
 		Duel.RegisterEffect(e1,tp)
 		local e2=e1:Clone()
-		e2:SetCode(EFFECT_UPDATE_DEFENCE)
+		e2:SetCode(EFFECT_UPDATE_DEFENSE)
 		Duel.RegisterEffect(e2,tp)
 	end
 end

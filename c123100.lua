@@ -32,7 +32,7 @@ function c123100.defop(e,tp,eg,ep,ev,re,r,rp)
 		if def>0 then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_UPDATE_DEFENCE)
+			e1:SetCode(EFFECT_UPDATE_DEFENSE)
 			e1:SetReset(RESET_PHASE+RESET_DAMAGE_CAL)
 			e1:SetValue(def)
 			c:RegisterEffect(e1)

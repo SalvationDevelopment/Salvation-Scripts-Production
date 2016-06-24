@@ -29,10 +29,10 @@ function c80001077.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
 function c80001077.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsPosition(POS_FACEUP_DEFENCE) end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsPosition,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,POS_FACEUP_DEFENCE) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsPosition(POS_FACEUP_DEFENSE) end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsPosition,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,POS_FACEUP_DEFENSE) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	local g=Duel.SelectTarget(tp,Card.IsPosition,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,POS_FACEUP_DEFENCE)
+	local g=Duel.SelectTarget(tp,Card.IsPosition,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,POS_FACEUP_DEFENSE)
 end
 function c80001077.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -40,7 +40,7 @@ function c80001077.activate(e,tp,eg,ep,ev,re,r,rp)
 		local def=tc:GetDefence()
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
+		e1:SetCode(EFFECT_SET_DEFENSE_FINAL)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		e1:SetValue(def*2)
 		tc:RegisterEffect(e1)
@@ -55,7 +55,7 @@ end
 function c80001077.defop(e,tp,eg,ep,ev,re,r,rp)
     local e1=Effect.CreateEffect(e:GetHandler())
     e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
+    e1:SetCode(EFFECT_SET_DEFENSE_FINAL)
     e1:SetReset(RESET_EVENT+0x1fe0000)
     e1:SetValue(0)
     tc:RegisterEffect(e1)

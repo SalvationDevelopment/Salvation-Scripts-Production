@@ -17,7 +17,7 @@ function c123106.initial_effect(c)
 	e1:SetValue(c123106.val)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
-	e2:SetCode(EFFECT_UPDATE_DEFENCE)
+	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e2)
 end
 

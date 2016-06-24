@@ -35,7 +35,7 @@ function c100000172.adtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c100000172.adop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:Filter(c100000172.cfilter,nil,1-tp)
-	Duel.ChangePosition(tc,POS_FACEUP_DEFENCE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,false)	
+	Duel.ChangePosition(tc,POS_FACEUP_DEFENSE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,false)	
 	e:GetHandler():RegisterFlagEffect(100000172,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 
@@ -58,7 +58,7 @@ function c100000172.activate1(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetReset(RESET_EVENT+RESET_PHASE+PHASE_END)
 	e:GetHandler():RegisterEffect(e1)
 	end
-	Duel.ChangePosition(eg:GetFirst(),POS_FACEDOWN_DEFENCE)	
+	Duel.ChangePosition(eg:GetFirst(),POS_FACEDOWN_DEFENSE)	
 	e:GetHandler():RegisterFlagEffect(100000173,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 function c100000172.disop(e,tp,eg,ep,ev,re,r,rp)

@@ -29,17 +29,17 @@ end
 function c80600025.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c80600025.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c80600025.filter,tp,0,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUPDEFENCE)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUPDEFENSE)
 	local g=Duel.SelectTarget(tp,c80600025.filter,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,1,0,0)
 end
 function c80600025.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		if Duel.ChangePosition(tc,POS_FACEUP_DEFENCE) then
+		if Duel.ChangePosition(tc,POS_FACEUP_DEFENSE) then
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_SET_DEFENCE_FINAL)
+			e1:SetCode(EFFECT_SET_DEFENSE_FINAL)
 			e1:SetValue(0)
 			e1:SetReset(RESET_EVENT+0x1fe0000)
 			tc:RegisterEffect(e1)

@@ -29,7 +29,7 @@ function c511000420.operation(e,tp,eg,ep,ev,re,r,rp)
 	local opt=Duel.GetChainInfo(0,CHAININFO_TARGET_PARAM)
 	if (opt==0 and tc:IsType(TYPE_MONSTER)) then
 		if tc:IsCanBeSpecialSummoned(e,0,tp,false,false) then
-			Duel.SpecialSummon(tc,0,1-tp,1-tp,false,false,POS_FACEDOWN_DEFENCE)
+			Duel.SpecialSummon(tc,0,1-tp,1-tp,false,false,POS_FACEDOWN_DEFENSE)
 		end
 	elseif (opt==1 and tc:IsType(TYPE_SPELL)) then
 		Duel.SSet(1-tp,g:GetFirst())

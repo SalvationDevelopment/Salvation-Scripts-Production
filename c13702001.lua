@@ -42,7 +42,7 @@ end
 function c13702001.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENCE)~=0 then
+	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)~=0 then
 		local g=eg:Filter(c13702001.spfilter,nil,e,tp)
 		local ct=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		if g:GetCount()<=0 or ct<=0 then return end
@@ -53,7 +53,7 @@ function c13702001.spop(e,tp,eg,ep,ev,re,r,rp)
 		local tc=g:GetFirst()
 		while tc do
 			if tc:GetPreviousPosition() == POS_FACEDOWN then
-			Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEDOWN_DEFENCE) end
+			Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEDOWN_DEFENSE) end
 			Duel.SpecialSummonStep(tc,0,tp,tp,false,false,tc:GetPreviousPosition())
 			tc=g:GetNext()
 		end

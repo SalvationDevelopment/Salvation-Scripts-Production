@@ -35,7 +35,7 @@ function c24212810.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(TYPE_NORMAL+TYPE_MONSTER)
 		e1:SetReset(RESET_EVENT+0x47c0000)
 		c:RegisterEffect(e1,true)
-		Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
 	end
 end
 function c24212810.actcon(e)

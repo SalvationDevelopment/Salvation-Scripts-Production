@@ -45,7 +45,7 @@ function c110000112.atkfilter(e,c)
 end
 function c110000112.arcon(e,tp,eg,ep,ev,re,r,rp)
 	return r~=REASON_REPLACE and Duel.GetAttackTarget()==e:GetHandler()
-        and Duel.GetAttacker():IsControler(1-tp) and e:GetHandler():GetBattlePosition()~=POS_FACEDOWN_DEFENCE
+        and Duel.GetAttacker():IsControler(1-tp) and e:GetHandler():GetBattlePosition()~=POS_FACEDOWN_DEFENSE
 end
 function c110000112.artar(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) end

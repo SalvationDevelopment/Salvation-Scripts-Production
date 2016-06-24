@@ -39,7 +39,7 @@ end
 function c80600019.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		Duel.ChangePosition(c,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(c,POS_FACEDOWN_DEFENSE)
 	end
 end
 function c80600019.spcon2(e,tp,eg,ep,ev,re,r,rp)
@@ -54,7 +54,7 @@ end
 function c80600019.spop2(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetReasonCard()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsFaceup() then
-		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENCE)
+		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_CHANGE_POSITION)

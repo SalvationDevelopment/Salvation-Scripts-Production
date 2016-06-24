@@ -49,7 +49,7 @@ function c13720106.initial_effect(c)
 	e6:SetValue(c13720106.adval)
 	c:RegisterEffect(e6)
 	local e7=e6:Clone()
-	e7:SetCode(EFFECT_UPDATE_DEFENCE)
+	e7:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e7)
 	--cannot activate
 	local e8=Effect.CreateEffect(c)

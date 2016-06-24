@@ -27,7 +27,7 @@ function c100001010.initial_effect(c)
 	e3:SetValue(3000)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
-	e4:SetCode(EFFECT_SET_BASE_DEFENCE)
+	e4:SetCode(EFFECT_SET_BASE_DEFENSE)
 	c:RegisterEffect(e4)
 end
 function c100001010.efilter(e,te)

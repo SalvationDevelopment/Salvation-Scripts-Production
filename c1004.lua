@@ -10,7 +10,7 @@ function c1004.initial_effect(c)
 	e1:SetCondition(c1004.con)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
-	e2:SetCode(EFFECT_SET_DEFENCE)
+	e2:SetCode(EFFECT_SET_DEFENSE)
 	c:RegisterEffect(e2)
 end
 function c1004.filter(c)

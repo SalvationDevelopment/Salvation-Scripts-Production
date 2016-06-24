@@ -29,7 +29,7 @@ function c100909076.filter2(c,e,tp)
 end
 function c100909076.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c100909076.filter2,nil,e,tp)
-	if Duel.ChangePosition(g,POS_FACEDOWN_DEFENCE)~=0 then
+	if Duel.ChangePosition(g,POS_FACEDOWN_DEFENSE)~=0 then
 		local og=Duel.GetOperatedGroup()
 		local tc=og:GetFirst()
 		while tc do

@@ -27,7 +27,7 @@ function c12347.activate(e,tp,eg,ep,ev,re,r,rp)
 	if ft<=0 or not Duel.IsPlayerCanSpecialSummonMonster(1-tp,12391,0,0x4011,1000,1000,1,RACE_PYRO,ATTRIBUTE_FIRE) then return end
 	for i=1,ft do
 		local token=Duel.CreateToken(1-tp,12391)
-		Duel.SpecialSummonStep(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENSE)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetRange(LOCATION_MZONE)

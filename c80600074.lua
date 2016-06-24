@@ -23,10 +23,10 @@ function c80600074.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local fd= g:Filter(Card.IsSetCard,nil,0x91):GetCount()
 	if g:GetCount()>0 then
-		if Duel.ChangePosition(g,POS_FACEUP_DEFENCE) then
+		if Duel.ChangePosition(g,POS_FACEUP_DEFENSE) then
 			if fd>0 then
 				local flip=Duel.SelectTarget(tp,Card.IsFaceup,tp,0,LOCATION_MZONE,1,fd,nil)
-				Duel.ChangePosition(flip,POS_FACEDOWN_DEFENCE)
+				Duel.ChangePosition(flip,POS_FACEDOWN_DEFENSE)
 			end
 		end
 	end

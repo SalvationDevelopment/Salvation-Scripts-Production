@@ -46,7 +46,7 @@ function c511000067.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,511000068,0,0x4011,0,0,1,RACE_ROCK,ATTRIBUTE_LIGHT) then
 		local token=Duel.CreateToken(tp,511000068)
-		Duel.SpecialSummonStep(token,0x20,tp,1-tp,false,false,POS_FACEUP_DEFENCE)
+		Duel.SpecialSummonStep(token,0x20,tp,1-tp,false,false,POS_FACEUP_DEFENSE)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UNRELEASABLE_NONSUM)

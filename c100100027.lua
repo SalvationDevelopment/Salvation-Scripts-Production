@@ -16,7 +16,7 @@ function c100100027.con(e,tp,eg,ep,ev,re,r,rp)
 	return tc and tc:GetCounter(0x91)>1
 end
 function c100100027.filter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENCE)
+	return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
 end
 function c100100027.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -42,10 +42,10 @@ function c100100027.operation(e,tp,eg,ep,ev,re,r,rp)
 	local oc=g:GetFirst()
 	if oc==sc then oc=g:GetNext() end
 	if sc:IsRelateToEffect(e) then
-		Duel.SpecialSummonStep(sc,0,tp,tp,false,false,POS_FACEDOWN_DEFENCE)
+		Duel.SpecialSummonStep(sc,0,tp,tp,false,false,POS_FACEDOWN_DEFENSE)
 	end
 	if oc:IsRelateToEffect(e) then
-		Duel.SpecialSummonStep(oc,0,1-tp,1-tp,false,false,POS_FACEDOWN_DEFENCE)
+		Duel.SpecialSummonStep(oc,0,1-tp,1-tp,false,false,POS_FACEDOWN_DEFENSE)
 	end
 	Duel.SpecialSummonComplete()
 end

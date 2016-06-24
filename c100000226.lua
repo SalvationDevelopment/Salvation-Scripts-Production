@@ -16,7 +16,7 @@ function c100000226.initial_effect(c)
 	--def change
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetCode(EFFECT_SET_DEFENCE_FINAL)
+	e3:SetCode(EFFECT_SET_DEFENSE_FINAL)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
 	e3:SetValue(c100000226.vald)
