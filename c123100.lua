@@ -8,7 +8,7 @@ function c123100.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
 	e1:SetValue(aux.FALSE)
 	c:RegisterEffect(e1)
-	--defence up
+	--defense up
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DEFCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

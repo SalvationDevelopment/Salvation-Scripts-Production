@@ -10,7 +10,7 @@ function c123107.initial_effect(c)
 	e1:SetTarget(c123107.target)
 	e1:SetOperation(c123107.activate)
 	c:RegisterEffect(e1)
-	--defence up
+	--defense up
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DEFCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

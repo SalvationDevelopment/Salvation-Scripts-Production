@@ -16,7 +16,7 @@ function c80100106.initial_effect(c)
 	e2:SetTarget(c80100106.destg)
 	e2:SetValue(c80100106.repval)
 	c:RegisterEffect(e2)	
-	--to defence
+	--to defense
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(80100106,1))
 	e3:SetCategory(CATEGORY_POSITION)
