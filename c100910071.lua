@@ -18,7 +18,7 @@ function c100910071.initial_effect(c)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,100910071)
-	e3:SetCondition(aux.exccon)
+	e2:SetCondition(aux.exccon)
 	e2:SetCost(c100910071.lvcost)
 	e2:SetTarget(c100910071.lvtg)
 	e2:SetOperation(c100910071.lvop)
@@ -50,10 +50,14 @@ function c100910071.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 function c100910071.lvfilter(c)
 	local lv=c:GetLevel()
-	return lv>0 and c:IsFaceup() and c:IsSetCard(0x1eb) and Duel.IsExistingMatchingCard(c75141056.tgfilter,tp,LOCATION_DECK,0,1,nil,lv)
+	return lv>0 and c:IsFaceup() and c:IsSetCard(0x1eb) and Duel.IsExistingMatchingCard(c100910071.tgfilter,tp,LOCATION_DECK,0,1,nil,lv)
 end
 function c100910071.tgfilter(c,lv)
 	return c:IsSetCard(0x1eb) and c:GetLevel()~=lv and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+end
+function c100910071.lvcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
+	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c100910071.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c100910071.lvfilter(chkc) end
