@@ -30,7 +30,7 @@ function c51777272.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c51777272.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentPhase()==PHASE_MAIN1
+	return Duel.IsAbleToEnterBP()
 end
 function c51777272.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,e:GetHandler(),0xdf) end
@@ -39,20 +39,14 @@ function c51777272.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c51777272.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
+	e1:SetTargetRange(0,LOCATION_MZONE)
+	e1:SetValue(c51777272.indct)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
 	if c:IsRelateToEffect(e) then
-		--indestructible
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-		e1:SetCode(EFFECT_DESTROY_REPLACE)
-		e1:SetRange(LOCATION_SZONE)
-		e1:SetReset(RESET_PHASE+PHASE_END)
-		e1:SetTarget(c51777272.reptg)
-		e1:SetValue(c51777272.repval)
-		Duel.RegisterEffect(e1,tp)
-		local g=Group.CreateGroup()
-		g:KeepAlive()
-		e1:SetLabelObject(g)
 		local e2=Effect.CreateEffect(c)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_ATTACK_ALL)
@@ -61,25 +55,10 @@ function c51777272.operation(e,tp,eg,ep,ev,re,r,rp)
 		c:RegisterEffect(e2)
 	end
 end
-function c51777272.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(1-tp) and c:IsLocation(LOCATION_MZONE)
-		and c:IsReason(REASON_BATTLE) and c:GetFlagEffect(51777272)==0
-end
-function c51777272.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg:IsExists(c51777272.repfilter,1,nil,tp) end
-	local g=eg:Filter(c51777272.repfilter,nil,tp)
-	local tc=g:GetFirst()
-	while tc do
-		tc:RegisterFlagEffect(51777272,RESET_EVENT+0x1fc0000+RESET_PHASE+PHASE_END,0,1)
-		tc=g:GetNext()
-	end
-	e:GetLabelObject():Clear()
-	e:GetLabelObject():Merge(g)
-	return true
-end
-function c51777272.repval(e,c)
-	local g=e:GetLabelObject()
-	return g:IsContains(c)
+function c51777272.indct(e,re,r,rp)
+	if bit.band(r,REASON_BATTLE)~=0 then
+		return 1
+	else return 0 end
 end
 function c51777272.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
