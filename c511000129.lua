@@ -1,4 +1,4 @@
---Sacred Defence Barrier
+--Sacred Defense Barrier
 function c511000129.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

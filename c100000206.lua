@@ -10,7 +10,7 @@ function c100000206.initial_effect(c)
 	e1:SetTarget(c100000206.tglimit)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
-	--to defence
+	--to defense
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(100000206,0))
 	e3:SetCategory(CATEGORY_POSITION)

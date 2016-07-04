@@ -16,7 +16,7 @@ function c80100107.initial_effect(c)
 	e2:SetTarget(c80100107.sctg)
 	e2:SetValue(c80100107.scop)
 	c:RegisterEffect(e2)	
-	--to defence
+	--to defense
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(80100107,1))
 	e3:SetCategory(CATEGORY_POSITION)
