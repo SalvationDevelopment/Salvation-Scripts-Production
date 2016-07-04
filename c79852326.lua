@@ -20,9 +20,9 @@ function c79852326.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 		or not Duel.IsPlayerCanSpecialSummonMonster(tp,79852326,0,0x21,1800,500,4,RACE_ZOMBIE,ATTRIBUTE_DARK) then return end
-	c:AddMonsterAttribute(TYPE_EFFECT+TYPE_TRAP)
+	c:AddMonsterAttribute(0,0,0,0,0)
 	Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
-	c:AddMonsterAttributeComplete()
+	c:TrapMonsterComplete(TYPE_EFFECT)
 	--damage
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(79852326,0))
