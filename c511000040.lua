@@ -23,7 +23,7 @@ function c511000040.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	local atk=tc:GetAttack()/2
-	local def=tc:GetDefence()
+	local def=tc:GetDefense()
 	if tc:IsRelateToEffect(e) then
 		c:SetCardTarget(tc)
 		local e1=Effect.CreateEffect(e:GetHandler())

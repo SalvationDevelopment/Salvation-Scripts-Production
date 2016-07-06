@@ -25,7 +25,7 @@ function c100000538.val(e,c)
 end
 function c100000538.desreptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return c:IsReason(REASON_BATTLE) and c:IsFaceup() and c:GetDefence()>=1000 end
+	if chk==0 then return c:IsReason(REASON_BATTLE) and c:IsFaceup() and c:GetDefense()>=1000 end
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_COPY_INHERIT)

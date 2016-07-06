@@ -31,7 +31,7 @@ function c1191.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,100) and (bc:IsAttackAbove(100) or bc:IsDefenceAbove(100)) end
 	local maxc=Duel.GetLP(tp)
 	local maxpay=bc:GetAttack()
-	local def=bc:GetDefence()
+	local def=bc:GetDefense()
 	if maxpay<def then maxpay=def end
 	if maxpay<maxc then maxc=maxpay end
 	if maxc>5000 then maxc=5000 end

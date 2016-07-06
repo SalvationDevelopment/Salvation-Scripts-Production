@@ -37,5 +37,5 @@ function c511000027.target(e,c)
 	return c~=e:GetHandler()
 end
 function c511000027.defval(e,c)
-	return c:GetDefence()*2
+	return c:GetDefense()*2
 end

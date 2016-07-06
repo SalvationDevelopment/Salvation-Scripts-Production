@@ -51,7 +51,7 @@ function c500000147.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c500000147.filter3,nil,e,tp)
 	if g:GetCount()>0 then
 		local atk=g:GetFirst():GetAttack()
-		local def=g:GetFirst():GetDefence()
+		local def=g:GetFirst():GetDefense()
 		local con=g:GetFirst():GetControler()
 		local pos=g:GetFirst():GetPosition()
 		if Duel.Destroy(g,REASON_EFFECT)~=0 then

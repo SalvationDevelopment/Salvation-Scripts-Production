@@ -33,7 +33,7 @@ function c229.hspop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 
 function c229.desfilter(c)
-	return c:IsFaceup() and c:GetDefence()==0 and c:IsDestructable()
+	return c:IsFaceup() and c:GetDefense()==0 and c:IsDestructable()
 end
 function c229.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c229.desfilter(chkc) end

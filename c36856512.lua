@@ -73,7 +73,7 @@ function c36856512.activate(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 		local e2=e1:Clone()
 		e2:SetCode(EFFECT_SET_DEFENSE_FINAL)
-		e2:SetValue(tc:GetDefence()/2)
+		e2:SetValue(tc:GetDefense()/2)
 		tc:RegisterEffect(e2)
 		tc=g:GetNext()
 	end

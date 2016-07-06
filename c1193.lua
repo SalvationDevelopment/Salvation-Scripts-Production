@@ -22,12 +22,12 @@ function c1193.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local g=Duel.GetMatchingGroup(c1193.filter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 		if g:GetCount()==0 then return false end
-		local mg,mdef=g:GetMinGroup(Card.GetDefence)
+		local mg,mdef=g:GetMinGroup(Card.GetDefense)
 		e:SetLabel(0)
 		return Duel.CheckReleaseGroup(tp,c1193.cfilter,1,nil,mdef)
 	end
 	local g=Duel.GetMatchingGroup(c1193.filter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
-	local mg,mdef=g:GetMinGroup(Card.GetDefence)
+	local mg,mdef=g:GetMinGroup(Card.GetDefense)
 	local rg=Duel.SelectReleaseGroup(tp,c1193.cfilter,1,1,nil,mdef)
 	e:SetLabel(rg:GetFirst():GetAttack())
 	Duel.Release(rg,REASON_COST)
