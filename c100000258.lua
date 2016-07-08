@@ -87,7 +87,7 @@ function c100000258.operation(e,tp,eg,ep,ev,re,r,rp)
 				e2:SetType(EFFECT_TYPE_SINGLE)
 				e2:SetCode(EFFECT_SET_DEFENSE)
 				e2:SetReset(RESET_EVENT+0x1fe0000)
-				e2:SetValue(etc:GetFirst():GetTextDefence())
+				e2:SetValue(etc:GetFirst():GetTextDefense())
 				tc:RegisterEffect(e2)
 			end
 		end
@@ -124,7 +124,7 @@ function c100000258.activate(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetType(EFFECT_TYPE_SINGLE)
 		e2:SetCode(EFFECT_SET_DEFENSE)
 		e2:SetReset(RESET_EVENT+0x1fe0000)
-		e2:SetValue(rc:GetTextDefence())
+		e2:SetValue(rc:GetTextDefense())
 		tc:RegisterEffect(e2)
 	end
 end

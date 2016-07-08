@@ -16,7 +16,7 @@ function c1193.cfilter(c,def)
 	return c:IsAttackAbove(def)
 end
 function c1193.filter(c,atk)
-	return c:IsFaceup() and c:IsDestructable() and (not atk or c:IsDefenceBelow(atk))
+	return c:IsFaceup() and c:IsDestructable() and (not atk or c:IsDefenseBelow(atk))
 end
 function c1193.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

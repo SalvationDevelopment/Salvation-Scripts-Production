@@ -39,7 +39,7 @@ function c511000008.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c511000008.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return bit.band(c:GetPreviousPosition(),POS_ATTACK)~=0 and c:IsFaceup() and c:IsDefencePos()
+	return bit.band(c:GetPreviousPosition(),POS_ATTACK)~=0 and c:IsFaceup() and c:IsDefensePos()
 end
 function c511000008.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

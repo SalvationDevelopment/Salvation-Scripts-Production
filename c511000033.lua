@@ -26,7 +26,7 @@ function c511000033.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=sg:GetFirst()
 	while tc do
 		local atk=tc:GetBaseAttack()
-		local def=tc:GetBaseDefence()
+		local def=tc:GetBaseDefense()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SET_BASE_ATTACK)

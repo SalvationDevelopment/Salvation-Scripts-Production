@@ -11,7 +11,7 @@ function c11111143.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c11111143.filter(c)
-	return c:IsPosition(POS_FACEUP_ATTACK) and c:GetBaseDefence()>c:GetBaseAttack()
+	return c:IsPosition(POS_FACEUP_ATTACK) and c:GetBaseDefense()>c:GetBaseAttack()
 end
 function c11111143.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c11111143.filter(chkc) end

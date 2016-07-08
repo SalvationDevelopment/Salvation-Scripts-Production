@@ -26,7 +26,7 @@ function c511000028.activate(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() and tc:IsAttackable() then
 		if Duel.NegateAttack(tc) then
 			local atk=tc:GetBaseAttack()
-			local def=tc:GetBaseDefence()
+			local def=tc:GetBaseDefense()
 			local e1=Effect.CreateEffect(e:GetHandler())
 			e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 			e1:SetType(EFFECT_TYPE_SINGLE)

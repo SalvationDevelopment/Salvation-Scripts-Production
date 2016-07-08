@@ -20,7 +20,7 @@ function c511000044.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ec=Duel.GetFirstTarget()
 	if not ec:IsRelateToEffect(e) or ec:IsFacedown() then return end
 	if Duel.GetLocationCount(1-tp,LOCATION_MZONE)<=0
-		or not Duel.IsPlayerCanSpecialSummonMonster(tp,500000148,0,0x4011,ec:GetBaseAttack(),ec:GetBaseDefence(),
+		or not Duel.IsPlayerCanSpecialSummonMonster(tp,500000148,0,0x4011,ec:GetBaseAttack(),ec:GetBaseDefense(),
 			ec:GetOriginalLevel(),ec:GetOriginalRace(),ec:GetOriginalAttribute()) then return end
 	ec:RegisterFlagEffect(500000148,RESET_EVENT+0x17a0000,0,0)
 	local token=Duel.CreateToken(1-tp,500000148)
@@ -32,7 +32,7 @@ function c511000044.activate(e,tp,eg,ep,ev,re,r,rp)
 	token:RegisterEffect(e1)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_SET_BASE_DEFENSE)
-	e2:SetValue(ec:GetBaseDefence())
+	e2:SetValue(ec:GetBaseDefense())
 	token:RegisterEffect(e2)
 	local e3=e1:Clone()
 	e3:SetCode(EFFECT_CHANGE_LEVEL)

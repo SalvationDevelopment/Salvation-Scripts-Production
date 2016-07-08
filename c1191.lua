@@ -28,7 +28,7 @@ function c1191.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c1191.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local bc=e:GetLabelObject()
-	if chk==0 then return Duel.CheckLPCost(tp,100) and (bc:IsAttackAbove(100) or bc:IsDefenceAbove(100)) end
+	if chk==0 then return Duel.CheckLPCost(tp,100) and (bc:IsAttackAbove(100) or bc:IsDefenseAbove(100)) end
 	local maxc=Duel.GetLP(tp)
 	local maxpay=bc:GetAttack()
 	local def=bc:GetDefense()

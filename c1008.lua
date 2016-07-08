@@ -26,5 +26,5 @@ function c1008.becon(e)
 	return e:GetHandler():IsAttackable()
 end
 function c1008.descon(e)
-	return e:GetHandler():IsDefencePos()
+	return e:GetHandler():IsDefensePos()
 end

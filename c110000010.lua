@@ -105,7 +105,7 @@ end
 function c110000010.valcheck(e,c)
 	local g=c:GetMaterial()
 	c110000010.atk=g:GetSum(Card.GetBaseAttack)
-	c110000010.def=g:GetSum(Card.GetBaseDefence)
+	c110000010.def=g:GetSum(Card.GetBaseDefense)
 end
 function c110000010.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

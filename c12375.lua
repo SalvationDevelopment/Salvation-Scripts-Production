@@ -14,7 +14,7 @@ function c12375.initial_effect(c)
 end
 
 function c12375.atcon(e)
-	return e:GetHandler():IsDefencePos()
+	return e:GetHandler():IsDefensePos()
 end
 function c12375.atlimit(e,c)
 	return c~=e:GetHandler()

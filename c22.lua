@@ -55,7 +55,7 @@ function c22.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c22.filter2,tp,0,LOCATION_ONFIELD,nil)
 	local tc=g:GetFirst()
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsDefencePos() then return end
+	if not c:IsRelateToEffect(e) or c:IsDefensePos() then return end
 	Duel.ChangePosition(c,POS_FACEUP_DEFENSE,POS_FACEDOWN_DEFENSE,0,0)
 	while tc do
 		local e1=Effect.CreateEffect(c)

@@ -27,5 +27,5 @@ function c100000226.vala(e,c)
 	return c:GetBaseAttack()
 end
 function c100000226.vald(e,c)
-	return c:GetBaseDefence()
+	return c:GetBaseDefense()
 end

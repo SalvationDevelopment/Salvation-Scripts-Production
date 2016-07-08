@@ -54,10 +54,10 @@ function c100000298.conatk(e)
 	return e:GetHandler():GetEquipTarget():IsAttackPos()
 end
 function c100000298.atk(e,c)
-	return e:GetHandler():GetEquipTarget():GetTextDefence()
+	return e:GetHandler():GetEquipTarget():GetTextDefense()
 end
 function c100000298.condef(e)
-	return e:GetHandler():GetEquipTarget():IsDefencePos()
+	return e:GetHandler():GetEquipTarget():IsDefensePos()
 end
 function c100000298.def(e,c)
 	return e:GetHandler():GetEquipTarget():GetAttack()
