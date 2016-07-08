@@ -79,7 +79,7 @@ function c100405029.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_RECOVER,nil,0,tp,ct*1000)
 end
 function c100405029.disop(e,tp,eg,ep,ev,re,r,rp)
-	local ct1=Duel.GetMatchingGroupCount(c100405029.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+	local ct1=Duel.GetMatchingGroupCount(c100405029.cfilter,tp,LOCATION_MZONE,0,nil)
 	if ct1>0 then
 		if Duel.DiscardDeck(tp,ct1,REASON_EFFECT)~=0 then
 			local lc=0
