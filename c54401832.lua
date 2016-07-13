@@ -16,18 +16,20 @@ end
 function c54401832.filter2(c)
 	return c:IsAttackBelow(3000)
 end
-function c54401832.exfilter(c)
-	return c:IsHasEffect(77693536)
-end
 function c54401832.fscon(e,g,gc,chkfnf)
 	if g==nil then return true end
 	local f1=c54401832.filter1
 	local f2=c54401832.filter2
 	local minc=2
 	local chkf=bit.band(chkfnf,0xff)
-	local exg=Duel.GetMatchingGroup(c54401832.exfilter,e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)
-	exg:Merge(g)
-	local mg=exg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
+	local tp=e:GetHandlerPlayer()
+	local fg=Duel.GetMatchingGroup(Card.IsHasEffect,tp,LOCATION_MZONE,0,nil,77693536)
+	local fc=fg:GetFirst()
+	while fc do
+		g:Merge(fc:GetEquipGroup())
+		fc=fg:GetNext()
+	end
+	local mg=g:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
 	if gc then
 		if not gc:IsCanBeFusionMaterial(e:GetHandler(),true) then return false end
 		if aux.FConditionFilterFFR(gc,f1,f2,mg,minc,chkf) then
@@ -44,9 +46,13 @@ function c54401832.fsop(e,tp,eg,ep,ev,re,r,rp,gc,chkfnf)
 	local f1=c54401832.filter1
 	local f2=c54401832.filter2
 	local chkf=bit.band(chkfnf,0xff)
-	local exg=Duel.GetMatchingGroup(c54401832.exfilter,tp,LOCATION_SZONE,0,nil)
-	exg:Merge(eg)
-	local g=exg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
+	local fg=Duel.GetMatchingGroup(Card.IsHasEffect,tp,LOCATION_MZONE,0,nil,77693536)
+	local fc=fg:GetFirst()
+	while fc do
+		eg:Merge(fc:GetEquipGroup())
+		fc=fg:GetNext()
+	end
+	local g=eg:Filter(Card.IsCanBeFusionMaterial,nil,e:GetHandler(),true)
 	local minct=2
 	local maxct=2
 	if gc then
