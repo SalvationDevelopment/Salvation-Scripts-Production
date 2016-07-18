@@ -1,9 +1,9 @@
 --花札衛－牡丹に蝶－
 function c57261568.initial_effect(c)
 	c:EnableReviveLimit()
-	--spsummon from hand
+	--special summon rule
 	local e1=Effect.CreateEffect(c)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCode(EFFECT_SPSUMMON_PROC)
@@ -61,7 +61,7 @@ function c57261568.operation(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SortDecktop(tp,1-tp,3)
 			if opt==1 then
 				for i=1,3 do
-					local mg=Duel.GetDecktopGroup(tp,1)
+					local mg=Duel.GetDecktopGroup(1-tp,1)
 					Duel.MoveSequence(mg:GetFirst(),1)
 				end
 			end
