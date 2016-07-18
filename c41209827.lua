@@ -27,7 +27,7 @@ function c41209827.initial_effect(c)
 	c:RegisterEffect(e2)
 	--destroy
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(41209827,3))
+	e3:SetDescription(aux.Stringid(41209827,2))
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
@@ -69,7 +69,7 @@ function c41209827.copycost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterFlagEffect(41209827,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 function c41209827.copyfilter(c)
-	return c:IsFaceup() and c:IsLevelAbove(5)
+	return c:IsFaceup() and c:IsLevelAbove(5) and not c:IsType(TYPE_TOKEN)
 end
 function c41209827.copytg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE) and c41209827.copyfilter(chkc) end
@@ -80,9 +80,8 @@ end
 function c41209827.copyop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and not tc:IsType(TYPE_TOKEN) then
-		local code=tc:GetOriginalCode()
-		local cid=0
+	if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsFaceup() and not tc:IsType(TYPE_TOKEN) then
+		local code=tc:GetOriginalCodeRule()
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -91,30 +90,9 @@ function c41209827.copyop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		c:RegisterEffect(e1)
 		if not tc:IsType(TYPE_TRAPMONSTER) then
-			cid=c:CopyEffect(code,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,1)
+			c:CopyEffect(code,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,1)
 		end
-		local e2=Effect.CreateEffect(c)
-		e2:SetDescription(aux.Stringid(41209827,2))
-		e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-		e2:SetCode(EVENT_PHASE+PHASE_END)
-		e2:SetRange(LOCATION_MZONE)
-		e2:SetCountLimit(1)
-		e2:SetLabelObject(e1)
-		e2:SetLabel(cid)
-		e2:SetOperation(c41209827.rstop)
-		e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e2)
 	end
-end
-function c41209827.rstop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local cid=e:GetLabel()
-	if cid~=0 then c:ResetEffect(cid,RESET_COPY) end
-	local e1=e:GetLabelObject()
-	e1:Reset()
-	Duel.HintSelection(Group.FromCards(c))
-	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 end
 function c41209827.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
