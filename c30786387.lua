@@ -33,23 +33,20 @@ function c30786387.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c30786387.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c30786387.filter,tp,LOCATION_DECK,0,nil)
-	if g:GetClassCount(Card.GetCode)>=3 then
-		local rg=Group.CreateGroup()
-		for i=1,3 do
-			Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(30786387,1))
-			local sg=g:Select(tp,1,1,nil)
-			local tc=sg:GetFirst()
-			rg:AddCard(tc)
-			g:Remove(Card.IsCode,nil,tc:GetCode())
-		end
-		Duel.ConfirmCards(1-tp,rg)
-		local tg=rg:GetFirst()
-		while tg do
-			Duel.MoveSequence(tg,0)
-			tg=rg:GetNext()
-		end
-		Duel.SortDecktop(tp,tp,3)
+	local rg=Group.CreateGroup()
+	for i=1,3 do
+		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(30786387,1))
+		local sg=g:Select(tp,1,1,nil)
+		local tc=sg:GetFirst()
+		rg:AddCard(tc)
 	end
+	Duel.ConfirmCards(1-tp,rg)
+	local tg=rg:GetFirst()
+	while tg do
+		Duel.MoveSequence(tg,0)
+		tg=rg:GetNext()
+	end
+	Duel.SortDecktop(tp,tp,3)
 end
 function c30786387.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
