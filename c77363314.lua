@@ -1,6 +1,4 @@
 --クリスタル・ドラゴン
---Krystal Dragon
---Script by nekrozar
 function c77363314.initial_effect(c)
 	--search
 	local e1=Effect.CreateEffect(c)
@@ -16,7 +14,7 @@ function c77363314.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c77363314.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_BATTLE_STEP
+	return Duel.GetTurnPlayer()==tp and Duel.GetCurrentPhase()==PHASE_BATTLE_STEP and Duel.GetCurrentChain()==0
 		and e:GetHandler():GetBattledGroupCount()>0
 end
 function c77363314.thfilter(c)
