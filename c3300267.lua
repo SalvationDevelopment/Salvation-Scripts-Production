@@ -47,7 +47,7 @@ function c3300267.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function c3300267.desfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c3300267.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c3300267.desfilter(chkc) end
@@ -86,13 +86,5 @@ function c3300267.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_SET_DEFENSE)
 		tc:RegisterEffect(e2)
 		Duel.SpecialSummonComplete()
-	elseif Duel.IsPlayerCanSpecialSummon(tp) then
-		local cg1=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
-		local cg2=Duel.GetFieldGroup(tp,LOCATION_DECK,0)
-		Duel.ConfirmCards(1-tp,cg1)
-		Duel.ConfirmCards(1-tp,cg2)
-		Duel.ConfirmCards(tp,cg2)
-		Duel.ShuffleHand(tp)
-		Duel.ShuffleDeck(tp)
 	end
 end
