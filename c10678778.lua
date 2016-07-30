@@ -23,7 +23,7 @@ function c10678778.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c10678778.operation(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetFieldGroup(1-tp,LOCATION_EXTRA,0)
+	local g=Duel.GetMatchingGroup(Card.IsPosition,1-tp,LOCATION_EXTRA,0,nil,POS_FACEDOWN)
 	if g:GetCount()==0 then return end
 	local tc=g:RandomSelect(tp,1):GetFirst()
 	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
