@@ -1,11 +1,9 @@
 --EMオッドアイズ・メタル・クロウ
---Performapal Odd-Eyes Metal Claw
---Script by nekrozar
 function c65029288.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x99),aux.FilterBoolFunction(Card.IsFusionSetCard,0x9f),true)
-	--fusion material
+	--cannot fusion material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
