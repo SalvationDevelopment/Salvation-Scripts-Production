@@ -1,6 +1,4 @@
 --魔界劇団－プリティ・ヒロイン
---Abyss Actor - Pretty Heroine
---Script by mercury233
 function c24907044.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

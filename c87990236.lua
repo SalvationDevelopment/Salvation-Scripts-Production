@@ -1,6 +1,4 @@
 --魅惑の堕天使
---Allure of Darklord
---Script by mercury233
 function c87990236.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

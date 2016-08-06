@@ -1,6 +1,4 @@
 --魔界劇団－ワイルド・ホープ
---Abyss Actor - Wild Hope
---Script by mercury233
 function c51391183.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
@@ -27,7 +25,7 @@ function c51391183.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCountLimit(1,51391183)
 	e3:SetCondition(c51391183.thcon)

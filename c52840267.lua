@@ -1,6 +1,4 @@
 --堕天使イシュタム
---Darklord Ixtab
---Script by nekrozar
 function c52840267.initial_effect(c)
 	c:SetSPSummonOnce(52840267)
 	--cannot spsummon

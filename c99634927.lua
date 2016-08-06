@@ -1,6 +1,4 @@
 --魔界劇団－ファンキー・コメディアン
---Abyss Actor - Funky Comedian
---Script by mercury233
 function c99634927.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

@@ -1,6 +1,4 @@
 --堕天使の追放
---Casting out the Darklords
---Script by nekrozar
 function c87112784.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

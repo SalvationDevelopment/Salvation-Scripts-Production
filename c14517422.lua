@@ -1,6 +1,4 @@
 --堕天使の戒壇
---Darklord Kaidan
---Script by mercury233
 function c14517422.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

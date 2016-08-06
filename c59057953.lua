@@ -1,6 +1,4 @@
 --魔界劇団の楽屋入り
---Entering the Abyss Actor Dressing Room
---Scripted by Eerie Code
 function c59057953.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

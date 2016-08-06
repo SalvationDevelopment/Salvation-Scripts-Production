@@ -1,6 +1,4 @@
 --D－フュージョン
---D-Fusion
---Script by mercury233
 function c26841274.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

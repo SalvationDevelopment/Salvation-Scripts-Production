@@ -1,6 +1,4 @@
 --D－HERO ディバインガイ
---Destiny HERO - Celestial
---Script by nekrozar
 function c63362460.initial_effect(c)
 	--destroy
 	local e1=Effect.CreateEffect(c)

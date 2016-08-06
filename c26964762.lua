@@ -1,6 +1,4 @@
 --D－HERO ダークエンジェル
---Destiny HERO - Dark Angel
---Script by mercury233
 function c26964762.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --堕天使マスティマ
---Darklord Mastema
---Script by mercury233
 function c25339070.initial_effect(c)
 	c:SetSPSummonOnce(25339070)
 	--spsummon

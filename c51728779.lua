@@ -1,6 +1,4 @@
 --堕天使アムドゥシアス
---Darklord Amdusias
---Script by dest
 function c51728779.initial_effect(c)
 	c:SetSPSummonOnce(51728779)
 	--to hand

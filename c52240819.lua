@@ -1,6 +1,4 @@
 --魔界劇団－デビル・ヒール
---Abyss Actor - Evil Heel
---Script by mercury233
 function c52240819.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

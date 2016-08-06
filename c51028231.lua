@@ -1,6 +1,4 @@
 --魔界劇団－サッシー・ルーキー
---Abyss Actor - Sassy Rookie
---Scripted by Eerie Code, modification by mercury233
 function c51028231.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--destroy replace

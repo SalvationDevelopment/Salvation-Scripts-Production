@@ -1,6 +1,4 @@
 --魔界台本「オープニング・セレモニー」
---Abyss Script - Opening Ceremony
---Script by mercury233
 function c23784496.initial_effect(c)
 	--recover
 	local e1=Effect.CreateEffect(c)

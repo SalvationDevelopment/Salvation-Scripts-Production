@@ -1,7 +1,4 @@
 --魔界台本 「ファンタジー・マジック」
---Abyss Script - Fantasy Magic
---Script by dest
---return to hand effect by mercury233
 function c87390798.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

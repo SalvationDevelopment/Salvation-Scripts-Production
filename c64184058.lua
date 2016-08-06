@@ -1,6 +1,4 @@
---D-HERO ディシジョンガイ
---Destiny HERO - Decisionguy
---Script by dest
+--D－HERO ディシジョンガイ
 function c64184058.initial_effect(c)
 	--cannot be battle target
 	local e1=Effect.CreateEffect(c)

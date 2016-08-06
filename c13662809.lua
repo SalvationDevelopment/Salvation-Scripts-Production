@@ -1,6 +1,4 @@
 --魔界台本「魔王の降臨」
---Abyss Script - Rise of the Dark Ruler
---Script by dest
 function c13662809.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -17,7 +15,7 @@ function c13662809.initial_effect(c)
 	e2:SetDescription(aux.Stringid(13662809,1))
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
-	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetCondition(c13662809.thcon)
 	e2:SetTarget(c13662809.thtg)

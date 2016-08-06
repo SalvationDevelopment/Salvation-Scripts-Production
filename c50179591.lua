@@ -1,6 +1,4 @@
 --魔界台本「火竜の住処」
---Abyss Script - Abode of the Fire Dragon
---Scripted by Eerie Code, modification by mercury233
 function c50179591.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

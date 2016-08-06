@@ -1,6 +1,4 @@
---D-HERO ディストピアガイ
---Destiny HERO - Dystopiaguy
---Script by dest
+--D－HERO ディストピアガイ
 function c90579153.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0xc008),2,true)

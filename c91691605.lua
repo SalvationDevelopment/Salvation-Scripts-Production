@@ -1,6 +1,4 @@
---D-HERO ドリルガイ
---Destiny HERO - Drillguy
---Script by dest
+--D－HERO ドリルガイ
 function c91691605.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

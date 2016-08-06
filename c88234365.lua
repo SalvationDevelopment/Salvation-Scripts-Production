@@ -1,6 +1,4 @@
 --堕天使テスカトリポカ
---Darklord Tezcatlipoca
---Script by nekrozar
 function c88234365.initial_effect(c)
 	c:SetSPSummonOnce(88234365)
 	--destroy replace

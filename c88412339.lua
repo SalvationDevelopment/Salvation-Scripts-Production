@@ -1,6 +1,4 @@
 --魔界劇団－エキストラ
---Abyss Actor - Extra
---Script by mercury233
 function c88412339.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
