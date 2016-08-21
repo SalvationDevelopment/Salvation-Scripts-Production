@@ -1,6 +1,4 @@
 --磁石の戦士δ
---Delta The Magnet Warrior
---Script by nekrozar
 function c12262393.initial_effect(c)
 	--to grave
 	local e1=Effect.CreateEffect(c)
