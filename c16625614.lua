@@ -47,27 +47,17 @@ end
 function c16625614.dbop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
-	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return end
 	local ids={31893528,67287533,94772232,30170981}
 	local id=ids[c:GetFlagEffect(94212438)+1]
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(94212438,1))
 	local g=Duel.SelectMatchingCard(tp,Card.IsCode,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil,id)
 	local tc=g:GetFirst()
 	if tc and Duel.IsPlayerCanSpecialSummonMonster(tp,id,0,0x11,0,0,1,RACE_FIEND,ATTRIBUTE_DARK,POS_FACEUP,tp,181)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.SelectYesNo(tp,aux.Stringid(16625614,0)) then
-		tc:AddMonsterAttribute(ATTRIBUTE_DARK,RACE_FIEND,1,0,0)
+		tc:AddMonsterAttribute(TYPE_NORMAL,ATTRIBUTE_DARK,RACE_FIEND,1,0,0)
 		Duel.SpecialSummonStep(tc,181,tp,tp,true,false,POS_FACEUP)
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_CHANGE_TYPE)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetValue(TYPE_NORMAL+TYPE_MONSTER)
-		e1:SetReset(RESET_EVENT+0x47c0000)
-		tc:RegisterEffect(e1,true)
-		local e6=Effect.CreateEffect(tc)
-		e6:SetType(EFFECT_TYPE_SINGLE)
-		e6:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-		tc:RegisterEffect(e6,true)
+		tc:AddMonsterAttributeComplete()
 		--immune
 		local e7=Effect.CreateEffect(c)
 		e7:SetType(EFFECT_TYPE_SINGLE)
@@ -85,7 +75,7 @@ function c16625614.dbop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e8)
 		Duel.SpecialSummonComplete()
 		c:RegisterFlagEffect(94212438,RESET_EVENT+0x1fe0000,0,0)
-	elseif tc then
+	elseif tc and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 then
 		Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 		c:RegisterFlagEffect(94212438,RESET_EVENT+0x1fe0000,0,0)
 	end
