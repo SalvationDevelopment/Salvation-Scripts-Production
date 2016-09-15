@@ -23,7 +23,7 @@ function c89801755.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(att)
 	Duel.SetTargetPlayer(1-tp)
 	Duel.SetTargetParam(rc)
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,1-tp,LOCATION_HAND+LOCATION_GRAVE)
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,1-tp,LOCATION_HAND+LOCATION_DECK)
 end
 function c89801755.filter(c,rc,att)
 	return c:IsRace(rc) and c:IsAttribute(att) and c:IsAbleToGrave()
@@ -35,10 +35,5 @@ function c89801755.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(p,c89801755.filter,p,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,rc,att)
 	if g:GetCount()>0 then
 		Duel.SendtoGrave(g,REASON_EFFECT)
-	else
-		local cg=Duel.GetFieldGroup(p,LOCATION_DECK+LOCATION_HAND,0)
-		Duel.ConfirmCards(1-p,cg)
-		Duel.ShuffleHand(p)
-		Duel.ShuffleDeck(p)
 	end
 end
