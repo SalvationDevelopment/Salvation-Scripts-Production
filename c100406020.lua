@@ -27,8 +27,9 @@ function c100406020.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(100406020,1))
 	e3:SetCategory(CATEGORY_POSITION)
-	e3:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_SINGLE)
+	e3:SetType(EFFECT_TYPE_TRIGGER_O+EFFECT_TYPE_FIELD)
 	e3:SetCode(EVENT_PHASE+PHASE_BATTLE)
+	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(c100406020.poscon)
 	e3:SetOperation(c100406020.posop)
 	c:RegisterEffect(e3)
@@ -60,7 +61,8 @@ function c100406020.poscon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsAttackPos() and c:GetBattledGroupCount()>0
 end
 function c100406020.posop(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsRelateToEffect(e) then
-		Duel.ChangePosition(e:GetHandler(),POS_FACEUP_DEFENSE)
+	local c=e:GetHandler()
+	if c:IsAttackPos() then
+		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	end
 end
