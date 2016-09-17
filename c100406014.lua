@@ -60,8 +60,9 @@ function c100406014.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,g:GetCount(),0,0)
 end
 function c100406014.thop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
-	if g:GetCount()>0 then
-		Duel.SendtoGrave(g,REASON_EFFECT+REASON_RETURN)
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	local sg=tg:Filter(Card.IsRelateToEffect,nil,e)
+	if sg:GetCount()>0 then
+		Duel.SendtoGrave(sg,REASON_EFFECT+REASON_RETURN)
 	end
 end
