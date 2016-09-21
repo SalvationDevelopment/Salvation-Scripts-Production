@@ -16,7 +16,7 @@ function c12965761.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetCondition(aux.IsUnionState)
+	e2:SetCondition(c12965761.uncon)
 	e2:SetTarget(c12965761.sptg)
 	e2:SetOperation(c12965761.spop)
 	c:RegisterEffect(e2)
@@ -36,7 +36,7 @@ function c12965761.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_EQUIP)
 	e4:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e4:SetCode(EFFECT_DESTROY_SUBSTITUTE)
-	e4:SetCondition(aux.IsUnionState)
+	e4:SetCondition(c12965761.uncon)
 	e4:SetValue(c12965761.repval)
 	c:RegisterEffect(e4)
 	--eqlimit
@@ -47,7 +47,9 @@ function c12965761.initial_effect(c)
 	e5:SetValue(c12965761.eqlimit)
 	c:RegisterEffect(e5)
 end
-c12965761.old_union=true
+function c12965761.uncon(e)
+	return e:GetHandler():IsStatus(STATUS_UNION)
+end
 function c12965761.repval(e,re,r,rp)
 	return bit.band(r,REASON_BATTLE)~=0
 end
@@ -75,7 +77,7 @@ function c12965761.eqop(e,tp,eg,ep,ev,re,r,rp)
 		return
 	end
 	if not Duel.Equip(tp,c,tc,false) then return end
-	aux.SetUnionState(c)
+	c:SetStatus(STATUS_UNION,true)
 end
 function c12965761.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(12965761)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -93,7 +95,7 @@ function c12965761.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c12965761.tkcon(e,tp,eg,ep,ev,re,r,rp)
-	return aux.IsUnionState(e) and eg:GetFirst()==e:GetHandler():GetEquipTarget()
+	return e:GetHandler():IsStatus(STATUS_UNION) and eg:GetFirst()==e:GetHandler():GetEquipTarget()
 end
 function c12965761.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

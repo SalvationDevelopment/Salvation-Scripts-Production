@@ -16,7 +16,7 @@ function c48568432.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetCondition(aux.IsUnionState)
+	e2:SetCondition(c48568432.uncon)
 	e2:SetTarget(c48568432.sptg)
 	e2:SetOperation(c48568432.spop)
 	c:RegisterEffect(e2)
@@ -25,7 +25,7 @@ function c48568432.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
 	e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e3:SetCode(EFFECT_DESTROY_SUBSTITUTE)
-	e3:SetCondition(aux.IsUnionState)
+	e3:SetCondition(c48568432.uncon)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	--eqlimit
@@ -48,7 +48,9 @@ function c48568432.initial_effect(c)
 	e5:SetOperation(c48568432.spop2)
 	c:RegisterEffect(e5)
 end
-c48568432.old_union=true
+function c48568432.uncon(e)
+	return e:GetHandler():IsStatus(STATUS_UNION)
+end
 function c48568432.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_MACHINE) and c:GetUnionCount()==0
 end
@@ -70,7 +72,7 @@ function c48568432.eqop(e,tp,eg,ep,ev,re,r,rp)
 		return
 	end
 	if not Duel.Equip(tp,c,tc,false) then return end
-	aux.SetUnionState(c)
+	c:SetStatus(STATUS_UNION,true)
 end
 function c48568432.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(48568432)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -87,7 +89,7 @@ function c48568432.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c48568432.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return aux.IsUnionState(e) and eg:GetFirst()==e:GetHandler():GetEquipTarget()
+	return e:GetHandler():IsStatus(STATUS_UNION) and eg:GetFirst()==e:GetHandler():GetEquipTarget()
 end
 function c48568432.spfilter(c,e,tp)
 	return c:IsLevelBelow(4) and c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT)

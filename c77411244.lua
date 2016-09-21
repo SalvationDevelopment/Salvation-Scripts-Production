@@ -51,8 +51,7 @@ function c77411244.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function c77411244.filter(c)
-	local ct1,ct2=c:GetUnionCount()
-	return c:IsFaceup() and c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT) and ct2==0
+	return c:IsFaceup() and c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_LIGHT)
 end
 function c77411244.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -73,7 +72,7 @@ function c77411244.eqop(e,tp,eg,ep,ev,re,r,rp)
 		return
 	end
 	if not Duel.Equip(tp,c,tc,false) then return end
-	aux.SetUnionState(c)
+	c:SetStatus(STATUS_UNION,true)
 end
 function c77411244.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

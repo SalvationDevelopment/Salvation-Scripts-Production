@@ -53,8 +53,7 @@ function c64500000.eqlimit(e,c)
 	return c:IsCode(62651957,65622692) or e:GetHandler():GetEquipTarget()==c
 end
 function c64500000.filter(c)
-	local ct1,ct2=c:GetUnionCount()
-	return c:IsFaceup() and c:IsCode(62651957,65622692) and ct2==0
+	return c:IsFaceup() and c:IsCode(62651957,65622692)
 end
 function c64500000.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c64500000.filter(chkc) end
@@ -74,7 +73,7 @@ function c64500000.eqop(e,tp,eg,ep,ev,re,r,rp)
 		return
 	end
 	if not Duel.Equip(tp,c,tc,false) then return end
-	aux.SetUnionState(c)
+	c:SetStatus(STATUS_UNION,true)
 end
 function c64500000.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetFlagEffect(64500000)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
