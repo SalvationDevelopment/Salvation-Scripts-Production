@@ -1,6 +1,4 @@
 --EMハンサムライガー
---Performapal Handsome Liger
---Script by mercury233
 function c55997110.initial_effect(c)
 	--search
 	local e1=Effect.CreateEffect(c)

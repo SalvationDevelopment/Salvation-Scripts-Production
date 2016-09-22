@@ -32,8 +32,12 @@ function c41639001.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c41639001.spfilter,tp,0x13,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()
-	if tc and tc:IsHasEffect(EFFECT_NECRO_VALLEY) then return end
-	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
+	if not tc then return end
+	if tc:IsHasEffect(EFFECT_NECRO_VALLEY) and Duel.IsChainDisablable(0) then
+		Duel.NegateEffect(0)
+		return
+	end
+	if Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_SET_ATTACK)
@@ -44,13 +48,5 @@ function c41639001.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetCode(EFFECT_SET_DEFENSE)
 		tc:RegisterEffect(e2)
 		Duel.SpecialSummonComplete()
-	elseif Duel.IsPlayerCanSpecialSummon(tp) then
-		local cg1=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
-		local cg2=Duel.GetFieldGroup(tp,LOCATION_DECK,0)
-		Duel.ConfirmCards(1-tp,cg1)
-		Duel.ConfirmCards(1-tp,cg2)
-		Duel.ConfirmCards(tp,cg2)
-		Duel.ShuffleHand(tp)
-		Duel.ShuffleDeck(tp)
 	end
 end
