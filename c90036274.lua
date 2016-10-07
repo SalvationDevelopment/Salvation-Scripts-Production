@@ -1,6 +1,4 @@
 --クリアウィング・ファスト・ドラゴン
---Clearwing Fast Dragon
---Script by dest
 function c90036274.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsAttribute,ATTRIBUTE_WIND),1)
@@ -23,21 +21,21 @@ function c90036274.initial_effect(c)
 	e2:SetDescription(aux.Stringid(90036274,1))
 	e2:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DISABLE)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetHintTiming(TIMING_DAMAGE_STEP,TIMING_DAMAGE_STEP+0x1c0)
 	e2:SetCountLimit(1,90036275)
-	e2:SetCondition(c90036274.condition)
-	e2:SetTarget(c90036274.target)
-	e2:SetOperation(c90036274.operation)
+	e2:SetCondition(c90036274.discon)
+	e2:SetTarget(c90036274.distg)
+	e2:SetOperation(c90036274.disop)
 	c:RegisterEffect(e2)
 	--pendulum
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(90036274,2))
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_DESTROYED)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetCode(EVENT_DESTROYED)
 	e3:SetCondition(c90036274.pencon)
 	e3:SetTarget(c90036274.pentg)
 	e3:SetOperation(c90036274.penop)
@@ -72,19 +70,19 @@ function c90036274.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(c,REASON_RULE)
 	end
 end
-function c90036274.condition(e,tp,eg,ep,ev,re,r,rp)
+function c90036274.discon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
-function c90036274.filter(c)
+function c90036274.disfilter(c)
 	return c:GetSummonLocation()==LOCATION_EXTRA and not (c:GetAttack()==0 and c:IsDisabled())
 end
-function c90036274.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c90036274.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c90036274.filter,tp,0,LOCATION_MZONE,1,nil) end
+function c90036274.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c90036274.disfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c90036274.disfilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	Duel.SelectTarget(tp,c90036274.filter,tp,0,LOCATION_MZONE,1,1,nil)
+	Duel.SelectTarget(tp,c90036274.disfilter,tp,0,LOCATION_MZONE,1,1,nil)
 end
-function c90036274.operation(e,tp,eg,ep,ev,re,r,rp)
+function c90036274.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
@@ -116,7 +114,8 @@ function c90036274.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c90036274.pencon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0 and e:GetHandler():IsPreviousLocation(LOCATION_MZONE)
+	local c=e:GetHandler()
+	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0 and c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
 end
 function c90036274.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7) end
