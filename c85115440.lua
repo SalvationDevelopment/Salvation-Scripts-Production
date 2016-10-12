@@ -1,6 +1,4 @@
 --十二獣ブルホーン
---Juunishishi Bullhorn
---Script by mercury233
 function c85115440.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,2,c85115440.ovfilter,aux.Stringid(85115440,0),2,c85115440.xyzop)

@@ -1,6 +1,4 @@
 --サイバー・エンジェル－那沙帝弥－
---Cyber Angel Nasateiya
---Script by mercury233
 function c99427357.initial_effect(c)
 	c:EnableReviveLimit()
 	--recover

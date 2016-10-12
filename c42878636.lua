@@ -1,6 +1,4 @@
 --古代の機械猟犬
---Ancient Gear Hunting Hound
---Script by nekrozar
 function c42878636.initial_effect(c)
 	--damage
 	local e1=Effect.CreateEffect(c)

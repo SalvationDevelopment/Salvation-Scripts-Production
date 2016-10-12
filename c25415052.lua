@@ -1,6 +1,4 @@
 --霊魂鳥神－姫孔雀
---Esprit Lord - Himekujaku
---Script by dest
 function c25415052.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon condition

@@ -1,6 +1,4 @@
 --おろかな副葬
---Foolish Burial of Belongings
---Script by nekrozar
 function c35726888.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

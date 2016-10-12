@@ -1,6 +1,4 @@
 --EMラフメイカー
---Performapal Laughmaker
---Scripted by Eerie Code
 function c44944304.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--recover

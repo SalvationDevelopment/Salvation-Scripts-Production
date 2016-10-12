@@ -1,6 +1,4 @@
 --サイバー・チュチュボン
---Cyber Tutubon
---Script by mercury233
 function c42600274.initial_effect(c)
 	--spsummon from hand
 	local e1=Effect.CreateEffect(c)

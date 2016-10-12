@@ -1,6 +1,4 @@
 --十二獣モルモラット
---Juunishishi Molmorat
---Script by mercury233
 --The "get effect" effect is temporary
 function c78872731.initial_effect(c)
 	--send to grave

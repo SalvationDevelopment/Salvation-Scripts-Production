@@ -1,6 +1,4 @@
 --迷い風
---Bewildering Wind
---Script by mercury233
 function c74003290.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

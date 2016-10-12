@@ -1,6 +1,4 @@
 --ブレイブアイズ・ペンデュラム・ドラゴン
---Brave-Eyes Pendulum Dragon
---Script by nekrozar
 function c88305705.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

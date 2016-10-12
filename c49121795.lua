@@ -1,6 +1,4 @@
 --重装甲列車アイアン・ヴォルフ
---Heavy-Armored Train Iron Wolf
---Script by nekrozar
 function c49121795.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),4,2)

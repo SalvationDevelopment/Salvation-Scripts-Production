@@ -1,6 +1,4 @@
 --天地開闢
---Universal Beginning
---Script by nekrozar
 function c32360466.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

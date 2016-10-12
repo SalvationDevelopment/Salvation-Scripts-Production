@@ -1,6 +1,4 @@
 --霊魂鳥－巫鶴
---Esprit Bird - Kannagi Tsuru
---Script by dest
 function c66815913.initial_effect(c)
 	--spirit return
 	aux.EnableSpiritReturn(c,EVENT_SUMMON_SUCCESS,EVENT_FLIP)

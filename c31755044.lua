@@ -1,6 +1,4 @@
 --十二獣ヴァイパー
---Juunishishi Viper
---Script by mercury233
 --The "get effect" effect is temporary
 function c31755044.initial_effect(c)
 	--material

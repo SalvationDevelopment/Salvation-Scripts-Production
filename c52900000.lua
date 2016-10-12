@@ -1,6 +1,4 @@
 --霊魂鳥神－彦孔雀
---Esprit Lord - Hikokujaku
---Script by dest
 function c52900000.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon condition

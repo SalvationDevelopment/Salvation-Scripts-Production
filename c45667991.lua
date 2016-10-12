@@ -1,6 +1,4 @@
 --降竜の魔術師
---Descend Dragon Magician
---Script by nekrozar
 function c45667991.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

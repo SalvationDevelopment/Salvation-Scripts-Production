@@ -1,6 +1,4 @@
 --妖精伝姫－シンデレラ
---Fairy Tail - Cinderella
---Script by nekrozar
 function c52022648.initial_effect(c)
 	--cannot be target
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --パラサイト・フュージョナー
--- Parasite Fusioner
---Script by nekrozar
 --Effect is not fully implemented
 function c6205579.initial_effect(c)
 	--cannot be material

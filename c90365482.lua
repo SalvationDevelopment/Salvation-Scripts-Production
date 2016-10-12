@@ -1,6 +1,4 @@
 --河伯
---Kawanokami
---Script by nekrozar
 function c90365482.initial_effect(c)
 	--spirit return
 	aux.EnableSpiritReturn(c,EVENT_SUMMON_SUCCESS,EVENT_FLIP)

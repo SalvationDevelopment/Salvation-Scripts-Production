@@ -1,6 +1,4 @@
 --超重忍者シノビ－A・C
---Superheavy Samurai Ninja Shinobiashi
---Script by mercury233
 function c50065971.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_MACHINE),aux.NonTuner(Card.IsRace,RACE_MACHINE),1)

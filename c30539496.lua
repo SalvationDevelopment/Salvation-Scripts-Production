@@ -1,6 +1,4 @@
 --真竜皇リトスアジムD
---True King Lithosazim, the Disaster
---Script by nekrozar
 function c30539496.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

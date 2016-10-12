@@ -1,6 +1,4 @@
 --花札衛－五光－
---Cardian - Gokou
---Script by nekrozar
 function c87460579.initial_effect(c)
 	c:EnableReviveLimit()
 	--synchro summon

@@ -1,6 +1,4 @@
 --超戦士の萌芽
---Super Soldier Origin
---Script by nekrozar
 function c45948430.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

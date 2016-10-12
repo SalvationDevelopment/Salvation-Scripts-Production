@@ -1,6 +1,4 @@
 --炎神－不知火
---Shiranui Sovereignsaga
---Script by nekrozar
 function c59843383.initial_effect(c)
 	c:SetSPSummonOnce(59843383)
 	--synchro summon

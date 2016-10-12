@@ -1,6 +1,4 @@
 --十二獣の方合
---Juunishishi no Hougou
---Script by nekrozar
 function c73881652.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

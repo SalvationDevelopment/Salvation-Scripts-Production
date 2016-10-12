@@ -1,6 +1,4 @@
 --横綱犬
---Yokotuner
---Script by dest
 function c27750191.initial_effect(c)
 	--summon success
 	local e1=Effect.CreateEffect(c)

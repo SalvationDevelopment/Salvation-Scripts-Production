@@ -1,6 +1,4 @@
 --肥大化
---Macromorph
---Script by nekrozar
 function c67820935.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --十二獣ラビーナ
---Juunishishi Rabbina
---Script by mercury233
 --The "get effect" effect is temporary
 function c4367330.initial_effect(c)
 	--to hand

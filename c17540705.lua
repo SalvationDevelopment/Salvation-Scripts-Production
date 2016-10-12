@@ -1,6 +1,4 @@
 --EMダグ・ダガーマン
---Performapal Dag Daggerman
---Script by mercury233
 function c17540705.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c,false)

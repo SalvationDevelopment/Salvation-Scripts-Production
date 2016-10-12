@@ -1,6 +1,4 @@
 --ワイトプリンセス
---Wightprincess
---Script by nekrozar
 function c90243945.initial_effect(c)
 	--change code
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --煉獄の狂宴
---Void Madness
---Script by nekrozar
 function c31548814.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

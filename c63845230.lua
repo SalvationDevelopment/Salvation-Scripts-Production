@@ -1,6 +1,4 @@
 --百万喰らいのグラットン
---All-Consuming Glutton
---Script by nekrozar
 function c63845230.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon condition

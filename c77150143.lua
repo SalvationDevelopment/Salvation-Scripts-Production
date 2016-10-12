@@ -1,6 +1,4 @@
 --十二獣サラブレード
---Juunishishi Thoroughblade
---Script by mercury233
 --The "get effect" effect is temporary
 function c77150143.initial_effect(c)
 	--draw

@@ -1,6 +1,4 @@
 --端末世界NEXT
---Terminal World Next
---Script by nekrozar
 function c48605591.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

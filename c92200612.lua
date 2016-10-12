@@ -1,6 +1,4 @@
 --霊魂鳥－伝鳩
---Esprit Bird - Den Hato
---Script by mercury233
 function c92200612.initial_effect(c)
 	--spirit return
 	aux.EnableSpiritReturn(c,EVENT_SUMMON_SUCCESS,EVENT_FLIP)

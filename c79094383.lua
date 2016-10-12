@@ -1,6 +1,4 @@
 --光波異邦臣
---Cipher Stranger
---Script by nekrozar
 function c79094383.initial_effect(c)
 	--material
 	local e1=Effect.CreateEffect(c)

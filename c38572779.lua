@@ -1,6 +1,4 @@
 --幻創のミセラサウルス
---Phantasmal Miserasaurus
---Script by nekrozar
 function c38572779.initial_effect(c)
 	--immune
 	local e1=Effect.CreateEffect(c)

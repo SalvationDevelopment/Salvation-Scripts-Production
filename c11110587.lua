@@ -1,6 +1,4 @@
 --隣の芝刈り
---Lawnmowing Next Door
---Script by nekrozar
 function c11110587.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --SR－OMKガム
---Speedroid OMK Gum
---Script by nekrozar
 function c70939418.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

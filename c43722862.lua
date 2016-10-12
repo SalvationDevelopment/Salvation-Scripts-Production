@@ -1,6 +1,4 @@
 --WW－アイス・ベル
---Wind Witch - Ice Bell
---Script by nekrozar
 function c43722862.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

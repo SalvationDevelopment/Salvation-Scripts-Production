@@ -1,6 +1,4 @@
 --霊獣の誓還
---Promised Return of the Ritual Beast
---Script by nekrozar
 function c8321183.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

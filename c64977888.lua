@@ -1,6 +1,4 @@
 --見習い魔笛使い
---Apprentice Piper
---Script by mercury233
 function c64977888.initial_effect(c)
 	--flip
 	local e1=Effect.CreateEffect(c)

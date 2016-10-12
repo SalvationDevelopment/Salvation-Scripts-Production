@@ -1,6 +1,4 @@
 --水晶機巧－リオン
---Crystron Rion
---Script by dest
 function c66938505.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

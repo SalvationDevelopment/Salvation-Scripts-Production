@@ -1,6 +1,4 @@
 --古代の機械混沌巨人
---Ancient Gear Chaos Giant
---Script by nekrozar
 function c51788412.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

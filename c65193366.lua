@@ -1,6 +1,4 @@
 --精霊獣使い ウィンダ
---Spiritual Beast Tamer Winda
---Script by nekrozar
 function c65193366.initial_effect(c)
 	c:SetSPSummonOnce(65193366)
 	--special summon

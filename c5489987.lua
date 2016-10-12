@@ -1,6 +1,4 @@
 --花札衛－桜に幕－
---Flower Cardian Cherry Blossom with Curtain
---Script by mercury233
 function c5489987.initial_effect(c)
 	c:EnableReviveLimit()
 	--draw

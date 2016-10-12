@@ -1,6 +1,4 @@
 --不知火流 輪廻の陣
---Shiranui Style Reincarnation
---Script by nekrozar
 function c78765160.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

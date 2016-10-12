@@ -1,6 +1,4 @@
 --霊魂の拠所
---Esprit Powerspot
---Script by nekrozar
 function c9553721.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

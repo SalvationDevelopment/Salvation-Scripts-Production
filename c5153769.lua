@@ -1,6 +1,4 @@
 --マジェスペクター・ガスト
---Majespecter Gust
---Script by nekrozar
 function c5153769.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --十二獣の会局
---Juunishishi no Kaikyoku
---Script by nekrozar
 function c46060017.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

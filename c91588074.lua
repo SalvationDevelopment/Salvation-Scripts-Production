@@ -1,6 +1,4 @@
 --創星神 tierra
---Tierra, Goddess of Rebirth
---Script by nekrozar
 function c91588074.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon

@@ -1,6 +1,4 @@
 --霊魂の降神
---Esprit Calling
---Script by dest
 function c73055622.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --混沌の使者
---Envoy of Chaos
---Script by nekrozar
 function c38695361.initial_effect(c)
 	--atkup
 	local e1=Effect.CreateEffect(c)

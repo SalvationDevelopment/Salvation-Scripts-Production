@@ -1,6 +1,4 @@
 --霊魂鳥－忍鴉
---Esprit Bird - Shinobi Garasu
---Script by mercury233
 function c39817919.initial_effect(c)
 	--spirit return
 	aux.EnableSpiritReturn(c,EVENT_SUMMON_SUCCESS,EVENT_FLIP)

@@ -1,6 +1,4 @@
 --十二獣ドランシア
---Juunishishi Drancia
---Script by nekrozar
 function c48905153.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,4,c48905153.ovfilter,aux.Stringid(48905153,0),4,c48905153.xyzop)

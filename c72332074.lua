@@ -1,6 +1,4 @@
 --超量必殺アルファンボール
---Super Quantal Finisher Alphan Ball
---Script by nekrozar
 function c72332074.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

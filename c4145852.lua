@@ -1,6 +1,4 @@
 --十二獣ラム
---Juunishishi Ram
---Script by mercury233
 --The "get effect" effect is temporary
 function c4145852.initial_effect(c)
 	--spsummon

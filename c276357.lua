@@ -1,6 +1,4 @@
 --霊魂の円環
---Esprit Healing
---Script by dest
 function c276357.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

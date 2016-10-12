@@ -1,6 +1,4 @@
 --覇王烈竜オッドアイズ・レイジング・ドラゴン 
---Odd-Eyes Raging Dragon
---Script by nekrozar
 function c86238081.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),7,2)

@@ -1,6 +1,4 @@
 --光波分光
---Cipher Spectrum
---Scripted by Eerie Code
 function c98905.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

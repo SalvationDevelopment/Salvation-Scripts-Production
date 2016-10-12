@@ -1,6 +1,4 @@
 --水晶機巧－サルファフナー
---Crystron Sulphafnir
---Script by dest
 function c3422200.initial_effect(c)
 	--special summon (hand/grave)
 	local e1=Effect.CreateEffect(c)

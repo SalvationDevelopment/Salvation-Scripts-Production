@@ -1,6 +1,4 @@
 --水晶機巧－グリオンガンド
---Crystron Glyongandr
---Script by nekrozar
 --Effect is not fully implemented
 function c13455674.initial_effect(c)
 	c:EnableReviveLimit()

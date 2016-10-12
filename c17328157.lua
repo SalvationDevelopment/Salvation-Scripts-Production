@@ -1,6 +1,4 @@
 --SRバンブー・ホース
---Speedroid Bamboo Horse
---Script by nekrozar
 function c17328157.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --EMリターンタンタン
---Performapal Return Tantan
---Script by nekrozar
 function c81055000.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)

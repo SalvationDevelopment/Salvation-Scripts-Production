@@ -1,6 +1,4 @@
 --古代の機械魔神
---Ancient Gear Devil
---Script by dest
 function c87182127.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

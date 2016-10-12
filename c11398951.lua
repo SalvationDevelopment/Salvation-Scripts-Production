@@ -1,6 +1,4 @@
 --機械天使の絶対儀式
---Machine Angel Absolute Ritual
---Script by mercury233
 function c11398951.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

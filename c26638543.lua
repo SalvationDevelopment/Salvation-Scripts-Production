@@ -1,6 +1,4 @@
 --メトロンノーム
---Metrognome
---Script by nekrozar
 function c26638543.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
