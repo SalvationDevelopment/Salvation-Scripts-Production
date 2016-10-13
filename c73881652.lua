@@ -29,7 +29,7 @@ function c73881652.matfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xf1)
 end
 function c73881652.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c73881652.filter(chkc) end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c73881652.tgfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c73881652.tgfilter,tp,LOCATION_MZONE,0,1,nil)
 		and Duel.IsExistingMatchingCard(c73881652.matfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
@@ -39,10 +39,9 @@ function c73881652.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-		local g=Duel.GetMatchingGroup(c73881652.matfilter,tp,LOCATION_DECK,0,nil)
+		local g=Duel.SelectMatchingCard(tp,c73881652.matfilter,tp,LOCATION_DECK,0,1,1,nil)
 		if g:GetCount()>0 then
-			local og=g:Select(tp,1,1,nil)
-			Duel.Overlay(tc,og)
+			Duel.Overlay(tc,g)
 		end
 	end
 end
@@ -50,12 +49,12 @@ function c73881652.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
-function c73881652.drfilter(c)
-	return c:IsSetCard(0xf1) and c:IsAbleToDeck()
+function c73881652.drfilter(c,e)
+	return c:IsSetCard(0xf1) and c:IsAbleToDeck() and c:IsCanBeEffectTarget(e)
 end
 function c73881652.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	local g=Duel.GetMatchingGroup(c73881652.drfilter,tp,LOCATION_GRAVE,0,e:GetHandler())
+	local g=Duel.GetMatchingGroup(c73881652.drfilter,tp,LOCATION_GRAVE,0,e:GetHandler(),e)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1)
 		and g:GetClassCount(Card.GetCode)>4 end
 	local sg=Group.CreateGroup()
