@@ -49,7 +49,7 @@ function c100406034.efilter(e,ct)
 	local p=e:GetHandlerPlayer()
 	local te,tp=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER)
 	local tc=te:GetHandler()
-	return p==tp and te:IsHasCategory(CATEGORY_FUSION_SUMMON)
+	return p==tp
 end
 function c100406034.limfilter(c,tp)
 	return c:GetSummonPlayer()==tp and bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
