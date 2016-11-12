@@ -39,10 +39,10 @@ function c100406013.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c100406013.cfilter,1,nil)
 end
 function c100406013.thfilter(c)
-	return c:IsSetCard(0x1f3) and c:IsAbleToHand()
+	return (c:IsSetCard(0x1f3) or c:IsCode(96622984,22011689,69105797)) and c:IsAbleToHand()
 end
 function c100406013.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c100406013.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c100406013.thop(e,tp,eg,ep,ev,re,r,rp)
@@ -58,14 +58,14 @@ function c100406013.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c100406013.spfilter1(c,e)
-	return c:IsCanBeFusionMaterial() and c:IsSetCard(0x11f3) and not c:IsImmuneToEffect(e)
+	return c:IsCanBeFusionMaterial() and (c:IsSetCard(0x11f3) or c:IsCode(96622984,22011689,69105797)) and not c:IsImmuneToEffect(e)
 end
 function c100406013.spfilter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c100406013.spfilter3(c)
-	return c:IsCanBeFusionMaterial() and c:IsSetCard(0x11f3)
+	return c:IsCanBeFusionMaterial() and (c:IsSetCard(0x11f3) or c:IsCode(96622984,22011689,69105797))
 end
 function c100406013.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

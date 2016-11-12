@@ -58,7 +58,7 @@ end
 function c100406001.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=Duel.GetAttacker()
 	if tc==e:GetHandler() then tc=Duel.GetAttackTarget() end
-	if chk==0 then return tc and not tc:IsStatus(STATUS_BATTLE_DESTROYED) and tc:IsRelateToBattle() end
+	if chk==0 then return tc and tc:IsRelateToBattle() end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
 end
 function c100406001.desop(e,tp,eg,ep,ev,re,r,rp)
@@ -73,7 +73,7 @@ function c100406001.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c100406001.thfilter(c)
-	return c:IsSetCard(0x1f3) and c:IsAbleToHand() and not c:IsCode(100406001)
+	return (c:IsSetCard(0x1f3) or c:IsCode(96622984,22011689,69105797)) and c:IsAbleToHand() and not c:IsCode(100406001)
 end
 function c100406001.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c100406001.thfilter,tp,LOCATION_DECK,0,1,nil) end

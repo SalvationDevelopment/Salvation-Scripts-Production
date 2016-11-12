@@ -49,11 +49,11 @@ function c100406004.lvcon(e)
 end
 function c100406004.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local bc=e:GetHandler():GetBattleTarget()
+	local bc=c:GetBattleTarget()
 	return bc and bc:IsLevelBelow(c:GetLevel()) and bc:IsStatus(STATUS_OPPO_BATTLE) and bc:IsRelateToBattle()
 end
 function c100406004.spfilter(c,e,tp)
-	return c:IsSetCard(0x11f3) and not c:IsCode(100406004) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsSetCard(0x11f3) or c:IsCode(96622984,22011689,69105797)) and not c:IsCode(100406004) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c100406004.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
