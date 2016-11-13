@@ -1,6 +1,4 @@
 --暴走魔法陣
---Reckless Magic Circle
---Script by nekrozar
 function c47679935.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -49,7 +47,7 @@ function c47679935.efilter(e,ct)
 	local p=e:GetHandlerPlayer()
 	local te,tp=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER)
 	local tc=te:GetHandler()
-	return p==tp
+	return p==tp and te:IsHasCategory(CATEGORY_FUSION_SUMMON)
 end
 function c47679935.limfilter(c,tp)
 	return c:GetSummonPlayer()==tp and bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION

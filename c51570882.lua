@@ -1,6 +1,4 @@
 --グリーディー・ヴェノム ・フュージョン・ドラゴン 
---Greedy Venom Fusion Dragon
---Script by nekrozar
 function c51570882.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

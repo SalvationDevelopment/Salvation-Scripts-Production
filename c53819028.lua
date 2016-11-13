@@ -1,6 +1,4 @@
 --捕食植物セラセニアント
---Predator Plant Sarraceniant
---Script by nekrozar
 function c53819028.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

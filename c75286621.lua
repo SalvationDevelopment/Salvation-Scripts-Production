@@ -1,6 +1,4 @@
 --召喚獣メルカバー
---Merkabah the Eidolon Beast
---Script by nekrozar
 function c75286621.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

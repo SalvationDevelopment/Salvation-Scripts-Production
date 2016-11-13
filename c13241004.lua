@@ -1,6 +1,4 @@
 --ファーニマル・ペンギン
---Fluffal Penguin
---Script by nekrozar
 function c13241004.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

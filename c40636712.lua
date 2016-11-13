@@ -1,6 +1,4 @@
 --デストーイ・ハーケン・クラーケン
---Frightfur Kraken
---Script by dest
 function c40636712.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

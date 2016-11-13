@@ -1,6 +1,4 @@
 --召喚獣エリュシオン
---Elysion the Eidolon Beast
---Script by nekrozar
 function c11270236.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

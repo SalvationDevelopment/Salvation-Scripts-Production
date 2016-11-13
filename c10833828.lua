@@ -18,7 +18,7 @@ function c10833828.initial_effect(c)
 	--spsummon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(10833828,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCountLimit(1)
@@ -140,15 +140,6 @@ function c10833828.spop2(e,tp,eg,ep,ev,re,r,rp)
 			fop(ce,e,tp,tc,mat2)
 		end
 		tc:CompleteProcedure()
-	else
-		local cg1=Duel.GetFieldGroup(tp,LOCATION_HAND+LOCATION_MZONE,0)
-		local cg2=Duel.GetFieldGroup(tp,LOCATION_EXTRA,0)
-		if cg1:GetCount()>1 and cg2:IsExists(Card.IsFacedown,1,nil)
-			and Duel.IsPlayerCanSpecialSummon(tp) and not Duel.IsPlayerAffectedByEffect(tp,27581098) then
-			Duel.ConfirmCards(1-tp,cg1)
-			Duel.ConfirmCards(1-tp,cg2)
-			Duel.ShuffleHand(tp)
-		end
 	end
 end
 function c10833828.damcon(e,tp,eg,ep,ev,re,r,rp)

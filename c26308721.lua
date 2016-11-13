@@ -1,6 +1,4 @@
 --捕食植物プテロペンテス 
---Predator Plant Pteropenthes
---Script by nekrozar
 function c26308721.initial_effect(c)
 	--counter
 	local e1=Effect.CreateEffect(c)

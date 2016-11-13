@@ -1,6 +1,4 @@
 --召喚獣カリギュラ
---Caligula the Eidolon Beast
---Script by nekrozar
 function c13529466.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

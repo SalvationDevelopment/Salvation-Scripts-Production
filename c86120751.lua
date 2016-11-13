@@ -1,6 +1,4 @@
 --召喚師アレイスター
---Raideen the Eidolon Beast
---Script by nekrozar
 function c86120751.initial_effect(c)
 	--boost
 	local e1=Effect.CreateEffect(c)

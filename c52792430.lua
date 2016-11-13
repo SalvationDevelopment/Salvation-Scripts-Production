@@ -1,6 +1,4 @@
 --捕食植物スピノ・ディオネア
---Predator Plant Spino Dionaea
---Script by nekrozar
 function c52792430.initial_effect(c)
 	--tograve
 	local e1=Effect.CreateEffect(c)

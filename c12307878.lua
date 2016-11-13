@@ -1,6 +1,4 @@
 --召喚獣プルガトリオ
---Purgatorio the Eidolon Beast
---Script by nekrozar
 function c12307878.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

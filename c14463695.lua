@@ -1,6 +1,4 @@
 --捕食接ぎ木
---Predator Graft
---Script by nekrozar
 function c14463695.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

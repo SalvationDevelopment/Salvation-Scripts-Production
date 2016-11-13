@@ -1,6 +1,4 @@
 --ファーニマル・オクト
---Fluffal Octo
---Script by dest
 function c87246309.initial_effect(c)
 	--tohand
 	local e1=Effect.CreateEffect(c)

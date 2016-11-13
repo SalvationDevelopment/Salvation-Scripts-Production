@@ -1,7 +1,5 @@
 --捕食植物サンデウ・キンジー
---Predator Plant Sundew Kingii
---Scripted by Eerie Code
---The 'fusattribute' effect is temporary, requires a core update for full functionality
+--The 'EFFECT_CHANGE_FUSION_ATTRIBUTE' effect is temporary
 function c89181134.initial_effect(c)
 	--fusattribute
 	local e1=Effect.CreateEffect(c)

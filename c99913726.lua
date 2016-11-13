@@ -1,6 +1,4 @@
 --捕食植物ドロソフィルム・ヒドラ
---Predator Plant Drosophyllum Hydra
---Script by nekrozar
 function c99913726.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

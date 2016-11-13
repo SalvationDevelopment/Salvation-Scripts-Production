@@ -1,6 +1,4 @@
 --召喚獣ライディーン
---Raideen the Eidolon Beast
---Script by nekrozar
 function c49513164.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

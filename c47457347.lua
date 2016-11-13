@@ -1,6 +1,4 @@
 --魔法名－「大いなる獣」
---Magical Name - "Great Beast"
---Script by nekrozar
 function c47457347.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

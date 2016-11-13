@@ -1,6 +1,4 @@
 --召喚獣メガラニカ
---Magallanica the Eidolon Beast
---Script by nekrozar
 function c48791583.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()

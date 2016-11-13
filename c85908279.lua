@@ -1,6 +1,4 @@
 --召喚獣コキュートス
---Kokytos the Eidolon Beast
---Script by nekrozar
 function c85908279.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
