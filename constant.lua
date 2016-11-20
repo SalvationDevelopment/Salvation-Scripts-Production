@@ -234,6 +234,7 @@ EFFECT_TYPE_QUICK_O			=0x0100		--诱发即时效果
 EFFECT_TYPE_TRIGGER_F		=0x0200		--诱发必发效果
 EFFECT_TYPE_QUICK_F			=0x0400		--诱发即时必发效果（熊猫龙等）
 EFFECT_TYPE_CONTINUOUS		=0x0800		--由事件觸發的輔助用效果/永續效果
+EFFECT_TYPE_XMATERIAL		=0x1000		--
 --========== Flags ==========	--效果的特殊性质
 EFFECT_FLAG_INITIAL			=0x0001		--可以发动的
 EFFECT_FLAG_FUNC_VALUE		=0x0002		--此效果的Value属性是函数
@@ -493,6 +494,9 @@ EFFECT_PATRICIAN_OF_DARKNESS	=345	--由對手選擇攻擊對象(黑暗貴族)
 EFFECT_EXTRA_ATTACK_MONSTER		=346	--對怪獸攻擊X次
 EFFECT_UNION_STATUS				=347	--同盟状态
 EFFECT_OLDUNION_STATUS			=348	--旧同盟状态
+EFFECT_ADD_FUSION_ATTRIBUTE		=349	--reserve
+EFFECT_REMOVE_FUSION_ATTRIBUTE	=350	--reserve
+EFFECT_CHANGE_FUSION_ATTRIBUTE	=351	--用作融合素材时的属性
 
 --下面是诱发效果的诱发事件、时点 （如果是TYPE_SINGLE则自己发生以下事件后触发，如果TYPE_FIELD则场上任何卡发生以下事件都触发）
 EVENT_STARTUP					=1000	--游戏开始时
