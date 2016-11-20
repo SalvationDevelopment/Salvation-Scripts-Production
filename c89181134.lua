@@ -1,13 +1,20 @@
 --捕食植物サンデウ・キンジー
+--Predator Plant Sundew Kingii
+--Scripted by Eerie Code
+--The 'fusattribute' effect is temporary, requires a core update for full functionality
 function c89181134.initial_effect(c)
 	--fusattribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_CHANGE_FUSION_ATTRIBUTE)
+	if EFFECT_CHANGE_FUSION_ATTRIBUTE then
+		e1:SetCode(EFFECT_CHANGE_FUSION_ATTRIBUTE)
+	else
+		e1:SetCode(EFFECT_CHANGE_ATTRIBUTE)
+	end
+	e1:SetValue(ATTRIBUTE_DARK)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e1:SetTarget(c89181134.attrtg)
-	e1:SetValue(c89181134.attrval)
 	c:RegisterEffect(e1)
 	--fusion summon
 	local e2=Effect.CreateEffect(c)
@@ -22,11 +29,6 @@ function c89181134.initial_effect(c)
 end
 function c89181134.attrtg(e,c)
 	return c:GetCounter(0x1041)>0
-end
-function c89181134.attrval(e,c,rp)
-	if rp==e:GetHandlerPlayer() then
-		return ATTRIBUTE_DARK
-	else return c:GetAttribute() end
 end
 function c89181134.filter0(c,tp)
 	return c:IsCanBeFusionMaterial() and (c:IsControler(tp) or (c:IsFaceup() and c:GetCounter(0x1041)>0))
