@@ -50,12 +50,12 @@ function c100912017.ndcfilter(c)
 	return c:IsFaceup() and c:IsCode(100912039)
 end
 function c100912017.ndcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c100912017.ndcfilter,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(c100912017.ndcfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c100912017.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local seq=e:GetHandler():GetSequence()
 	local pc=Duel.GetFieldCard(tp,LOCATION_SZONE,13-seq)
-	return pc and pc:IsCode(100912017)
+	return pc and pc:IsCode(100912018)
 end
 function c100912017.thfilter(c)
 	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x46) and c:IsAbleToHand()
@@ -72,7 +72,7 @@ function c100912017.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local pc=Duel.GetFieldCard(tp,LOCATION_SZONE,13-c:GetSequence())
-	if not pc:IsRelateToEffect(e) then return end
+	if not pc then return end
 	local g=Group.FromCards(c,pc)
 	if Duel.Destroy(g,REASON_EFFECT)==2 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
@@ -88,7 +88,7 @@ function c100912017.spfilter(c,e,tp)
 end
 function c100912017.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
-	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(tp) and chkc:IsFaceup() and chkc~=c end
+	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and chkc:IsFaceup() and chkc~=c end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_ONFIELD,0,1,c)
 		and Duel.IsExistingMatchingCard(c100912017.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
@@ -134,8 +134,9 @@ function c100912017.spop(e,tp,eg,ep,ev,re,r,rp)
 			sc:RegisterEffect(e5,true)
 			local e6=e5:Clone()
 			e6:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
-			sc:RegisterEffect(e6,true)				
+			sc:RegisterEffect(e6,true)
 		end
+		Duel.SpecialSummonComplete()
 	end
 end
 function c100912017.pencon(e,tp,eg,ep,ev,re,r,rp)
