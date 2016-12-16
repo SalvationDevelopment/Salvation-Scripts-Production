@@ -42,7 +42,7 @@ function c57543573.accon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c57543573.filter2,1,nil,tp)
 end
 function c57543573.filter3(c,tp)
-	return c:IsControler(tp) and c:IsFacedown()
+	return c:IsControler(tp) and not c:IsFaceup()
 end
 function c57543573.accon3(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c57543573.filter3,1,nil,tp)

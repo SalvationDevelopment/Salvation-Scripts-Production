@@ -48,7 +48,7 @@ end
 function c59255742.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
+	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
 	return bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
 end
 function c59255742.spcon2(e,tp,eg,ep,ev,re,r,rp)

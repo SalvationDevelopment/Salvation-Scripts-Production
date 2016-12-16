@@ -24,7 +24,7 @@ function c23274061.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function c23274061.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
-	if tc:IsFacedown() or not tc:IsRelateToBattle() then return end
+	if not tc:IsFaceup() or not tc:IsRelateToBattle() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_DISABLE)

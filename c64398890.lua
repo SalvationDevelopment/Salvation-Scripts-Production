@@ -39,7 +39,7 @@ function c64398890.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RegisterEffect(e1)
 end
 function c64398890.desfilter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c64398890.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c64398890.desfilter(chkc) end
@@ -51,7 +51,7 @@ end
 function c64398890.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if not Duel.IsExistingMatchingCard(c64398890.cfilter,tp,LOCATION_MZONE,0,1,nil) then return end
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

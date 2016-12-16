@@ -30,7 +30,7 @@ function c218.activate(e,tp,eg,ep,ev,re,r,rp)
 		bc=Duel.GetAttacker()		
 	end
 	local atk=bc:GetAttack()
-	if not tc:IsRelateToBattle() or tc:IsFacedown() then return end
+	if not tc:IsRelateToBattle() or not tc:IsFaceup() then return end
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)

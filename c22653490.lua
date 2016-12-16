@@ -30,7 +30,7 @@ function c22653490.tdcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_XYZ
 end
 function c22653490.tdfilter1(c)
-	return c:IsFacedown() and c:IsAbleToDeck()
+	return not c:IsFaceup() and c:IsAbleToDeck()
 end
 function c22653490.tdtg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and c22653490.tdfilter1(chkc) end
@@ -41,7 +41,7 @@ function c22653490.tdtg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c22653490.tdop1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsControler(1-tp) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and tc:IsControler(1-tp) and not tc:IsFaceup() then
 		Duel.SendtoDeck(tc,nil,1,REASON_EFFECT)
 	end
 end

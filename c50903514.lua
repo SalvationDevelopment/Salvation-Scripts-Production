@@ -44,8 +44,8 @@ end
 function c50903514.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsFacedown() or not c:IsRelateToEffect(e) or c:GetAttack()<600
-		or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
+	if not c:IsFaceup() or not c:IsRelateToEffect(e) or c:GetAttack()<600
+		or not tc:IsFaceup() or not tc:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)

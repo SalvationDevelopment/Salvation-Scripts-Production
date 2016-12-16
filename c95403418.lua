@@ -46,7 +46,7 @@ function c95403418.initial_effect(c)
 end
 function c95403418.aclimit(e,re,tp)
 	local rc=re:GetHandler()
-	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and rc:IsLocation(LOCATION_SZONE) and rc:IsFacedown()
+	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and rc:IsLocation(LOCATION_SZONE) and rnot c:IsFaceup()
 end
 function c95403418.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x80) and c:IsAbleToGraveAsCost()

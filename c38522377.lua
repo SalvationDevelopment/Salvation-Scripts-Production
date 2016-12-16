@@ -52,7 +52,7 @@ function c38522377.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c38522377.atkfilter,nil,e)
 	Duel.SendtoGrave(g,REASON_EFFECT)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	local og=Duel.GetOperatedGroup()
 	local tc=og:GetFirst()
 	local atk=0

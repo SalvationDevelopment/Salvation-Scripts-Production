@@ -66,7 +66,7 @@ function c82962242.eqop(e,tp,eg,ep,ev,re,r,rp)
 	if not tc:IsRelateToEffect(e) or not tc:IsType(TYPE_MONSTER) then return end
 	if c:IsFaceup() and c:IsRelateToEffect(e) then
 		local atk=tc:GetTextAttack()
-		if tc:IsFacedown() or atk<0 then atk=0 end
+		if not tc:IsFaceup() or atk<0 then atk=0 end
 		if Duel.Equip(tp,tc,c)==0 then return end
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_EQUIP)

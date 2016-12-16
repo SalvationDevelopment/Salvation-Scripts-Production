@@ -119,7 +119,7 @@ function c17032740.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c17032740.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	Duel.SendtoDeck(c,nil,2,REASON_EFFECT)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	Duel.ChangePosition(g,POS_FACEDOWN_DEFENSE)

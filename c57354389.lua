@@ -13,7 +13,7 @@ function c57354389.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c57354389.cfilter(c)
-	return c:IsFacedown() or not c:IsRace(RACE_ROCK)
+	return not c:IsFaceup() or not c:IsRace(RACE_ROCK)
 end
 function c57354389.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>0

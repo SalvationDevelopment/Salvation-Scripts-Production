@@ -59,7 +59,7 @@ function c68597372.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c68597372.flipcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
-	return tc:IsFacedown() and tc:GetFlagEffect(68597372)~=0
+	return not tc:IsFaceup() and tc:GetFlagEffect(68597372)~=0
 end
 function c68597372.flipop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()

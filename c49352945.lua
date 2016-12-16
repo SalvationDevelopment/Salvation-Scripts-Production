@@ -127,7 +127,7 @@ function c49352945.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c49352945.retop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	Duel.SendtoDeck(c,nil,2,REASON_EFFECT)
 	if c:IsLocation(LOCATION_EXTRA) then
 		Duel.RaiseSingleEvent(c,EVENT_CUSTOM+49352945,e,0,0,0,0)

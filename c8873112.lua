@@ -54,7 +54,7 @@ function c8873112.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return ex and tg~=nil and tc+tg:FilterCount(c8873112.cfilter,nil,tp)-tg:GetCount()>0
 end
 function c8873112.filter(c)
-	return c:IsFacedown() and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHandAsCost()
+	return not c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHandAsCost()
 end
 function c8873112.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c8873112.filter,tp,LOCATION_SZONE,0,1,nil) end

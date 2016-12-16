@@ -42,7 +42,7 @@ function c22617205.filter1(c)
 		and (c:IsSetCard(0x9c) or c:IsSetCard(0xc4))
 end
 function c22617205.filter2(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c22617205.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

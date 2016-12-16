@@ -34,5 +34,5 @@ function c50527144.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c50527144.tgfilter(e,c)
-	return (c:IsFaceup() and c:IsSetCard(0x8d)) or (c:IsFacedown() and c:IsLocation(LOCATION_MZONE))
+	return (c:IsFaceup() and c:IsSetCard(0x8d)) or (not c:IsFaceup() and c:IsLocation(LOCATION_MZONE))
 end

@@ -46,7 +46,7 @@ function c13293158.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 function c13293158.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c13293158.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

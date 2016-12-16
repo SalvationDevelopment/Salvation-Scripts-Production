@@ -13,7 +13,7 @@ function c58475908.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c58475908.filter(c)
-	return c:IsFacedown() and c:IsAbleToHand()
+	return not c:IsFaceup() and c:IsAbleToHand()
 end
 function c58475908.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c58475908.filter(chkc) end
@@ -24,7 +24,7 @@ function c58475908.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c58475908.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if tc and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end

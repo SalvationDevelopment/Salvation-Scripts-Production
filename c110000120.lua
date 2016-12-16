@@ -49,7 +49,7 @@ function c110000120.pbop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
         local se=e:GetHandler()
         local num=tc:GetAttack()/2
-	if not tc:IsRelateToBattle() or tc:IsFacedown() then return end
+	if not tc:IsRelateToBattle() or not tc:IsFaceup() then return end
 	Duel.Destroy(tc,REASON_EFFECT)
         Duel.Destroy(se,REASON_EFFECT)
         Duel.Damage(1-tp,num,REASON_EFFECT)

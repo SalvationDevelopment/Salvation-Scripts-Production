@@ -88,7 +88,7 @@ function c81927732.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		local dam=tc:GetAttack()/2
-		if dam<0 or tc:IsFacedown() then dam=0 end
+		if dam<0 or not tc:IsFaceup() then dam=0 end
 		if Duel.Destroy(tc,REASON_EFFECT)~=0 then
 			Duel.Damage(1-tp,dam,REASON_EFFECT)
 		end

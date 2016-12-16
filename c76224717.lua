@@ -48,7 +48,7 @@ function c76224717.clear(e,tp,eg,ep,ev,re,r,rp)
 	c76224717[1]=0
 end
 function c76224717.filter1(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c76224717.filter2(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAbleToHand()

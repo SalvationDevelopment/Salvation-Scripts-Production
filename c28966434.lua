@@ -41,6 +41,6 @@ function c28966434.desop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(-3)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
 	c1:RegisterEffect(e1)
-	if tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
+	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) then return end
 	Duel.Destroy(tc,REASON_EFFECT)
 end

@@ -16,7 +16,7 @@ function c71106375.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsRelateToBattle() and c:GetBattleTarget():IsType(TYPE_MONSTER)
 end
 function c71106375.filter(c)
-	return c:IsFacedown() and c:IsAbleToHand()
+	return not c:IsFaceup() and c:IsAbleToHand()
 end
 function c71106375.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and c71106375.filter(chkc) end
@@ -27,7 +27,7 @@ function c71106375.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c71106375.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end

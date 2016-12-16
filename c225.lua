@@ -29,7 +29,7 @@ function c225.poscon(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c225.tgfilter(c)
-	return c:IsDefensePos() and c:IsFacedown()
+	return c:IsDefensePos() and not c:IsFaceup()
 end
 
 function c225.postg(e,tp,eg,ep,ev,re,r,rp,chk)

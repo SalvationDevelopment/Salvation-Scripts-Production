@@ -26,8 +26,8 @@ end
 function c29071332.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
-	if not tc:IsRelateToEffect(e) or tc:IsFacedown() then
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
+	if not tc:IsRelateToEffect(e) or not tc:IsFaceup() then
 		Duel.SendtoGrave(c,REASON_EFFECT)
 		return
 	end

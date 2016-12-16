@@ -16,7 +16,7 @@ function c20351153.descon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)<=1 and Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0
 end
 function c20351153.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c20351153.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c20351153.filter(chkc) end
@@ -27,7 +27,7 @@ function c20351153.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c20351153.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

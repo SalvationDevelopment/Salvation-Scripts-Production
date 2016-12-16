@@ -57,5 +57,5 @@ function c60627999.sdescon(e)
 	return Duel.IsExistingMatchingCard(Card.IsType,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,e:GetHandler(),TYPE_SPELL+TYPE_TRAP)
 end
 function c60627999.acttg(e,c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end

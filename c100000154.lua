@@ -115,8 +115,8 @@ function c100000154.eqop(e,tp,eg,ep,ev,re,r,rp)
 		if c:IsFaceup() and c:IsRelateToEffect(e) then
 			local atk=tc:GetTextAttack()
 			local def=tc:GetTextDefense()
-			if tc:IsFacedown() or atk<0 then atk=0 end
-			if tc:IsFacedown() or def<0 then def=0 end
+			if not tc:IsFaceup() or atk<0 then atk=0 end
+			if not tc:IsFaceup() or def<0 then def=0 end
 			if not Duel.Equip(tp,tc,c,false) then return end
 			--Add Equip limit
 			tc:RegisterFlagEffect(100000154,RESET_EVENT+0x1fe0000,0,0)

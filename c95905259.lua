@@ -12,7 +12,7 @@ function c95905259.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c95905259.filter(c)
-	return c:GetSequence()~=5 and c:IsFacedown()
+	return c:GetSequence()~=5 and not c:IsFaceup()
 end
 function c95905259.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_SZONE) and c95905259.filter(chkc) end
@@ -26,7 +26,7 @@ end
 function c95905259.operation(e,tp,eg,ep,ev,re,r,rp)
 	local res=e:GetLabel()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 		if (res==0 and tc:IsType(TYPE_SPELL)) or (res==1 and tc:IsType(TYPE_TRAP)) then
 			local e1=Effect.CreateEffect(e:GetHandler())

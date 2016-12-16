@@ -33,7 +33,7 @@ function c94997874.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c94997874.postg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFacedown() end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and not chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFacedown,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)

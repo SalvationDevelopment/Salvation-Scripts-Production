@@ -32,7 +32,7 @@ function c2091298.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c2091298.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()
-	if not tc:IsRelateToBattle() or tc:IsFacedown() then return end
+	if not tc:IsRelateToBattle() or not tc:IsFaceup() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 	e1:SetType(EFFECT_TYPE_SINGLE)

@@ -19,7 +19,7 @@ function c14225239.initial_effect(c)
 end
 c14225239.material_setcode=0x8
 function c14225239.filter(c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end
 function c14225239.dacon(e)
 	return Duel.IsExistingMatchingCard(c14225239.filter,e:GetHandlerPlayer(),LOCATION_SZONE,0,1,nil)

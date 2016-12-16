@@ -12,7 +12,7 @@ end
 function c86049351.condition(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	local at=Duel.GetAttackTarget()
-	if not at or tc:IsFacedown() or at:IsFacedown() then return false end
+	if not at or not tc:IsFaceup() or at:IsFacedown() then return false end
 	if not tc:IsControler(tp) then tc=at end
 	e:SetLabelObject(tc)
 	return tc:IsControler(tp) and tc:IsLocation(LOCATION_MZONE) and tc:IsSetCard(0x84)

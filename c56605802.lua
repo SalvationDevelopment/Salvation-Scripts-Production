@@ -11,7 +11,7 @@ function c56605802.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c56605802.filter(c)
-	return c:IsFacedown() and c:IsAbleToDeck()
+	return not c:IsFaceup() and c:IsAbleToDeck()
 end
 function c56605802.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c56605802.filter(chkc) end

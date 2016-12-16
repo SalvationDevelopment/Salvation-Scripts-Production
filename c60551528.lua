@@ -82,7 +82,7 @@ function c60551528.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c60551528.tdfilter(c)
-	return c:IsFacedown() and c:IsAbleToDeck()
+	return not c:IsFaceup() and c:IsAbleToDeck()
 end
 function c60551528.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c60551528.tdfilter(chkc) end

@@ -25,7 +25,7 @@ function c35255456.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c35255456.cffilter(c)
-	return c:IsLocation(LOCATION_HAND) or (c:IsLocation(LOCATION_MZONE) and c:IsFacedown())
+	return c:IsLocation(LOCATION_HAND) or (c:IsLocation(LOCATION_MZONE) and not c:IsFaceup())
 end
 function c35255456.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp

@@ -46,7 +46,7 @@ function c5186893.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	if c==tc then tc=Duel.GetAttackTarget() end
 	e:SetLabelObject(tc)
-	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
+	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
 	return tc:IsLocation(LOCATION_GRAVE) and tc:IsRace(RACE_ZOMBIE)
 end
 function c5186893.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

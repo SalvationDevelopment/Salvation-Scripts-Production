@@ -31,7 +31,7 @@ function c91895091.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c91895091.filter(c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end
 function c91895091.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c91895091.filter(chkc) end
@@ -42,7 +42,7 @@ end
 function c91895091.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		c:SetCardTarget(tc)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

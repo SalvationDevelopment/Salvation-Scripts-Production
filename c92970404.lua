@@ -43,7 +43,7 @@ function c92970404.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c92970404.cfilter(c,tp)
-	return c:IsPreviousPosition(POS_FACEUP) and c:IsFacedown() and c:IsControler(tp)
+	return c:IsPreviousPosition(POS_FACEUP) and not c:IsFaceup() and c:IsControler(tp)
 end
 function c92970404.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c92970404.cfilter,1,nil,tp)

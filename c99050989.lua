@@ -8,7 +8,7 @@ function c99050989.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c99050989.filter(c)
-	return c:GetAttack()<1600 or c:IsFacedown()
+	return c:GetAttack()<1600 or not c:IsFaceup()
 end
 function c99050989.dircon(e)
 	local tp=e:GetHandlerPlayer()

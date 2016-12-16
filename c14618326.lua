@@ -11,7 +11,7 @@ function c14618326.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c14618326.filter(c)
-	return c:IsType(TYPE_TRAP) or (c:IsFacedown() and c:IsLocation(LOCATION_SZONE) and c:GetSequence()~=5)
+	return c:IsType(TYPE_TRAP) or (not c:IsFaceup() and c:IsLocation(LOCATION_SZONE) and c:GetSequence()~=5)
 end
 function c14618326.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c14618326.filter(chkc) end
@@ -25,7 +25,7 @@ end
 function c14618326.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
-		if tc:IsFacedown() then Duel.ConfirmCards(tp,tc) end
+		if not tc:IsFaceup() then Duel.ConfirmCards(tp,tc) end
 		if tc:IsType(TYPE_TRAP) then Duel.Destroy(tc,REASON_EFFECT) end
 	end
 end

@@ -10,14 +10,14 @@ function c57409948.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c57409948.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE) and chkc:IsFacedown() end
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE) and not chkc:IsFaceup() end
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_MZONE,1,1,nil)
 end
 function c57409948.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 		if tc:IsType(TYPE_EFFECT) then 
 			Duel.Destroy(tc,REASON_EFFECT)

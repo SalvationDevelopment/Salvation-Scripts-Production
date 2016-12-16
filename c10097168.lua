@@ -31,7 +31,7 @@ function c10097168.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_ADVANCE and e:GetLabel()==1
 end
 function c10097168.filter(c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end
 function c10097168.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) end
@@ -41,7 +41,7 @@ function c10097168.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c10097168.dfilter(c,e)
-	return c:IsRelateToEffect(e) and c:IsFacedown()
+	return c:IsRelateToEffect(e) and not c:IsFaceup()
 end
 function c10097168.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)

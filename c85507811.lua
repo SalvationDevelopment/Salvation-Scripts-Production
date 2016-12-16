@@ -137,7 +137,7 @@ function c85507811.desop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Destroy(tc,REASON_EFFECT)
 		local c=e:GetHandler()
-		if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+		if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
 		if tc:IsType(TYPE_MONSTER) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

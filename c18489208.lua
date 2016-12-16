@@ -15,7 +15,7 @@ function c18489208.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and e:GetHandler():IsReason(REASON_BATTLE)
 end
 function c18489208.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsFacedown() end
+	if chkc then return chkc:IsLocation(LOCATION_SZONE) and not chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFacedown,tp,LOCATION_SZONE,LOCATION_SZONE,2,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEDOWN)
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,LOCATION_SZONE,LOCATION_SZONE,2,2,nil)
@@ -26,7 +26,7 @@ function c18489208.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local tc=g:GetFirst()
 	while tc do
-		if c:IsRelateToEffect(e) and tc:IsFacedown() and tc:IsRelateToEffect(e) then
+		if c:IsRelateToEffect(e) and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 			c:SetCardTarget(tc)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

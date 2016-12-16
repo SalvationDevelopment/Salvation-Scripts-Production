@@ -12,7 +12,7 @@ function c97705809.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c97705809.cfilter(c)
-	return c:IsFacedown() or not c:IsSetCard(0x16) or not c:IsRace(RACE_MACHINE)
+	return not c:IsFaceup() or not c:IsSetCard(0x16) or not c:IsRace(RACE_MACHINE)
 end
 function c97705809.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)~=0

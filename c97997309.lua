@@ -59,7 +59,7 @@ function c97997309.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_EFFECT)
 end
 function c97997309.filter1(c)
-	return c:IsFacedown() and c:IsAbleToHand()
+	return not c:IsFaceup() and c:IsAbleToHand()
 end
 function c97997309.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c97997309.filter1,tp,LOCATION_SZONE,LOCATION_SZONE,1,e:GetHandler()) end

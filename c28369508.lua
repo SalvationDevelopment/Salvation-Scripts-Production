@@ -56,7 +56,7 @@ function c28369508.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c28369508.tgfilter(e,c)
-	return c:IsFacedown() and c:IsLocation(LOCATION_MZONE)
+	return not c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
 end
 function c28369508.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -28,7 +28,7 @@ function c92512625.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c92512625.cfilter(c)
-	return c:IsFacedown() and c:GetSequence()<5
+	return not c:IsFaceup() and c:GetSequence()<5
 end
 function c92512625.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentChain()==0

@@ -16,7 +16,7 @@ function c60229110.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_ADVANCE
 end
 function c60229110.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsFacedown() end
+	if chkc then return chkc:IsOnField() and not chkc:IsFaceup() end
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,Card.IsFacedown,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
@@ -24,7 +24,7 @@ function c60229110.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c60229110.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

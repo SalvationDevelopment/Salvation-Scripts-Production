@@ -87,7 +87,7 @@ function c99724761.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c99724761.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c99724761.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c99724761.filter(chkc) end
@@ -98,7 +98,7 @@ function c99724761.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c99724761.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

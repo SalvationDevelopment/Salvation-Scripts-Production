@@ -14,7 +14,7 @@ function c75392615.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,500)
 end
 function c75392615.filter(c)
-	return (c:IsOnField() and c:IsFacedown()) or (c:IsLocation(LOCATION_HAND) and not c:IsPublic())
+	return (c:IsOnField() and not c:IsFaceup()) or (c:IsLocation(LOCATION_HAND) and not c:IsPublic())
 end
 function c75392615.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c75392615.filter,tp,0,LOCATION_HAND+LOCATION_ONFIELD,1,nil) end

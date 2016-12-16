@@ -16,7 +16,7 @@ function c10925955.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c10925955.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c10925955.filter(c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end
 function c10925955.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>1

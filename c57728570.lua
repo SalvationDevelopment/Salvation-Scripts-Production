@@ -26,7 +26,7 @@ function c57728570.hgfilter(c)
 	return not c:IsPublic() or c57728570.filter(c)
 end
 function c57728570.fgfilter(c)
-	return c:IsFacedown() or c57728570.filter(c)
+	return not c:IsFaceup() or c57728570.filter(c)
 end
 function c57728570.tgfilter(c)
 	return ((c:IsLocation(LOCATION_HAND) and c:IsPublic()) or (c:IsLocation(LOCATION_MZONE) and c:IsFaceup())) and c57728570.filter(c)

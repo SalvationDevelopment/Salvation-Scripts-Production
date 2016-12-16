@@ -28,7 +28,7 @@ function c8041569.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c8041569.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c8041569.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c8041569.filter(chkc) end
@@ -39,7 +39,7 @@ function c8041569.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c8041569.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

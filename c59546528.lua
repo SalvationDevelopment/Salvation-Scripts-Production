@@ -24,7 +24,7 @@ function c59546528.cfilter2(c)
 	return c:IsSetCard(0x2f) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
 end
 function c59546528.filter(c)
-	return c:IsFacedown() and c:IsAbleToHand()
+	return not c:IsFaceup() and c:IsAbleToHand()
 end
 function c59546528.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c59546528.cfilter2,tp,LOCATION_HAND,0,1,nil) end

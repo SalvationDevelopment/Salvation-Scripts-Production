@@ -35,14 +35,14 @@ function c75367227.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c75367227.tg(e,c)
-	return c~=e:GetHandler() and (c:IsFacedown() or c:IsSetCard(0x8d))
+	return c~=e:GetHandler() and (not c:IsFaceup() or c:IsSetCard(0x8d))
 end
 function c75367227.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c75367227.desfilter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c75367227.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c75367227.desfilter(chkc) end
@@ -53,7 +53,7 @@ function c75367227.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c75367227.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

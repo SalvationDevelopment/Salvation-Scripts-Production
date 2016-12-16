@@ -11,7 +11,7 @@ function c9076207.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9076207.filter(c)
-	return c:IsFacedown() or c:IsType(TYPE_SPELL)
+	return not c:IsFaceup() or c:IsType(TYPE_SPELL)
 end
 function c9076207.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c9076207.filter(chkc) end
@@ -25,7 +25,7 @@ end
 function c9076207.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
-		if tc:IsFacedown() then Duel.ConfirmCards(tp,tc) end
+		if not tc:IsFaceup() then Duel.ConfirmCards(tp,tc) end
 		if tc:IsType(TYPE_SPELL) then Duel.Destroy(tc,REASON_EFFECT) end
 	end
 end

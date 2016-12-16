@@ -10,7 +10,7 @@ function c36468556.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c36468556.tgfilter(c)
-	return (c:IsFaceup() and c:IsType(TYPE_EFFECT)) or c:IsFacedown()
+	return (c:IsFaceup() and c:IsType(TYPE_EFFECT)) or not c:IsFaceup()
 end
 function c36468556.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_EFFECT)

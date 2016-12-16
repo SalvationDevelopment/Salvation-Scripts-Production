@@ -67,7 +67,7 @@ function c7241272.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c7241272.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsFacedown() or not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
+	if not c:IsFaceup() or not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
 	local mg1=Duel.GetMatchingGroup(c7241272.spfilter1,tp,LOCATION_MZONE,0,c,e)
 	local sg1=Duel.GetMatchingGroup(c7241272.spfilter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,c)
 	local mg2=nil

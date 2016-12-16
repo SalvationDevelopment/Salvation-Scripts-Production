@@ -47,7 +47,7 @@ function c706925.descon(e,tp,eg,ep,ev,re,r,rp)
 		and re:GetHandler():IsAttribute(ATTRIBUTE_WATER)
 end
 function c706925.desfilter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c706925.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c706925.desfilter(chkc) end
@@ -58,7 +58,7 @@ function c706925.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c706925.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

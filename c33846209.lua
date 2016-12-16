@@ -17,7 +17,7 @@ function c33846209.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function c33846209.costfilter(c,e,dg)
-	if c:IsFacedown() or c:GetLevel()~=4 or not c:IsType(TYPE_DUAL) then return false end
+	if not c:IsFaceup() or c:GetLevel()~=4 or not c:IsType(TYPE_DUAL) then return false end
 	local a=0
 	if dg:IsContains(c) then a=1 end
 	if c:GetEquipCount()==0 then return dg:GetCount()-a>=1 end

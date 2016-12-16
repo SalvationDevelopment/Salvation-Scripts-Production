@@ -18,7 +18,7 @@ function c58621589.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c58621589.filter1(c,tp)
-	return c:IsFacedown() and c:IsPreviousPosition(POS_FACEUP) and c:IsControler(1-tp)
+	return not c:IsFaceup() and c:IsPreviousPosition(POS_FACEUP) and c:IsControler(1-tp)
 end
 function c58621589.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c58621589.filter1,1,nil,tp) end
@@ -26,7 +26,7 @@ function c58621589.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,eg,eg:GetCount(),0,0)
 end
 function c58621589.filter2(c,tp)
-	return c:IsFacedown() and c:IsControler(1-tp)
+	return not c:IsFaceup() and c:IsControler(1-tp)
 end
 function c58621589.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c58621589.filter2,1,nil,tp) end
@@ -34,7 +34,7 @@ function c58621589.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,eg,eg:GetCount(),0,0)
 end
 function c58621589.filter3(c,e)
-	return c:IsFacedown() and c:IsRelateToEffect(e)
+	return not c:IsFaceup() and c:IsRelateToEffect(e)
 end
 function c58621589.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=eg:Filter(c58621589.filter3,nil,e,tp)

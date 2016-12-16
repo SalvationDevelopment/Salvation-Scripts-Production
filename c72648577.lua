@@ -10,7 +10,7 @@ function c72648577.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c72648577.filter(c)
-	if c:IsLocation(LOCATION_MZONE) and c:IsFacedown() then return false end
+	if c:IsLocation(LOCATION_MZONE) and not c:IsFaceup() then return false end
 	if c:IsLocation(LOCATION_SZONE) then
 		if c:GetSequence()<6 then return false end
 	elseif not c:IsType(TYPE_MONSTER) then return false end

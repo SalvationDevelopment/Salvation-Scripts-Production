@@ -15,7 +15,7 @@ function c511000060.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c511000060.filter(c,atk)
-	return c:IsFacedown() or c:GetAttack()<=atk
+	return not c:IsFaceup() or c:GetAttack()<=atk
 end
 function c511000060.attg(e,c,tp,eg,ep,ev,re,r,rp)
 	return c:IsType(TYPE_MONSTER) and c:IsFaceup() and c:IsLevelBelow(2) and c:IsRace(RACE_SPELLCASTER)

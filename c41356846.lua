@@ -11,7 +11,7 @@ function c41356846.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c41356846.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c41356846.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c41356846.filter(chkc) end
@@ -22,7 +22,7 @@ function c41356846.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c41356846.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ChangePosition(tc,0,POS_FACEUP_ATTACK,0,POS_FACEUP_DEFENSE)
 		if tc:IsDefenseBelow(2000) then
 			Duel.BreakEffect()

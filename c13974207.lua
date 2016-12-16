@@ -30,5 +30,5 @@ function c13974207.effcon(e)
 	return not Duel.IsExistingMatchingCard(Card.IsFacedown,e:GetHandlerPlayer(),LOCATION_SZONE,0,1,nil)
 end
 function c13974207.distg(e,c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end

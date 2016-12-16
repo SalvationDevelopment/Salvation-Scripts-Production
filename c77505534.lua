@@ -18,7 +18,7 @@ function c77505534.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
 function c77505534.posfilter(c)
-	return c:IsFacedown() and c:IsSetCard(0x9d)
+	return not c:IsFaceup() and c:IsSetCard(0x9d)
 end
 function c77505534.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)

@@ -20,7 +20,7 @@ function c20193924.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c20193924.filter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c20193924.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c20193924.filter(chkc) end
@@ -31,7 +31,7 @@ function c20193924.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c20193924.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

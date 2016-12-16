@@ -15,7 +15,7 @@ function c511000421.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c511000421.filter(c)
-return c:IsFacedown() and c:IsAbleToRemove()
+return not c:IsFaceup() and c:IsAbleToRemove()
 end
 function c511000421.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetControler()~=tp and chkc:IsLocation(LOCATION_ONFIELD) and c511000421.filter(chkc) end

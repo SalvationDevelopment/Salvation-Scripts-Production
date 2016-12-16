@@ -79,7 +79,7 @@ function c110000104.counterfilter(c)
 	return c:IsSetCard(0x3A2E)
 end
 function c110000104.filter(c)
-	return (c:GetCode()==110000104 and c:IsFaceup()) or c:IsFacedown() or (c:IsFaceup() and not c:IsSetCard(0x3A2E))
+	return (c:GetCode()==110000104 and c:IsFaceup()) or not c:IsFaceup() or (c:IsFaceup() and not c:IsSetCard(0x3A2E))
 end
 function c110000104.condition(e,tp,eg,ep,ev,re,r,rp)
 	return tp==Duel.GetTurnPlayer() and not Duel.IsExistingMatchingCard(c110000104.filter,tp,LOCATION_MZONE,0,1,nil) 

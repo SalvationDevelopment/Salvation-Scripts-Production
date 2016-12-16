@@ -46,7 +46,7 @@ end
 function c93927067.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetBattleTarget()
-	if not tc:IsRelateToBattle() or tc:IsFacedown() then return end
+	if not tc:IsRelateToBattle() or not tc:IsFaceup() then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)

@@ -59,7 +59,7 @@ end
 function c3657444.operation2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() or not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
+	if not tc:IsFaceup() or not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
 	local sg=Group.FromCards(c,tc)
 	if Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)~=2 then return end
 	Duel.BreakEffect()

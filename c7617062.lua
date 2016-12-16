@@ -46,7 +46,7 @@ function c7617062.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function c7617062.bttg(e,c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c7617062.dirtg(e,c)
 	return not Duel.IsExistingMatchingCard(Card.IsFaceup,c:GetControler(),0,LOCATION_MZONE,1,nil)

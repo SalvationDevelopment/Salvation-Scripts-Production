@@ -47,7 +47,7 @@ function c39030163.mtfilter(c,e)
 end
 function c39030163.mtop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c39030163.mtfilter,nil,e)
 	if g:GetCount()>0 then
 		Duel.Overlay(c,g)

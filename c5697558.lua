@@ -44,7 +44,7 @@ function c5697558.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c5697558.filter(c)
-	return c:IsSetCard(0xed) and c:IsFacedown() and c:IsDefensePos()
+	return c:IsSetCard(0xed) and not c:IsFaceup() and c:IsDefensePos()
 end
 function c5697558.postg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c5697558.filter,tp,LOCATION_MZONE,0,1,nil) end

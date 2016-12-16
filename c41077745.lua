@@ -43,7 +43,7 @@ function c41077745.descon(e,tp,eg,ep,ev,re,r,rp,chk)
 	return ep~=tp and Duel.GetAttackTarget()==nil
 end
 function c41077745.filter(c)
-	return c:IsFacedown() and c:GetSequence()~=5
+	return not c:IsFaceup() and c:GetSequence()~=5
 end
 function c41077745.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c41077745.filter(chkc) end
@@ -54,7 +54,7 @@ function c41077745.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c41077745.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

@@ -70,7 +70,7 @@ end
 function c85359414.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	if not tc:IsRelateToEffect(e) or not c85359414.filter(tc) then
 		Duel.SendtoGrave(c,REASON_EFFECT)
 		return
@@ -97,7 +97,7 @@ function c85359414.descon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.IsUnionState(e) and ep~=tp and eg:GetFirst()==e:GetHandler():GetEquipTarget()
 end
 function c85359414.desfilter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c85359414.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c85359414.desfilter(chkc) end
@@ -108,7 +108,7 @@ function c85359414.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c85359414.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if tc and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

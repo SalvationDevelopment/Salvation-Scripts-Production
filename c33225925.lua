@@ -11,7 +11,7 @@ function c33225925.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c33225925.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsFacedown() end
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and not chkc:IsFaceup() end
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(33225925,1))
 	local g=Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_ONFIELD,1,1,nil)
@@ -22,7 +22,7 @@ function c33225925.chainlimit(e,rp,tp)
 end
 function c33225925.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 	end
 end

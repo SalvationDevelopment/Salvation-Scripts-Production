@@ -18,14 +18,14 @@ function c90519313.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c90519313.cftg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_SZONE) and chkc:IsFacedown() end
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_SZONE) and not chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFacedown,tp,0,LOCATION_SZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEDOWN)
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_SZONE,1,1,nil)
 end
 function c90519313.cfop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 	end
 end

@@ -25,14 +25,14 @@ function c51351302.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
 function c51351302.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsFacedown() end
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and not chkc:IsFaceup() end
 	if chk==0 then return true end
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(51351302,1))
 	Duel.SelectTarget(tp,Card.IsFacedown,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
 function c51351302.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 	end
 end

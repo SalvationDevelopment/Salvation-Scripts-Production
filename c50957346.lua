@@ -15,7 +15,7 @@ function c50957346.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and e:GetHandler():IsReason(REASON_BATTLE)
 end
 function c50957346.filter(c)
-	return (c:IsFacedown() or c:GetAttribute()~=ATTRIBUTE_EARTH)
+	return (not c:IsFaceup() or c:GetAttribute()~=ATTRIBUTE_EARTH)
 end
 function c50957346.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

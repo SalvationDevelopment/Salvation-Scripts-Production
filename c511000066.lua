@@ -11,7 +11,7 @@ function c511000066.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c511000066.filter(c)
-	return c:IsFacedown() and c:IsDestructable()
+	return not c:IsFaceup() and c:IsDestructable()
 end
 function c511000066.costfilter1(c)
 	return c:IsType(TYPE_SPELL) and not c:IsPublic()
@@ -31,7 +31,7 @@ function c511000066.dfilter(c)
 end
 function c511000066.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
+	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
 		Duel.ConfirmCards(tp,tc)
 		if tc:IsType(TYPE_SPELL) then 
 			if Duel.IsExistingMatchingCard(c511000066.costfilter1,tp,LOCATION_HAND,0,1,nil) then

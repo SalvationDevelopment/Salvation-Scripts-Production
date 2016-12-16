@@ -44,7 +44,7 @@ function c2067935.rmop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		local code=tc:GetOriginalCode()
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
-		if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+		if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

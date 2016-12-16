@@ -11,7 +11,7 @@ function c90500169.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c90500169.filter(c,e,tp)
-	if c:IsFacedown() or not c:IsSetCard(0x41) or not c:IsAbleToDeck() then return false end
+	if not c:IsFaceup() or not c:IsSetCard(0x41) or not c:IsAbleToDeck() then return false end
 	local op=c:GetOwner()
 	local locct=Duel.GetLocationCount(op,LOCATION_MZONE)
 	local cp=c:GetControler()

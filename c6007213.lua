@@ -70,7 +70,7 @@ function c6007213.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c6007213.atkfilter,c:GetControler(),LOCATION_GRAVE,0,nil)*1000
 end
 function c6007213.desfilter(c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end
 function c6007213.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c6007213.desfilter(chkc) end
@@ -85,7 +85,7 @@ function c6007213.chainlimit(e,rp,tp)
 end
 function c6007213.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
+	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

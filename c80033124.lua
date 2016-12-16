@@ -31,7 +31,7 @@ function c80033124.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c80033124.cfilter(c)
-	return c:IsLocation(LOCATION_HAND) or (c:IsOnField() and c:IsFacedown())
+	return c:IsLocation(LOCATION_HAND) or (c:IsOnField() and not c:IsFaceup())
 end
 function c80033124.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c80033124.ffilter,tp,0x1e,0,nil,e)

@@ -25,7 +25,7 @@ function c63323539.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	if not tc then return end
 	local atk=tc:GetAttack()
-	if atk<0 or tc:IsFacedown() then atk=0 end
+	if atk<0 or not tc:IsFaceup() then atk=0 end
 	if Duel.Destroy(tc,REASON_EFFECT)~=0 then
 		Duel.Damage(1-tp,atk,REASON_EFFECT)
 	end

@@ -76,6 +76,6 @@ function c94933468.decktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c94933468.deckop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
 	Duel.DiscardDeck(1-tp,3,REASON_EFFECT)
 end

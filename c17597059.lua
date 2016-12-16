@@ -17,7 +17,7 @@ function c17597059.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c17597059.filter(c)
-	return c:IsFacedown() and c:IsAbleToHand()
+	return not c:IsFaceup() and c:IsAbleToHand()
 end
 function c17597059.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

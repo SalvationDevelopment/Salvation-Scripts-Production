@@ -13,7 +13,7 @@ function c511000014.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c511000014.filter(c)
-	return c:IsFacedown() and c:IsAbleToGraveAsCost()
+	return not c:IsFaceup() and c:IsAbleToGraveAsCost()
 end
 function c511000014.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

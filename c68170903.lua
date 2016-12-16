@@ -18,5 +18,5 @@ function c68170903.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c68170903.atlimit(e,c)
-	return c:IsFacedown()
+	return not c:IsFaceup()
 end

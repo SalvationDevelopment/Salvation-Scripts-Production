@@ -19,7 +19,7 @@ function c87259077.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local t=Duel.GetAttackTarget()
 	if ev==1 then t=Duel.GetAttacker() end
-	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
+	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
 	return t:GetLocation()==LOCATION_GRAVE and t:IsType(TYPE_MONSTER)
 end
 function c87259077.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
