@@ -37,7 +37,7 @@ end
 function c100214008.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
+	if not tc:IsRelateToEffect(e) or not tc:IsFaceup() then return end
 	local r=tc:GetRank()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c100214008.filter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,r)
