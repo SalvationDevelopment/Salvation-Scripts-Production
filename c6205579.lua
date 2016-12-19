@@ -1,18 +1,15 @@
 --パラサイト・フュージョナー
---Effect is not fully implemented
 function c6205579.initial_effect(c)
-	--cannot be material
+	--fusion substitute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e1:SetCode(EFFECT_CANNOT_BE_FUSION_MATERIAL)
-	e1:SetValue(c6205579.splimit)
+	e1:SetCode(EFFECT_FUSION_SUBSTITUTE)
+	e1:SetCondition(c6205579.subcon)
 	c:RegisterEffect(e1)
-	--fusion substitute
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_FUSION_SUBSTITUTE)
-	e2:SetCondition(c6205579.subcon)
+	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e2:SetCode(6205579)
 	c:RegisterEffect(e2)
 	--special summon
 	local e3=Effect.CreateEffect(c)
@@ -25,10 +22,6 @@ function c6205579.initial_effect(c)
 	e3:SetTarget(c6205579.sptg)
 	e3:SetOperation(c6205579.spop)
 	c:RegisterEffect(e3)
-end
-function c6205579.splimit(e,c)
-	if not c then return false end
-	return not c.material
 end
 function c6205579.subcon(e)
 	return e:GetHandler():IsLocation(LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE)
@@ -64,7 +57,7 @@ function c6205579.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c6205579.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
+	if c:IsFacedown() or not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
 	local mg1=Duel.GetMatchingGroup(c6205579.spfilter1,tp,LOCATION_MZONE,0,c,e)
 	local sg1=Duel.GetMatchingGroup(c6205579.spfilter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,c)
 	local mg2=nil
