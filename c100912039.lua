@@ -85,16 +85,16 @@ function c100912039.initial_effect(c)
 end
 c100912039.miracle_synchro_fusion=true
 function c100912039.fusfilter1(c)
-	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION)
+	return c:IsRace(RACE_DRAGON) and c:IsFusionType(TYPE_FUSION)
 end
 function c100912039.fusfilter2(c)
-	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO)
+	return c:IsRace(RACE_DRAGON) and c:IsFusionType(TYPE_SYNCHRO)
 end
 function c100912039.fusfilter3(c)
-	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ)
+	return c:IsRace(RACE_DRAGON) and c:IsFusionType(TYPE_XYZ)
 end
 function c100912039.fusfilter4(c)
-	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM)
+	return c:IsRace(RACE_DRAGON) and c:IsFusionType(TYPE_PENDULUM)
 end
 c100912039.filters={c100912039.fusfilter1,c100912039.fusfilter2,c100912039.fusfilter3,c100912039.fusfilter4}
 -- TO BE REMOVED ONCE THE UTILITIES ARE UPDATED
@@ -118,7 +118,12 @@ function c100912039.FConditionFilterMulti(c,mg,funs,n,tbt)
 	return false
 end
 function c100912039.CloneTable(g)
-	return {table.unpack(g)}
+	local ng={}
+	for i=1,#g do
+		local sg=g[i]:Clone()
+		table.insert(ng,sg)
+	end
+	return ng
 end
 function c100912039.FConditionFilterMulti2(c,gr)
 	local gr2=c100912039.CloneTable(gr)
@@ -210,7 +215,7 @@ end
 function c100912039.fuscon(e,g,gc,chkfnf)
 	local c=e:GetHandler()
 	if g==nil then return true end
-	if not c:IsFacedown() then return false end
+	if c:IsFaceup() then return false end
 	local chkf=bit.band(chkfnf,0xff)
 	local funs=c100912039.filters
 	local n=4
@@ -243,9 +248,10 @@ function c100912039.fuscon(e,g,gc,chkfnf)
 		end
 		tc=mg:GetNext()
 	end
+	local gr2=c100912039.CloneTable(groups)
 	if chkf~=PLAYER_NONE then
-		if not fs then return false end
-		local gr2=c100912039.CloneTable(groups)
+		return fs and gr2[1]:IsExists(c100912039.FConditionFilterMulti2,1,nil,gr2)
+	else
 		return gr2[1]:IsExists(c100912039.FConditionFilterMulti2,1,nil,gr2)
 	end
 end
@@ -304,11 +310,12 @@ function c100912039.check_fusion_material_48144509(g,chkf)
 	end
 	tc=mg:GetNext()
 	end
+	local gr2=c100912039.CloneTable(groups)
 	if chkf~=PLAYER_NONE then
-		if not fs then return false end
-		local gr2=c100912039.CloneTable(groups)
+		return fs and gr2[1]:IsExists(c100912039.FConditionFilterMulti2,1,nil,gr2)
+	else
 		return gr2[1]:IsExists(c100912039.FConditionFilterMulti2,1,nil,gr2)
-	end 
+	end
 end
 function c100912039.select_fusion_material_48144509(tp,g,chkf)
 	local mg=g:Filter(Card.IsLocation,nil,LOCATION_HAND+LOCATION_MZONE)

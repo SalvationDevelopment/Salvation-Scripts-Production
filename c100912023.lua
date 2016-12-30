@@ -27,7 +27,7 @@ function c100912023.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetTargetRange(LOCATION_ONFIELD,LOCATION_ONFIELD)
+	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e3:SetTarget(c100912023.tgtg)
 	e3:SetValue(aux.tgoval)
 	c:RegisterEffect(e3)
@@ -38,9 +38,9 @@ function c100912023.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c100912023.otfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsReleasable()
+	return c:IsType(TYPE_CONTINUOUS) and c:IsReleasable()
 end
-function c100912023.otcon(e,c)
+function c100912023.otcon(e,c,minc)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	return c:GetLevel()>4 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0

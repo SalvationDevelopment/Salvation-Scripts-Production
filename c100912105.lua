@@ -68,11 +68,11 @@ function c100912105.checkop(e,tp,eg,ep,ev,re,r,rp)
 				or (typ==TYPE_TRAP and Duel.GetFlagEffect(p,100912305)==0) then
 				c100912105[p]=c100912105[p]+1
 				if typ==TYPE_MONSTER then
-					Duel.RegisterFlagEffect(tp,100912105,RESET_PHASE+PHASE_END,0,1)
+					Duel.RegisterFlagEffect(p,100912105,RESET_PHASE+PHASE_END,0,1)
 				elseif typ==TYPE_SPELL then
-					Duel.RegisterFlagEffect(tp,100912205,RESET_PHASE+PHASE_END,0,1)
+					Duel.RegisterFlagEffect(p,100912205,RESET_PHASE+PHASE_END,0,1)
 				else
-					Duel.RegisterFlagEffect(tp,100912305,RESET_PHASE+PHASE_END,0,1)
+					Duel.RegisterFlagEffect(p,100912305,RESET_PHASE+PHASE_END,0,1)
 				end
 			end
 		end
@@ -88,6 +88,7 @@ function c100912105.drcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c100912105.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,c100912105[tp]) end
+	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,c100912105[tp])
 end
 function c100912105.drop(e,tp,eg,ep,ev,re,r,rp)
@@ -99,6 +100,7 @@ function c100912105.sumfilter(c)
 end
 function c100912105.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c100912105.sumfilter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
 end
 function c100912105.sumop(e,tp,eg,ep,ev,re,r,rp)

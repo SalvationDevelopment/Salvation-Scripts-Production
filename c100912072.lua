@@ -33,7 +33,7 @@ function c100912072.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c100912072.cfilter(c)
-	return not c:IsFaceup() or not c:IsType(TYPE_NORMAL)
+	return c:IsFacedown() or not c:IsType(TYPE_NORMAL)
 end
 function c100912072.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>0
@@ -82,7 +82,7 @@ end
 function c100912072.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local tc=tg:GetFirst()
-	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) then return end
+	if tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c100912072.eqfilter,tp,LOCATION_SZONE,0,nil,tg)
 	local eq=g:GetFirst()
 	while eq do
