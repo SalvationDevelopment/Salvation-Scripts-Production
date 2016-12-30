@@ -44,5 +44,5 @@ function c51085303.adop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c51085303.atlimit(e,c)
-	return not c:IsFaceup() or not c:IsCode(51085303)
+	return c:IsFacedown() or not c:IsCode(51085303)
 end

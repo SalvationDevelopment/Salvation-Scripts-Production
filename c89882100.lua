@@ -11,7 +11,7 @@ function c89882100.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c89882100.filter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c89882100.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c89882100.filter(chkc) end
@@ -25,7 +25,7 @@ function c89882100.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c89882100.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

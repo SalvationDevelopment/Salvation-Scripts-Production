@@ -38,9 +38,8 @@ function c48229808.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c48229808.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
-	Duel.NegateActivation(ev)
-	if re:GetHandler():IsRelateToEffect(re) then
+	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end

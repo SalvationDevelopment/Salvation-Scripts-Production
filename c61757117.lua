@@ -36,7 +36,7 @@ function c61757117.operation(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local tc=g:GetFirst()
 	local c=e:GetHandler()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
+	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	while tc do
 		if tc:IsFaceup() and tc:IsRelateToEffect(e) then c:SetCardTarget(tc) end
 		tc=g:GetNext()

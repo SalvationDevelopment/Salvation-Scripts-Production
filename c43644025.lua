@@ -20,7 +20,7 @@ end
 c43644025.list={[42682609]=17955766,[43751755]=43237273,[17363041]=54959865,
 				[29246354]=17732278,[16241441]=89621922,[42239546]=80344569}
 function c43644025.filter1(c,e,tp)
-	if not c:IsFaceup() then return false end
+	if c:IsFacedown() then return false end
 	local code=c:GetCode()
 	local tcode=c43644025.list[code]
 	return tcode and Duel.IsExistingTarget(c43644025.filter2,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil,tcode,e,tp)

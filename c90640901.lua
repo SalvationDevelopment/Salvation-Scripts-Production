@@ -31,7 +31,7 @@ function c90640901.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c90640901.vala(e,c)
-	return not not c:IsFaceup()
+	return not c:IsFacedown()
 end
 function c90640901.aclimit(e,re,tp)
 	return re:IsHasType(EFFECT_TYPE_ACTIVATE)

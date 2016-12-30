@@ -17,7 +17,7 @@ function c4266839.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 	if not tc:IsRelateToBattle() or not c:IsRelateToBattle() then return end
-	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or not tc:IsFaceup() then
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or tc:IsFacedown() then
 		Duel.Destroy(c,REASON_EFFECT)
 		return
 	end

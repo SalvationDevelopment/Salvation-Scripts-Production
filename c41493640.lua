@@ -21,7 +21,7 @@ function c41493640.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c41493640.filter(c)
-	return not c:IsFaceup() and c:GetSequence()~=5
+	return c:IsFacedown() and c:GetSequence()~=5
 end
 function c41493640.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_SZONE) and c41493640.filter(chkc) end

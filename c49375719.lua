@@ -8,7 +8,7 @@ function c49375719.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c49375719.filter(c,atk)
-	return not c:IsFaceup() or c:GetAttack()<=atk
+	return c:IsFacedown() or c:GetAttack()<=atk
 end
 function c49375719.dacon(e)
 	return not Duel.IsExistingMatchingCard(c49375719.filter,e:GetHandlerPlayer(),0,LOCATION_MZONE,1,nil,e:GetHandler():GetAttack())

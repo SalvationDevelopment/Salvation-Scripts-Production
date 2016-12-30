@@ -30,7 +30,7 @@ function c40591390.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+1
 end
 function c40591390.desfilter(c)
-	return not c:IsFaceup() or not c:IsSetCard(0xc008)
+	return c:IsFacedown() or not c:IsSetCard(0xc008)
 end
 function c40591390.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

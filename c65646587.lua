@@ -1,7 +1,4 @@
 --ペンデュラム・フュージョン
---Pendulum Fusion
---Scripted by Eerie Code
---Credits to MichaelLawrenceDee for the updated Card.IsCanBeFusionMaterial
 function c65646587.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -12,32 +9,13 @@ function c65646587.initial_effect(c)
 	e1:SetTarget(c65646587.target)
 	e1:SetOperation(c65646587.activate)
 	c:RegisterEffect(e1)
-	if not c65646587.global_check then
-		c65646587.global_check=true
-		local f=Card.IsCanBeFusionMaterial
-		Card.IsCanBeFusionMaterial=function(c,fc,ismon)
-			if (c:GetSequence()==6 or c:GetSequence()==7) and c:IsLocation(LOCATION_SZONE) then
-				return f(c,fc,true)
-			end
-			if c:IsCode(80604091) then return f(c,fc,true) end
-			return f(c,fc,ismon)
-		end
-		local f2=Card.IsType
-		Card.IsType=function(c,tp)
-			if (c:GetSequence()==6 or c:GetSequence()==7) and c:IsLocation(LOCATION_SZONE) then
-				local opt=bit.bor(c:GetOriginalType(),TYPE_SPELL)
-				return bit.band(tp,opt)~=0
-			end
-			return f2(c,tp)
-		end
-	end
 end
 function c65646587.filter0(c,e)
 	local seq=c:GetSequence()
-	return (seq==6 or seq==7) and c:IsCanBeFusionMaterial(nil,true) and not c:IsImmuneToEffect(e)
+	return (seq==6 or seq==7) and c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
 end
 function c65646587.filter1(c,e)
-	return c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e)
+	return c:IsOnField() and not c:IsImmuneToEffect(e)
 end
 function c65646587.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and (not f or f(c))
@@ -46,7 +24,7 @@ end
 function c65646587.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-		local mg1=Duel.GetMatchingGroup(Card.IsCanBeFusionMaterial,tp,LOCATION_MZONE,0,nil)
+		local mg1=Duel.GetFusionMaterial(tp):Filter(Card.IsOnField,nil)
 		if Duel.GetFieldCard(tp,LOCATION_SZONE,6) and Duel.GetFieldCard(tp,LOCATION_SZONE,7) then
 			mg1:Merge(Duel.GetMatchingGroup(c65646587.filter0,tp,LOCATION_SZONE,0,nil,e))
 		end
@@ -66,7 +44,7 @@ function c65646587.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c65646587.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
-	local mg1=Duel.GetMatchingGroup(c65646587.filter1,tp,LOCATION_MZONE,0,nil,e)
+	local mg1=Duel.GetFusionMaterial(tp):Filter(c65646587.filter1,nil,e)
 	if Duel.GetFieldCard(tp,LOCATION_SZONE,6) and Duel.GetFieldCard(tp,LOCATION_SZONE,7) then
 		mg1:Merge(Duel.GetMatchingGroup(c65646587.filter0,tp,LOCATION_SZONE,0,nil,e))
 	end

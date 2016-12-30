@@ -12,7 +12,7 @@ function c43359262.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c43359262.filter(c,rc)
-	return not c:IsFaceup() and c:GetSequence()~=5 and not rc:IsHasCardTarget(c)
+	return c:IsFacedown() and c:GetSequence()~=5 and not rc:IsHasCardTarget(c)
 end
 function c43359262.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c43359262.filter(chkc,e:GetHandler()) end
@@ -23,7 +23,7 @@ end
 function c43359262.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		c:SetCardTarget(tc)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

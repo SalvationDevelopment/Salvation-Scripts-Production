@@ -1,6 +1,4 @@
 --牛頭鬼
---Gozuki
---Script by nekrozar
 function c52467217.initial_effect(c)
 	--to grave
 	local e1=Effect.CreateEffect(c)

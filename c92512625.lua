@@ -28,7 +28,7 @@ function c92512625.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c92512625.cfilter(c)
-	return not c:IsFaceup() and c:GetSequence()<5
+	return c:IsFacedown() and c:GetSequence()<5
 end
 function c92512625.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentChain()==0
@@ -59,8 +59,7 @@ function c92512625.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c92512625.activate2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateActivation(ev)
-	if re:GetHandler():IsRelateToEffect(re) then
+	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end

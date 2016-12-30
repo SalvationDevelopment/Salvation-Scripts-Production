@@ -22,5 +22,5 @@ function c66865880.con(e)
 	return Duel.IsExistingMatchingCard(c66865880.cfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function c66865880.atlimit(e,c)
-	return not c:IsFaceup() or c:GetCode()~=31305911
+	return c:IsFacedown() or c:GetCode()~=31305911
 end

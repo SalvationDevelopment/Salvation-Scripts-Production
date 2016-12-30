@@ -103,7 +103,7 @@ function c37055344.operation(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():GetFlagEffect(37055344)==0 or not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if e:GetLabel()==0 then
-		if not tc:IsRelateToEffect(e) or not tc:IsFaceup() then return end
+		if not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
 		if Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)==0 then return end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEDOWNDEFENSE)
 		local g=Duel.SelectMatchingCard(tp,c37055344.filter2,tp,0,LOCATION_MZONE,1,1,nil)

@@ -30,7 +30,7 @@ function c9024367.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c9024367.bttg(e,c)
-	return not c:IsFaceup() or not c:IsRace(RACE_DRAGON)
+	return c:IsFacedown() or not c:IsRace(RACE_DRAGON)
 end
 function c9024367.atkcon(e)
 	local ph=Duel.GetCurrentPhase()

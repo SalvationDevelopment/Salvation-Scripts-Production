@@ -10,7 +10,7 @@ function c7165085.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c7165085.filter(c)
-	return not c:IsFaceup() and c:GetSequence()~=5
+	return c:IsFacedown() and c:GetSequence()~=5
 end
 function c7165085.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c7165085.filter(chkc) end

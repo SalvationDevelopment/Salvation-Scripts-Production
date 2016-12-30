@@ -30,6 +30,6 @@ function c93217231.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
 	local sc=e:GetLabelObject()
-	if sg:GetCount()~=3 or snot c:IsFaceup() or not sc:IsRace(RACE_REPTILE) or sc:IsControler(1-tp) then return end
+	if sg:GetCount()~=3 or sc:IsFacedown() or not sc:IsRace(RACE_REPTILE) or sc:IsControler(1-tp) then return end
 	Duel.Destroy(sg,REASON_EFFECT)
 end

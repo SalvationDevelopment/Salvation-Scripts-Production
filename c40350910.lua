@@ -20,5 +20,5 @@ function c40350910.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c40350910.infilter(e,c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end

@@ -23,7 +23,7 @@ function c58901502.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c58901502.cfilter(c)
-	return not c:IsFaceup() or not (c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO))
+	return c:IsFacedown() or not (c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsType(TYPE_SYNCHRO))
 end
 function c58901502.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return not Duel.IsExistingMatchingCard(c58901502.cfilter,tp,LOCATION_MZONE,0,1,nil)

@@ -69,7 +69,7 @@ function c83965310.eqop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		if c:IsFaceup() and c:IsRelateToEffect(e) then
 			local atk=tc:GetTextAttack()/2
-			if not tc:IsFaceup() then atk=0 end
+			if tc:IsFacedown() then atk=0 end
 			if atk<0 then atk=0 end
 			if not Duel.Equip(tp,tc,c,false) then return end
 			--Add Equip limit

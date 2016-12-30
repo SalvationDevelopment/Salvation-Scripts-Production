@@ -1,6 +1,4 @@
 --ハーピィの羽根吹雪
---Harpie's Feather Storm
---Script by dest
 function c87639778.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -68,12 +66,8 @@ function c87639778.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c87639778.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c87639778.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c87639778.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
 	if g:GetCount()>0 then
-		if g:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) and Duel.IsChainDisablable(0) then
-			Duel.NegateEffect(0)
-			return
-		end
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end

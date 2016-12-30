@@ -104,7 +104,7 @@ end
 function c64631466.atkval(e,c)
 	local ec=e:GetLabelObject():GetLabelObject()
 	local atk=ec:GetTextAttack()
-	if not c:IsFaceup() or bit.band(ec:GetOriginalType(),TYPE_MONSTER)==0 or atk<0 then
+	if ec:IsFacedown() or bit.band(ec:GetOriginalType(),TYPE_MONSTER)==0 or atk<0 then
 		return 0
 	else
 		return atk
@@ -113,7 +113,7 @@ end
 function c64631466.defval(e,c)
 	local ec=e:GetLabelObject():GetLabelObject()
 	local def=ec:GetTextDefense()
-	if not c:IsFaceup() or bit.band(ec:GetOriginalType(),TYPE_MONSTER)==0 or def<0 then
+	if ec:IsFacedown() or bit.band(ec:GetOriginalType(),TYPE_MONSTER)==0 or def<0 then
 		return 0
 	else
 		return def

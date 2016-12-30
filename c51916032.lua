@@ -32,7 +32,7 @@ function c51916032.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c51916032.cffilter(c)
-	return not c:IsFaceup() and c:GetSequence()<5
+	return c:IsFacedown() and c:GetSequence()<5
 end
 function c51916032.spfilter(c,e,tp)
 	return c:IsSetCard(0xbc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

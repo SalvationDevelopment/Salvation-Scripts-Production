@@ -21,6 +21,7 @@ function c88935103.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE)
 	e4:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+	e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e4:SetValue(LOCATION_DECKBOT)
 	e4:SetCondition(c88935103.rdcon)
 	c:RegisterEffect(e4)
@@ -79,7 +80,7 @@ function c88935103.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c88935103.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:GetLevel()<4 then return end
+	if tc:IsFacedown() or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:GetLevel()<4 then return end
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

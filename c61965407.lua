@@ -125,7 +125,7 @@ function c61965407.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c61965407.sdfilter(c)
-	return not c:IsFaceup() or not c:IsSetCard(0xbb)
+	return c:IsFacedown() or not c:IsSetCard(0xbb)
 end
 function c61965407.sdcon(e)
 	return Duel.IsExistingMatchingCard(c61965407.sdfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)

@@ -38,7 +38,7 @@ end
 function c46589034.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) then return end
+	if tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 	local atk=tc:GetAttack()
 	local def=tc:GetDefense()
 	local val=math.min(atk,def)

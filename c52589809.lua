@@ -1,6 +1,4 @@
 --風来王 ワイルド・ワインド
---Wandering King Wild Wind
---Script by mercury233
 function c52589809.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

@@ -75,7 +75,7 @@ end
 function c4820694.matop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=e:GetLabelObject()
-	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) then return end
+	if tc:IsFacedown() or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,tc,e)
 	if g:GetCount()>0 then
 		Duel.Overlay(tc,g)

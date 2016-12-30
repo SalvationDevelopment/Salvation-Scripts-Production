@@ -1,6 +1,4 @@
 --No.28 タイタニック・モス
---Number 28: Titanic Moth
---Script by mercury233
 function c53701457.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,7,2)

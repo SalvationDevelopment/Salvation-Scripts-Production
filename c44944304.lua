@@ -58,7 +58,7 @@ function c44944304.atkcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c44944304.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToBattle() or not c:IsFaceup() then return end
+	if not c:IsRelateToBattle() or c:IsFacedown() then return end
 	local ct=Duel.GetMatchingGroupCount(c44944304.rcfilter,tp,0,LOCATION_MZONE,nil)
 	if c44944304.rcfilter(c) then ct=ct+1 end
 	if ct>0 then

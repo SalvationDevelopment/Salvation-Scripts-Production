@@ -43,12 +43,12 @@ function c59255742.initial_effect(c)
 end
 c59255742.miracle_synchro_fusion=true
 function c59255742.ffilter(c)
-	return c:IsFusionAttribute(ATTRIBUTE_EARTH) and c:IsRace(RACE_WARRIOR) and c:IsType(TYPE_SYNCHRO)
+	return c:IsFusionAttribute(ATTRIBUTE_EARTH) and c:IsRace(RACE_WARRIOR) and c:IsFusionType(TYPE_SYNCHRO)
 end
 function c59255742.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
-	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
+	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
 	return bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
 end
 function c59255742.spcon2(e,tp,eg,ep,ev,re,r,rp)

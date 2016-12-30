@@ -41,22 +41,9 @@ end
 function c74892653.condition(e,tp,eg,ep,ev,re,r,rp)
 	return tp~=ep and Duel.GetCurrentChain()==0
 end
-function c74892653.cfcost(c)
-	return c:IsCode(100213053) and c:IsAbleToRemoveAsCost()
-end
 function c74892653.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	local b1=e:GetHandler():IsReleasable()
-	local b2=Duel.IsExistingMatchingCard(c74892653.cfcost,tp,LOCATION_GRAVE,0,1,nil)
-	if chk==0 then return b1 or b2 end
-	if (b2 and b1 and Duel.SelectYesNo(tp,aux.Stringid(100213053,0)))
-		or (b2 and not b1) then
-		local tg=Duel.GetFirstMatchingCard(c74892653.cfcost,tp,LOCATION_GRAVE,0,nil)
-		Duel.Remove(tg,POS_FACEUP,REASON_COST)
-		e:SetLabel(0)
-	else
-		Duel.Release(e:GetHandler(),REASON_COST)
-		e:SetLabel(1)
-	end	
+	if chk==0 then return e:GetHandler():IsReleasable() end
+	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c74892653.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -66,9 +53,7 @@ end
 function c74892653.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateSummon(eg)
 	Duel.Destroy(eg,REASON_EFFECT)
-	if e:GetLabel()==1 then
-		e:GetHandler():RegisterFlagEffect(74892653,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,0)
-	end
+	e:GetHandler():RegisterFlagEffect(74892653,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end
 function c74892653.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

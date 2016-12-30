@@ -62,7 +62,7 @@ function c83438826.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c83438826.desfilter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c83438826.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and c83438826.desfilter(chkc) end
@@ -84,7 +84,7 @@ function c83438826.desop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(-500)
 	e1:SetReset(RESET_EVENT+0x1fe0000)
 	eq:RegisterEffect(e1)
-	if tc:IsRelateToEffect(e) and tc:IsControler(1-tp) and not tc:IsFaceup() then
+	if tc:IsRelateToEffect(e) and tc:IsControler(1-tp) and tc:IsFacedown() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

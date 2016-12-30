@@ -47,7 +47,7 @@ function c9888196.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9888196.confilter,tp,0,LOCATION_MZONE,1,nil)
 end
 function c9888196.filter1(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c9888196.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and c9888196.filter1(chkc) end
@@ -59,7 +59,7 @@ function c9888196.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c9888196.desop1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
+	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

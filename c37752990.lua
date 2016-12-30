@@ -35,7 +35,7 @@ function c37752990.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT+REASON_REPLACE)
 end
 function c37752990.cfilter(c)
-	return not c:IsFaceup() or c:IsCode(37752990) or not c:IsSetCard(0xd8)
+	return c:IsFacedown() or c:IsCode(37752990) or not c:IsSetCard(0xd8)
 end
 function c37752990.spcon(e,c)
 	if c==nil then return true end

@@ -37,7 +37,7 @@ end
 function c83121692.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
+	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	if not tc:IsRelateToEffect(e) then return end
 	if c==tc then
 		tc:RegisterFlagEffect(83121692,RESET_EVENT+0x1fe0000,0,0)

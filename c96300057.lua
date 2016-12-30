@@ -68,7 +68,7 @@ end
 function c96300057.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
+	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
 	if not tc:IsRelateToEffect(e) or not c96300057.filter(tc) then
 		Duel.SendtoGrave(c,REASON_EFFECT)
 		return

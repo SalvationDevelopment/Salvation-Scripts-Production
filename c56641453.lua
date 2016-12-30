@@ -13,7 +13,7 @@ end
 c56641453.list={[42682609]=17955766,[43751755]=43237273,[17363041]=54959865,
 				[29246354]=17732278,[16241441]=89621922,[42239546]=80344569}
 function c56641453.filter1(c,e,tp)
-	if not c:IsFaceup() then return false end
+	if c:IsFacedown() then return false end
 	local code=c:GetCode()
 	local tcode=c56641453.list[code]
 	return tcode and Duel.IsExistingTarget(c56641453.filter2,tp,0x13,0,1,nil,tcode,e,tp)
@@ -55,12 +55,8 @@ function c56641453.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local tcode=Duel.GetChainInfo(0,CHAININFO_TARGET_PARAM)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c56641453.filter2,tp,0x13,0,1,1,nil,tcode,e,tp)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c56641453.filter2),tp,0x13,0,1,1,nil,tcode,e,tp)
 	if g:GetCount()>0 then
-		if g:GetFirst():IsHasEffect(EFFECT_NECRO_VALLEY) and Duel.IsChainDisablable(0) then
-			Duel.NegateEffect(0)
-			return
-		end
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
 end

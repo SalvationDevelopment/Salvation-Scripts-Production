@@ -32,7 +32,7 @@ function c43925870.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(Duel.SelectMatchingCard(tp,Card.IsAbleToGraveAsCost,tp,LOCATION_HAND,0,1,1,nil),REASON_COST)
 end
 function c43925870.filter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c43925870.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c43925870.filter(chkc) end
@@ -43,7 +43,7 @@ function c43925870.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c43925870.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

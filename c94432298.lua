@@ -66,7 +66,7 @@ function c94432298.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c94432298.sdfilter(c)
-	return not c:IsFaceup() or not c:IsSetCard(0xbb)
+	return c:IsFacedown() or not c:IsSetCard(0xbb)
 end
 function c94432298.sdcon(e)
 	return Duel.IsExistingMatchingCard(c94432298.sdfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)

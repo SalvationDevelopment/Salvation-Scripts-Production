@@ -23,7 +23,7 @@ function c81426505.filter2(c)
 	return c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c81426505.filter3(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c81426505.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return 

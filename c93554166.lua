@@ -11,7 +11,7 @@ function c93554166.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c93554166.filter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c93554166.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c93554166.filter(chkc) end
@@ -24,7 +24,7 @@ function c93554166.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c93554166.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 		if Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)>0 then
 			Duel.BreakEffect()

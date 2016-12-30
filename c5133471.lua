@@ -25,7 +25,7 @@ function c5133471.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c5133471.filter(c)
-	return not c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsFacedown() and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c5133471.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c5133471.filter(chkc) and chkc~=e:GetHandler() end

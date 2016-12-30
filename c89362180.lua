@@ -33,7 +33,7 @@ function c89362180.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsDualState() then return false end
 	local bc=c:GetBattleTarget()
-	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
+	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
 	return bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
 end
 function c89362180.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

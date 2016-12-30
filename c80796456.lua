@@ -1,6 +1,4 @@
 --No.70 デッドリー・シン
---Number 70: Deadly Sin
---Script by nekrozar
 function c80796456.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,2)

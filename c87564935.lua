@@ -24,6 +24,7 @@ function c87564935.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+	e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e3:SetCondition(aux.IsUnionState)
 	e3:SetValue(c87564935.efilter1)
 	c:RegisterEffect(e3)
@@ -68,7 +69,7 @@ end
 function c87564935.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
+	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
 	if not tc:IsRelateToEffect(e) or not c87564935.filter(tc) then
 		Duel.SendtoGrave(c,REASON_EFFECT)
 		return

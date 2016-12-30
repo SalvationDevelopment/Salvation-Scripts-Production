@@ -57,7 +57,7 @@ function c73213494.ssop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c73213494.thfilter(c)
-	return not c:IsFaceup() and c:IsAbleToHand()
+	return c:IsFacedown() and c:IsAbleToHand()
 end
 function c73213494.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c73213494.thfilter(chkc) end
@@ -68,7 +68,7 @@ function c73213494.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c73213494.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
+	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end

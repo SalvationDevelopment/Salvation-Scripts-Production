@@ -33,7 +33,7 @@ function c54974237.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function c54974237.cffilter(c)
-	return c:IsLocation(LOCATION_HAND) or (not c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP))
+	return c:IsLocation(LOCATION_HAND) or (c:IsFacedown() and c:IsType(TYPE_SPELL+TYPE_TRAP))
 end
 function c54974237.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ty=e:GetLabel()

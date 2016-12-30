@@ -1,6 +1,4 @@
 --堕天使降臨
---Darklord Descent
---Script by mercury233
 function c58787301.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

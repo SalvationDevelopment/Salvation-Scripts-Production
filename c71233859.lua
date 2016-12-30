@@ -24,7 +24,7 @@ function c71233859.afilter(c,code)
 end
 function c71233859.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() or not tc:IsRelateToEffect(e) then return end
+	if tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c71233859.afilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tc:GetCode())
 	local tc=g:GetFirst()
 	while tc do

@@ -45,7 +45,7 @@ function c5255013.condition(e,tp,eg,ep,ev,re,r,rp)
 	return scl1==1 and scl2==7
 end
 function c5255013.filter(c)
-	return (not c:IsFaceup() or not c:IsSetCard(0xc4)) and c:IsAbleToDeck()
+	return (c:IsFacedown() or not c:IsSetCard(0xc4)) and c:IsAbleToDeck()
 end
 function c5255013.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

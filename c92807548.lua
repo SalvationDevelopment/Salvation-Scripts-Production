@@ -1,6 +1,4 @@
 --堕天使ユコバック
---Darklord Ukoback
---Script by nekrozar
 function c92807548.initial_effect(c)
 	--tograve
 	local e1=Effect.CreateEffect(c)

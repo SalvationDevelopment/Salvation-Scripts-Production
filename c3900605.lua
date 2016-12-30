@@ -9,7 +9,7 @@ function c3900605.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c3900605.filter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c3900605.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

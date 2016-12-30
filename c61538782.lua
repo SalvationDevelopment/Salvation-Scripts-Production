@@ -14,7 +14,7 @@ end
 function c61538782.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=c:GetBattleTarget()
-	if not c:IsRelateToBattle() or not c:IsFaceup() then return false end
+	if not c:IsRelateToBattle() or c:IsFacedown() then return false end
 	e:SetLabelObject(tc)
 	return tc:IsLocation(LOCATION_GRAVE) and tc:IsType(TYPE_MONSTER) and tc:IsReason(REASON_BATTLE) and not tc:IsForbidden()
 end

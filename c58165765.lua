@@ -29,7 +29,7 @@ function c58165765.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c58165765.filter(c)
-	return not c:IsFaceup() and c:IsAbleToDeck()
+	return c:IsFacedown() and c:IsAbleToDeck()
 end
 function c58165765.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and c58165765.filter(chkc) end
@@ -46,7 +46,7 @@ function c58165765.limit(c)
 end
 function c58165765.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and not tc:IsFaceup() then
+	if tc and tc:IsRelateToEffect(e) and tc:IsFacedown() then
 		Duel.ConfirmCards(tp,tc)
 		Duel.BreakEffect()
 		if tc:IsAbleToDeck() then

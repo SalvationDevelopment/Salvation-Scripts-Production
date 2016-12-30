@@ -1,6 +1,4 @@
 --暗黒の召喚神
---Dark Summoning Beast
---Scripted by Eerie Code
 function c87917187.initial_effect(c)
 	--Special Summon
 	local e1=Effect.CreateEffect(c)

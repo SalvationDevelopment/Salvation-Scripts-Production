@@ -36,7 +36,7 @@ function c65976795.filter(c)
 end
 function c65976795.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ct=Duel.GetMatchingGroupCount(c65976795.filter,tp,LOCATION_MZONE,0,nil)
-	if chkc then return chkc:IsOnField() and not chkc:IsFaceup() end
+	if chkc then return chkc:IsOnField() and chkc:IsFacedown() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFacedown,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,ct,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,Card.IsFacedown,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,ct,ct,nil)
@@ -49,7 +49,7 @@ function c65976795.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c65976795.cfilter(c,tp)
-	return c:IsPreviousPosition(POS_FACEUP) and not c:IsFaceup() and c:IsControler(tp)
+	return c:IsPreviousPosition(POS_FACEUP) and c:IsFacedown() and c:IsControler(tp)
 end
 function c65976795.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c65976795.cfilter,1,nil,tp)

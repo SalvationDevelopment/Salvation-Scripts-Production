@@ -25,7 +25,7 @@ function c62681049.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c62681049.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c62681049.tdtg(e,c)
-	return (not c:IsFaceup() or not c:IsSetCard(0xb3)) and c:IsReason(REASON_EFFECT)
+	return (c:IsFacedown() or not c:IsSetCard(0xb3)) and c:IsReason(REASON_EFFECT)
 end
 function c62681049.tdcon(e)
 	local tp=e:GetHandlerPlayer()

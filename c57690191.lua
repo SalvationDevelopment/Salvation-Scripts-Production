@@ -32,7 +32,7 @@ function c57690191.atcon(e)
 	return g:GetCount()~=3 or g:IsExists(c57690191.atkfilter,1,nil)
 end
 function c57690191.atkfilter(c)
-	return not c:IsFaceup() or not c:IsSetCard(0x107a)
+	return c:IsFacedown() or not c:IsSetCard(0x107a)
 end
 function c57690191.spfilter(c,e,tp)
 	return c:IsSetCard(0x107a) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
