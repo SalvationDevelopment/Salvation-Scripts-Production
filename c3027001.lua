@@ -18,7 +18,7 @@ function c3027001.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ex and tg~=nil and tg:GetCount()==tc and tg:IsExists(c3027001.cfilter,1,e:GetHandler(),tp)
 end
 function c3027001.cffilter(c,tp)
-	return not c:IsFaceup() and c:IsControler(tp)
+	return c:IsFacedown() and c:IsControler(tp)
 end
 function c3027001.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

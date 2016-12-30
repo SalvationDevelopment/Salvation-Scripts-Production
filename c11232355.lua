@@ -29,7 +29,7 @@ function c11232355.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,1000)
 end
 function c11232355.filter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c11232355.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(1-tp) and c11232355.filter(chkc) end
@@ -40,7 +40,7 @@ function c11232355.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c11232355.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

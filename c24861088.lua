@@ -43,7 +43,7 @@ function c24861088.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c24861088.cfilter(c)
-	return not c:IsFaceup() or not c:IsSetCard(0x70)
+	return c:IsFacedown() or not c:IsSetCard(0x70)
 end
 function c24861088.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)>0

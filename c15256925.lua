@@ -1,6 +1,4 @@
 --滅びの呪文－デス・アルテマ
---Chaos Scepter Blast
---Script by nekrozar
 function c15256925.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

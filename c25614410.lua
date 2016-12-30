@@ -1,7 +1,4 @@
 --HEROの遺産
---Legacy of a HERO
---Scripted by Eerie Code
---requires alterations to old scripts
 function c25614410.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

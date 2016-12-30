@@ -117,7 +117,7 @@ function c16898077.damcon3(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp and rp~=tp
 end
 function c16898077.sfilter(c,e)
-	return not c:IsFaceup() and (not e or c:IsRelateToEffect(e))
+	return c:IsFacedown() and (not e or c:IsRelateToEffect(e))
 end
 function c16898077.damtg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c16898077.sfilter,1,nil) end

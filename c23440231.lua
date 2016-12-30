@@ -91,7 +91,7 @@ function c23440231.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c23440231.desfilter(c)
-	return (not c:IsFaceup() or not c:IsSetCard(0xc5)) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return (c:IsFacedown() or not c:IsSetCard(0xc5)) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c23440231.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c23440231.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
@@ -124,8 +124,7 @@ function c23440231.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c23440231.negop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.NegateActivation(ev)
-	if re:GetHandler():IsRelateToEffect(re) then
+	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.Remove(eg,POS_FACEUP,REASON_EFFECT)
 	end
 end

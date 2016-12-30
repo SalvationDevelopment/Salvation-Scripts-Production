@@ -33,11 +33,11 @@ function c33460840.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c33460840.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
+	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,c33460840.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,c)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c33460840.filter),tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,c)
 	local tc=g:GetFirst()
-	if not (tc and not tc:IsHasEffect(EFFECT_NECRO_VALLEY) and Duel.Equip(tp,tc,c,true)) then return end
+	if not (tc and Duel.Equip(tp,tc,c,true)) then return end
 	local atk=tc:GetTextAttack()/2
 	local def=tc:GetTextDefense()/2
 	if atk<0 then atk=0 end

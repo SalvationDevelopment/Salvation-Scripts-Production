@@ -11,7 +11,7 @@ function c17449108.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c17449108.filter(c)
-	return not c:IsFaceup() and c:IsAbleToRemove()
+	return c:IsFacedown() and c:IsAbleToRemove()
 end
 function c17449108.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_SZONE and c17449108.filter(chkc) end
@@ -23,7 +23,7 @@ function c17449108.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c17449108.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc and tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT,LOCATION_REMOVED)
 		if tc:IsType(TYPE_TRAP) then
 			local code=tc:GetCode()

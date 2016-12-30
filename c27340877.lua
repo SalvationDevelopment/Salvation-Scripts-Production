@@ -11,7 +11,7 @@ function c27340877.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c27340877.filter(c)
-	return not c:IsFaceup() and c:GetRace()~=0
+	return c:IsFacedown() and c:GetRace()~=0
 end
 function c27340877.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c27340877.filter(chkc) end
@@ -24,7 +24,7 @@ function c27340877.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c27340877.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
+	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
 		Duel.ConfirmCards(1-tp,tc)
 		if tc:IsAttribute(e:GetLabel()) then
 			Duel.Draw(1-tp,2,REASON_EFFECT)

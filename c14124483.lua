@@ -1,6 +1,4 @@
 --E・HERO オネスティ・ネオス
---Elemental HERO Honesty Neos
---Script by nekrozar
 function c14124483.initial_effect(c)
 	--atkup
 	local e1=Effect.CreateEffect(c)

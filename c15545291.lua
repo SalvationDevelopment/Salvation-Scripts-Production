@@ -34,19 +34,13 @@ end
 function c15545291.otfilter(c)
 	return bit.band(c:GetSummonType(),SUMMON_TYPE_ADVANCE)==SUMMON_TYPE_ADVANCE
 end
-function c15545291.otcon(e,c)
+function c15545291.otcon(e,c,minc)
 	if c==nil then return true end
-	local tp=c:GetControler()
 	local mg=Duel.GetMatchingGroup(c15545291.otfilter,0,LOCATION_MZONE,LOCATION_MZONE,nil)
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if ft<=0 then mg=mg:Filter(Card.IsControler,nil,tp) end
-	return c:GetLevel()>6 and ft>-1 and Duel.GetTributeCount(c,mg)>0
+	return c:GetLevel()>6 and minc<=1 and Duel.CheckTribute(c,1,1,mg)
 end
 function c15545291.otop(e,tp,eg,ep,ev,re,r,rp,c)
 	local mg=Duel.GetMatchingGroup(c15545291.otfilter,0,LOCATION_MZONE,LOCATION_MZONE,nil)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then
-		mg=mg:Filter(Card.IsControler,nil,tp)
-	end
 	local sg=Duel.SelectTribute(tp,c,1,1,mg)
 	c:SetMaterial(sg)
 	Duel.Release(sg,REASON_SUMMON+REASON_MATERIAL)
@@ -55,7 +49,7 @@ function c15545291.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_ADVANCE
 end
 function c15545291.desfilter(c)
-	return not c:IsFaceup()
+	return c:IsFacedown()
 end
 function c15545291.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c15545291.desfilter(chkc) end
@@ -68,7 +62,7 @@ function c15545291.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	end
 end
 function c15545291.dfilter(c,e)
-	return not c:IsFaceup() and c:IsRelateToEffect(e)
+	return c:IsFacedown() and c:IsRelateToEffect(e)
 end
 function c15545291.desop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(c15545291.dfilter,nil,e)

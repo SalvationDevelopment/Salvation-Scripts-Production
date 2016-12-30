@@ -28,7 +28,7 @@ function c29590752.descon(e,tp,eg,ep,ev,re,r,rp)
 	return st>=(SUMMON_TYPE_SPECIAL+100) and st<(SUMMON_TYPE_SPECIAL+150)
 end
 function c29590752.desfilter(c)
-	return not c:IsFaceup() and c:GetSequence()~=5
+	return c:IsFacedown() and c:GetSequence()~=5
 end
 function c29590752.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and c29590752.desfilter(chkc) end
@@ -39,7 +39,7 @@ function c29590752.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c29590752.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and not tc:IsFaceup() and tc:IsRelateToEffect(e) then
+	if tc and tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

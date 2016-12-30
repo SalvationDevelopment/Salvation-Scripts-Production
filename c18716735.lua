@@ -26,7 +26,7 @@ function c18716735.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c18716735.desfilter(c,tp)
-	if not c:IsFaceup() then return false end
+	if c:IsFacedown() then return false end
 	local ft=Duel.GetLocationCount(tp,LOCATION_SZONE)
 	if ft==0 and c:IsLocation(LOCATION_SZONE) and c:GetSequence()<5 then
 		return Duel.IsExistingMatchingCard(c18716735.filter,tp,LOCATION_DECK,0,1,nil,true)

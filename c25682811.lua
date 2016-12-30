@@ -44,7 +44,7 @@ function c25682811.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<sg:GetCount() then return end
 	local c=e:GetHandler()
-	if not c:IsFaceup() or not c:IsRelateToEffect(e) then return end
+	if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 	local tc=sg:GetFirst()
 	while tc do
 		Duel.Equip(tp,tc,c,false)

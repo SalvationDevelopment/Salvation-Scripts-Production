@@ -1,6 +1,4 @@
 --デストーイ・リニッチ
---Frightfur Reknit
---Script by nekrozar
 function c28039390.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

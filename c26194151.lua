@@ -1,6 +1,4 @@
 --ネクロイド・シンクロ
---Necroid Synchro
---Script by nekrozar
 function c26194151.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

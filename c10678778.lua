@@ -29,7 +29,7 @@ function c10678778.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c10678778.rmfilter(c)
-	return not c:IsFaceup() and c:IsAbleToRemove()
+	return c:IsFacedown() and c:IsAbleToRemove()
 end
 function c10678778.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c10678778.rmfilter,tp,0,LOCATION_EXTRA,1,nil) end
@@ -43,7 +43,7 @@ function c10678778.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local atk=tc:GetAttack()
 	if atk<0 then atk=0 end
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or not c:IsFaceup() then return end
+	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SET_ATTACK_FINAL)

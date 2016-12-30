@@ -39,7 +39,7 @@ function c30126992.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c30126992.filter(c)
-	return not c:IsFaceup() and c:IsAbleToDeck()
+	return c:IsFacedown() and c:IsAbleToDeck()
 end
 function c30126992.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and c30126992.filter(chkc) end
@@ -50,7 +50,7 @@ function c30126992.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c30126992.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsFaceup() then
+	if tc:IsRelateToEffect(e) and tc:IsFacedown() then
 		Duel.ConfirmCards(tp,tc)
 		local opt=Duel.SelectOption(tp,aux.Stringid(30126992,1),aux.Stringid(30126992,2))
 		Duel.SendtoDeck(tc,nil,opt,REASON_EFFECT)
