@@ -23,5 +23,6 @@ function c36562627.coinop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_CARD,0,36562627)
 		Duel.RegisterFlagEffect(tp,36562627,RESET_PHASE+PHASE_END,0,1)
 		Duel.TossCoin(tp,ev)
+		Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+100213060+100,re,r,rp,tp,1)
 	end
 end
