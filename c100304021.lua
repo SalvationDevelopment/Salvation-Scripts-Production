@@ -56,6 +56,9 @@ function c100304021.initial_effect(c)
 	e7:SetValue(c100304021.repval)
 	e7:SetOperation(c100304021.repop)
 	c:RegisterEffect(e7)
+	local g=Group.CreateGroup()
+	g:KeepAlive()
+	e7:SetLabelObject(g)
 end
 function c100304021.atktg(e,c)
 	return not c:IsRace(RACE_DINOSAUR)
@@ -69,6 +72,7 @@ end
 function c100304021.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,100304121,0,0x4011,0,0,1,RACE_DINOSAUR,ATTRIBUTE_EARTH,POS_FACEUP_DEFENSE,1-tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,tp,0)
 end
 function c100304021.tkop(e,tp,eg,ep,ev,re,r,rp)
@@ -97,7 +101,6 @@ function c100304021.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 		and Duel.IsExistingMatchingCard(c100304021.desfilter,tp,LOCATION_HAND+LOCATION_DECK,0,ct,nil,tp) end
 	if Duel.SelectYesNo(tp,aux.Stringid(100304021,1)) then
 		local g=eg:Filter(c100304021.repfilter,nil,tp,e)
-		e:SetLabelObject(g)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESREPLACE)
 		local tg=Duel.SelectMatchingCard(tp,c100304021.desfilter,tp,LOCATION_HAND+LOCATION_DECK,0,g:GetCount(),g:GetCount(),nil,tp)
 		Duel.SetTargetCard(tg)
@@ -107,6 +110,8 @@ function c100304021.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 			tc:SetStatus(STATUS_DESTROY_CONFIRMED,true)
 			tc=tg:GetNext()
 		end
+		e:GetLabelObject():Clear()
+		e:GetLabelObject():Merge(g)
 		return true
 	else return false end
 end
