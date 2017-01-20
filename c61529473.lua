@@ -32,7 +32,7 @@ function c61529473.initial_effect(c)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetHintTiming(0,TIMING_MAIN_END)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetCountLimit(1,100912170)
+	e3:SetCountLimit(1,61529474)
 	e3:SetCondition(c61529473.sumcon)
 	e3:SetCost(c61529473.cost)
 	e3:SetTarget(c61529473.sumtg)
@@ -45,7 +45,7 @@ function c61529473.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetCountLimit(1,100912270)
+	e4:SetCountLimit(1,61529475)
 	e4:SetCondition(c61529473.descon)
 	e4:SetTarget(c61529473.destg)
 	e4:SetOperation(c61529473.desop)
@@ -85,7 +85,7 @@ function c61529473.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsStatus(STATUS_CHAINING) end
 end
 function c61529473.tgfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083))
+	return c:IsFaceup() and c:IsSetCard(0x1f9)
 end
 function c61529473.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -104,7 +104,7 @@ function c61529473.atkop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-		local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
+        local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,nil)
 		local tc2=g:GetFirst()
 		while tc2 do
 			local e1=Effect.CreateEffect(c)
@@ -126,12 +126,12 @@ function c61529473.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp and (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c61529473.sumfilter(c)
-	return (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083)) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x1f9) and c:IsSummonable(true,nil,1)
 end
 function c61529473.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c61529473.sumfilter,tp,LOCATION_HAND,0,1,nil)
-		and Duel.GetFlagEffect(tp,100912170)==0 end
-	Duel.RegisterFlagEffect(tp,100912170,RESET_PHASE+PHASE_END,0,1)
+		and Duel.GetFlagEffect(tp,61529474)==0 end
+	Duel.RegisterFlagEffect(tp,61529474,RESET_PHASE+PHASE_END,0,1)
 	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
 end

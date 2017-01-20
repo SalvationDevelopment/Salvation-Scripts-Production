@@ -2,7 +2,7 @@
 --Fire Cracker
 --Script by nekrozar
 function c81109178.initial_effect(c)
-	c:EnableCounterPermit(0x142)
+	c:EnableCounterPermit(0x42)
 	--damage
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(81109178,0))
@@ -16,7 +16,7 @@ function c81109178.initial_effect(c)
 	e1:SetTarget(c81109178.damtg1)
 	e1:SetOperation(c81109178.damop1)
 	c:RegisterEffect(e1)
-	--damage
+	--counter
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_DAMAGE)
@@ -28,12 +28,12 @@ function c81109178.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(81109178,1))
 	e3:SetCategory(CATEGORY_DAMAGE)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_PHASE+PHASE_END)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
-	e3:SetTarget(c100912006.damtg2)
-	e3:SetOperation(c100912006.damop2)
+	e3:SetTarget(c81109178.damtg2)
+	e3:SetOperation(c81109178.damop2)
 	c:RegisterEffect(e3)
 end
 function c81109178.damcost1(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -62,11 +62,11 @@ function c81109178.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and bit.band(r,REASON_EFFECT)~=0
 end
 function c81109178.ctop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():AddCounter(0x142,1)
+	e:GetHandler():AddCounter(0x42,1)
 end
 function c81109178.damtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local ct=e:GetHandler():GetCounter(0x142)
+	local ct=e:GetHandler():GetCounter(0x42)
 	Duel.SetTargetPlayer(1-tp)
 	Duel.SetTargetParam(ct)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,ct)
@@ -74,9 +74,9 @@ end
 function c81109178.damop2(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	local c=e:GetHandler()
-	local ct=c:GetCounter(0x142)
+	local ct=c:GetCounter(0x42)
 	if ct>0 then
-		c:RemoveCounter(tp,0x142,ct,REASON_EFFECT)
-		Duel.Damage(p,ct,REASON_EFFECT)
+		c:RemoveCounter(tp,0x42,ct,REASON_EFFECT)
+		Duel.Damage(p,ct*300,REASON_EFFECT)
 	end
 end

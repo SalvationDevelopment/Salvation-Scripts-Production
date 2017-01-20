@@ -24,7 +24,7 @@ function c75425320.initial_effect(c)
 	e3:SetCategory(CATEGORY_SUMMON)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetCountLimit(1,100912155)
+	e3:SetCountLimit(1,75425321)
 	e3:SetTarget(c75425320.sumtg)
 	e3:SetOperation(c75425320.sumop)
 	c:RegisterEffect(e3)
@@ -35,14 +35,14 @@ function c75425320.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetCountLimit(1,100912255)
+	e4:SetCountLimit(1,75425322)
 	e4:SetCondition(c75425320.descon)
 	e4:SetTarget(c75425320.destg)
 	e4:SetOperation(c75425320.desop)
 	c:RegisterEffect(e4)
 end
 function c75425320.tdfilter(c)
-	return (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083)) and c:IsAbleToDeck()
+	return c:IsSetCard(0x1f9) and c:IsAbleToDeck()
 end
 function c75425320.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c75425320.tdfilter(chkc) end
@@ -68,7 +68,7 @@ function c75425320.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c75425320.sumfilter(c)
-	return (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083)) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x1f9) and c:IsSummonable(true,nil,1)
 end
 function c75425320.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c75425320.sumfilter,tp,LOCATION_HAND,0,1,nil) end

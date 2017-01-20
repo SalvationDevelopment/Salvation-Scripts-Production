@@ -31,7 +31,7 @@ function c35125879.initial_effect(c)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetHintTiming(0,TIMING_MAIN_END)
 	e3:SetRange(LOCATION_SZONE)
-	e3:SetCountLimit(1,100912206)
+	e3:SetCountLimit(1,35125880)
 	e3:SetCondition(c35125879.sumcon)
 	e3:SetCost(c35125879.cost)
 	e3:SetTarget(c35125879.sumtg)
@@ -44,7 +44,7 @@ function c35125879.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetCountLimit(1,100912306)
+	e4:SetCountLimit(1,35125881)
 	e4:SetCondition(c35125879.descon)
 	e4:SetTarget(c35125879.destg)
 	e4:SetOperation(c35125879.desop)
@@ -81,7 +81,7 @@ function c35125879.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsStatus(STATUS_CHAINING) end
 end
 function c35125879.spfilter(c,e,tp)
-	return (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(0x1f9) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function c35125879.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c35125879.spfilter(chkc,e,tp) end
@@ -113,12 +113,12 @@ function c35125879.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp and (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c35125879.sumfilter(c)
-	return (c:IsSetCard(0x1f9) or c:IsCode(30539496,34079868,82321037,87765315,96746083)) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x1f9) and c:IsSummonable(true,nil,1)
 end
 function c35125879.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c35125879.sumfilter,tp,LOCATION_HAND,0,1,nil)
-		and Duel.GetFlagEffect(tp,100912206)==0 end
-	Duel.RegisterFlagEffect(tp,100912206,RESET_PHASE+PHASE_END,0,1)
+		and Duel.GetFlagEffect(tp,35125880)==0 end
+	Duel.RegisterFlagEffect(tp,35125880,RESET_PHASE+PHASE_END,0,1)
 	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
 end

@@ -57,14 +57,14 @@ function c73468603.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c73468603.cfilter(c)
-	return c:GetSequence()==5 and c:GetFlagEffect(73468603)~=0
+	return c:GetSequence()==5 and c:IsFacedown() and c:GetFlagEffect(73468603)~=0
 end
 function c73468603.con(e)
 	return Duel.IsExistingMatchingCard(c73468603.cfilter,e:GetHandlerPlayer(),LOCATION_SZONE,LOCATION_SZONE,1,nil)
 end
 function c73468603.actlimit(e,re,tp)
-	return re:IsActiveType(TYPE_FIELD) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
+	return re:IsActiveType(TYPE_FIELD) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetHandler():GetFlagEffect(73468603)==0
 end
 function c73468603.setlimit(e,c,tp)
-	return c:IsType(TYPE_FIELD)
+	return c:IsType(TYPE_FIELD) and c:GetFlagEffect(73468603)==0
 end

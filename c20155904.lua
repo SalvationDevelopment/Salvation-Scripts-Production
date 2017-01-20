@@ -1,5 +1,5 @@
 --十二獣クックル
---Zoodiac Cluckle
+--Zoodiac Cuckle
 --Scripted by Eerie Code
 function c20155904.initial_effect(c)
 	--shuffle

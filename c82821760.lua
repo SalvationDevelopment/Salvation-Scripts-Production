@@ -41,7 +41,7 @@ function c82821760.initial_effect(c)
 	c:RegisterEffect(e5)
 	--to deck
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(82821760,3))
+	e6:SetDescription(aux.Stringid(82821760,2))
 	e6:SetCategory(CATEGORY_TODECK)
 	e6:SetType(EFFECT_TYPE_IGNITION)
 	e6:SetRange(LOCATION_GRAVE)

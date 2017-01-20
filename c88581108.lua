@@ -65,7 +65,7 @@ function c88581108.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c88581108.aclimit(e,re,tp)
 	local c=re:GetHandler()
-	return re:IsActiveType(TYPE_MONSTER) and c:IsAttribute(e:GetLabel()) and not c:IsLocation(LOCATION_SZONE) and not c:IsImmuneToEffect(e)
+	return re:IsActiveType(TYPE_MONSTER) and c:IsAttribute(e:GetLabel()) and not c:IsImmuneToEffect(e)
 end
 function c88581108.atktarget(e,c)
 	return c:IsAttribute(e:GetLabel())

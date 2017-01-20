@@ -1,5 +1,5 @@
 --覇王眷竜ダークヴルム
---Supreme King Servant Dragon Darkwurm
+--Supreme King Servant Dragon Darkvrm
 --Scripted by Eerie Code
 function c69610326.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
@@ -33,7 +33,7 @@ function c69610326.initial_effect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_GRAVE)
-	e4:SetCountLimit(1,69610326+100)
+	e4:SetCountLimit(1,69610327)
 	e4:SetCondition(c69610326.pccon)
 	e4:SetTarget(c69610326.sptg)
 	e4:SetOperation(c69610326.spop)
