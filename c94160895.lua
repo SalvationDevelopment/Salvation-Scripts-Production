@@ -1,6 +1,4 @@
 --真竜凰マリアムネ
---True Draco Mariamune, the Phoenix
---Script by nekrozar
 function c94160895.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

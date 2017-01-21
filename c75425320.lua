@@ -1,6 +1,4 @@
 --真竜凰の使徒
---Disciples of the True Dracophoenix
---Script by mercury233
 function c75425320.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -42,7 +40,7 @@ function c75425320.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c75425320.tdfilter(c)
-	return c:IsSetCard(0x1f9) and c:IsAbleToDeck()
+	return c:IsSetCard(0xf9) and c:IsAbleToDeck()
 end
 function c75425320.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c75425320.tdfilter(chkc) end
@@ -68,7 +66,7 @@ function c75425320.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c75425320.sumfilter(c)
-	return c:IsSetCard(0x1f9) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0xf9) and c:IsSummonable(true,nil,1)
 end
 function c75425320.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c75425320.sumfilter,tp,LOCATION_HAND,0,1,nil) end

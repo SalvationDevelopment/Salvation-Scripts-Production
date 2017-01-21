@@ -1,6 +1,4 @@
 --憑依装着－ライナ
---Familiar-Possessed Lyna
---Script by nekrozar
 function c40542825.initial_effect(c)
 	--special summon proc
 	local e1=Effect.CreateEffect(c)

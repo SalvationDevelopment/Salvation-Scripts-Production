@@ -1,6 +1,4 @@
 --智天の神星龍
---Zefratorah Grammaton
---Scripted by Eerie Code
 function c29432356.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.EnablePendulumAttribute(c)
@@ -168,7 +166,7 @@ function c29432356.penop1(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 	local tg=nil
 	if og then
-		tg=og:Filter(tp,c29432356.penfilter,nil,e,tp,lscale,rscale)
+		tg=og:Filter(c29432356.penfilter,nil,e,tp,lscale,rscale)
 	else
 		tg=Duel.GetMatchingGroup(c29432356.penfilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,nil,e,tp,lscale,rscale)
 	end
@@ -226,7 +224,7 @@ function c29432356.penop2(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 	local tg=nil
 	if og then
-		tg=og:Filter(tp,c29432356.penfilter,nil,e,tp,lscale,rscale)
+		tg=og:Filter(c29432356.penfilter,nil,e,tp,lscale,rscale)
 	else
 		tg=Duel.GetMatchingGroup(c29432356.penfilter,tp,LOCATION_EXTRA,0,nil,e,tp,lscale,rscale)
 	end

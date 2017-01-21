@@ -1,6 +1,4 @@
 --巨大戦艦 ビッグ・コアMk－Ⅲ
---B.E.S. Big Core MK-3
---Script by nekrozar
 function c82821760.initial_effect(c)
 	c:EnableCounterPermit(0x1f)
 	--special summon

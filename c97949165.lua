@@ -1,6 +1,4 @@
 --LL－ターコイズ・ワーブラー
---Lyrical Luscinia - Turquoise Warbler
---Scripted by Eerie Code
 function c97949165.initial_effect(c)
 	--special summon (self)
 	local e1=Effect.CreateEffect(c)
@@ -29,7 +27,7 @@ function c97949165.hspcon(e,c)
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
 function c97949165.spfilter(c,e,tp)
-	return c:IsSetCard(0x1f8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xf7) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c97949165.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND)

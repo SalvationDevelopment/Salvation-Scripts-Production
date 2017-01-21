@@ -1,6 +1,4 @@
 --魔術師の左手
---Magician's Left Hand
---Script by nekrozar
 function c13758665.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

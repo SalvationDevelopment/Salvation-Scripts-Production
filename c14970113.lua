@@ -1,6 +1,4 @@
 --十二獣ハマーコング
---Zoodiac Hammerkong
---Scripted by Eerie Code
 function c14970113.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,3,c14970113.ovfilter,aux.Stringid(14970113,0),5,c14970113.xyzop)

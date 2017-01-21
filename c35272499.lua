@@ -1,6 +1,4 @@
 --捕食植物オフリス・スコーピオ
---Predaplant Ophrys Scorpio
---Script by dest
 function c35272499.initial_effect(c)
 	--summon
 	local e1=Effect.CreateEffect(c)

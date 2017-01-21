@@ -1528,6 +1528,7 @@ end
 --add procedure to Pendulum monster, also allows registeration of activation effect
 function Auxiliary.EnablePendulumAttribute(c,reg)
 	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(1163)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_SPSUMMON_PROC_G)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_DISABLE)
@@ -1587,7 +1588,7 @@ function Auxiliary.PendOperation()
 				if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 				local tg=nil
 				if og then
-					tg=og:Filter(tp,Auxiliary.PConditionFilter,nil,e,tp,lscale,rscale)
+					tg=og:Filter(Auxiliary.PConditionFilter,nil,e,tp,lscale,rscale)
 				else
 					tg=Duel.GetMatchingGroup(Auxiliary.PConditionFilter,tp,LOCATION_HAND+LOCATION_EXTRA,0,nil,e,tp,lscale,rscale)
 				end

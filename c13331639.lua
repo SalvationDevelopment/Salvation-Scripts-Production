@@ -1,6 +1,4 @@
 --覇王龍ズァーク
---Supreme King Dragon Zarc
---Scripted by Eerie Code
 function c13331639.initial_effect(c)
 	c:EnableReviveLimit()
 	--aux.AddFusionProcFunMulti(c,false,c13331639.filters)
@@ -375,7 +373,7 @@ function c13331639.tgvalue(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
 function c13331639.spfilter(c,e,tp)
-	return c:IsSetCard(0x21fb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x20f8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c13331639.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c13331639.spfilter,tp,LOCATION_DECK+LOCATION_EXTRA,0,nil,e,tp)

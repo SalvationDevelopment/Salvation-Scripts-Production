@@ -1,6 +1,4 @@
 --バオバブーン
---Baobaboon
---Scripted by Eerie Code
 function c55705473.initial_effect(c)
 	--draw and replace
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --セフィラの星戦
---Celestial Crusade of the Zefra
---Scripted by Eerie Code
 function c96073342.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

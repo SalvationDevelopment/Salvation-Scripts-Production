@@ -1,6 +1,4 @@
 --光虫信号
---Bug Signal
---Scripted by Eerie Code
 function c47185546.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

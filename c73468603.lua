@@ -1,6 +1,4 @@
 --盆回し
---Festival Spinning
---Script by nekrozar
 function c73468603.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

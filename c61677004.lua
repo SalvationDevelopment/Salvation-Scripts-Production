@@ -1,6 +1,4 @@
 --捕食植物ダーリング・コブラ
---Predaplant Darling Cobra
---Script by dest
 function c61677004.initial_effect(c)
 	--search
 	local e1=Effect.CreateEffect(c)

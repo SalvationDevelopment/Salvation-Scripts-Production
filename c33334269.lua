@@ -1,6 +1,4 @@
 --DDゴースト
---D/D Ghost
---Scripted by Eerie Code
 function c33334269.initial_effect(c)
 	--to grave
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --幻影騎士団カースド・ジャベリン
---The Phantom Knights of Cursed Javelin
---Scripted by Eerie Code
 function c12219047.initial_effect(c)
 	aux.AddXyzProcedure(c,nil,2,2)
 	--disable and reduce ATK

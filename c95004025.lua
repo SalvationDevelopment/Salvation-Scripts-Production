@@ -1,6 +1,4 @@
 --真竜導士マジェスティM
---True Draco Majesty Maiden, the Mage
---Script by nekrozar
 function c95004025.initial_effect(c)
 	--summon with 1 tribute
 	local e1=Effect.CreateEffect(c)
@@ -44,7 +42,7 @@ function c95004025.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_ADVANCE)==SUMMON_TYPE_ADVANCE and rp~=tp
 end
 function c95004025.thfilter(c)
-	return c:IsSetCard(0x1f9) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xf9) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c95004025.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c95004025.thfilter,tp,LOCATION_DECK,0,1,nil) end

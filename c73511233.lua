@@ -1,6 +1,4 @@
 --EMユーゴーレム
---Performapal Fugolem
---Scripted by Eerie Code
 function c73511233.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--salvage

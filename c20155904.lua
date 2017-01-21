@@ -1,6 +1,4 @@
 --十二獣クックル
---Zoodiac Cuckle
---Scripted by Eerie Code
 function c20155904.initial_effect(c)
 	--shuffle
 	local e1=Effect.CreateEffect(c)

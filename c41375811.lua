@@ -1,8 +1,6 @@
 --十二獣ライカ
---Zoodiac Lyca
---Scripted by Eerie Code
 function c41375811.initial_effect(c)
-  --xyz summon
+	--xyz summon
 	aux.AddXyzProcedure(c,nil,4,2,c41375811.ovfilter,aux.Stringid(41375811,0),5,c41375811.xyzop)
 	c:EnableReviveLimit()
 	--atk

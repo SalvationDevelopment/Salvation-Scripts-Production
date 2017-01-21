@@ -1,6 +1,4 @@
 --真竜の継承
---True Draco Succession
---Script by nekrozar
 function c49430782.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -58,7 +56,7 @@ end
 function c49430782.checkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
-		if tc:IsPreviousLocation(LOCATION_ONFIELD) and tc:IsSetCard(0x1f9) then
+		if tc:IsPreviousLocation(LOCATION_ONFIELD) and tc:IsSetCard(0xf9) then
 			local typ=bit.band(tc:GetOriginalType(),0x7)
 			if (typ==TYPE_MONSTER and Duel.GetFlagEffect(0,49430782)==0)
 				or (typ==TYPE_SPELL and Duel.GetFlagEffect(0,49430783)==0)
@@ -92,7 +90,7 @@ function c49430782.drop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Draw(tp,c49430782.counter,REASON_EFFECT)
 end
 function c49430782.sumfilter(c)
-	return c:IsSetCard(0x1f9) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0xf9) and c:IsSummonable(true,nil,1)
 end
 function c49430782.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c49430782.sumfilter,tp,LOCATION_HAND,0,1,nil) end

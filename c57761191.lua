@@ -1,6 +1,4 @@
 --真竜機兵ダースメタトロン
---True Draco Da'at Metatron, the Mechsoldier
---Script by nekrozar
 function c57761191.initial_effect(c)
 	--summon with 3 tribute
 	local e1=Effect.CreateEffect(c)

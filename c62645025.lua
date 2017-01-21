@@ -1,6 +1,4 @@
 --幻影騎士団ウロング・マグネリング
---The Phantom Knights of Wrong Magnet Ring
---Script by nekrozar
 function c62645025.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -11,18 +9,18 @@ function c62645025.initial_effect(c)
 	e1:SetTarget(c62645025.target)
 	e1:SetOperation(c62645025.activate)
 	c:RegisterEffect(e1)
+	--draw
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_DRAW)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
 	e2:SetCondition(c62645025.drcon)
 	e2:SetCost(c62645025.drcost)
 	e2:SetTarget(c62645025.drtg)
 	e2:SetOperation(c62645025.drop)
-	c:RegisterEffect(e1)
+	c:RegisterEffect(e2)
 end
 function c62645025.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():IsControler(1-tp)

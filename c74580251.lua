@@ -1,6 +1,4 @@
 --セフィラの神意
---Zefra Providence
---Scripted by Eerie Code
 function c74580251.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

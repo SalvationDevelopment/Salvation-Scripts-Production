@@ -1,6 +1,4 @@
 --LL－コバルト・スパロー
---Lyrical Luscinia - Cobalt Sparrow
---Scripted by Eerie Code
 function c34550857.initial_effect(c)
 	--Search
 	local e1=Effect.CreateEffect(c)

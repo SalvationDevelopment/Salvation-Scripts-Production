@@ -1,6 +1,4 @@
 --巨大要塞ゼロス
---Great Fortress Zelos
---Scripted by Eerie Code
 function c975299.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

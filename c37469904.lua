@@ -1,6 +1,4 @@
 --デュエリスト・アドベント
---Duelist Alliance
---Scripted by Eerie Code
 function c37469904.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)

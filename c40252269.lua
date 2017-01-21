@@ -1,6 +1,4 @@
 --魔術師の再演
---Magician's Encore
---Script by nekrozar
 function c40252269.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

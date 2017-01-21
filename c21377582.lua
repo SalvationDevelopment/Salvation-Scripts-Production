@@ -1,6 +1,4 @@
 --真竜剣皇マスターP
---Master Peace, the True Dracoslaying King
---Script by mercury233
 function c21377582.initial_effect(c)
 	--summon with s & t
 	local e1=Effect.CreateEffect(c)

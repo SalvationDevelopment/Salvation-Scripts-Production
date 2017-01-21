@@ -1,6 +1,4 @@
 --電子光虫－LEDバグ
---Digital Bug - LED Bug
---Scripted by Eerie Code
 function c83048208.initial_effect(c)
 	--xyzlimit
 	local e0=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --幻煌龍の螺旋絞
---Spiral Hold of the Mythic Radiance Dragon
---Script by dest
 function c75702749.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

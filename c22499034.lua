@@ -1,6 +1,4 @@
 --真竜戦士イグニスH
---Ignis Heat, the True Dracowarrior
---Script by nekrozar
 function c22499034.initial_effect(c)
 	--summon with 1 tribute
 	local e1=Effect.CreateEffect(c)
@@ -44,7 +42,7 @@ function c22499034.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(e:GetHandler():GetSummonType(),SUMMON_TYPE_ADVANCE)==SUMMON_TYPE_ADVANCE and rp~=tp
 end
 function c22499034.thfilter(c,tp)
-	return c:IsSetCard(0x1f9) and c:GetType()==0x20002
+	return c:IsSetCard(0xf9) and c:GetType()==0x20002
 		and (c:IsAbleToHand() or (c:GetActivateEffect():IsActivatable(tp) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0))
 end
 function c22499034.thtg(e,tp,eg,ep,ev,re,r,rp,chk)

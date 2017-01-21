@@ -1,6 +1,4 @@
 --EMレビュー・ダンサー
---Performapal Revue Dancer
---Script by nekrozar
 function c36527535.initial_effect(c)
 	--special summon rule
 	local e1=Effect.CreateEffect(c)

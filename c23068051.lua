@@ -1,6 +1,4 @@
 --幽麗なる幻滝
---Ethereal Wyrmterfall
---Script by dest
 function c23068051.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

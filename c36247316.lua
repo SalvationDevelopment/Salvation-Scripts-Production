@@ -1,6 +1,4 @@
 --幻影騎士団ロスト・ヴァンブレイズ
---The Phantom Knights of Lost Vambrace
---Script by nekrozar
 function c36247316.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --幻煌龍の浸禍
---Deep Whirlpool of the Mythic Radiance Dragon
---Script by dest
 function c61397885.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -92,7 +90,7 @@ function c61397885.efilter(c,e)
 	return c:IsFaceup() and c:IsType(TYPE_NORMAL) and c:IsCanBeEffectTarget(e)
 end
 function c61397885.eqfilter(c,g)
-	return c:IsType(TYPE_EQUIP) and c:IsSetCard(0x1fc) and g:IsExists(c61397885.eqcheck,1,nil,c)
+	return c:IsType(TYPE_EQUIP) and c:IsSetCard(0xfa) and g:IsExists(c61397885.eqcheck,1,nil,c)
 end
 function c61397885.eqcheck(c,ec)
 	return ec:CheckEquipTarget(c)

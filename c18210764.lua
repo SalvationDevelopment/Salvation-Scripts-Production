@@ -1,6 +1,4 @@
 --ペンデュラムーチョ
---Pendulumucho
---Scripted by Eerie Code
 function c18210764.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c,false)

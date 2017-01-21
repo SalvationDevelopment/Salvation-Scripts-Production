@@ -1,6 +1,4 @@
 --幻煌龍の螺旋突
---Spiral Crash of the Mythic Radiance Dragon
---Script by mercury233
 function c48308134.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

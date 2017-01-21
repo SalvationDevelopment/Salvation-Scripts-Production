@@ -1,6 +1,4 @@
 --SRビードロ・ドクロ
---Speedroid Vidroskull
---Script by nekrozar
 function c35494087.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)

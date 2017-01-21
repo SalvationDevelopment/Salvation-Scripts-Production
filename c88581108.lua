@@ -1,6 +1,4 @@
 --真竜皇V.F.D
---True King V.F.D., the Beast
---Script by dest
 function c88581108.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,9,2,nil,nil,5)

@@ -1,6 +1,4 @@
 --破壊剣士の揺籃
---Destruction Swordsman's Cradle
---Scripted by Eerie Code
 function c33280639.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

@@ -1,6 +1,4 @@
 --覇王眷竜ダークヴルム
---Supreme King Servant Dragon Darkvrm
---Scripted by Eerie Code
 function c69610326.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 	--pendulum set
@@ -43,7 +41,7 @@ function c69610326.pccon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function c69610326.pcfilter(c)
-	return c:IsSetCard(0x11fb) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(0x10f8) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c69610326.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local seq=e:GetHandler():GetSequence()
@@ -52,6 +50,7 @@ function c69610326.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c69610326.pcop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -60,7 +59,6 @@ function c69610326.pcop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(c69610326.splimit)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	if not c:IsRelateToEffect(e) then return end
 	local seq=c:GetSequence()
 	if not Duel.CheckLocation(tp,LOCATION_SZONE,13-seq) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
@@ -73,7 +71,7 @@ function c69610326.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsAttribute(ATTRIBUTE_DARK) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c69610326.thfilter(c)
-	return c:IsSetCard(0x11fb) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsSetCard(0x10f8) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function c69610326.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c69610326.thfilter,tp,LOCATION_DECK,0,1,nil) end

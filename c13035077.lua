@@ -1,6 +1,4 @@
 --ドラゴニックD
---Dragonic Diagram
---Script by nekrozar
 function c13035077.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -13,7 +11,7 @@ function c13035077.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1f9))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xf9))
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -40,7 +38,7 @@ function c13035077.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c13035077.indtg(e,c)
-	return bit.band(c:GetSummonType(),SUMMON_TYPE_ADVANCE)==SUMMON_TYPE_ADVANCE and c:IsSetCard(0x1f9)
+	return bit.band(c:GetSummonType(),SUMMON_TYPE_ADVANCE)==SUMMON_TYPE_ADVANCE and c:IsSetCard(0xf9)
 end
 function c13035077.indct(e,re,r,rp)
 	if bit.band(r,REASON_BATTLE)~=0 then
@@ -48,7 +46,7 @@ function c13035077.indct(e,re,r,rp)
 	else return 0 end
 end
 function c13035077.thfilter(c)
-	return c:IsSetCard(0x1f9) and c:IsAbleToHand()
+	return c:IsSetCard(0xf9) and c:IsAbleToHand()
 end
 function c13035077.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler())

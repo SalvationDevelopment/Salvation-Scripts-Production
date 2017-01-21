@@ -1,6 +1,4 @@
 --幻煌龍の螺旋波
---Spiral Wave of the Mythic Radiance Dragon
---Script by nekrozar
 function c1197847.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

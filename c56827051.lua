@@ -1,6 +1,4 @@
 --影霊衣の巫女 エリアル
---Ariel, Priestess of the Nekroz
---Script by nekrozar
 function c56827051.initial_effect(c)
 	--level change
 	local e1=Effect.CreateEffect(c)

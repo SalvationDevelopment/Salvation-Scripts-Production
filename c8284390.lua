@@ -1,6 +1,4 @@
 --SR56プレーン
---Speedroid 5 6 Plane
---Script by nekrozar
 function c8284390.initial_effect(c)
 	--spsummon
 	local e1=Effect.CreateEffect(c)

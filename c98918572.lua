@@ -1,6 +1,4 @@
 --十二獣の相剋
---Zoodiac Xiangke
---Scripted by Eerie Code
 function c98918572.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
