@@ -66,16 +66,13 @@ function c60417395.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP)~=0 then
 		c:CompleteProcedure()
-	elseif Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
-		and c:IsCanBeSpecialSummoned(e,0,tp,true,false) then
-		Duel.SendtoGrave(c,REASON_RULE)
 	end
 end
 function c60417395.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
-function c60417395.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingTarget(c60417395.filter,tp,LOCATION_ONFIELD,0,1,nil) end
+function c60417395.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c60417395.filter,tp,LOCATION_ONFIELD,0,1,nil) end
 	local g=Duel.GetMatchingGroup(c60417395.filter,tp,LOCATION_ONFIELD,0,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 end
