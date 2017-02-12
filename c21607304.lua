@@ -51,9 +51,6 @@ function c21607304.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.GetControl(tc,tp,PHASE_END,tct)
 	end
 end
-function c21607304.indval(e,re,rp)
-	return rp~=e:GetHandlerPlayer()
-end
 function c21607304.cfilter(c,tp)
 	return c:IsPreviousPosition(POS_FACEUP) and c:IsFacedown() and c:IsControler(tp)
 end

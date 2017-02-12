@@ -1,4 +1,4 @@
---Clash in the Subterror Caverns
+--Subterror Cave Clash
 --Scripted by Eerie Code
 function c68001309.initial_effect(c)
 	--activate
@@ -12,7 +12,7 @@ function c68001309.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(c68001309.atktg)
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xed))
 	e2:SetValue(c68001309.atkval)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -32,16 +32,12 @@ function c68001309.initial_effect(c)
 	e4:SetOperation(c68001309.thop)
 	c:RegisterEffect(e4)
 end
-function c68001309.atktg(e,c)
-	return c:IsSetCard(0xed)
-end
 function c68001309.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsFacedown,c:GetControler(),LOCATION_MZONE,LOCATION_MZONE,nil)*500
+	return Duel.GetMatchingGroupCount(Card.IsFacedown,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*500
 end
 function c68001309.thcon(e,tp,eg,ep,ev,re,r,rp)
-	if ep==tp then return false end
 	local rc=eg:GetFirst()
-	return rc:IsControler(tp) and rc:IsSetCard(0xed)
+	return ep~=tp and rc:IsControler(tp) and rc:IsSetCard(0xed)
 end
 function c68001309.thfilter(c)
 	return c:IsSetCard(0xed) and not c:IsCode(68001309) and c:IsAbleToHand()
@@ -51,9 +47,10 @@ function c68001309.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(c68001309.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local sg=Duel.SelectTarget(tp,c68001309.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,sg,sg:GetCount(),0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,sg,1,0,0)
 end
 function c68001309.thop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)

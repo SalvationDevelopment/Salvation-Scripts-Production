@@ -5,10 +5,9 @@ function c68823957.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(68823957,0))
 	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e1:SetCode(EVENT_BE_BATTLE_TARGET)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_HAND+LOCATION_MZONE)
-	e1:SetCondition(c68823957.cbcon)
 	e1:SetCost(c68823957.ccost)
 	e1:SetTarget(c68823957.cbtg)
 	e1:SetOperation(c68823957.cbop)
@@ -37,9 +36,6 @@ function c68823957.initial_effect(c)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	c:RegisterEffect(e4)
 end
-function c68823957.cbcon(e,tp,eg,ep,ev,re,r,rp)
-	return tp~=Duel.GetTurnPlayer()
-end
 function c68823957.ccost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
@@ -48,11 +44,12 @@ function c68823957.cbfilter(c,e)
 	return c:IsCanBeEffectTarget(e)
 end
 function c68823957.cbtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return false end
-	local ag=eg:GetFirst():GetAttackableTarget()
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c68823957.cbfilter(chkc,e) end
+	local ag=Duel.GetAttacker():GetAttackableTarget()
 	local at=Duel.GetAttackTarget()
 	ag:RemoveCard(at)
-	if chk==0 then return at:IsPosition(POS_FACEDOWN) and ag:IsExists(c68823957.cbfilter,1,e:GetHandler(),e) end
+	if chk==0 then return Duel.GetAttacker():IsControler(1-tp) and at:IsControler(tp) and at:IsFacedown()
+		and ag:IsExists(c68823957.cbfilter,1,e:GetHandler(),e) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
 	local g=ag:FilterSelect(tp,c68823957.cbfilter,1,1,e:GetHandler(),e)
 	Duel.SetTargetCard(g)
@@ -69,7 +66,7 @@ function c68823957.cecon(e,tp,eg,ep,ev,re,r,rp)
 	if not g or g:GetCount()~=1 then return false end
 	local tc=g:GetFirst()
 	e:SetLabelObject(tc)
-	return tc:IsLocation(LOCATION_MZONE) and tc:IsPosition(POS_FACEDOWN)
+	return tc:IsLocation(LOCATION_MZONE) and tc:IsFacedown()
 end
 function c68823957.cefilter(c,re,rp,tf,ceg,cep,cev,cre,cr,crp,oc)
 	return oc~=c and tf(re,rp,ceg,cep,cev,cre,cr,crp,0,c)
@@ -89,5 +86,5 @@ function c68823957.ceop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c68823957.indcon(e)
-	return Duel.IsExistingMatchingCard(Card.IsPosition,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil,POS_FACEDOWN)
+	return Duel.IsExistingMatchingCard(Card.IsFacedown,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
