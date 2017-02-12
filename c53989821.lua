@@ -1,12 +1,11 @@
 --SPYRAL GEAR - Utility Wire
---Scripted by Eerie Code
 function c53989821.initial_effect(c)
-	--activate
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,53989821+EFFECT_COUNT_CODE_OATH)
 	e1:SetHintTiming(0,0x1e0)
 	e1:SetCondition(c53989821.condition)

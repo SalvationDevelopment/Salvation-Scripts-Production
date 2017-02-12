@@ -1,7 +1,6 @@
 --Subterror Cave Clash
---Scripted by Eerie Code
 function c68001309.initial_effect(c)
-	--activate
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
@@ -18,15 +17,15 @@ function c68001309.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
-	--
+	--to hand
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(68001309,0))
 	e4:SetCategory(CATEGORY_TOHAND)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e4:SetCode(EVENT_BATTLE_DAMAGE)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetCountLimit(1)
-	e4:SetCode(EVENT_BATTLE_DAMAGE)
 	e4:SetCondition(c68001309.thcon)
 	e4:SetTarget(c68001309.thtg)
 	e4:SetOperation(c68001309.thop)

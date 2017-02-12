@@ -1,5 +1,4 @@
 --Subterror Behemoth Voltelluric
---Scripted by Eerie Code
 function c21607304.initial_effect(c)
 	--flip
 	local e1=Effect.CreateEffect(c)

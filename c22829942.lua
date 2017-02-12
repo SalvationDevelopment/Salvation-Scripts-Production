@@ -1,5 +1,4 @@
 --Fusion Recycling Plant
---Script by dest
 function c22829942.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -17,7 +16,7 @@ function c22829942.initial_effect(c)
 	e2:SetTarget(c22829942.thtg)
 	e2:SetOperation(c22829942.thop)
 	c:RegisterEffect(e2)
-	--recycle
+	--to hand
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(22829942,1))
 	e3:SetCategory(CATEGORY_TOHAND)
@@ -26,8 +25,8 @@ function c22829942.initial_effect(c)
 	e3:SetCode(EVENT_PHASE+PHASE_END)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetCountLimit(1)
-	e3:SetTarget(c22829942.rectg)
-	e3:SetOperation(c22829942.recop)
+	e3:SetTarget(c22829942.thtg2)
+	e3:SetOperation(c22829942.thop2)
 	c:RegisterEffect(e3)
 end
 function c22829942.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -50,18 +49,18 @@ function c22829942.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-function c22829942.filter(c,id)
+function c22829942.thfilter2(c,id)
 	return bit.band(c:GetReason(),0x40008)==0x40008 and c:IsType(TYPE_MONSTER) and c:GetTurnID()==id and c:IsAbleToHand()
 end
-function c22829942.rectg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c22829942.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tid=Duel.GetTurnCount()
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c22829942.filter(chkc,tid) end
-	if chk==0 then return Duel.IsExistingTarget(c22829942.filter,tp,LOCATION_GRAVE,0,1,nil,tid) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c22829942.thfilter2(chkc,tid) end
+	if chk==0 then return Duel.IsExistingTarget(c22829942.thfilter2,tp,LOCATION_GRAVE,0,1,nil,tid) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c22829942.filter,tp,LOCATION_GRAVE,0,1,1,nil,tid)
+	local g=Duel.SelectTarget(tp,c22829942.thfilter2,tp,LOCATION_GRAVE,0,1,1,nil,tid)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
-function c22829942.recop(e,tp,eg,ep,ev,re,r,rp)
+function c22829942.thop2(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then

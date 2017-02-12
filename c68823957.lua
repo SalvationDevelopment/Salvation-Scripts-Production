@@ -1,5 +1,4 @@
 --Subterror Nemesis Defender
---Scripted by Eerie Code
 function c68823957.initial_effect(c)
 	--replace
 	local e1=Effect.CreateEffect(c)

@@ -1,14 +1,13 @@
 --SPYRAL MISSION - Recapture
---Scripted by Eerie Code
 function c39373426.initial_effect(c)
-	--activate
+	--Activate
 	local e0=Effect.CreateEffect(c)
 	e0:SetDescription(aux.Stringid(39373426,0))
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetTarget(c39373426.target)
 	c:RegisterEffect(e0)
-	--activate(control)
+	--Activate(control)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(39373426,1))
 	e1:SetCategory(CATEGORY_CONTROL)
@@ -106,7 +105,7 @@ function c39373426.cnop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) and Duel.GetControl(tc,tp,PHASE_END,1) then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
+		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
